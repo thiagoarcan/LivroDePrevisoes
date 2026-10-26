@@ -37,8 +37,9 @@ if(window===top){
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--quick',action='store_true');parser.add_argument('--timeout',type=int,default=240);args=parser.parse_args()
-    binary=Path('C:/Program Files/Mozilla Firefox/firefox.exe')
-    out=ROOT/'revisao_interface_2026_10_25/resultados'
+    binary=Path(os.environ.get('PREVISOES_FIREFOX_BINARY', 'C:/Program Files/Mozilla Firefox/firefox.exe'))
+    out=Path(os.environ.get('PREVISOES_TEST_OUTPUT', str(ROOT/'revisao_interface_2026_10_25/resultados')))
+    out.mkdir(parents=True,exist_ok=True)
     if not binary.exists():
         (out/'firefox_resultado.json').write_text(json.dumps({'available':False,'reason':'Installed Firefox not found'}),encoding='utf-8');return 2
     before=source_fingerprints()

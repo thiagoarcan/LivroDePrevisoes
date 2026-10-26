@@ -19,6 +19,8 @@ class CoreBrowserTests(unittest.TestCase):
         cls.tmp = tempfile.TemporaryDirectory()
         # All five current blocks, isolated origin and browser profile; never build shared index.
         html = '<!doctype html><html><head><meta charset="UTF-8"><style>'+CSS_CONTENT+'</style></head><body>'+HTML_CONTENT+'<script>'+JS_CORE+JS_SERVICE+JS_UI+'</script></body></html>'
+        if os.environ.get('PREVISOES_TEST_DISTRIBUTED') == '1':
+            html = (ROOT / 'index.html').read_text(encoding='utf-8')
         pathlib.Path(cls.tmp.name, 'index.html').write_text(html, encoding='utf-8')
         class Quiet(http.server.SimpleHTTPRequestHandler):
             def log_message(self, *args): pass
