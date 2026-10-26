@@ -102,6 +102,9 @@ jobs:
           with sync_playwright() as p:
               with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as env:
                   env.write('PREVISOES_FIREFOX_BINARY=' + p.firefox.executable_path + '\n')
+      - name: Set native Firefox timezone (same as browser contexts)
+        if: matrix.browser == 'firefox'
+        run: Set-TimeZone -Id "E. South America Standard Time"
       - name: Full Firefox compatibility matrix
         if: matrix.browser == 'firefox'
         run: python tests/test_firefox_native.py --timeout 600

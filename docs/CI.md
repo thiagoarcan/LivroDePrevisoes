@@ -4,7 +4,7 @@ O workflow `Quality` executa em pushes, pull requests e acionamento manual.
 
 - **Build and distributed artifact** (Ubuntu, Python 3.12): testes do executor; verifica o HTML versionado; executa `build_all.py`; exige `git diff --exit-code -- index.html`; verifica novamente os nove critérios de integridade.
 - **Edge behaviors and quick layout** (Windows 2022): `tests/run_suite.py --distributed` e `tests/test_layout_browser.py --quick`.
-- **Full layout (msedge/firefox)** (Windows 2022): matrizes completas em jobs independentes. Edge inclui capturas; Firefox usa um executável instalado explicitamente pelo Playwright. Ambos usam os critérios originais, sem aumentar tolerâncias.
+- **Full layout (msedge/firefox)** (Windows 2022): matrizes completas em jobs independentes. Edge inclui capturas; Firefox usa um executável instalado explicitamente pelo Playwright. O runner do Firefox é configurado para o fuso de São Paulo, igual aos contextos Edge. Ambos usam os critérios originais, sem aumentar tolerâncias.
 
 Todos os jobs de navegador dependem do build. Não há `continue-on-error`. Falhas, erros, skips e descoberta vazia da suite comportamental impedem aprovação. A matriz extensa roda também em PRs, pois é parte dos critérios de aceitação.
 
