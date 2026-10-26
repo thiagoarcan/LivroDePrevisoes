@@ -418,7 +418,7 @@ body[data-layout-mode=ultrawide] #completedDetailPane { grid-column:3; grid-row:
 body:is([data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #viewConfigAlerts.active { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:1rem; }
 body:is([data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #viewConfigAlerts>.notice-banner { grid-column:1/-1; grid-row:2; align-self:start; }
 body:is([data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #viewConfigAlerts>.notice-banner ul { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.3rem 2rem; max-width:140ch; }
-body:is([data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #viewConfigAlerts>.card { grid-column:1; grid-row:3; }
+body:is([data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #viewConfigAlerts>.card { grid-column:1; grid-row:3; padding-inline:1rem; }
 body:is([data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #settingsPreviewPanel { grid-column:2; grid-row:3; }
 body[data-layout-mode=widescreen] #formAlertSettings>.form-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
 body[data-layout-mode=ultrawide] #formAlertSettings>.form-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
