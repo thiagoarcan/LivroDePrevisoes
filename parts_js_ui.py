@@ -461,7 +461,7 @@ App.UI = {
 
       if (overdueBanner) {
         if (daysDiff >= (this._settings?.backupReminderDays ?? 7)) {
-          if (overdueText) overdueText.textContent = `Último backup local realizado há ${daysDiff} dias (${App.Utils.formatDate(lastBackupAt)}). Recomenda-se exportar novo backup.`;
+          if (overdueText) overdueText.textContent = `Backup de ${App.Utils.formatDate(lastBackupAt)}: há ${daysDiff} dias. Exporte uma nova cópia.`;
           overdueBanner.style.display = 'flex';
         } else {
           overdueBanner.style.display = 'none';
@@ -475,7 +475,7 @@ App.UI = {
       if (labelDate) labelDate.textContent = `Último backup: Nunca`;
       if (statusModalBackup) statusModalBackup.textContent = `Nunca realizado`;
       if (overdueBanner) {
-        if (overdueText) overdueText.textContent = `Backup local ainda não foi realizado neste dispositivo. Exporte um backup preventivo regularmente.`;
+        if (overdueText) overdueText.textContent = `Sem backup neste dispositivo. Exporte uma cópia.`;
         overdueBanner.style.display = 'flex';
       }
     }
@@ -2014,7 +2014,7 @@ App.UI = {
       `;
 
       spBadge.className = `status-badge ${classification.key} ${classification.blink ? 'pulsing-badge' : ''}`;
-      spBadge.textContent = `${classification.icon || ''} ${classification.name}`.trim();
+      spBadge.textContent = `${classification.name}`.trim();
 
       spTimeLeft.dataset.timestamp = new Date(spotlightTarget.scheduledAt).getTime();
       spTimeLeft.textContent = timerInfo.text;
@@ -2070,7 +2070,7 @@ App.UI = {
                   <span>${App.Utils.escapeHTML(uoName)}</span>
                   ${tagName ? `<span class="event-tag-badge">${App.Utils.escapeHTML(tagName)}</span>` : ''}
                 </div>
-                <span class="status-badge ${cl.key} ${cl.blink ? 'pulsing-badge' : ''}">${cl.icon || ''} ${cl.name}</span>
+                <span class="status-badge ${cl.key} ${cl.blink ? 'pulsing-badge' : ''}">${cl.name}</span>
               </div>
               <div class="event-desc" style="margin: 0.4rem 0;">${App.Utils.escapeHTML(ev.description)}</div>
               <div class="event-card-meta">
@@ -2111,7 +2111,7 @@ App.UI = {
             <td><strong>${App.Utils.formatDateTime(ev.scheduledDate, ev.scheduledTime)}</strong></td>
             <td>
               <span class="status-badge ${classification.key} ${classification.blink ? 'pulsing-badge' : ''}">
-                ${classification.icon || ''} ${classification.name} &bull; ${timerInfo.text}
+                ${classification.name} &bull; ${timerInfo.text}
               </span>
             </td>
             <td>${App.Utils.escapeHTML(conName)} / ${App.Utils.escapeHTML(pipeName)}</td>
@@ -2271,7 +2271,7 @@ App.UI = {
                 <span>${App.Utils.escapeHTML(uoName)}</span>
                 ${tagName ? `<span class="event-tag-badge">${App.Utils.escapeHTML(tagName)}</span>` : ''}
               </div>
-              <span class="status-badge ${cl.key} ${cl.blink ? 'pulsing-badge' : ''}">${cl.icon || ''} ${cl.name}</span>
+              <span class="status-badge ${cl.key} ${cl.blink ? 'pulsing-badge' : ''}">${cl.name}</span>
             </div>
 
             <div class="event-card-body" style="margin-top: 0.5rem;">
@@ -2331,7 +2331,7 @@ App.UI = {
         <tr class="${cl.isOverdue ? 'row-overdue' : ''}" data-event-id="${ev.id}" tabindex="0" onclick="if(!event.target.closest('button')) App.UI.selectPendingDetailEvent('${ev.id}')" onkeydown="if(event.target===this && event.key==='Enter')App.UI.selectPendingDetailEvent('${ev.id}')">
           <td style="white-space: nowrap;"><strong>${App.Utils.formatDateTime(ev.scheduledDate, ev.scheduledTime)}</strong></td>
           <td style="white-space: nowrap;"><span class="event-countdown" style="--event-color: ${cl.color}; font-weight: 700;" data-timestamp="${new Date(ev.scheduledAt).getTime()}">${timerInfo.text}</span></td>
-          <td><span class="status-badge ${cl.key}">${cl.icon || ''} ${cl.name}</span></td>
+          <td><span class="status-badge ${cl.key}">${cl.name}</span></td>
           <td>${App.Utils.escapeHTML(conName)} / ${App.Utils.escapeHTML(pipeName)}</td>
           <td>${App.Utils.escapeHTML(uoName)} ${tagName !== '-' ? `<span class="event-tag-badge">${App.Utils.escapeHTML(tagName)}</span>` : ''}</td>
           <td>${App.Utils.escapeHTML(ev.description)}</td>
@@ -2456,7 +2456,7 @@ App.UI = {
         <button type="button" class="btn btn-outline btn-sm" ${selectedIndex<0 || selectedIndex>=this.activePendingEvents.length-1?'disabled':''} onclick="App.UI.movePendingSelection(1)">Próxima</button>
       </nav>
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.65rem; margin-bottom: 0.75rem;">
-        <span class="status-badge ${cl.key}">${cl.icon || ''} ${cl.name}</span>
+        <span class="status-badge ${cl.key}">${cl.name}</span>
         <span class="event-countdown" style="--event-color: ${cl.color}; font-weight: 800; font-size: 1rem;" data-timestamp="${new Date(ev.scheduledAt).getTime()}">${timerInfo.text}</span>
       </div>
       <div style="display: flex; gap: 0.4rem; margin-bottom: 0.85rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">

@@ -1,0 +1,46 @@
+{
+  "records": [
+    {
+      "name": "create / complete / reopen / duplicate with history",
+      "passed": true
+    },
+    {
+      "name": "JSON backup and three CSV downloads",
+      "passed": true
+    },
+    {
+      "name": "pending search and clear filters",
+      "passed": true
+    },
+    {
+      "name": "rendered contrast / dark",
+      "passed": true
+    },
+    {
+      "name": "rendered contrast / light",
+      "passed": true
+    },
+    {
+      "name": "rendered contrast / industrial",
+      "passed": true
+    },
+    {
+      "name": "200% text scaling / keyboard focus / reduced motion",
+      "passed": true
+    },
+    {
+      "name": "touch / portrait and landscape / form state retained",
+      "passed": true
+    },
+    {
+      "name": "offline reload retains events",
+      "passed": true
+    },
+    {
+      "name": "no runtime exceptions",
+      "passed": true
+    }
+  ],
+  "contrastSamples": 753,
+  "errors": []
+}

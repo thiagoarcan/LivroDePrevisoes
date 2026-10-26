@@ -1,1 +1,5 @@
 /__pycache__
+**/__pycache__/
+/.playwright-cli/
+/output/playwright/remodel-20261026/baseline.html
+/output/playwright/remodel-20261026/inline.js

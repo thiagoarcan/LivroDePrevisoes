@@ -1,0 +1,21 @@
+{
+  "ids_preserved": true,
+  "before_normalized_bytes": 545111,
+  "after_normalized_bytes": 554184,
+  "distributed_bytes": 565514,
+  "unchanged": {
+    "parts_js_core.py": true,
+    "parts_js_service.py": true,
+    "parts_js_presentation.py": true,
+    "build_all.py": true
+  },
+  "hashes": {
+    "index.html": "7c1058c1906b7423cd14b0e1302f23377979bbff4e88496235fc0b21aefbdaf8",
+    "parts_css.py": "65ff53b15932923db78aeaaf3c445a9a3051340053cdd19cb25fb9fe518e7e9c",
+    "parts_html.py": "8250429d6a62ad881bc9eece9a9a9ccdf9d74f8c4328b60f878c572bfb890d01",
+    "parts_js_core.py": "37103f649bec31f22db8d85d526fa3f60a71d618185e0b17edd57444702150e2",
+    "parts_js_presentation.py": "bd3fdf38f7de3738e7dadd4a0c9daeaa691a64bed58ceb2e9309566720b68da1",
+    "parts_js_service.py": "578d9b4c9a1b530be832b314e0e36d333366c80472d742b826fbce0e2e299e7c",
+    "parts_js_ui.py": "313bb4a50738496c3a8b3bbe7d394310b48236ed86d30dd2619deba4d6d5b1d4"
+  }
+}

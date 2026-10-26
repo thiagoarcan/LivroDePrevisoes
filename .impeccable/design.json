@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-26T17:13:02Z",
+  "title": "Design System: Caderno de Previsões",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Verde mineral"
+      },
+      "app": {
+        "role": "neutral",
+        "displayName": "Grafite de trabalho"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Superfície operacional"
+      },
+      "navigation": {
+        "role": "neutral",
+        "displayName": "Grafite de navegação"
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Título de tela",
+        "purpose": "Identificar a área operacional ativa."
+      },
+      "metric": {
+        "displayName": "Indicador",
+        "purpose": "Leitura numérica com algarismos tabulares."
+      }
+    },
+    "shadows": [
+      {
+        "name": "dialog",
+        "value": "0 20px 64px rgb(0 0 0/.35)",
+        "purpose": "Sobreposição modal."
+      },
+      {
+        "name": "mobile-navigation",
+        "value": "0 -8px 24px rgb(0 0 0/.12)",
+        "purpose": "Separar navegação inferior móvel."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "160ms ease",
+        "purpose": "Transições de background-color, border-color e color."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0s",
+        "purpose": "Duração de animações e transições em prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile-end",
+        "value": "767px"
+      },
+      {
+        "name": "tablet-landscape-rail",
+        "value": "1000px"
+      },
+      {
+        "name": "conventional",
+        "value": "1200px"
+      },
+      {
+        "name": "compact-desktop-metrics",
+        "value": "1400px"
+      },
+      {
+        "name": "widescreen",
+        "value": "1920px"
+      },
+      {
+        "name": "ultrawide",
+        "value": "2560px"
+      }
+    ],
+    "focus": {
+      "outline": "3px solid var(--border-color-focus)",
+      "outlineOffset": "3px"
+    }
+  },
+  "components": [
+    {
+      "name": "Ação primária",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ação principal com foco visível e resposta de pressionamento.",
+      "html": "<button class=\"ds-btn-primary\">Salvar previsão</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.55rem .9rem;border:1px solid transparent;border-radius:7px;background:var(--color-primary,#1c7460);color:var(--primary-text,#fff);font:650 .875rem/1.3 'Segoe UI',system-ui,sans-serif;cursor:pointer;transition:background-color 160ms ease,border-color 160ms ease,color 160ms ease}.ds-btn-primary:hover{background:var(--color-primary-hover,#175e4e)}.ds-btn-primary:focus-visible{outline:3px solid var(--border-color-focus,#84d8c2);outline-offset:3px}.ds-btn-primary:active:not(:disabled){transform:translateY(1px)}.ds-btn-primary:disabled{opacity:.55;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-btn-primary{transition-duration:0s}}"
+    },
+    {
+      "name": "Secondary button",
+      "kind": "button",
+      "description": "Extracted from shared application styles.",
+      "html": "<button class=\"ds-secondary\">Editar</button>",
+      "css": ".ds-secondary{min-height:44px;padding:.55rem .9rem;border:1px solid var(--border-color,#657d75);border-radius:7px;background:var(--bg-surface-hover,#233236);color:var(--text-main,#f0f5f3);font:650 .875rem/1.3 system-ui;cursor:pointer}.ds-secondary:hover{background:var(--bg-surface-active,#2c4145)}.ds-secondary:focus-visible{outline:3px solid var(--border-color-focus,#84d8c2);outline-offset:3px}"
+    },
+    {
+      "name": "Outline button",
+      "kind": "button",
+      "description": "Extracted from shared application styles.",
+      "html": "<button class=\"ds-outline\">Detalhes</button>",
+      "css": ".ds-outline{min-height:44px;padding:.55rem .9rem;border:1px solid var(--border-color,#657d75);border-radius:7px;background:transparent;color:var(--text-main,#f0f5f3);font:650 .875rem/1.3 system-ui;cursor:pointer}.ds-outline:hover{background:var(--bg-surface-hover,#233236)}.ds-outline:focus-visible{outline:3px solid var(--border-color-focus,#84d8c2);outline-offset:3px}"
+    },
+    {
+      "name": "Text input",
+      "kind": "input",
+      "description": "Extracted from shared application styles.",
+      "html": "<label class=\"ds-label\" for=\"ds-description\">Atividade</label><input class=\"ds-input\" id=\"ds-description\" value=\"Verificar equipamento\">",
+      "css": ".ds-label{display:block;margin-bottom:.5rem;color:var(--text-secondary,#c0ceca);font:600 .875rem system-ui}.ds-input{min-height:44px;padding:.6rem .7rem;border:1px solid var(--border-color,#657d75);border-radius:6px;background:var(--bg-app,#101719);color:var(--text-main,#f0f5f3);font:1rem system-ui;caret-color:var(--border-color-focus,#84d8c2)}.ds-input:focus{border-color:var(--border-color-focus,#84d8c2)}.ds-input:focus-visible{outline:3px solid var(--border-color-focus,#84d8c2);outline-offset:3px}"
+    },
+    {
+      "name": "Active navigation",
+      "kind": "nav",
+      "description": "Extracted from shared application styles.",
+      "html": "<button class=\"ds-nav\" aria-current=\"page\">Painel</button>",
+      "css": ".ds-nav{display:flex;min-height:48px;padding:.75rem .6rem;border:1px solid var(--line-subtle,#364a43);border-radius:7px;background:var(--bg-surface-active,#2c4145);color:var(--text-main,#f0f5f3);font:750 .875rem system-ui;cursor:pointer}.ds-nav:hover{background:var(--bg-surface-hover,#233236)}.ds-nav:focus-visible{outline:3px solid var(--border-color-focus,#84d8c2);outline-offset:3px}"
+    },
+    {
+      "name": "Status badge",
+      "kind": "chip",
+      "description": "Extracted from shared application styles.",
+      "html": "<span class=\"ds-status\">Concluido</span>",
+      "css": ".ds-status{display:inline-flex;padding:.25rem .45rem;border-radius:5px;background:var(--status-normal-bg,#163d32);color:var(--status-normal-text,#b8efda);font:650 .875rem system-ui}"
+    },
+    {
+      "name": "Work panel",
+      "kind": "card",
+      "description": "Extracted from shared application styles.",
+      "html": "<section class=\"ds-panel\"><h2>Evento em foco</h2><p>Consulte os dados da atividade selecionada.</p></section>",
+      "css": ".ds-panel{padding:1.25rem;border:1px solid var(--line-subtle,#364a43);border-radius:12px;background:var(--bg-surface,#192326);color:var(--text-main,#f0f5f3);font:1rem/1.45 system-ui}.ds-panel h2{font-size:1rem;letter-spacing:-.015em}.ds-panel p{color:var(--text-secondary,#c0ceca);max-width:75ch}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Console operacional",
+    "overview": "Superfícies planas em grafite e verde mineral organizam uma ferramenta de trabalho contínuo. O contraste entre navegação, trabalho e contexto estabelece hierarquia sem imagens decorativas. A linguagem foi extraída do código entregue, sob a autorização de execução autônoma registrada em PRODUCT.md.",
+    "keyCharacteristics": [
+      "Hierarquia por tom, espaçamento e peso tipográfico.",
+      "Controles locais, legíveis e operáveis sem recursos remotos.",
+      "Estados operacionais acompanhados de texto.",
+      "Composição adaptativa com prioridade para a atividade em curso."
+    ],
+    "rules": [
+      {
+        "name": "The Semantic State Rule",
+        "body": "Cores de prazo, alarme e conclusão mantêm nomes textuais; a cor não substitui a situação operacional.",
+        "section": "colors"
+      },
+      {
+        "name": "The Local Type Rule",
+        "body": "A tipografia não introduz requisições de rede nem depende de fonte remota.",
+        "section": "typography"
+      },
+      {
+        "name": "The Working Surface Rule",
+        "body": "Profundidade comunica sobreposição ou separação funcional, não adorna cada painel.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** preservar ações e conteúdo ao reorganizar a interface para outra largura.",
+      "**Do** usar tokens semânticos nos três temas.",
+      "**Do** manter foco visível, labels e estados textuais.",
+      "**Do** incorporar recursos necessários ao HTML distribuído."
+    ],
+    "donts": [
+      "**Don't** adicionar fontes remotas, CDN ou serviços obrigatórios.",
+      "**Don't** alterar cálculos ou persistência para obter um resultado visual.",
+      "**Don't** usar cor como única indicação de estado.",
+      "**Don't** transformar tratamentos específicos de alarmes em estilo decorativo global."
+    ]
+  }
+}

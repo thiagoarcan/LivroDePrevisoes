@@ -1,0 +1,1066 @@
+{
+  "timing": {
+    "name": "file:///C:/Users/upseg/OneDrive/Documentos/Projetos/LivroDePrevisoes/index.html",
+    "entryType": "navigation",
+    "startTime": 0,
+    "duration": 381.59999999962747,
+    "navigationId": 1767,
+    "initiatorType": "navigation",
+    "deliveryType": "",
+    "nextHopProtocol": "",
+    "renderBlockingStatus": "non-blocking",
+    "contentType": "text/html",
+    "contentEncoding": "",
+    "workerStart": 0,
+    "workerRouterEvaluationStart": 0,
+    "workerCacheLookupStart": 0,
+    "workerMatchedSourceType": "",
+    "workerFinalSourceType": "",
+    "redirectStart": 0,
+    "redirectEnd": 0,
+    "fetchStart": 2.900000000372529,
+    "domainLookupStart": 2.900000000372529,
+    "domainLookupEnd": 2.900000000372529,
+    "connectStart": 2.900000000372529,
+    "secureConnectionStart": 0,
+    "connectEnd": 2.900000000372529,
+    "requestStart": 2.900000000372529,
+    "responseStart": 2.900000000372529,
+    "firstInterimResponseStart": 0,
+    "finalResponseHeadersStart": 0,
+    "responseEnd": 9.799999998882413,
+    "transferSize": 565814,
+    "encodedBodySize": 565514,
+    "decodedBodySize": 565514,
+    "responseStatus": 200,
+    "serverTiming": [],
+    "unloadEventStart": 0,
+    "unloadEventEnd": 0,
+    "domInteractive": 167.40000000037253,
+    "domContentLoadedEventStart": 167.59999999962747,
+    "domContentLoadedEventEnd": 168.2999999988824,
+    "domComplete": 381.19999999925494,
+    "loadEventStart": 381.59999999962747,
+    "loadEventEnd": 381.59999999962747,
+    "type": "navigate",
+    "redirectCount": 0,
+    "activationStart": 0,
+    "criticalCHRestart": 0,
+    "notRestoredReasons": null,
+    "confidence": {
+      "randomizedTriggerRate": 0.4994798,
+      "value": "high"
+    }
+  },
+  "errors": [],
+  "results": [
+    {
+      "view": "viewDashboard",
+      "width": 320,
+      "height": 740,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 320,
+      "height": 740,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 320,
+      "height": 740,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 320,
+      "height": 740,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 320,
+      "height": 740,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 320,
+      "height": 740,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 320,
+      "height": 740,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 320,
+      "height": 740,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 320,
+      "height": 740,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 360,
+      "height": 800,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 360,
+      "height": 800,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 360,
+      "height": 800,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 360,
+      "height": 800,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 360,
+      "height": 800,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 360,
+      "height": 800,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 360,
+      "height": 800,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 360,
+      "height": 800,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 360,
+      "height": 800,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 390,
+      "height": 844,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 390,
+      "height": 844,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 390,
+      "height": 844,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 390,
+      "height": 844,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 390,
+      "height": 844,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 390,
+      "height": 844,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 390,
+      "height": 844,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 390,
+      "height": 844,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 390,
+      "height": 844,
+      "tier": "mobile",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 768,
+      "height": 1024,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 768,
+      "height": 1024,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 768,
+      "height": 1024,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 768,
+      "height": 1024,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 768,
+      "height": 1024,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 768,
+      "height": 1024,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 768,
+      "height": 1024,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 768,
+      "height": 1024,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 768,
+      "height": 1024,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 844,
+      "height": 390,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 844,
+      "height": 390,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 844,
+      "height": 390,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 844,
+      "height": 390,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 844,
+      "height": 390,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 844,
+      "height": 390,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 844,
+      "height": 390,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 844,
+      "height": 390,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 844,
+      "height": 390,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 1024,
+      "height": 768,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 1024,
+      "height": 768,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 1024,
+      "height": 768,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 1024,
+      "height": 768,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 1024,
+      "height": 768,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 1024,
+      "height": 768,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 1024,
+      "height": 768,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 1024,
+      "height": 768,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 1024,
+      "height": 768,
+      "tier": "tablet",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 1280,
+      "height": 800,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 1280,
+      "height": 800,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 1280,
+      "height": 800,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 1280,
+      "height": 800,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 1280,
+      "height": 800,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 1280,
+      "height": 800,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 1280,
+      "height": 800,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 1280,
+      "height": 800,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 1280,
+      "height": 800,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 1280,
+      "height": 1024,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 1280,
+      "height": 1024,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 1280,
+      "height": 1024,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 1280,
+      "height": 1024,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 1280,
+      "height": 1024,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 1280,
+      "height": 1024,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 1280,
+      "height": 1024,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 1280,
+      "height": 1024,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 1280,
+      "height": 1024,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 1440,
+      "height": 900,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 1440,
+      "height": 900,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 1440,
+      "height": 900,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 1440,
+      "height": 900,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 1440,
+      "height": 900,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 1440,
+      "height": 900,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 1440,
+      "height": 900,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 1440,
+      "height": 900,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 1440,
+      "height": 900,
+      "tier": "conventional",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 1920,
+      "height": 1080,
+      "tier": "widescreen",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 1920,
+      "height": 1080,
+      "tier": "widescreen",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 1920,
+      "height": 1080,
+      "tier": "widescreen",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 1920,
+      "height": 1080,
+      "tier": "widescreen",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 1920,
+      "height": 1080,
+      "tier": "widescreen",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 1920,
+      "height": 1080,
+      "tier": "widescreen",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 1920,
+      "height": 1080,
+      "tier": "widescreen",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 1920,
+      "height": 1080,
+      "tier": "widescreen",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 1920,
+      "height": 1080,
+      "tier": "widescreen",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 2560,
+      "height": 1080,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 2560,
+      "height": 1080,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 2560,
+      "height": 1080,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 2560,
+      "height": 1080,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 2560,
+      "height": 1080,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 2560,
+      "height": 1080,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 2560,
+      "height": 1080,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 2560,
+      "height": 1080,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 2560,
+      "height": 1080,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 3440,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 3440,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 3440,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 3440,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 3440,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 3440,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 3440,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 3440,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 3440,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 3840,
+      "height": 2160,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 3840,
+      "height": 2160,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 3840,
+      "height": 2160,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 3840,
+      "height": 2160,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 3840,
+      "height": 2160,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 3840,
+      "height": 2160,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 3840,
+      "height": 2160,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 3840,
+      "height": 2160,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 3840,
+      "height": 2160,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDashboard",
+      "width": 5120,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewNewEvent",
+      "width": 5120,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewPendingEvents",
+      "width": 5120,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCompletedEvents",
+      "width": 5120,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewCadastros",
+      "width": 5120,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigAlerts",
+      "width": 5120,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewConfigColors",
+      "width": 5120,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewBackup",
+      "width": 5120,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    },
+    {
+      "view": "viewDiagnostic",
+      "width": 5120,
+      "height": 1440,
+      "tier": "ultrawide",
+      "overflow": false,
+      "heading": true
+    }
+  ]
+}

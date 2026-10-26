@@ -7,8 +7,8 @@
   <style>
 
 /* Unified component system. Width belongs to the workspace; reading length belongs to each region. */
-:root { --font-sans: 'Segoe UI', system-ui, sans-serif; --bg-app:#0c1422; --bg-surface:#182536; --bg-surface-hover:#233449; --bg-surface-active:#30435b; --bg-elevated:var(--bg-surface); --bg-surface-elevated:var(--bg-surface); --text-main:#f1f5fa; --text-secondary:#c1cede; --text-muted:#adbdcf; --border-color:#52657b; --border-color-focus:#71c7ff; --color-primary:#1469b8; --color-primary-hover:#0f579b; --primary-text:#fff; --color-success:#237245; --color-danger:#b92e3d; --color-warning:#f3bd53; --color-info:#91caff; --warning-text:#201700; --status-overdue-bg:#45202a; --status-overdue-text:#ffcad0; --status-overdue-border:#fb8392; --status-critico-bg:#45202a; --status-critico-text:#ffcad0; --status-urgente-bg:#482c1d; --status-urgente-text:#ffd1ad; --status-atencao-bg:#40351b; --status-atencao-text:#ffe4a3; --status-monitor-bg:#203655; --status-monitor-text:#c4deff; --status-normal-bg:#163d32; --status-normal-text:#b8efda; --status-concluido-bg:#163d32; --status-concluido-text:#b8efda; --radius-sm:6px; --sidebar-width:224px; --app-header-height:84px; --transition:160ms ease; color-scheme:dark; }
-body.theme-light { --bg-app:#eef2f6; --bg-surface:#fff; --bg-surface-hover:#edf3fa; --bg-surface-active:#dce9f7; --text-main:#18283b; --text-secondary:#45566b; --text-muted:#54657a; --border-color:#9bacbe; --border-color-focus:#075caa; --color-primary:#075fac; --color-primary-hover:#064d8b; --color-info:#075fac; --status-overdue-bg:#ffebee; --status-overdue-text:#8c1d32; --status-critico-bg:#ffebee; --status-critico-text:#8c1d32; --status-urgente-bg:#fff0e3; --status-urgente-text:#8a3d08; --status-atencao-bg:#fff4d2; --status-atencao-text:#705000; --status-monitor-bg:#eaf2ff; --status-monitor-text:#18467f; --status-normal-bg:#e4f5ed; --status-normal-text:#17553d; --status-concluido-bg:#e4f5ed; --status-concluido-text:#17553d; color-scheme:light; }
+:root { --font-sans: 'Segoe UI', system-ui, sans-serif; --bg-app:#101719; --bg-surface:#192326; --bg-surface-hover:#233236; --bg-surface-active:#2c4145; --bg-elevated:var(--bg-surface); --bg-surface-elevated:var(--bg-surface); --text-main:#f0f5f3; --text-secondary:#c0ceca; --text-muted:#a8bdb6; --border-color:#657d75; --border-color-focus:#84d8c2; --color-primary:#1c7460; --color-primary-hover:#175e4e; --primary-text:#fff; --color-success:#237245; --color-danger:#b92e3d; --color-warning:#f3bd53; --color-info:#99dfcc; --warning-text:#201700; --status-overdue-bg:#45202a; --status-overdue-text:#ffcad0; --status-overdue-border:#fb8392; --status-critico-bg:#45202a; --status-critico-text:#ffcad0; --status-urgente-bg:#482c1d; --status-urgente-text:#ffd1ad; --status-atencao-bg:#40351b; --status-atencao-text:#ffe4a3; --status-monitor-bg:#203655; --status-monitor-text:#c4deff; --status-normal-bg:#163d32; --status-normal-text:#b8efda; --status-concluido-bg:#163d32; --status-concluido-text:#b8efda; --radius-sm:6px; --sidebar-width:232px; --app-header-height:84px; --transition:160ms ease; color-scheme:dark; }
+body.theme-light { --bg-app:#f0f3ef; --bg-surface:#fff; --bg-surface-hover:#f1f6f3; --bg-surface-active:#e0eee7; --text-main:#1b3029; --text-secondary:#445d52; --text-muted:#52695e; --border-color:#7b9489; --border-color-focus:#17664f; --color-primary:#17664f; --color-primary-hover:#104d3b; --color-info:#17664f; --status-overdue-bg:#ffebee; --status-overdue-text:#8c1d32; --status-critico-bg:#ffebee; --status-critico-text:#8c1d32; --status-urgente-bg:#fff0e3; --status-urgente-text:#8a3d08; --status-atencao-bg:#fff4d2; --status-atencao-text:#705000; --status-monitor-bg:#eaf2ff; --status-monitor-text:#18467f; --status-normal-bg:#e4f5ed; --status-normal-text:#17553d; --status-concluido-bg:#e4f5ed; --status-concluido-text:#17553d; color-scheme:light; }
 body.theme-industrial { --bg-app:#000; --bg-surface:#101010; --bg-surface-hover:#242424; --bg-surface-active:#333; --text-main:#fff; --text-secondary:#e2e2e2; --text-muted:#c9c9c9; --border-color:#8a8a8a; --border-color-focus:#ffdb44; --color-primary:#ffdb44; --color-primary-hover:#e8bd20; --primary-text:#111; --color-info:#ffe274; }
 * { box-sizing:border-box; }
 html { font-size:16px; scroll-padding-top:calc(var(--app-header-height) + 60px); }
@@ -30,7 +30,7 @@ a { color:var(--color-info); }
 [hidden] { display:none!important; }
 .skip-link { position:fixed; top:-100px; left:1rem; z-index:2100; padding:.8rem; background:var(--bg-surface); }
 .skip-link:focus { top:8px; }
-.app-header { position:sticky; top:0; z-index:100; display:flex; align-items:center; gap:1rem; padding:.7rem 1.25rem; border-bottom:1px solid var(--border-color); background:var(--bg-surface); min-width:0; }
+.app-header { position:sticky; top:0; z-index:100; display:flex; align-items:center; gap:1rem; padding:.7rem 1.25rem; border-bottom:1px solid var(--line-subtle); background:var(--bg-surface); min-width:0; }
 .app-header { padding-top:max(.7rem,env(safe-area-inset-top)); }
 .header-left,.header-actions,.header-status-bar { display:flex; align-items:center; gap:.6rem; min-width:0; flex-wrap:wrap; }
 .header-left { flex:1; }
@@ -51,15 +51,15 @@ a { color:var(--color-info); }
 .btn-header-bell,.btn-hamburger { position:relative; background:var(--bg-surface); color:var(--text-main); border:1px solid var(--border-color); border-radius:8px; min-width:44px; min-height:44px; align-items:center; justify-content:center; }
 .bell-badge,.badge-count,.cat-count,.bottom-nav-badge,.nav-badge { display:inline-flex; align-items:center; justify-content:center; font-size:.875rem; font-weight:700; border-radius:20px; min-width:1.5rem; padding:.1rem .4rem; background:var(--bg-surface-active); color:var(--text-main); }
 .bell-badge { position:absolute; right:-5px; top:-5px; background:var(--color-danger); color:#fff; }
-.app-nav { position:fixed; left:0; top:var(--app-header-height); bottom:0; width:var(--sidebar-width); display:flex; flex-direction:column; align-items:stretch; padding:1rem .7rem; gap:.3rem; border-right:1px solid var(--border-color); background:var(--bg-surface); z-index:80; overflow-y:auto; }
+.app-nav { position:fixed; left:0; top:var(--app-header-height); bottom:0; width:var(--sidebar-width); display:flex; flex-direction:column; align-items:stretch; padding:1.25rem .75rem; gap:.35rem; border-right:1px solid var(--line-subtle); background:var(--bg-nav); z-index:80; overflow-y:auto; }
 .nav-item,.drawer-item { display:flex; gap:.7rem; align-items:center; text-align:left; border:1px solid transparent; border-radius:7px; color:var(--text-secondary); background:transparent; font-size:.875rem; font-weight:600; padding:.75rem .6rem; min-height:48px; }
 .nav-item .badge-count { margin-left:auto; }
-.nav-item.active,.drawer-item.active { background:var(--bg-surface-active); color:var(--text-main); border-color:var(--border-color-focus); }
+.nav-item.active,.drawer-item.active { background:var(--bg-surface-active); color:var(--text-main); border-color:var(--line-subtle); font-weight:750; }
 .nav-item:hover,.drawer-item:hover { background:var(--bg-surface-hover); color:var(--text-main); }
-.app-main { margin-left:var(--sidebar-width); padding:1.2rem 1.4rem 2rem; width:calc(100% - var(--sidebar-width)); max-width:none; min-width:0; }
+.app-main { margin-left:var(--sidebar-width); padding:1.5rem clamp(1rem,2vw,2.5rem) 2.5rem; width:calc(100% - var(--sidebar-width)); max-width:none; min-width:0; }
 .view-section { display:none; min-width:0; }
 .view-section.active { display:block; }
-.view-heading { grid-column:1/-1; font-size:1.25rem; margin:0 0 .3rem; }
+.view-heading { grid-column:1/-1; font-size:clamp(1.35rem,1.1rem + .6vw,1.85rem); font-weight:650; letter-spacing:-.025em; margin:0 0 .65rem; line-height:1.25; text-wrap:balance; }
 .view-section>* { min-width:0; }
 .persistent-banner { display:none; gap:.75rem; align-items:center; justify-content:space-between; padding:.55rem 1rem; margin-left:var(--sidebar-width); border-bottom:1px solid var(--border-color); font-size:.875rem; }
 .persistent-banner.active { display:flex; }
@@ -79,9 +79,9 @@ a { color:var(--color-info); }
 .btn-icon { width:44px; min-width:44px; padding:.5rem; }
 .btn-sm { padding:.45rem .65rem; }
 .fab-btn { display:none; }
-.card,.context-panel,.cadastro-hub-card,.pending-detail-pane { background:var(--bg-surface); border:1px solid var(--border-color); border-radius:10px; padding:1.1rem; min-width:0; align-self:start; }
-.card-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:.75rem; margin-bottom:1rem; padding-bottom:.85rem; border-bottom:1px solid var(--border-color); }
-.card-title { display:flex; gap:.45rem; align-items:center; font-size:1.05rem; font-weight:700; }
+.card,.context-panel,.cadastro-hub-card,.pending-detail-pane { background:var(--bg-surface); border:1px solid var(--line-subtle); border-radius:12px; padding:1.25rem; min-width:0; align-self:start; }
+.card-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:.75rem; margin-bottom:1.1rem; padding-bottom:1rem; border-bottom:1px solid var(--line-subtle); }
+.card-title { display:flex; gap:.6rem; align-items:center; font-size:1.075rem; font-weight:650; letter-spacing:-.015em; }
 .context-panel h2 { font-size:1rem; margin-bottom:1rem; }
 .context-panel h3 { font-size:.9rem; margin-top:1.2rem; }
 .context-panel p { max-width:75ch; overflow-wrap:anywhere; }
@@ -124,22 +124,22 @@ summary { cursor:pointer; font-weight:650; padding:.7rem 0; min-height:44px; }
 .dashboard-metrics { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:.65rem; margin-bottom:1rem; }
 .dashboard-overview,.dashboard-context-stack { display:contents; }
 .dashboard-overview>.context-panel { width:100%; }
-.metric-card { display:flex; gap:.7rem; align-items:center; min-width:0; border:1px solid var(--border-color); border-radius:8px; padding:.8rem; background:var(--bg-surface); color:var(--text-main); text-align:left; }
+.metric-card { display:flex; gap:.7rem; align-items:center; min-width:0; border:1px solid var(--line-subtle); border-radius:8px; padding:.85rem; background:var(--bg-surface); color:var(--text-main); text-align:left; }
 .metric-card[data-filter]:hover { border-color:var(--border-color-focus); }
 .metric-icon { display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:7px; color:var(--text-main); flex-shrink:0; }
-.metric-value { font-size:1.5rem; font-weight:750; line-height:1.15; }
+.metric-value { font-size:1.65rem; font-weight:650; line-height:1.15; font-variant-numeric:tabular-nums; letter-spacing:-.035em; }
 .metric-label { font-size:.875rem; color:var(--text-secondary); margin-top:.25rem; }
 .dashboard-highlight-grid { display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:1rem; align-items:start; }
-.spotlight-card { background:var(--bg-surface); border:1px solid var(--border-color); border-left:5px solid var(--border-color-focus); border-radius:10px; padding:1.2rem; min-width:0; }
+.spotlight-card { background:var(--bg-surface); border:1px solid var(--border-color-focus); border-radius:12px; padding:1.5rem; min-width:0; }
 .spotlight-header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.7rem; margin-bottom:.85rem; }
 .spotlight-badge { font-size:.875rem; font-weight:700; }
 .spotlight-body { display:flex; flex-direction:column; gap:.85rem; }
 .spotlight-path { font-size:.875rem; color:var(--text-secondary); }
-.spotlight-desc { font-size:1.1rem; font-weight:650; margin-top:.5rem; max-width:75ch; overflow-wrap:anywhere; }
+.spotlight-desc { font-size:clamp(1.1rem,1rem + .35vw,1.4rem); font-weight:650; line-height:1.4; margin-top:.65rem; max-width:75ch; overflow-wrap:anywhere; }
 .spotlight-timer { border-top:1px solid var(--border-color); padding-top:.7rem; }
-.time-left { font-size:2rem; font-weight:750; color:var(--text-main); font-variant-numeric:tabular-nums; }
+.time-left { font-size:clamp(1.7rem,1.3rem + 1vw,2.6rem); font-weight:650; letter-spacing:-.035em; color:var(--text-main); font-variant-numeric:tabular-nums; }
 .sched-time { font-size:.875rem; color:var(--text-secondary); }
-.tablet-alarms-panel { display:block; border:1px solid var(--border-color); border-radius:10px; padding:1rem; background:var(--bg-surface); min-width:0; }
+.tablet-alarms-panel { display:block; border:1px solid var(--line-subtle); border-radius:12px; padding:1rem; background:var(--bg-surface); min-width:0; }
 .dashboard-urgent-cards { display:none; }
 #cardDashboardUrgent { margin-top:1rem; }
 #dashboardSelectedDetail,#dashboardContextPanel { margin-top:1rem; }
@@ -153,7 +153,7 @@ summary { cursor:pointer; font-weight:650; padding:.7rem 0; min-height:44px; }
 .status-pill.warning { color:var(--status-atencao-text); background:var(--status-atencao-bg); }
 .status-pill.ok { color:var(--status-normal-text); background:var(--status-normal-bg); }
 #statusModalAudio>span { color:var(--text-main)!important; }
-.events-toolbar { padding:1rem; border:1px solid var(--border-color); border-radius:10px; background:var(--bg-surface); margin-bottom:1rem; }
+.events-toolbar { padding:1.1rem; border:1px solid var(--line-subtle); border-radius:12px; background:var(--bg-surface); margin-bottom:1rem; }
 .toolbar-primary { display:flex; gap:.8rem; align-items:center; flex-wrap:wrap; }
 .toolbar-primary>div { min-width:0; }
 .toolbar-primary>div:not(.search-box) { flex-wrap:wrap; }
@@ -167,7 +167,7 @@ summary { cursor:pointer; font-weight:650; padding:.7rem 0; min-height:44px; }
 .pending-detail-pane>div { min-width:0; flex-wrap:wrap; }
 .detail-navigation,.events-pagination { display:flex; align-items:center; justify-content:space-between; gap:.6rem; flex-wrap:wrap; margin:.65rem 0; font-size:.875rem; }
 .events-container-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr)); gap:1rem; align-items:start; }
-.event-card,.completed-event-card,.color-range-card { min-width:0; background:var(--bg-surface); border:1px solid var(--border-color); border-left:4px solid var(--border-color-focus); border-radius:8px; padding:1rem; overflow-wrap:anywhere; }
+.event-card,.completed-event-card,.color-range-card { min-width:0; background:var(--bg-surface); border:1px solid var(--line-subtle); border-left:1px solid var(--border-color-focus); border-radius:12px; padding:1.1rem; overflow-wrap:anywhere; }
 .event-card-header,.event-card-footer { display:flex; justify-content:space-between; gap:.5rem; flex-wrap:wrap; }
 .event-card-header { margin-bottom:.7rem; }
 .event-card-desc,.event-description { font-weight:600; margin:.75rem 0; }
@@ -176,8 +176,8 @@ summary { cursor:pointer; font-weight:650; padding:.7rem 0; min-height:44px; }
 .event-card-footer { border-top:1px solid var(--border-color); padding-top:.75rem; margin-top:.75rem; }
 .table-responsive,.hub-list-container { overflow:auto; min-width:0; max-width:100%; border:1px solid var(--border-color); border-radius:7px; background:var(--bg-surface); }
 .data-table { border-collapse:collapse; width:100%; font-size:.875rem; }
-.data-table th { text-align:left; background:var(--bg-surface-active); color:var(--text-main); font-size:.875rem; font-weight:650; }
-.data-table th,.data-table td { padding:.65rem .75rem; border-bottom:1px solid var(--border-color); vertical-align:top; overflow-wrap:normal; word-break:normal; }
+.data-table th { text-align:left; background:var(--bg-surface-hover); color:var(--text-secondary); font-size:.8125rem; font-weight:700; }
+.data-table th,.data-table td { padding:.8rem .85rem; border-bottom:1px solid var(--line-subtle); vertical-align:top; overflow-wrap:normal; word-break:normal; }
 .data-table tbody tr:hover { background:var(--bg-surface-hover); }
 .data-table td:last-child { min-width:80px; }
 #tableDashboardUrgent { min-width:840px; }
@@ -301,6 +301,82 @@ summary { cursor:pointer; font-weight:650; padding:.7rem 0; min-height:44px; }
 .disable-highlight .event-card { box-shadow:none; }
 .density-compact .card,.density-compact .context-panel,.density-compact .event-card { padding:.8rem; }
 .density-compact .data-table td,.density-compact .data-table th { padding:.45rem .6rem; }
+
+
+/* Operational console: surface hierarchy and interaction tokens. */
+:root { --line-subtle:#364a43; --bg-nav:#141e20; --radius-panel:12px; --space-section:1.5rem; }
+body.theme-light { --line-subtle:#cddbd3; --bg-nav:#e7eee8; }
+body.theme-industrial { --line-subtle:#8a8a8a; --bg-nav:#101010; }
+::selection { background:var(--bg-surface-active); color:var(--text-main); }
+* { scrollbar-width:thin; scrollbar-color:var(--border-color) var(--bg-app); }
+input,textarea { caret-color:var(--border-color-focus); }
+a { text-underline-offset:.2em; }
+.header-brand>svg { color:var(--color-info); width:30px; height:30px; }
+.header-brand h1 { letter-spacing:-.025em; font-weight:700; }
+.header-brand .subtitle { font-size:.75rem; margin-top:.15rem; }
+.header-console-box { padding-left:1rem; border-left:1px solid var(--line-subtle); }
+.clock-display { font-size:.875rem; font-weight:500; color:var(--text-secondary); }
+.nav-item svg { width:19px; height:19px; }
+.nav-item[data-view=viewCadastros],.nav-item[data-view=viewBackup] { margin-top:1.25rem; }
+.nav-item.active svg { color:var(--color-info); }
+.nav-item .badge-count { border-radius:5px; font-size:.75rem; }
+.btn,.nav-item,.drawer-item,.metric-card,.context-event { transition:background-color var(--transition),border-color var(--transition),color var(--transition); }
+.btn:active:not(:disabled) { transform:translateY(1px); }
+.btn-secondary { background:var(--bg-surface-hover); }
+.btn-outline { border-color:var(--border-color); }
+.persistent-banner.backup-banner { background:var(--bg-app); border-color:var(--line-subtle); }
+#backupOverdueBanner>div { flex-wrap:nowrap!important; }
+#backupOverdueBanner>div>span:first-child { flex:0 0 18px; }
+.backup-banner .btn-warning { background:transparent; color:var(--text-main); border-color:var(--border-color); }
+.context-panel { background:var(--bg-nav); }
+.context-panel h2 { font-size:1rem; letter-spacing:-.015em; }
+.context-panel h3 { line-height:1.5; }
+.context-panel dd { padding-bottom:.65rem; margin-bottom:.65rem; border-bottom:1px solid var(--line-subtle); }
+.context-panel li { border-color:var(--line-subtle); }
+.context-panel dt { margin-bottom:.25rem; }
+.spotlight-badge { display:flex; gap:.5rem; align-items:center; color:var(--color-info); }
+.spotlight-timer { margin-top:.25rem; padding-top:1rem; border-color:var(--line-subtle); }
+#spotlightActions { padding-top:.75rem; }
+.spotlight-path { line-height:1.6; }
+.event-card-footer { border-color:var(--line-subtle); }
+.data-table { font-variant-numeric:tabular-nums; }
+.table-responsive,.hub-list-container { border-color:var(--line-subtle); border-radius:8px; }
+.data-table tbody tr:nth-child(even) { background:color-mix(in srgb,var(--bg-surface-hover) 45%,transparent); }
+.data-table tbody tr:hover { background:var(--bg-surface-hover); }
+.event-fieldset,.settings-group { border-color:var(--line-subtle); border-radius:10px; padding:1.15rem; }
+.event-fieldset legend,.settings-group legend { color:var(--color-info); }
+.form-group { gap:.5rem; }
+input:not([type=checkbox]):not([type=radio]):focus,select:focus,textarea:focus { border-color:var(--border-color-focus); }
+.optional-group { border-top:1px solid var(--line-subtle); padding-top:.3rem; }
+.modal-header,.modal-footer { padding:1.1rem 1.25rem; border-color:var(--line-subtle); }
+.modal-body { padding:1.25rem; }
+.modal-box { border:0; border-radius:14px; box-shadow:0 20px 64px rgb(0 0 0/.35); }
+.alarm-modal-box { border:2px solid var(--status-overdue-border); }
+.cadastros-category-btn { border-radius:8px; }
+.cadastros-category-btn.active { background:var(--bg-surface-active); }
+@media (min-width:1400px) and (max-width:1919px) {
+ body[data-layout-mode=conventional] #dashboardOverview .dashboard-metrics { grid-template-columns:repeat(7,minmax(0,1fr)); }
+ body[data-layout-mode=conventional] .dashboard-metrics .metric-card { flex-direction:column; align-items:flex-start; gap:.45rem; }
+ body[data-layout-mode=conventional] .dashboard-metrics .metric-icon { display:none; }
+}
+@media (hover:hover) {
+ .metric-card[data-filter]:hover { background:var(--bg-surface-hover); }
+ .btn-header-bell:hover,.modal-close:hover { background:var(--bg-surface-active); }
+}
+@media (max-width:767px) {
+ #backupOverdueBanner { gap:.6rem; }
+ #backupOverdueBanner>div { flex:1 1 160px; font-size:.8125rem; }
+ #backupOverdueBanner>.btn { flex:0 0 auto; padding:.5rem; font-size:.8125rem; }
+ .header-console-box { padding-left:0; border:0; }
+ .view-heading { font-size:1.4rem; }
+ .nav-item[data-view=viewCadastros],.nav-item[data-view=viewBackup] { margin-top:.5rem; }
+ .modal-body { padding:1rem; }
+ .modal-header,.modal-footer { padding:.85rem 1rem; }
+ .event-fieldset { padding:.85rem; }
+ .context-panel { padding:1rem; }
+ .mobile-bottom-nav { box-shadow:0 -8px 24px rgb(0 0 0/.12); }
+ .bottom-nav-item.active { border-color:transparent; }
+}
 
 /* Five tiers. Physical narrow safeguard always takes priority over a forced desktop mode. */
 body[data-layout-mode=conventional] #viewDashboard.active { display:grid; grid-template-columns:minmax(0,2fr) minmax(280px,1fr); gap:1rem; }
@@ -498,6 +574,52 @@ body:is([data-layout-mode=mobile],.layout-narrow) .btn-primary,body:is([data-lay
 <a class="skip-link" href="#mainContent">
  Ir para conteúdo
 </a>
+<!-- Lucide Waypoints and TriangleAlert icon license:
+ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+---
+
+The following Lucide icons are derived from the Feather project:
+
+airplay, alert-circle, alert-octagon, alert-triangle, aperture, arrow-down-circle, arrow-down-left, arrow-down-right, arrow-down, arrow-left-circle, arrow-left, arrow-right-circle, arrow-right, arrow-up-circle, arrow-up-left, arrow-up-right, arrow-up, at-sign, calendar, cast, check, chevron-down, chevron-left, chevron-right, chevron-up, chevrons-down, chevrons-left, chevrons-right, chevrons-up, circle, clipboard, clock, code, columns, command, compass, corner-down-left, corner-down-right, corner-left-down, corner-left-up, corner-right-down, corner-right-up, corner-up-left, corner-up-right, crosshair, database, divide-circle, divide-square, dollar-sign, download, external-link, feather, frown, hash, headphones, help-circle, info, italic, key, layout, life-buoy, link-2, link, loader, lock, log-in, log-out, maximize, meh, minimize, minimize-2, minus-circle, minus-square, minus, monitor, moon, more-horizontal, more-vertical, move, music, navigation-2, navigation, octagon, pause-circle, percent, plus-circle, plus-square, plus, power, radio, rss, search, server, share, shopping-bag, sidebar, smartphone, smile, square, table-2, tablet, target, terminal, trash-2, trash, triangle, tv, type, upload, x-circle, x-octagon, x-square, x, zoom-in, zoom-out
+
+The MIT License (MIT) (for the icons listed above)
+
+Copyright (c) 2013-present Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-->
 <!-- Header Bar -->
 <header class="app-header">
  <div class="header-left">
@@ -512,14 +634,7 @@ body:is([data-layout-mode=mobile],.layout-narrow) .btn-primary,body:is([data-lay
    </svg>
   </button>
   <div class="header-brand">
-   <svg aria-hidden="true" fill="none" focusable="false" height="26" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24" width="26">
-    <path d="M4 14a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2z">
-    </path>
-    <path d="M6 12V8a6 6 0 0 1 12 0v4">
-    </path>
-    <circle cx="12" cy="15" r="1">
-    </circle>
-   </svg>
+   <svg aria-hidden="true" focusable="false" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.586 5.414-5.172 5.172"/><path d="m18.586 13.414-5.172 5.172"/><path d="M6 12h12"/><circle cx="12" cy="20" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="4" cy="12" r="2"/></svg>
    <div>
     <h1>
      Caderno de Previsões
@@ -545,7 +660,7 @@ body:is([data-layout-mode=mobile],.layout-narrow) .btn-primary,body:is([data-lay
    --:--:--
   </div>
   <button class="status-pill warning" id="chipHeaderAudioWarning" style="display: none" title="Toque para iniciar e desbloquear o áudio de alarmes" type="button">
-   ⚠ Áudio não iniciado
+   <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Áudio não iniciado
   </button>
   <span class="status-pill ok" id="pillDB" title="Estado do IndexedDB">
    <span class="indicator-dot">
@@ -719,14 +834,14 @@ body:is([data-layout-mode=mobile],.layout-narrow) .btn-primary,body:is([data-lay
 <div class="persistent-banner backup-banner" id="backupOverdueBanner">
  <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap">
   <span>
-   ⚠
+   <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
   </span>
   <span id="bannerBackupOverdueText">
    Último backup realizado há mais de 7 dias.
   </span>
  </div>
  <button class="btn btn-warning btn-sm" id="btnBannerBackupNow" type="button">
-  Realizar backup agora
+  Abrir backup
  </button>
 </div>
 <div class="persistent-banner layout-banner" id="viewModeWarningBanner">
@@ -1018,7 +1133,7 @@ body:is([data-layout-mode=mobile],.layout-narrow) .btn-primary,body:is([data-lay
    <div class="spotlight-card" id="spotlightCard">
     <div class="spotlight-header">
      <div class="spotlight-badge">
-      ★ Próximo Evento Operacional
+      Próximo evento operacional
      </div>
      <span class="status-badge normal" id="spotlightBadgeState">
       Aguardando
@@ -1053,7 +1168,7 @@ body:is([data-layout-mode=mobile],.layout-narrow) .btn-primary,body:is([data-lay
     <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; flex-wrap: wrap">
      <strong style="display: flex; align-items: center; gap: 0.4rem">
       <span>
-       ⚠
+       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
       </span>
       <span>
        Alarmes Ativos (
@@ -7409,7 +7524,7 @@ App.UI = {
 
       if (overdueBanner) {
         if (daysDiff >= (this._settings?.backupReminderDays ?? 7)) {
-          if (overdueText) overdueText.textContent = `Último backup local realizado há ${daysDiff} dias (${App.Utils.formatDate(lastBackupAt)}). Recomenda-se exportar novo backup.`;
+          if (overdueText) overdueText.textContent = `Backup de ${App.Utils.formatDate(lastBackupAt)}: há ${daysDiff} dias. Exporte uma nova cópia.`;
           overdueBanner.style.display = 'flex';
         } else {
           overdueBanner.style.display = 'none';
@@ -7423,7 +7538,7 @@ App.UI = {
       if (labelDate) labelDate.textContent = `Último backup: Nunca`;
       if (statusModalBackup) statusModalBackup.textContent = `Nunca realizado`;
       if (overdueBanner) {
-        if (overdueText) overdueText.textContent = `Backup local ainda não foi realizado neste dispositivo. Exporte um backup preventivo regularmente.`;
+        if (overdueText) overdueText.textContent = `Sem backup neste dispositivo. Exporte uma cópia.`;
         overdueBanner.style.display = 'flex';
       }
     }
@@ -8962,7 +9077,7 @@ App.UI = {
       `;
 
       spBadge.className = `status-badge ${classification.key} ${classification.blink ? 'pulsing-badge' : ''}`;
-      spBadge.textContent = `${classification.icon || ''} ${classification.name}`.trim();
+      spBadge.textContent = `${classification.name}`.trim();
 
       spTimeLeft.dataset.timestamp = new Date(spotlightTarget.scheduledAt).getTime();
       spTimeLeft.textContent = timerInfo.text;
@@ -9018,7 +9133,7 @@ App.UI = {
                   <span>${App.Utils.escapeHTML(uoName)}</span>
                   ${tagName ? `<span class="event-tag-badge">${App.Utils.escapeHTML(tagName)}</span>` : ''}
                 </div>
-                <span class="status-badge ${cl.key} ${cl.blink ? 'pulsing-badge' : ''}">${cl.icon || ''} ${cl.name}</span>
+                <span class="status-badge ${cl.key} ${cl.blink ? 'pulsing-badge' : ''}">${cl.name}</span>
               </div>
               <div class="event-desc" style="margin: 0.4rem 0;">${App.Utils.escapeHTML(ev.description)}</div>
               <div class="event-card-meta">
@@ -9059,7 +9174,7 @@ App.UI = {
             <td><strong>${App.Utils.formatDateTime(ev.scheduledDate, ev.scheduledTime)}</strong></td>
             <td>
               <span class="status-badge ${classification.key} ${classification.blink ? 'pulsing-badge' : ''}">
-                ${classification.icon || ''} ${classification.name} &bull; ${timerInfo.text}
+                ${classification.name} &bull; ${timerInfo.text}
               </span>
             </td>
             <td>${App.Utils.escapeHTML(conName)} / ${App.Utils.escapeHTML(pipeName)}</td>
@@ -9219,7 +9334,7 @@ App.UI = {
                 <span>${App.Utils.escapeHTML(uoName)}</span>
                 ${tagName ? `<span class="event-tag-badge">${App.Utils.escapeHTML(tagName)}</span>` : ''}
               </div>
-              <span class="status-badge ${cl.key} ${cl.blink ? 'pulsing-badge' : ''}">${cl.icon || ''} ${cl.name}</span>
+              <span class="status-badge ${cl.key} ${cl.blink ? 'pulsing-badge' : ''}">${cl.name}</span>
             </div>
 
             <div class="event-card-body" style="margin-top: 0.5rem;">
@@ -9279,7 +9394,7 @@ App.UI = {
         <tr class="${cl.isOverdue ? 'row-overdue' : ''}" data-event-id="${ev.id}" tabindex="0" onclick="if(!event.target.closest('button')) App.UI.selectPendingDetailEvent('${ev.id}')" onkeydown="if(event.target===this && event.key==='Enter')App.UI.selectPendingDetailEvent('${ev.id}')">
           <td style="white-space: nowrap;"><strong>${App.Utils.formatDateTime(ev.scheduledDate, ev.scheduledTime)}</strong></td>
           <td style="white-space: nowrap;"><span class="event-countdown" style="--event-color: ${cl.color}; font-weight: 700;" data-timestamp="${new Date(ev.scheduledAt).getTime()}">${timerInfo.text}</span></td>
-          <td><span class="status-badge ${cl.key}">${cl.icon || ''} ${cl.name}</span></td>
+          <td><span class="status-badge ${cl.key}">${cl.name}</span></td>
           <td>${App.Utils.escapeHTML(conName)} / ${App.Utils.escapeHTML(pipeName)}</td>
           <td>${App.Utils.escapeHTML(uoName)} ${tagName !== '-' ? `<span class="event-tag-badge">${App.Utils.escapeHTML(tagName)}</span>` : ''}</td>
           <td>${App.Utils.escapeHTML(ev.description)}</td>
@@ -9404,7 +9519,7 @@ App.UI = {
         <button type="button" class="btn btn-outline btn-sm" ${selectedIndex<0 || selectedIndex>=this.activePendingEvents.length-1?'disabled':''} onclick="App.UI.movePendingSelection(1)">Próxima</button>
       </nav>
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.65rem; margin-bottom: 0.75rem;">
-        <span class="status-badge ${cl.key}">${cl.icon || ''} ${cl.name}</span>
+        <span class="status-badge ${cl.key}">${cl.name}</span>
         <span class="event-countdown" style="--event-color: ${cl.color}; font-weight: 800; font-size: 1rem;" data-timestamp="${new Date(ev.scheduledAt).getTime()}">${timerInfo.text}</span>
       </div>
       <div style="display: flex; gap: 0.4rem; margin-bottom: 0.85rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
