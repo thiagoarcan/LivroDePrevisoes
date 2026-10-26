@@ -1,0 +1,20 @@
+--- final_fix_base/parts_html.py
++++ parts_html.py
+@@ -266,7 +266,7 @@
+      Previsões em Dutos
+     </div>
+     <div style="color: var(--text-muted); font-weight: 600">
+-     v1.1.0 • Operação Offline
++     <span data-app-version></span> • Operação Offline
+     </div>
+    </div>
+   </div>
+@@ -2985,7 +2985,7 @@
+     <div class="metric-card">
+      <div class="metric-data">
+       <div class="metric-value" id="diagAppVersion">
+-       v1.1.0
++       —
+       </div>
+       <div class="metric-label">
+        Versão da Aplicação

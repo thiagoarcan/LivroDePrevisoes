@@ -1,0 +1,25 @@
+test_local_date_and_csv_formula (test_core_browser.CoreBrowserTests.test_local_date_and_csv_formula) ... FAIL
+
+======================================================================
+FAIL: test_local_date_and_csv_formula (test_core_browser.CoreBrowserTests.test_local_date_and_csv_formula)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 47, in test_local_date_and_csv_formula
+    self.assertEqual(self.runjs("return [App.Utils.formatDate('2026-10-25T02:30:00Z'),App.Utils.formatTime('2026-10-25T02:30:00Z'),App.Utils.formatDate(new Date('2026-10-25T02:30:00Z')),App.Utils.escapeCSV('=SUM(A1)'),App.Utils.formatDateTime('2026-10-25')];"), ['24/10/2026','23:30','24/10/2026',"'=SUM(A1)",'25/10/2026 00:00'])
+AssertionError: Lists differ: ['24/10/2026', '23:30', '24/10/2026', "'=SUM(A1)", '24/10/2026 21:00'] != ['24/10/2026', '23:30', '24/10/2026', "'=SUM(A1)", '25/10/2026 00:00']
+
+First differing element 4:
+'24/10/2026 21:00'
+'25/10/2026 00:00'
+
+- ['24/10/2026', '23:30', '24/10/2026', "'=SUM(A1)", '24/10/2026 21:00']
+?                                                      ^         ^^
+
++ ['24/10/2026', '23:30', '24/10/2026', "'=SUM(A1)", '25/10/2026 00:00']
+?                                                      ^         ^^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 13.486s
+
+FAILED (failures=1)

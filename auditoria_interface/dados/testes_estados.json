@@ -1,0 +1,359 @@
+{
+  "completed_expansion": {
+    "before": {
+      "display": "block",
+      "height": 155.59375,
+      "expanded": false
+    },
+    "after": {
+      "display": "block",
+      "height": 155.59375,
+      "expanded": true
+    }
+  },
+  "alarm_frozen": {
+    "before": "Atrasado há 12 minutos",
+    "after": "Atrasado há 12 minutos",
+    "expected": "Atrasado há 14 minutos"
+  },
+  "alarm_badges": {
+    "header": "2",
+    "metric": "2",
+    "tablet": "0",
+    "banner": "2 Alarme(s) Ativo(s) Não Reconhecido(s)"
+  },
+  "banner_scrolled": {
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 227.21875,
+      "top": 0,
+      "right": 390,
+      "bottom": 227.21875,
+      "left": 0
+    },
+    "banner": {
+      "x": 0,
+      "y": 52,
+      "width": 390,
+      "height": 99.578125,
+      "top": 52,
+      "right": 390,
+      "bottom": 151.578125,
+      "left": 0
+    }
+  },
+  "detail_default": {
+    "selected": "d1e8beac-8966-43ef-b57d-ee14daa5378a",
+    "tab": "details",
+    "text": "⏱ Atrasado\nAtrasado há 12 minutos\nDetalhes\nAnotações\nHistórico\n✓ Concluir\nEditar\n+ Duplicar\nExcluir"
+  },
+  "detail_clicked": {
+    "tab": "detalhes",
+    "text": "⏱ Atrasado\nAtrasado há 12 minutos\nDetalhes\nAnotações\nHistórico\nHIERARQUIA\nC04 / OSCAN / REFAP\nEQUIPAMENTO / TAG\nBomba (BB-101A)\nHORÁRIO PREVISTO\n25/10/2026 07:27\nPRIORIDADE / ALARME\nCrítica • undefined min antes\nDESCRIÇÃO DA PREVISÃO\nVerificar alinhamento e término de partida da bomba BB-101A\nOBSERVAÇÕES\nConfirmar pressão de sucção e vazão nominal.\n✓ Concluir\nEditar\n+ Duplicar\nExcluir"
+  },
+  "category_before": {
+    "active": "tags",
+    "current": "consoles"
+  },
+  "category_after": {
+    "active": "consoles",
+    "current": "consoles"
+  },
+  "focus_open": {
+    "id": "btnToggleFilters",
+    "inModal": false
+  },
+  "focus_tab": {
+    "id": "checkFilterOnlyActiveConsole",
+    "inModal": false
+  },
+  "focus_escape": {
+    "id": "checkFilterOnlyActiveConsole",
+    "modals": 0
+  },
+  "tab_sequence_drawer_closed": [
+    {
+      "id": "headerActiveConsole",
+      "drawer": false,
+      "x": 139.359375
+    },
+    {
+      "id": "selectHeaderViewMode",
+      "drawer": false,
+      "x": 112.765625
+    },
+    {
+      "id": "btnHeaderAlarmBell",
+      "drawer": false,
+      "x": 324.953125
+    },
+    {
+      "id": "btnHeaderAppStatus",
+      "drawer": false,
+      "x": 372.140625
+    },
+    {
+      "id": "btnToggleTheme",
+      "drawer": false,
+      "x": 350.328125
+    },
+    {
+      "id": "btnBannerViewAlarms",
+      "drawer": false,
+      "x": -53
+    },
+    {
+      "id": "btnBannerAckAll",
+      "drawer": false,
+      "x": 44.234375
+    },
+    {
+      "id": "btnBannerBackupNow",
+      "drawer": false,
+      "x": -53
+    },
+    {
+      "id": "btnCloseMobileDrawer",
+      "drawer": true,
+      "x": -53
+    },
+    {
+      "id": "",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "btnDrawerAppStatus",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "btnDrawerTheme",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "btnDrawerUser",
+      "drawer": true,
+      "x": -272
+    },
+    {
+      "id": "selectDrawerViewMode",
+      "drawer": true,
+      "x": -257.609375
+    }
+  ],
+  "theme_colors": {
+    "dark": {
+      "muted": {
+        "color": "rgb(148, 163, 184)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "font": "12.8px"
+      },
+      "nav": {
+        "color": "rgb(148, 163, 184)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "font": "13.6px"
+      },
+      "primary": {
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(2, 132, 199)",
+        "font": "12.4px"
+      },
+      "body": {
+        "color": "rgb(248, 250, 252)",
+        "bg": "rgb(11, 17, 32)",
+        "font": "16px"
+      },
+      "surface": "#1e293b",
+      "overdue": {
+        "color": "rgb(153, 27, 27)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "font": "14px"
+      }
+    },
+    "light": {
+      "muted": {
+        "color": "rgb(71, 85, 105)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "font": "12.8px"
+      },
+      "nav": {
+        "color": "rgb(71, 85, 105)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "font": "13.6px"
+      },
+      "primary": {
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(2, 132, 199)",
+        "font": "12.4px"
+      },
+      "body": {
+        "color": "rgb(15, 23, 42)",
+        "bg": "rgb(241, 245, 249)",
+        "font": "16px"
+      },
+      "surface": "#ffffff",
+      "overdue": {
+        "color": "rgb(153, 27, 27)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "font": "14px"
+      }
+    },
+    "industrial": {
+      "muted": {
+        "color": "rgb(229, 229, 229)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "font": "12.8px"
+      },
+      "nav": {
+        "color": "rgb(229, 229, 229)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "font": "13.6px"
+      },
+      "primary": {
+        "color": "rgb(0, 0, 0)",
+        "bg": "rgb(234, 179, 8)",
+        "font": "12.4px"
+      },
+      "body": {
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(0, 0, 0)",
+        "font": "16px"
+      },
+      "surface": "#0a0a0a",
+      "overdue": {
+        "color": "rgb(153, 27, 27)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "font": "14px"
+      }
+    }
+  },
+  "downloads": [
+    {
+      "button": "btnExportJSON",
+      "name": "backup_previsoes_dutos_2026-10-25T10-39-46.json",
+      "saved": "teste_backup_previsoes_dutos_2026-10-25T10-39-46.json",
+      "bytes": 32705
+    },
+    {
+      "button": "btnExportCSVAllPending",
+      "name": "previsoes_pendentes.csv",
+      "saved": "teste_previsoes_pendentes.csv",
+      "bytes": 2664
+    },
+    {
+      "button": "btnExportCSVAllCompleted",
+      "name": "previsoes_concluidas.csv",
+      "saved": "teste_previsoes_concluidas.csv",
+      "bytes": 602
+    },
+    {
+      "button": "btnExportCSVCadastros",
+      "name": "estrutura_cadastral_dutos.csv",
+      "saved": "teste_estrutura_cadastral_dutos.csv",
+      "bytes": 2195
+    }
+  ],
+  "mode_persistence": [
+    {
+      "requested": "auto",
+      "loaded": "auto"
+    },
+    {
+      "requested": "compact",
+      "loaded": "compact"
+    },
+    {
+      "requested": "mobile",
+      "loaded": "mobile"
+    },
+    {
+      "requested": "tablet",
+      "loaded": "tablet"
+    },
+    {
+      "requested": "conventional",
+      "loaded": "conventional"
+    },
+    {
+      "requested": "widescreen",
+      "loaded": "widescreen"
+    },
+    {
+      "requested": "ultrawide",
+      "loaded": "ultrawide"
+    }
+  ],
+  "demo_before": {
+    "events": 6,
+    "uos": 4
+  },
+  "demo_after": {
+    "events": 0,
+    "uos": 0,
+    "toasts": "Massa de dados de demonstração carregada com sucesso!\n      ×"
+  },
+  "render_500": {
+    "ms": 355,
+    "cards": 503,
+    "rows": 503
+  },
+  "captures": [
+    "estado_concluidos_expansao_ineficaz.png",
+    "estado_alarme_contador_congelado.png",
+    "estado_alarmes_ativos_celular.png",
+    "estado_banner_rolagem.png",
+    "estado_alarmes_ativos_tablet.png",
+    "estado_detalhe_tablet_inicial.png",
+    "estado_detalhe_tablet_apos_clique.png",
+    "estado_tema_claro_celular.png",
+    "estado_tema_industrial_celular.png",
+    "estado_texto_longo_celular.png",
+    "estado_botao_demo_base_esvaziada.png",
+    "estado_pendentes_vazio.png",
+    "estado_painel_vazio.png"
+  ]
+}

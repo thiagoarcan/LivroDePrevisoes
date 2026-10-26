@@ -1,0 +1,57 @@
+[
+  {
+    "file": "index.html",
+    "bytes": 455869,
+    "sha256": "eff4aea9066735267fdbf1901b538d1e45bace1ab476943363909662b12ede88"
+  },
+  {
+    "file": "parts_css.py",
+    "bytes": 55930,
+    "sha256": "31bfa6064ea6069289eb5e26fbb34638b132e1425ec84110de22d1d946fe8240"
+  },
+  {
+    "file": "parts_html.py",
+    "bytes": 121792,
+    "sha256": "5547860ed6fc3282f61613562327d42d5d707eb4e49f2453ed195be0b00e7005"
+  },
+  {
+    "file": "parts_js_core.py",
+    "bytes": 25028,
+    "sha256": "2994250cfbe49c07dd0f638f1db3a9188843a8390ea1c40c96b454b5a2bdd5dc"
+  },
+  {
+    "file": "parts_js_service.py",
+    "bytes": 65957,
+    "sha256": "6dd29eac342ca0c52b3564398c8c57e6b78c5600e54fa2b01a577fb89aff68f0"
+  },
+  {
+    "file": "parts_js_ui.py",
+    "bytes": 182860,
+    "sha256": "372e684574ff54745c0c464feea4626e2ba74f07b108d13308c3e1092927aba2"
+  },
+  {
+    "file": "build_all.py",
+    "bytes": 836,
+    "sha256": "e1b177f3bb822bf508eea6c87a90442d4ef3feddd49225afea6a8d459b6967d0"
+  },
+  {
+    "file": "Adaptação da aplicação para tablets e celulares.docx",
+    "bytes": 59474,
+    "sha256": "453e4ec803f589ddbc78e0e0ae49e8e950dc45fef64793aeb425b9d469725b97"
+  },
+  {
+    "file": "Designer (1).pdf",
+    "bytes": 18877624,
+    "sha256": "b8094f0d6710f563899cb8471e9688f62fe61e7b1e90f659980e7df33c3cb932"
+  },
+  {
+    "file": "Designer (2).pdf",
+    "bytes": 18877624,
+    "sha256": "38c4de8ad76e7e49edca9402ee6c8b8a587ec84f18a40865826f037487ea8ef9"
+  },
+  {
+    "file": "Designer.pdf",
+    "bytes": 18877624,
+    "sha256": "c619c1ac6ea23c6696488303bd79077b0c99d245a4bbbb8bdf3f986f0f56b13d"
+  }
+]

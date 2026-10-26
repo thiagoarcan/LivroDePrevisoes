@@ -1,0 +1,20 @@
+--- task2_r2_base/parts_js_ui.py
++++ parts_js_ui.py
+@@ -2630,7 +2630,7 @@
+         const schedStr = App.Utils.formatDateTime(ev.scheduledDate, ev.scheduledTime);
+         const compStr = App.Utils.formatDateTime(ev.completedAt);
+         const diffStr = App.Utils.formatDiffMinutes(ev.completedTimeDiffMinutes);
+-        const controllerName = ev.completedBy || ev.createdBy || 'Usuário local';
++        const controllerName = typeof ev.completedBy === 'string' && ev.completedBy.trim() ? ev.completedBy : 'Não informado';
+         const alarmSummary = ev.alarmTriggerCount ? `${ev.alarmTriggerCount} disparo(s)` : (ev.hasAlarm ? 'Ativo (0 disparos)' : 'Sem alarme');
+ 
+         return `
+@@ -2673,7 +2673,7 @@
+       const schedStr = App.Utils.formatDateTime(ev.scheduledDate, ev.scheduledTime);
+       const compStr = App.Utils.formatDateTime(ev.completedAt);
+       const diffStr = App.Utils.formatDiffMinutes(ev.completedTimeDiffMinutes);
+-      const controllerName = ev.completedBy || ev.createdBy || 'Usuário local';
++      const controllerName = typeof ev.completedBy === 'string' && ev.completedBy.trim() ? ev.completedBy : 'Não informado';
+       const alarmSummary = ev.alarmTriggerCount ? `${ev.alarmTriggerCount}x` : (ev.hasAlarm ? 'Ativo' : 'Sem alarme');
+ 
+       return `

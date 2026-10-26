@@ -1,0 +1,386 @@
+--- original/parts_js_core.py
++++ parts_js_core.py
+@@ -6,6 +6,7 @@
+    1. CONFIGURAÇÕES E CONSTANTES
+    ========================================================================== */
+ App.Config = {
++  APP_VERSION: '1.2.0',
+   DB_NAME: 'LivroPrevisoesDutosDB',
+   DB_VERSION: 1,
+   
+@@ -244,11 +245,13 @@
+   },
+ 
+   play: function(type = 'chime', volumePercent = 80) {
++    const requestedVolume = Number(volumePercent);
++    if (!Number.isFinite(requestedVolume) || requestedVolume <= 0) return;
+     this.unlock();
+     if (!this.ctx) return;
+ 
+     const gainNode = this.ctx.createGain();
+-    const masterVol = Math.max(0, Math.min(100, volumePercent)) / 100 * 0.3; // safe gain ceiling
++    const masterVol = Math.max(0, Math.min(100, requestedVolume)) / 100 * 0.3; // safe gain ceiling
+     gainNode.gain.setValueAtTime(masterVol, this.ctx.currentTime);
+     gainNode.connect(this.ctx.destination);
+ 
+@@ -663,3 +666,95 @@
+ };
+ """
+ 
++
++# Transactional persistence and strict local calendar utilities.
++JS_CORE += r"""
++(() => {
++  const U = App.Utils;
++  U.localDateTime = function(date, time = '00:00') {
++    if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date) || typeof time !== 'string' || !/^\d{2}:\d{2}$/.test(time)) throw new Error('Data ou hora inválida.');
++    const [y,m,d] = date.split('-').map(Number), [h,n] = time.split(':').map(Number);
++    const value = new Date(y,m-1,d,h,n,0,0);
++    if (y < 100 || value.getFullYear()!==y || value.getMonth()!==m-1 || value.getDate()!==d || value.getHours()!==h || value.getMinutes()!==n) throw new Error('Data ou hora inválida.');
++    return value;
++  };
++  U.formatDate = function(value) {
++    if (!value) return '--';
++    let date;
++    try { date = typeof value==='string' && /^\d{4}-\d{2}-\d{2}$/.test(value) ? U.localDateTime(value) : new Date(value); } catch (_) { return '--'; }
++    if (!Number.isFinite(date.getTime())) return '--';
++    return `${String(date.getDate()).padStart(2,'0')}/${String(date.getMonth()+1).padStart(2,'0')}/${date.getFullYear()}`;
++  };
++  U.formatTime = function(value) {
++    if (!value) return '--';
++    if (typeof value==='string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(value)) return value;
++    const date = new Date(value);
++    return Number.isFinite(date.getTime()) ? `${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}` : '--';
++  };
++  U.formatDateTime = function(value, time) {
++    if (!value) return '--';
++    if (time !== undefined && time !== null && time !== '') return `${U.formatDate(value)} ${U.formatTime(time)}`;
++    let date;
++    try { date = typeof value==='string' && /^\d{4}-\d{2}-\d{2}$/.test(value) ? U.localDateTime(value) : new Date(value); } catch (_) { return '--'; }
++    if (!Number.isFinite(date.getTime())) return '--';
++    return `${U.formatDate(date)} ${U.formatTime(date)}`;
++  };
++  U.escapeCSV = function(value) {
++    if (value===null || value===undefined) return '""';
++    let text = String(value);
++    if (typeof value==='string' && /^[\s]*[=+\-@\t\r]/.test(text)) text="'"+text;
++    return /[;"\n\r]/.test(text) ? '"'+text.replace(/"/g,'""')+'"' : text;
++  };
++  App.DB.DATA_STORES = ['consoles','pipelines','operationalUnits','pipelineOperationalUnits','equipmentTypes','equipmentTags','events','eventHistory','colorRanges','settings'];
++  // callback(draft, transaction) MUST be synchronous. Draft arrays are replaced together
++  // in one real IndexedDB transaction; throws/abort roll everything back. Do not await
++  // external work from callback: IndexedDB would close the transaction.
++  App.DB.atomic = async function(names, callback) {
++    await this.open();
++    return new Promise((resolve,reject) => {
++      const tx=this.db.transaction(names,'readwrite'), draft={}; let remaining=names.length, result, failure;
++      tx.oncomplete=()=>resolve(result);
++      tx.onabort=()=>reject(failure || tx.error || new Error('Transação cancelada.'));
++      tx.onerror=()=>{ failure=tx.error; };
++      for (const name of names) {
++        const q=tx.objectStore(name).getAll();
++        q.onsuccess=()=>{
++          draft[name]=q.result;
++          if (--remaining) return;
++          try {
++            result=callback(draft,tx);
++            if (result && typeof result.then==='function') throw new Error('Callback transacional deve ser síncrono.');
++            for (const store of names) {
++              const target=tx.objectStore(store); target.clear();
++              for (const item of draft[store]) target.add(item);
++            }
++          } catch (err) { failure=err; tx.abort(); }
++        };
++      }
++    });
++  };
++  App.DB.snapshot = async function(names=this.DATA_STORES) {
++    await this.open();
++    return new Promise((resolve,reject)=>{
++      const tx=this.db.transaction(names,'readonly'), result={};
++      tx.oncomplete=()=>resolve(result);
++      tx.onabort=()=>reject(tx.error || new Error('Leitura cancelada.'));
++      tx.onerror=()=>reject(tx.error);
++      for (const name of names) { const q=tx.objectStore(name).getAll(); q.onsuccess=()=>{result[name]=q.result;}; }
++    });
++  };
++  for (const [method,operation] of [['insert','add'],['update','put'],['delete','delete'],['clear','clear']]) {
++    App.DB[method]=async function(name,item) {
++      await this.open();
++      return new Promise((resolve,reject)=>{
++        const tx=this.db.transaction([name],'readwrite'); let failure;
++        tx.oncomplete=()=>resolve(method==='insert'||method==='update' ? item : true);
++        tx.onabort=()=>reject(failure || tx.error || new Error('Transação cancelada.'));
++        tx.onerror=()=>{failure=tx.error;};
++        try { tx.objectStore(name)[operation](...(method==='clear' ? [] : [item])); }
++        catch(err) { failure=err; tx.abort(); }
++      });
++    };
++  }
++})();
++"""
+--- original/parts_js_service.py
++++ parts_js_service.py
+@@ -1587,7 +1587,7 @@
+       const allEvents = await App.DB.getAll('events');
+       const filtered = normType === 'all'
+         ? allEvents.filter(e => e.active !== false)
+-        : allEvents.filter(e => normType === 'pending' ? e.status === 'pendente' : e.status === 'concluido');
++        : allEvents.filter(e => e.active !== false && (normType === 'pending' ? e.status === 'pendente' : e.status === 'concluido'));
+ 
+       const headers = [
+         'ID', 'Situação', 'Console', 'Duto', 'UO', 'Tipo de Equipamento', 'TAG',
+@@ -1668,3 +1668,253 @@
+ };
+ """
+ 
++
++# Integrity rules shared by services, import preview and transactional merge.
++JS_SERVICE += r"""
++(() => {
++  const stores=App.DB.DATA_STORES, S=App.Service, U=App.Utils;
++  const fail=message=>{throw new Error(message);};
++  const integer=(value,min,max,label)=>{
++    if ((typeof value!=='number' && typeof value!=='string') || value==='' || !Number.isInteger(Number(value)) || Number(value)<min || Number(value)>max) fail(`${label}: número inteiro entre ${min} e ${max}.`);
++    return Number(value);
++  };
++  const iso=value=>typeof value==='string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value) && Number.isFinite(Date.parse(value)) && (()=>{try{U.localDateTime(value.slice(0,10),value.slice(11,16));return true;}catch(_){return false;}})();
++  const text=(value,label)=>{if(typeof value!=='string'||!value.trim())fail(`${label} obrigatório.`);return value.trim();};
++  const drawing=value=>{if(value!=null && value!=='' && (typeof value!=='string'||value.length>3000000||!/^data:image\/png;base64,iVBORw0KGgo[A-Za-z0-9+/]*={0,2}$/.test(value)))fail('Desenho deve ser uma imagem PNG segura.');};
++  const settingsValid=value=>{
++    if(!value || typeof value!=='object'||Array.isArray(value))fail('Configurações inválidas.');
++    const enums={soundType:['chime','beep','siren','blip'],theme:['dark','light','industrial'],viewMode:['cards','table'],responsiveLayoutMode:['auto','compact','mobile','tablet','conventional','widescreen','ultrawide']};
++    for(const [key,list] of Object.entries(enums))if(value[key]!==undefined&&!list.includes(value[key]))fail(`Configuração ${key} inválida.`);
++    for(const [key,min,max] of [['soundVolume',0,100],['defaultLeadTimeMinutes',0,525600],['repeatIntervalMinutes',1,1440],['maxRepeats',0,1000],['backupReminderDays',1,3650]])if(value[key]!==undefined){if(typeof value[key]!=='number')fail(`Configuração ${key} deve ser numérica.`);integer(value[key],min,max,key);}
++    for(const [key,def] of Object.entries(App.Config.DEFAULT_SETTINGS))if(typeof def==='boolean'&&value[key]!==undefined&&typeof value[key]!=='boolean')fail(`Configuração ${key} inválida.`);
++    if(value.localUserName!==undefined)text(value.localUserName,'Nome do usuário');
++    if(value.lastBackupAt!=null&&!iso(value.lastBackupAt))fail('Data de backup inválida.');
++  };
++  const rangesValid=rows=>{
++    if(!rows.length)fail('Pelo menos uma faixa é obrigatória.');
++    const ordered=[...rows].sort((a,b)=>a.minMinutes-b.minMinutes);let end=0;
++    for(const r of ordered){text(r.name,'Faixa');if(!/^#[0-9a-f]{6}$/i.test(r.color))fail('Cor inválida.');integer(r.minMinutes,0,999999999,'Limite inicial');integer(r.maxMinutes,1,999999999,'Limite final');integer(r.priority,0,1000,'Prioridade');if(r.minMinutes!==end||r.maxMinutes<=r.minMinutes)fail('Faixas com lacuna, sobreposição ou limite inválido.');end=r.maxMinutes;}
++    return ordered;
++  };
++  const uniqueKey=(store,row)=>{
++    const key=U.cleanStr(row.name||row.tag);
++    switch(store){case 'consoles':case 'operationalUnits':case 'colorRanges':return key;case 'pipelines':return row.consoleId+'|'+key;case 'equipmentTypes':return row.uoId+'|'+key;case 'equipmentTags':return U.cleanStr(row.tag);case 'pipelineOperationalUnits':return row.pipelineId+'|'+row.uoId;default:return null;}
++  };
++  const validateData=(data)=>{
++    if(!data||typeof data!=='object'||Array.isArray(data)||Object.keys(data).some(key=>!stores.includes(key)))fail('Coleção desconhecida ou seção de dados inválida.');
++    const maps={};
++    for(const store of stores){
++      if(!Array.isArray(data[store]))fail(`Coleção obrigatória ausente: ${store}.`);
++      maps[store]=new Map();const business=new Set();
++      for(const row of data[store]){
++        if(!row||typeof row!=='object'||Array.isArray(row))fail(`Linha inválida em ${store}.`);
++        const id=store==='settings'?row.key:row.id;
++        if(typeof id!=='string'||!/^[A-Za-z0-9_-]{1,128}$/.test(id)||['__proto__','constructor','prototype'].includes(id))fail(`ID inválido em ${store}.`);
++        if(maps[store].has(id))fail(`ID duplicado em ${store}: ${id}.`);maps[store].set(id,row);
++        const businessKey=uniqueKey(store,row);if(businessKey!==null){if(!businessKey||business.has(businessKey))fail(`Duplicidade cadastral em ${store}.`);business.add(businessKey);}
++        if(row.version!==undefined){if(typeof row.version!=='number')fail('Versão deve ser numérica.');integer(row.version,1,Number.MAX_SAFE_INTEGER,'Versão');}
++        for(const key of ['createdAt','updatedAt','timestamp','completedAt','lastAlarmTriggeredAt'])if(row[key]!=null&&!iso(row[key]))fail(`Data ${key} inválida em ${store}.`);
++        for(const [key,value] of Object.entries(row)){
++          if((['alarmMinutesBefore','alarmRepeatInterval','alarmMaxRepeats','alarmTriggerCount','minMinutes','maxMinutes'].includes(key)||(store==='colorRanges'&&key==='priority'))&&typeof value!=='number')fail(`Número ${key} inválido.`);
++          if(['notes','completionNote','createdBy','completedBy','localUser','description','previousValue','newValue','synchronizationStatus'].includes(key)&&value!=null&&typeof value!=='string')fail(`Texto ${key} inválido.`);
++          if(['active','hasAlarm','useDefaultAlarmSettings','alarmAudio','alarmVisual','alarmNotification','alarmRepeat','blink','sound'].includes(key)&&typeof value!=='boolean')fail(`Booleano ${key} inválido.`);
++          if(/^(?:url|link|href|externalUrl)$/i.test(key)&&value!=null&&value!==''&&(typeof value!=='string'||!/^https?:\/\//i.test(value)))fail('Link inválido.');
++        }
++        drawing(row.stylusDrawing);
++      }
++    }
++    const ref=(store,id)=>{if(!maps[store].has(id))fail(`Referência ausente em ${store}: ${id}.`);return maps[store].get(id);};
++    for(const row of data.consoles)text(row.name,'Console');
++    for(const row of data.operationalUnits)text(row.name,'UO');
++    for(const row of data.pipelineOperationalUnits){ref('pipelines',row.pipelineId);ref('operationalUnits',row.uoId);}
++    for(const row of data.pipelines){text(row.name,'Duto');ref('consoles',row.consoleId);if(new Set(data.pipelineOperationalUnits.filter(l=>l.pipelineId===row.id).map(l=>l.uoId)).size<2)fail('Duto exige duas UOs distintas.');}
++    for(const row of data.equipmentTypes){text(row.name,'Tipo');ref('operationalUnits',row.uoId);}
++    for(const row of data.equipmentTags){text(row.tag,'TAG');ref('operationalUnits',row.uoId);if(ref('equipmentTypes',row.equipmentTypeId).uoId!==row.uoId)fail('Tipo e TAG possuem UOs incompatíveis.');}
++    for(const row of data.events){
++      text(row.description,'Descrição');ref('consoles',row.consoleId);const p=ref('pipelines',row.pipelineId);ref('operationalUnits',row.uoId);
++      if(p.consoleId!==row.consoleId||!data.pipelineOperationalUnits.some(l=>l.pipelineId===row.pipelineId&&l.uoId===row.uoId))fail('Console, duto e UO incompatíveis.');
++      if(row.equipmentTypeId&&ref('equipmentTypes',row.equipmentTypeId).uoId!==row.uoId)fail('Tipo incompatível com UO.');
++      if(row.tagId){const t=ref('equipmentTags',row.tagId);if(t.uoId!==row.uoId||t.equipmentTypeId!==row.equipmentTypeId)fail('TAG incompatível com tipo ou UO.');}
++      const date=U.localDateTime(row.scheduledDate,row.scheduledTime);
++      if(!iso(row.scheduledAt)||Date.parse(row.scheduledAt)!==date.getTime())fail('Horário previsto inconsistente.');
++      if(!['pendente','concluido'].includes(row.status)||!['idle','triggered','snoozed','acknowledged'].includes(row.alarmState))fail('Situação do evento inválida.');
++      if(row.priority!==undefined&&!['Baixa','Normal','Alta','Crítica','Urgente'].includes(row.priority))fail('Prioridade inválida.');
++      for(const [key,min,max] of [['alarmMinutesBefore',0,525600],['alarmRepeatInterval',1,1440],['alarmMaxRepeats',0,1000],['alarmTriggerCount',0,Number.MAX_SAFE_INTEGER]])if(row[key]!==undefined)integer(row[key],min,max,key);
++      if(row.alarmSnoozedUntil!=null&&(!Number.isFinite(row.alarmSnoozedUntil)||row.alarmSnoozedUntil<0))fail('Adiamento inválido.');
++      if(row.completedTimeDiffMinutes!=null&&!Number.isFinite(row.completedTimeDiffMinutes))fail('Diferença de conclusão inválida.');
++      if(row.status==='concluido'&&!iso(row.completedAt))fail('Conclusão sem data válida.');
++    }
++    for(const h of data.eventHistory){ref('events',h.eventId);text(h.action,'Ação do histórico');if(!iso(h.timestamp))fail('Data de histórico inválida.');}
++    rangesValid(data.colorRanges);
++    for(const row of data.settings){if(row.key!=='app_settings')fail('Chave de configuração desconhecida.');settingsValid(row.value);if(row.value.activeConsoleId!=null)ref('consoles',row.value.activeConsoleId);}
++    if(data.settings.length!==1)fail('Configuração principal obrigatória.');
++    return data;
++  };
++  App.Validation={validateData,settings:settingsValid,ranges:rangesValid,integer,isISO:iso};
++  const stamp=(current,values)=>({...current,...values,updatedAt:new Date().toISOString(),version:(current?.version??0)+1,...(!current?{id:U.uuid(),active:true,createdAt:new Date().toISOString(),synchronizationStatus:'local-only'}:{})});
++  const config=d=>({...App.Config.DEFAULT_SETTINGS,...d.settings.find(x=>x.key==='app_settings')?.value});
++  const actor=d=>config(d).localUserName;
++  const history=(d,e,action,description,previous=null)=>d.eventHistory.push({id:U.uuid(),eventId:e.id,action,description,timestamp:new Date().toISOString(),previousValue:previous,newValue:JSON.stringify(e),localUser:actor(d)});
++  const change=callback=>App.DB.atomic(stores,d=>{const result=callback(d);validateData(d);return result;});
++  const get=(d,store,id)=>d[store].find(x=>x.id===id)||fail('Registro não encontrado.');
++  const activeRef=(d,store,id,oldId)=>{const r=get(d,store,id);if(r.active===false&&id!==oldId)fail('Não é permitido selecionar cadastro inativo.');return r;};
++  S.getSettings=async()=>({...App.Config.DEFAULT_SETTINGS,...(await App.DB.get('settings','app_settings'))?.value});
++  S.saveSettings=async value=>change(d=>{settingsValid(value);const old=d.settings[0];d.settings=[{...old,key:'app_settings',value:{...App.Config.DEFAULT_SETTINGS,...value},updatedAt:new Date().toISOString(),version:(old?.version??0)+1}];return d.settings[0].value;});
++  const masterSave=(store,data)=>change(d=>{
++    const old=data.id?get(d,store,data.id):null;const values={};
++    for(const key of (store==='equipmentTags'?['tag']:['name']))values[key]=text(data[key],key);
++    if(store==='pipelines'){values.consoleId=data.consoleId;activeRef(d,'consoles',data.consoleId,old?.consoleId);const ids=data.uoIds;if(!Array.isArray(ids)||new Set(ids).size!==ids.length||ids.length<2)fail('Duto exige duas UOs distintas.');for(const id of ids)activeRef(d,'operationalUnits',id,d.pipelineOperationalUnits.some(l=>l.pipelineId===old?.id&&l.uoId===id)?id:null);}
++    if(['equipmentTypes','equipmentTags'].includes(store)){values.uoId=data.uoId;activeRef(d,'operationalUnits',data.uoId,old?.uoId);}
++    if(store==='equipmentTags'){values.equipmentTypeId=data.equipmentTypeId;activeRef(d,'equipmentTypes',data.equipmentTypeId,old?.equipmentTypeId);}
++    const row=stamp(old,values);d[store]=d[store].filter(x=>x.id!==row.id).concat(row);
++    if(store==='pipelines'){const prior=d.pipelineOperationalUnits.filter(l=>l.pipelineId===row.id);d.pipelineOperationalUnits=d.pipelineOperationalUnits.filter(l=>l.pipelineId!==row.id);for(const id of data.uoIds)d.pipelineOperationalUnits.push(prior.find(l=>l.uoId===id)||{id:U.uuid(),pipelineId:row.id,uoId:id,createdAt:new Date().toISOString(),version:1,synchronizationStatus:'local-only'});}
++    return row;
++  });
++  for(const [name,store] of [['Console','consoles'],['Pipeline','pipelines'],['UO','operationalUnits'],['EquipmentType','equipmentTypes'],['EquipmentTag','equipmentTags']]){
++    S['save'+name]=data=>masterSave(store,data);
++    S['toggle'+name+'Active']=id=>change(d=>{const row=get(d,store,id);Object.assign(row,stamp(row,{active:!row.active}));return row;});
++    S['delete'+name]=id=>change(d=>{get(d,store,id);d[store]=d[store].filter(x=>x.id!==id);if(store==='pipelines')d.pipelineOperationalUnits=d.pipelineOperationalUnits.filter(l=>l.pipelineId!==id);try{validateData(d);}catch(err){err.isDependencyError=true;err.dependencies=['Referências vinculadas preservadas'];err.targetStore=store;err.targetId=id;throw err;}return true;});
++  }
++  S.saveUOBatch=names=>change(d=>{const created=[],existing=[];for(const name of [...new Set(text(names,'UOs').split(/[,;\n\r]+/).map(x=>x.trim()).filter(Boolean))]){let row=d.operationalUnits.find(u=>U.cleanStr(u.name)===U.cleanStr(name));if(row){if(!row.active)Object.assign(row,stamp(row,{active:true}));existing.push(row);}else{row=stamp(null,{name});d.operationalUnits.push(row);created.push(row);}}return{created,existing,all:[...created,...existing]};});
++  S.saveEvent=data=>change(d=>{
++    const old=data.id?get(d,'events',data.id):null;
++    for(const [field,store] of [['consoleId','consoles'],['pipelineId','pipelines'],['uoId','operationalUnits'],['equipmentTypeId','equipmentTypes'],['tagId','equipmentTags']])if(data[field])activeRef(d,store,data[field],old?.[field]);
++    const date=U.localDateTime(data.scheduledDate,data.scheduledTime), scheduledAt=date.toISOString();
++    for(const field of ['hasAlarm','useDefaultAlarmSettings','alarmAudio','alarmVisual','alarmNotification','alarmRepeat'])if(data[field]!==undefined&&typeof data[field]!=='boolean')fail(`Booleano ${field} inválido.`);
++    const row=stamp(old,{consoleId:data.consoleId,pipelineId:data.pipelineId,uoId:data.uoId,equipmentTypeId:data.equipmentTypeId||null,tagId:data.tagId||null,scheduledDate:data.scheduledDate,scheduledTime:data.scheduledTime,scheduledAt,description:text(data.description,'Descrição'),notes:data.notes??'',priority:data.priority??'Normal',stylusDrawing:data.stylusDrawing===undefined?old?.stylusDrawing??null:data.stylusDrawing,hasAlarm:data.hasAlarm??false,useDefaultAlarmSettings:data.useDefaultAlarmSettings??false,alarmMinutesBefore:integer(data.alarmMinutesBefore??0,0,525600,'Antecedência'),alarmAudio:data.alarmAudio??true,alarmVisual:data.alarmVisual??true,alarmNotification:data.alarmNotification??false,alarmRepeat:data.alarmRepeat??false,alarmRepeatInterval:integer(data.alarmRepeatInterval??2,1,1440,'Intervalo'),alarmMaxRepeats:integer(data.alarmMaxRepeats??5,0,1000,'Repetições')});
++    if(!old)Object.assign(row,{status:'pendente',alarmState:'idle',alarmSnoozedUntil:null,alarmTriggerCount:0,lastAlarmTriggeredAt:null,completedAt:null,completedTimeDiffMinutes:null,completionNote:'',createdBy:actor(d)});
++    if(old&&(old.scheduledAt!==scheduledAt||old.hasAlarm!==row.hasAlarm))Object.assign(row,{alarmState:'idle',alarmSnoozedUntil:null,alarmTriggerCount:0,lastAlarmTriggeredAt:null});
++    d.events=d.events.filter(x=>x.id!==row.id).concat(row);history(d,row,old?'edicao':'criacao',old?'Evento atualizado':'Previsão criada',old?JSON.stringify(old):null);return row;
++  });
++  const transition=(id,action,fn)=>change(d=>{const row=get(d,'events',id);if(row.active===false)fail('Evento excluído.');const previous=JSON.stringify(row);fn(row,d);Object.assign(row,stamp(row,{}));history(d,row,action,action,previous);return row;});
++  S.completeEvent=(id,note='')=>transition(id,'conclusao',(e,d)=>{if(e.status!=='pendente')fail('Evento já concluído.');Object.assign(e,{status:'concluido',completedAt:new Date().toISOString(),completedBy:actor(d),completedTimeDiffMinutes:(Date.now()-Date.parse(e.scheduledAt))/60000,completionNote:String(note).trim(),alarmState:'acknowledged',alarmSnoozedUntil:null});});
++  S.reopenEvent=(id,date,time)=>transition(id,'reabertura',e=>{if((date&&!time)||(!date&&time))fail('Informe data e hora.');if(date){e.scheduledAt=U.localDateTime(date,time).toISOString();e.scheduledDate=date;e.scheduledTime=time;}Object.assign(e,{status:'pendente',completedAt:null,completedBy:null,completedTimeDiffMinutes:null,completionNote:'',alarmState:'idle',alarmSnoozedUntil:null,alarmTriggerCount:0,lastAlarmTriggeredAt:null});});
++  S.snoozeAlarm=(id,minutes)=>{const count=integer(minutes,1,1440,'Adiamento');return transition(id,'adiamento',e=>{if(e.status!=='pendente'||!e.hasAlarm)fail('Alarme indisponível.');e.alarmState='snoozed';e.alarmSnoozedUntil=Date.now()+count*60000;});};
++  S.acknowledgeAlarm=id=>transition(id,'reconhecimento',e=>{if(e.status!=='pendente')fail('Evento concluído.');e.alarmState='acknowledged';e.alarmSnoozedUntil=null;});
++  S.deleteEvent=async id=>{await transition(id,'exclusao',e=>{e.active=false;e.alarmState='acknowledged';e.alarmSnoozedUntil=null;});return true;};
++  S.validateColorRanges=rangesValid;
++  S.saveColorRange=data=>change(d=>{const old=data.id?get(d,'colorRanges',data.id):null;const row=stamp(old,{name:text(data.name,'Faixa'),color:data.color,minMinutes:integer(data.minMinutes,0,999999999,'Início'),maxMinutes:integer(data.maxMinutes,1,999999999,'Fim'),priority:integer(data.priority??1,0,1000,'Prioridade'),blink:!!data.blink,sound:!!data.sound,active:true});d.colorRanges=d.colorRanges.filter(r=>r.id!==row.id).concat(row);return true;});
++  S.deleteColorRange=id=>change(d=>{get(d,'colorRanges',id);d.colorRanges=d.colorRanges.filter(r=>r.id!==id);return true;});
++  S.resetColorRanges=()=>change(d=>{d.colorRanges=structuredClone(App.Config.DEFAULT_COLOR_RANGES);return true;});
++  // Explicit full reset includes history, errors, settings and catalogues together.
++  S.clearAllData=()=>App.DB.atomic([...stores,'errorLogs'],d=>{for(const s of [...stores,'errorLogs'])d[s]=[];d.consoles=App.Config.INITIAL_CONSOLES.map(name=>stamp(null,{name}));d.colorRanges=structuredClone(App.Config.DEFAULT_COLOR_RANGES);d.settings=[{key:'app_settings',value:{...App.Config.DEFAULT_SETTINGS,activeConsoleId:d.consoles.find(c=>c.name==='C04').id}}];return true;});
++  // Preserve the six original demonstration scenarios. Mixing with operational
++  // catalogues is refused; UI can explicitly back up/reset before loading them.
++  S.loadDemoData=()=>change(d=>{
++    if(d.events.length||d.pipelines.length||d.operationalUnits.length)fail('Demonstração requer base operacional vazia. Exporte um backup antes de limpar os dados.');
++    const consoles={};
++    for(const name of ['C04','C08','C10']){let c=d.consoles.find(c=>U.cleanStr(c.name)===U.cleanStr(name));if(c?.active===false)fail('Console demonstrativo inativo.');if(!c){c=stamp(null,{name});d.consoles.push(c);}consoles[name]=c;}
++    const units={};for(const name of ['REFAP','TEDEP','REPLAN','TEBAR']){const row=stamp(null,{name});units[name]=row;d.operationalUnits.push(row);}
++    const pipelines={};for(const [name,consoleName,unitNames] of [['OSCAN','C04',['REFAP','TEDEP']],['OSBRA','C08',['REPLAN','TEBAR']],['DTCS','C10',['REPLAN','TEDEP']]]){const row=stamp(null,{name,consoleId:consoles[consoleName].id});pipelines[name]=row;d.pipelines.push(row);for(const unitName of unitNames)d.pipelineOperationalUnits.push({id:U.uuid(),pipelineId:row.id,uoId:units[unitName].id,version:1,createdAt:new Date().toISOString(),synchronizationStatus:'local-only'});}
++    const equipment={};for(const [name,unitName,tag] of [['Tanque','REFAP','TQ-804'],['Bomba','REFAP','BB-101A'],['Esfera','REPLAN','ES-201'],['Válvula de Controle','TEDEP','PCV-301']]){const type=stamp(null,{name,uoId:units[unitName].id}),row=stamp(null,{tag,uoId:units[unitName].id,equipmentTypeId:type.id});d.equipmentTypes.push(type);d.equipmentTags.push(row);equipment[tag]=row;}
++    const examples=[
++      [-12,'C04','OSCAN','REFAP','BB-101A','Verificar alinhamento e término de partida da bomba BB-101A','Confirmar pressão de sucção e vazão nominal.','Crítica',15],
++      [8,'C04','OSCAN','REFAP','TQ-804','Verificar o término do recebimento de MGO no TQ-804','Monitorar nível máximo seguro de 85% e preparar fechamento de válvula.','Alta',15],
++      [22,'C08','OSBRA','REPLAN','ES-201','Acompanhar transferência de GLP para a esfera ES-201','Vazão prevista de 180 m³/h.','Normal',15],
++      [50,'C10','DTCS','TEDEP','PCV-301','Ajuste de controle de contrapressão na PCV-301','Ajuste fino de setpoint para amortecimento de transiente.','Normal',15],
++      [150,'C04','OSCAN','TEDEP',null,'Chegada estimada de PIG raspador no recebedor de TEDEP','Aviso prévio à equipe de manutenção para abertura de câmara.','Baixa',30],
++      [-40,'C08','OSBRA','TEBAR',null,'Abertura de manifold de recebimento de Diesel S10','Operação concluída conforme procedimento operacional padrão.','Normal',15]
++    ];
++    for(const [offset,consoleName,pipelineName,unitName,tag,description,notes,priority,lead] of examples){
++      const date=new Date(Date.now()+offset*60000),ds=`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`,ts=`${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}`;
++      const e=stamp(null,{consoleId:consoles[consoleName].id,pipelineId:pipelines[pipelineName].id,uoId:units[unitName].id,equipmentTypeId:tag?equipment[tag].equipmentTypeId:null,tagId:tag?equipment[tag].id:null,description,notes,priority,stylusDrawing:null,scheduledDate:ds,scheduledTime:ts,scheduledAt:U.localDateTime(ds,ts).toISOString(),status:'pendente',hasAlarm:true,useDefaultAlarmSettings:false,alarmMinutesBefore:lead,alarmAudio:true,alarmVisual:true,alarmNotification:false,alarmRepeat:false,alarmRepeatInterval:2,alarmMaxRepeats:5,alarmState:'idle',alarmTriggerCount:0,lastAlarmTriggeredAt:null,alarmSnoozedUntil:null,createdBy:actor(d),completedAt:null,completedTimeDiffMinutes:null,completionNote:''});
++      d.events.push(e);history(d,e,'criacao','Demonstração criada');
++      if(offset===-40){Object.assign(e,{status:'concluido',completedAt:new Date().toISOString(),completedBy:actor(d),completedTimeDiffMinutes:(Date.now()-Date.parse(e.scheduledAt))/60000,completionNote:'Manifold aberto e estanqueidade confirmada sem anomalias.',alarmState:'acknowledged',version:2});history(d,e,'conclusao','Demonstração concluída');}
++    }
++    return true;
++  });
++  const B=App.Backup;
++  B.validateBackupData=function(input){let parsed;try{parsed=typeof input==='string'?JSON.parse(input):structuredClone(input);}catch(_){fail('Backup JSON inválido.');}if(!parsed||!['1',1].includes(parsed.schemaVersion)||!iso(parsed.exportedAt))fail('Versão ou data de exportação inválida.');validateData(parsed.data||{});return parsed;};
++  B.createSnapshot=async()=>({application:'Controle de Previsões em Dutos',schemaVersion:1,exportedAt:new Date().toISOString(),data:await App.DB.snapshot()});
++  B.exportJSON=async function(){const b=await this.createSnapshot();this.downloadBlob(new Blob([JSON.stringify(b,null,2)],{type:'application/json;charset=utf-8'}),`backup_previsoes_dutos_${new Date().toISOString().replace(/[:.]/g,'-')}.json`);const conf=await S.getSettings();conf.lastBackupAt=new Date().toISOString();await S.saveSettings(conf);await App.UI.updateBackupPill?.(conf.lastBackupAt);await App.UI.showToast?.('Backup JSON exportado com sucesso!','success');return b;};
++  // Merge conflicts leave the ENTIRE database unchanged. UI must display conflicts.
++  B.importJSON=async function(input,mode='merge'){
++    if(!['merge','replace'].includes(mode))fail('Modo de importação inválido.');const backup=this.validateBackupData(input);
++    return App.DB.atomic(stores,d=>{
++      const result={mode,inserted:0,updated:0,skipped:0,conflicts:[],applied:false};
++      const candidate=structuredClone(d);
++      for(const store of stores){
++        if(mode==='replace'){candidate[store]=structuredClone(backup.data[store]);result.inserted+=candidate[store].length;continue;}
++        const key=r=>store==='settings'?r.key:r.id;
++        for(const incoming of backup.data[store]){
++          const current=candidate[store].find(x=>key(x)===key(incoming));
++          if(!current){const business=uniqueKey(store,incoming);if(business!==null&&candidate[store].some(x=>uniqueKey(store,x)===business)){result.conflicts.push({store,id:key(incoming),reason:'duplicate-business-key'});continue;}candidate[store].push(structuredClone(incoming));result.inserted++;continue;}
++          if(JSON.stringify(current)===JSON.stringify(incoming)){result.skipped++;continue;}
++          const cv=current.version??0,nv=incoming.version??0,ct=Date.parse(current.updatedAt||current.createdAt||current.timestamp||'')||0,nt=Date.parse(incoming.updatedAt||incoming.createdAt||incoming.timestamp||'')||0;
++          if(nv<cv||nt<ct){result.skipped++;continue;}
++          if(nv===cv&&nt===ct){result.conflicts.push({store,id:key(incoming),reason:'same-revision-different-content'});continue;}
++          if((nv>cv&&nt<ct)||(nv<cv&&nt>ct)){result.conflicts.push({store,id:key(incoming),reason:'divergent-revision'});continue;}
++          Object.assign(current,structuredClone(incoming));result.updated++;
++        }
++      }
++      if(result.conflicts.length){result.inserted=0;result.updated=0;return result;}
++      try{validateData(candidate);}catch(err){if(mode==='replace')throw err;result.conflicts.push({store:'data',id:null,reason:err.message});result.inserted=0;result.updated=0;return result;}
++      for(const store of stores)d[store]=candidate[store];result.applied=true;return result;
++    });
++  };
++})();
++"""
++
++JS_SERVICE += r"""
++(() => {
++  const E=App.AlarmEngine;
++  E._owner=App.Utils.uuid();E._tickPromise=null;E.onTick=null;
++  E.channels=function(event,settings){const defaults=event.useDefaultAlarmSettings,volume=Number(settings.soundVolume??80);return {audio:!!((defaults?settings.soundEnabled:event.alarmAudio)&&Number.isFinite(volume)&&volume>0&&App.Audio.isUnlocked&&App.Audio.ctx?.state==='running'),visual:!!((defaults?settings.visualAlertEnabled:event.alarmVisual)&&typeof App.UI?.showAlarmModal==='function'),notification:!!((defaults?settings.notificationEnabled:event.alarmNotification)&&App.Notifications.getPermissionState()==='concedida')};};
++  E.due=function(event,settings,now=Date.now()){
++    if(!event||event.active===false||event.status!=='pendente'||!event.hasAlarm||event.alarmState==='acknowledged')return false;
++    const defaults=event.useDefaultAlarmSettings,lead=defaults?(settings.defaultLeadTimeMinutes??15):(event.alarmMinutesBefore??0);
++    if(now<Date.parse(event.scheduledAt)-lead*60000||event.alarmSnoozedUntil&&now<event.alarmSnoozedUntil)return false;
++    if(event.alarmState==='snoozed'&&event.alarmSnoozedUntil&&now>=event.alarmSnoozedUntil)return true;
++    if(!event.lastAlarmTriggeredAt)return true;
++    // maxRepeats counts additional firings AFTER the initial alarm. Zero disables repeats.
++    const repeat=defaults?settings.repeatAlarm:event.alarmRepeat,limit=defaults?(settings.maxRepeats??5):(event.alarmMaxRepeats??5),interval=defaults?(settings.repeatIntervalMinutes??2):(event.alarmRepeatInterval??2);
++    return !!repeat&&(event.alarmTriggerCount??0)<1+limit&&now-Date.parse(event.lastAlarmTriggeredAt)>=interval*60000;
++  };
++  E.withLock=async function(callback){
++    if(navigator.locks?.request)return navigator.locks.request('livro-previsoes-alarm-engine',{mode:'exclusive',ifAvailable:true},lock=>lock?callback():false);
++    const key='livro-previsoes-alarm-lease',owner=this._owner;let lease;
++    try{lease=JSON.parse(localStorage.getItem(key)||'null');if(lease&&lease.expires>Date.now()&&lease.owner!==owner)return false;localStorage.setItem(key,JSON.stringify({owner,expires:Date.now()+15000}));if(JSON.parse(localStorage.getItem(key)||'null')?.owner!==owner)return false;}catch(err){await App.DB.logError(err,'AlarmEngine lease');return false;}
++    const renew=setInterval(()=>{try{const current=JSON.parse(localStorage.getItem(key)||'null');if(current?.owner===owner)localStorage.setItem(key,JSON.stringify({owner,expires:Date.now()+15000}));}catch(_){}},5000);
++    try{return await callback();}finally{clearInterval(renew);try{if(JSON.parse(localStorage.getItem(key)||'null')?.owner===owner)localStorage.removeItem(key);}catch(_){}}
++  };
++  E.fireAlarm=async function(staleEvent){
++    const claimed=await App.DB.atomic(['events','eventHistory','settings'],d=>{
++      const current=d.events.find(e=>e.id===staleEvent.id),settings={...App.Config.DEFAULT_SETTINGS,...d.settings.find(s=>s.key==='app_settings')?.value};
++      if(!this.due(current,settings))return null;
++      const previous=JSON.stringify(current),now=new Date().toISOString();
++      Object.assign(current,{alarmState:'triggered',lastAlarmTriggeredAt:now,alarmTriggerCount:(current.alarmTriggerCount??0)+1,alarmSnoozedUntil:null,updatedAt:now,version:(current.version??0)+1});
++      const record={id:App.Utils.uuid(),eventId:current.id,action:'disparo_alarme',timestamp:now,description:'Alarme disparado. Canais acionados: nenhum.',channels:[],previousValue:previous,newValue:JSON.stringify(current),localUser:'Sistema de Alarme'};
++      d.eventHistory.push(record);return{event:current,record,settings};
++    });
++    if(!claimed)return false;
++    const {event,record,settings}=claimed,available=this.channels(event,settings),actual=[];
++    for(const [channel,callback] of [['audio',()=>App.Audio.play(settings.soundType??'chime',settings.soundVolume??80)],['visual',()=>App.UI.showAlarmModal(event)],['notification',()=>App.Notifications.send(`Previsão Operacional: ${event.description}`,{body:App.Utils.formatDateTime(event.scheduledDate,event.scheduledTime),tag:`alarm-${event.id}`})]]){
++      if(!available[channel])continue;
++      // A concurrent completion or acknowledgement invalidates visual delivery as well.
++      const latest=await App.DB.get('events',event.id);if(latest?.status!=='pendente'||latest.active===false||latest.alarmState!=='triggered')break;
++      try{const result=await callback();if(channel!=='notification'||result)actual.push(channel);}catch(err){await App.DB.logError(err,'AlarmEngine '+channel);}
++    }
++    await App.DB.atomic(['eventHistory'],d=>{const h=d.eventHistory.find(x=>x.id===record.id);if(h){h.channels=actual;h.description=`Alarme disparado (${event.alarmTriggerCount===1?'Inicial':'Repetição '+(event.alarmTriggerCount-1)}). Canais acionados: ${actual.length?actual.join(', '):'nenhum disponível'}.`;}});
++    return true;
++  };
++  E.tick=function(){
++    if(this._tickPromise)return this._tickPromise;
++    this._tickPromise=(async()=>{
++      try{
++        const clock=document.getElementById('liveClock');if(clock)clock.textContent=new Date().toLocaleString('pt-BR');
++        await App.UI?.updateLiveTimers?.();
++        await this.withLock(async()=>{const events=await App.DB.getAll('events');for(const event of events)await this.fireAlarm(event);});
++        const data=await App.DB.snapshot(['events','settings']),settings={...App.Config.DEFAULT_SETTINGS,...data.settings.find(s=>s.key==='app_settings')?.value};
++        const triggered=data.events.filter(e=>e.active!==false&&e.status==='pendente'&&e.alarmState==='triggered');
++        if(triggered.length&&settings.changeTitleEnabled){this.titleBlinkState=!this.titleBlinkState;document.title=this.titleBlinkState?'⚠ ALARME OPERACIONAL!':'ALARME — Caderno de Previsões';}else document.title=this.originalTitle;
++        const state={now:Date.now(),triggeredIds:triggered.map(e=>e.id),channels:this.channels({useDefaultAlarmSettings:true},settings)};
++        App.Audio.updateStatusPill();App.Notifications.updateStatusPill();
++        if(this.onTick)await this.onTick(state);
++        window.dispatchEvent(new CustomEvent('alarm-engine-tick',{detail:state}));
++        return state;
++      }catch(err){console.error('Erro no ciclo do AlarmEngine:',err);await App.DB.logError(err,'AlarmEngine tick');return null;}
++      finally{this._tickPromise=null;}
++    })();return this._tickPromise;
++  };
++})();
++"""

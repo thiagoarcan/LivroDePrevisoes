@@ -1,0 +1,126 @@
+{
+  "tests": 11,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "distributed_html": true,
+  "sources_stable": true,
+  "source_hashes": {
+    "index.html": "f6ae6e81325747394ff2b06147fbc79ed5426989cf74b02818d5f030edd9c12b",
+    "build_all.py": "e1b177f3bb822bf508eea6c87a90442d4ef3feddd49225afea6a8d459b6967d0",
+    "parts_css.py": "97db9c98bd246dc08ddc636ef29870f879bf8461e1536f1b27e59e89a0744ae4",
+    "parts_html.py": "eff656079a7502977e91870599d3b9f74447ba1c94429f1748aef0fb1e4c75a8",
+    "parts_js_core.py": "f92897a9a3b775cc267e772780e1b1dfe55f3692f6c66f42008b4ce21ab21236",
+    "parts_js_presentation.py": "36e14271af21eb48fb2c41859452478203b77e95a9d5597bffa52e5a5b5d7fe1",
+    "parts_js_service.py": "0adeccdd8d58d5dad88b7da6669ca97d438e98c58066d97d925c6535bfa43db0",
+    "parts_js_ui.py": "12a5baf207710deabee2bd5ad1290e0ada4d8e8a51e03c718e1255b9395c04f5"
+  },
+  "geometry": [
+    {
+      ".app-header": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 161.171875,
+        "top": 0,
+        "right": 320,
+        "bottom": 161.171875,
+        "left": 0
+      },
+      "#liveClock": {
+        "x": 10.390625,
+        "y": 120.015625,
+        "width": 140.40625,
+        "height": 20.296875,
+        "top": 120.015625,
+        "right": 150.796875,
+        "bottom": 140.3125,
+        "left": 10.390625
+      },
+      "#chipHeaderAudioWarning": {
+        "x": 156.390625,
+        "y": 108.171875,
+        "width": 149.75,
+        "height": 44,
+        "top": 108.171875,
+        "right": 306.140625,
+        "bottom": 152.171875,
+        "left": 156.390625
+      }
+    },
+    {
+      "width": 1024,
+      "boxes": {
+        ".app-nav": {
+          "x": 0,
+          "y": 131.375,
+          "width": 80,
+          "height": 636.625,
+          "top": 131.375,
+          "right": 80,
+          "bottom": 768,
+          "left": 0
+        },
+        ".pending-master": {
+          "x": 96,
+          "y": 605.9375,
+          "width": 488.71875,
+          "height": 734.21875,
+          "top": 605.9375,
+          "right": 584.71875,
+          "bottom": 1340.15625,
+          "left": 96
+        },
+        ".pending-detail-pane": {
+          "x": 600.71875,
+          "y": 605.9375,
+          "width": 407.265625,
+          "height": 556.625,
+          "top": 605.9375,
+          "right": 1007.984375,
+          "bottom": 1162.5625,
+          "left": 600.71875
+        }
+      }
+    },
+    {
+      "width": 1199,
+      "boxes": {
+        ".app-nav": {
+          "x": 0,
+          "y": 131.375,
+          "width": 80,
+          "height": 668.625,
+          "top": 131.375,
+          "right": 80,
+          "bottom": 800,
+          "left": 0
+        },
+        ".pending-master": {
+          "x": 96,
+          "y": 539.546875,
+          "width": 584.171875,
+          "height": 711.03125,
+          "top": 539.546875,
+          "right": 680.171875,
+          "bottom": 1250.578125,
+          "left": 96
+        },
+        ".pending-detail-pane": {
+          "x": 696.171875,
+          "y": 539.546875,
+          "width": 486.828125,
+          "height": 552.515625,
+          "top": 539.546875,
+          "right": 1183,
+          "bottom": 1092.0625,
+          "left": 696.171875
+        }
+      }
+    },
+    {
+      "sheet_escape_and_delete_cancel_restore_focus": true
+    }
+  ],
+  "page_errors": []
+}

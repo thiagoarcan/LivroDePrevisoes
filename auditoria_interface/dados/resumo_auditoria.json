@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-25",
+  "timezone": "America/Sao_Paulo",
+  "browser": "156.0.4314.42",
+  "findings": 40,
+  "priority": {
+    "P1": 17,
+    "P0": 4,
+    "P2": 18,
+    "P3": 1
+  },
+  "requirements": 321,
+  "requirements_status_static": {
+    "parcial": 194,
+    "aderente": 101,
+    "nao_aderente": 23,
+    "nao_verificado": 3
+  },
+  "requirements_nature": {
+    "obrigacao": 248,
+    "recomendacao": 48,
+    "sintese": 25
+  },
+  "visual_items": 22,
+  "measurements": 198,
+  "widths": [
+    320,
+    360,
+    390,
+    480,
+    600,
+    767,
+    768,
+    820,
+    1024,
+    1199,
+    1200,
+    1440,
+    1600,
+    1919,
+    1920,
+    2200,
+    2559,
+    2560,
+    3440
+  ],
+  "screenshots": 90,
+  "scope_note": "Matriz DOCX é avaliação estática de itens rastreáveis, incluindo recomendações e sínteses repetidas. Não é percentual de aprovação funcional."
+}

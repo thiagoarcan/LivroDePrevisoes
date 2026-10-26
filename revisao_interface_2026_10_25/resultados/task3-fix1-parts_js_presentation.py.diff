@@ -1,0 +1,83 @@
+--- task3_r1_base/parts_js_presentation.py
++++ parts_js_presentation.py
+@@ -73,7 +73,7 @@
+     const classification=this.state.classifyEvent(event);
+     parent.append(this.el('p',this.path(event),{class:'form-help'}),this.el('h3',event.description));
+     this.pairs(parent,[['Situação',completed?'Concluído':classification.name],['Previsto',App.Utils.formatDateTime(event.scheduledAt)],['Prioridade',event.priority||'Normal'],['Equipamento / TAG',[this.name('equipmentTypes',event.equipmentTypeId,'Geral da UO'),this.name('equipmentTags',event.tagId,'Sem TAG')].join(' / ')]]);
+-    if(completed)this.pairs(parent,[['Concluído em',App.Utils.formatDateTime(event.completedAt)],['Controlador',event.completedBy||'Não informado'],['Diferença do previsto',Number.isFinite(event.completedTimeDiffMinutes)?`${Math.round(event.completedTimeDiffMinutes)} min`:'Não informada'],['Observação de conclusão',event.completionNote||'Sem observações']]);
++    if(completed)this.pairs(parent,[['Concluído em',App.Utils.formatDateTime(event.completedAt)],['Controlador',typeof event.completedBy==='string'&&event.completedBy.trim()?event.completedBy.trim():'Não informado'],['Diferença do previsto',Number.isFinite(event.completedTimeDiffMinutes)?`${Math.round(event.completedTimeDiffMinutes)} min`:'Não informada'],['Observação de conclusão',event.completionNote||'Sem observações']]);
+     else {
+       const p=this.el('p',App.UI.formatCountdown(new Date(event.scheduledAt).getTime()).text,{class:'event-countdown','data-timestamp':new Date(event.scheduledAt).getTime()});parent.append(p);
+       this.pairs(parent,[['Alarme',event.alarmState==='triggered'?'Disparado · aguardando reconhecimento':event.hasAlarm?'Ativado':'Desativado']]);
+@@ -88,6 +88,7 @@
+   refresh(reason) {
+     const focused=document.activeElement,action=focused?.dataset?.presentationAction,eventId=focused?.dataset?.eventId;
+     this.state=App.UI.getPresentationState();if(!this.state.snapshot)return;
++    this.syncCompletedFilters();
+     for(const b of document.querySelectorAll('.nav-item,.mobile-nav-link,.bottom-nav-item,.bottom-nav-fab')){
+       if((b.dataset.view||b.dataset.target)===this.state.view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+     }
+@@ -101,6 +102,7 @@
+     else if(view==='viewConfigColors')this.range();
+     else if(view==='viewBackup')this.backup();
+     this.decorateRenderedControls();
++    this.syncScrollableTables();
+     if(action&&!focused.isConnected){const replacement=[...document.querySelectorAll('[data-presentation-action]')].find(n=>n.dataset.presentationAction===action&&n.dataset.eventId===eventId);replacement?.focus({preventScroll:true});}
+   },
+   dashboard() {
+@@ -153,10 +155,30 @@
+     p.append(this.el('h3','Selecionar conclusão'));this.eventList(p,list,'completed-select',8);
+     const selected=list.find(e=>e.id===s.selectedEventId)||list[0];this.completedSelection=selected?.id||null;
+     this.detail(this.panel('completedDetailPane','Conclusão selecionada'),selected,true);
++    const scope=[];
++    for(const id of ['filterCompletedConsole','filterCompletedPipeline','filterCompletedUO','filterCompletedTiming'])if(this.value(id))scope.push(this.selectedText(id));
++    for(const [id,label] of [['filterCompletedDateFrom','Previsto desde'],['filterCompletedDateTo','Previsto até']])if(this.value(id))scope.push(label+' '+this.value(id).split('-').reverse().join('/'));
++    if(this.value('inputSearchCompleted'))scope.push('Busca: '+this.value('inputSearchCompleted'));
++    const today=document.getElementById('btnClearCompletedScope');if(today&&!today.hidden)scope.push('Concluídos hoje');
++    document.getElementById('completedFiltersSummary').textContent=(scope.join(' · ')||'Todos os concluídos')+` · ${list.length} resultado(s)`;
++  },
++  syncCompletedFilters() {
++    const details=document.getElementById('completedFilters'),mobile=this.state.tier==='mobile'||innerWidth<768;
++    if(details&&mobile!==this.completedFiltersMobile){
++      if(!details.contains(document.activeElement))details.open=!mobile;
++      this.completedFiltersMobile=mobile;
++    }
++  },
++  syncScrollableTables() {
++    for(const wrapper of document.querySelectorAll('.view-section.active [data-scroll-table]')){
++      const hint=wrapper.previousElementSibling;if(!hint?.classList.contains('table-scroll-hint'))continue;
++      const overflow=wrapper.getClientRects().length&&wrapper.scrollWidth>wrapper.clientWidth+2;
++      hint.hidden=!overflow;
++    }
+   },
+   catalog() {
+-    const p=this.panel('cadastrosRelationsPanel','Vínculos do registro'),s=this.state;
+-    const configs={consoles:['consoles','consoleEditId','inputConsoleName'],pipelines:['pipelines','pipelineEditId','inputPipelineName'],uos:['operationalUnits','uoEditId','inputUOName'],types:['equipmentTypes','equipmentTypeEditId','inputEquipmentTypeName'],tags:['equipmentTags','tagEditId','inputTagName']};
++    const p=this.panel('cadastrosRelationsPanel','Vínculos do registro'),s=App.UI.getPresentationState();this.state=s;
++    const configs={consoles:['consoles','consoleEditId','inputConsoleName'],pipelines:['pipelines','pipelineEditId','inputPipelineName'],uos:['operationalUnits','uoEditId','inputUOName'],types:['equipmentTypes','equipmentTypeEditId','inputEquipmentTypeName'],tags:['equipmentTags','tagEditId','inputTagCode']};
+     const config=configs[s.category];
+     if(!config){this.pairs(p,Object.values(configs).map(([store])=>[store,(s.snapshot[store]||[]).length]));return;}
+     const [store,edit,input]=config,id=this.value(edit),item=(s.snapshot[store]||[]).find(x=>x.id===id);
+@@ -165,9 +187,11 @@
+     const field={consoles:'consoleId',pipelines:'pipelineId',uos:'uoId',types:'equipmentTypeId',tags:'tagId'}[s.category];
+     const events=s.snapshot.events.filter(e=>e.active!==false&&e[field]===id);
+     this.pairs(p,[['Previsões pendentes',events.filter(e=>e.status==='pendente').length],['Previsões concluídas',events.filter(e=>e.status==='concluido').length]]);
+-    if(store==='pipelines')this.pairs(p,[['Console responsável',this.name('consoles',item.consoleId)],['UOs vinculadas',(item.uoIds||[]).map(id=>this.name('operationalUnits',id)).join(', ')||'Nenhuma']]);
++    const links=s.snapshot.pipelineOperationalUnits||[];
++    const linkedNames=(targetStore,ids)=>(s.snapshot[targetStore]||[]).filter(record=>ids.has(record.id)).map(record=>record.name+(record.active===false?' (inativo)':'')).join(', ');
++    if(store==='pipelines')this.pairs(p,[['Console responsável',this.name('consoles',item.consoleId)],['UOs vinculadas',linkedNames('operationalUnits',new Set(links.filter(link=>link.pipelineId===id).map(link=>link.uoId)))||'Nenhuma']]);
+     else if(store==='consoles')this.pairs(p,[['Dutos vinculados',s.snapshot.pipelines.filter(x=>x.consoleId===id).map(x=>x.name).join(', ')||'Nenhum']]);
+-    else if(store==='operationalUnits')this.pairs(p,[['Dutos vinculados',s.snapshot.pipelines.filter(x=>(x.uoIds||[]).includes(id)).map(x=>x.name).join(', ')||'Nenhum']]);
++    else if(store==='operationalUnits')this.pairs(p,[['Dutos vinculados',linkedNames('pipelines',new Set(links.filter(link=>link.uoId===id).map(link=>link.pipelineId)))||'Nenhum']]);
+     else this.pairs(p,[['UO',this.name('operationalUnits',item.uoId)]]);
+     this.eventList(p,events,'details',5);
+   },
+@@ -189,7 +213,7 @@
+     p.append(this.el('p','O JSON inclui os registros e históricos. O navegador inicia o download; confira o arquivo na pasta de downloads.',{class:'form-help'}));
+     p.append(this.el('h3','Armazenamento neste dispositivo'));
+     p.append(this.el('p','Os dados ficam neste dispositivo, navegador e perfil. Outro navegador ou perfil não vê esta base. Limpar os dados do navegador pode apagá-la. Não há sincronização automática; use o backup para transportar e preservar os registros.',{class:'form-help'}));
+-    const file=document.getElementById('inputImportBackupFile')?.files?.[0];p.append(this.el('h3','Importação'));p.append(this.el('p',file?`${file.name} · aguardando validação pelo botão Validar Arquivo.`:'Selecione um arquivo para validar. O resumo seguro é apresentado antes da confirmação.',{class:'form-help'}));
++    const file=document.getElementById('inputImportBackupFile')?.files?.[0];document.getElementById('backupSelectedFileName').textContent=file?file.name:'Nenhum arquivo selecionado.';p.append(this.el('h3','Importação'));p.append(this.el('p',file?`${file.name} · aguardando validação pelo botão Validar Arquivo.`:'Selecione um arquivo para validar. O resumo seguro é apresentado antes da confirmação.',{class:'form-help'}));
+   },
+   editing(event) {
+     if(!this.state?.snapshot)return;

@@ -1,0 +1,431 @@
+{
+  "duplicate_ids_parts_html": {},
+  "controls_without_associated_label": [
+    {
+      "id": "inputStylusStrokeColor",
+      "line": 525,
+      "type": "color",
+      "placeholder": null,
+      "title": null,
+      "style": "width: 32px; height: 32px; padding: 1px;"
+    },
+    {
+      "id": "stylusColor",
+      "line": 526,
+      "type": "color",
+      "placeholder": null,
+      "title": null,
+      "style": "display: none;"
+    },
+    {
+      "id": "selectStylusStrokeWidth",
+      "line": 528,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "width: auto; min-height: 32px; padding: 0.2rem 0.5rem; font-size: 0.75rem;"
+    },
+    {
+      "id": "stylusWidth",
+      "line": 533,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "display: none;"
+    },
+    {
+      "id": "inputEventAlertRepeatInterval",
+      "line": 597,
+      "type": "number",
+      "placeholder": null,
+      "title": null,
+      "style": null
+    },
+    {
+      "id": "inputEventAlertMaxRepeats",
+      "line": 601,
+      "type": "number",
+      "placeholder": null,
+      "title": null,
+      "style": null
+    },
+    {
+      "id": "inputSearchPending",
+      "line": 641,
+      "type": "text",
+      "placeholder": "Pesquisar por texto, duto, UO, TAG ou descrição...",
+      "title": null,
+      "style": null
+    },
+    {
+      "id": "filterConsole",
+      "line": 691,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.35rem; min-height: 32px;"
+    },
+    {
+      "id": "filterPipeline",
+      "line": 697,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.35rem; min-height: 32px;"
+    },
+    {
+      "id": "filterUO",
+      "line": 703,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.35rem; min-height: 32px;"
+    },
+    {
+      "id": "filterStatus",
+      "line": 709,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.35rem; min-height: 32px;"
+    },
+    {
+      "id": "filterAlarm",
+      "line": 721,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.35rem; min-height: 32px;"
+    },
+    {
+      "id": "filterPriority",
+      "line": 729,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.35rem; min-height: 32px;"
+    },
+    {
+      "id": "filterDateFrom",
+      "line": 739,
+      "type": "date",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.2rem 0.4rem; font-size: 0.75rem; min-height: 32px;"
+    },
+    {
+      "id": "filterDateTo",
+      "line": 743,
+      "type": "date",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.2rem 0.4rem; font-size: 0.75rem; min-height: 32px;"
+    },
+    {
+      "id": "inputSearchCompleted",
+      "line": 799,
+      "type": "text",
+      "placeholder": "Pesquisar em eventos concluídos...",
+      "title": null,
+      "style": null
+    },
+    {
+      "id": "filterCompletedConsole",
+      "line": 813,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.35rem; min-height: 32px;"
+    },
+    {
+      "id": "filterCompletedPipeline",
+      "line": 819,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.35rem; min-height: 32px;"
+    },
+    {
+      "id": "filterCompletedUO",
+      "line": 825,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.35rem; min-height: 32px;"
+    },
+    {
+      "id": "filterCompletedTiming",
+      "line": 831,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.35rem; min-height: 32px;"
+    },
+    {
+      "id": "filterCompletedDateFrom",
+      "line": 840,
+      "type": "date",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.2rem 0.4rem; font-size: 0.75rem; min-height: 32px;"
+    },
+    {
+      "id": "filterCompletedDateTo",
+      "line": 844,
+      "type": "date",
+      "placeholder": null,
+      "title": null,
+      "style": "padding: 0.2rem 0.4rem; font-size: 0.75rem; min-height: 32px;"
+    },
+    {
+      "id": "inputConsoleName",
+      "line": 940,
+      "type": "text",
+      "placeholder": "Ex: C04",
+      "title": null,
+      "style": "min-height: 36px; padding: 0.35rem 0.6rem;"
+    },
+    {
+      "id": "filterActiveConsoles",
+      "line": 951,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "width: auto; min-height: 28px; padding: 0.15rem 0.35rem; font-size: 0.72rem;"
+    },
+    {
+      "id": "searchConsoles",
+      "line": 956,
+      "type": "text",
+      "placeholder": "Buscar console...",
+      "title": null,
+      "style": "width: 110px; min-height: 28px; padding: 0.2rem 0.4rem; font-size: 0.75rem;"
+    },
+    {
+      "id": "inputInlineNewUO",
+      "line": 995,
+      "type": "text",
+      "placeholder": "+ Digitar nova UO aqui...",
+      "title": null,
+      "style": "min-height: 32px; padding: 0.25rem 0.5rem; font-size: 0.78rem;"
+    },
+    {
+      "id": "filterActivePipelines",
+      "line": 1016,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "width: auto; min-height: 28px; padding: 0.15rem 0.35rem; font-size: 0.72rem;"
+    },
+    {
+      "id": "searchPipelines",
+      "line": 1021,
+      "type": "text",
+      "placeholder": "Buscar duto...",
+      "title": null,
+      "style": "width: 120px; min-height: 28px; padding: 0.2rem 0.4rem; font-size: 0.75rem;"
+    },
+    {
+      "id": "filterActiveUOs",
+      "line": 1062,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "width: auto; min-height: 28px; padding: 0.15rem 0.35rem; font-size: 0.72rem;"
+    },
+    {
+      "id": "searchUOs",
+      "line": 1067,
+      "type": "text",
+      "placeholder": "Buscar UO...",
+      "title": null,
+      "style": "width: 120px; min-height: 28px; padding: 0.2rem 0.4rem; font-size: 0.75rem;"
+    },
+    {
+      "id": "filterActiveEquipmentTypes",
+      "line": 1108,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "width: auto; min-height: 28px; padding: 0.15rem 0.35rem; font-size: 0.72rem;"
+    },
+    {
+      "id": "searchEquipmentTypes",
+      "line": 1113,
+      "type": "text",
+      "placeholder": "Buscar tipo...",
+      "title": null,
+      "style": "width: 120px; min-height: 28px; padding: 0.2rem 0.4rem; font-size: 0.75rem;"
+    },
+    {
+      "id": "filterActiveTags",
+      "line": 1171,
+      "type": "select",
+      "placeholder": null,
+      "title": null,
+      "style": "width: auto; min-height: 28px; padding: 0.15rem 0.35rem; font-size: 0.72rem;"
+    },
+    {
+      "id": "searchTags",
+      "line": 1176,
+      "type": "text",
+      "placeholder": "Buscar TAG...",
+      "title": null,
+      "style": "width: 120px; min-height: 28px; padding: 0.2rem 0.4rem; font-size: 0.75rem;"
+    },
+    {
+      "id": "inputRangeColorText",
+      "line": 1418,
+      "type": "text",
+      "placeholder": null,
+      "title": null,
+      "style": "flex: 1;"
+    },
+    {
+      "id": "inputImportBackupFile",
+      "line": 1493,
+      "type": "file",
+      "placeholder": null,
+      "title": null,
+      "style": "margin-bottom: 0.75rem;"
+    }
+  ],
+  "symbol_or_empty_buttons_without_aria_label": [
+    {
+      "id": "btnViewCards",
+      "line": 659,
+      "text": "",
+      "title": "Visualização em Cartões"
+    },
+    {
+      "id": "btnViewTable",
+      "line": 662,
+      "text": "",
+      "title": "Visualização em Tabela Compacta"
+    },
+    {
+      "id": "btnCloseSnoozeModal",
+      "line": 1705,
+      "text": "×",
+      "title": null
+    },
+    {
+      "id": "btnCloseCompleteModal",
+      "line": 1734,
+      "text": "×",
+      "title": null
+    },
+    {
+      "id": "btnCloseReopenModal",
+      "line": 1777,
+      "text": "×",
+      "title": null
+    },
+    {
+      "id": "btnCloseDetailsModal",
+      "line": 1814,
+      "text": "×",
+      "title": null
+    },
+    {
+      "id": "btnCloseConfirmModal",
+      "line": 1870,
+      "text": "×",
+      "title": null
+    },
+    {
+      "id": "btnCloseDependencyModal",
+      "line": 1890,
+      "text": "×",
+      "title": null
+    },
+    {
+      "id": "btnCloseImportSummaryModal",
+      "line": 1913,
+      "text": "×",
+      "title": null
+    },
+    {
+      "id": "btnCloseActionSheet",
+      "line": 1947,
+      "text": "×",
+      "title": null
+    },
+    {
+      "id": "btnCloseAppStatusModal",
+      "line": 1963,
+      "text": "×",
+      "title": null
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "modalAlarmTrigger",
+      "line": 1652,
+      "label": "modalAlarmTitle"
+    },
+    {
+      "id": "modalSnooze",
+      "line": 1701,
+      "label": null
+    },
+    {
+      "id": "modalCompleteEvent",
+      "line": 1730,
+      "label": null
+    },
+    {
+      "id": "modalReopenEvent",
+      "line": 1773,
+      "label": null
+    },
+    {
+      "id": "modalEventDetails",
+      "line": 1810,
+      "label": null
+    },
+    {
+      "id": "modalConfirm",
+      "line": 1866,
+      "label": null
+    },
+    {
+      "id": "modalDependency",
+      "line": 1883,
+      "label": null
+    },
+    {
+      "id": "modalImportSummary",
+      "line": 1909,
+      "label": null
+    },
+    {
+      "id": "modalEventActionSheet",
+      "line": 1943,
+      "label": null
+    },
+    {
+      "id": "modalAppStatus",
+      "line": 1959,
+      "label": null
+    }
+  ],
+  "ui_literal_id_refs_absent_static_html": [
+    "backupOverdueText",
+    "badgeTabletAlarmsCount",
+    "btnExportAllEventsCSV",
+    "btnExportBackup",
+    "btnExportPendingCSV",
+    "btnTriggerRestore",
+    "fileInputRestore",
+    "inputFilterUOCheckboxes",
+    "mobileActiveAlarmsText",
+    "viewModeWarningText"
+  ],
+  "metric_cards": 11,
+  "tabindex_elements": 0,
+  "inputmode_elements": 0,
+  "enterkeyhint_elements": 0,
+  "duplicate_ids_index": {},
+  "id_set_parts_index_equal": true
+}

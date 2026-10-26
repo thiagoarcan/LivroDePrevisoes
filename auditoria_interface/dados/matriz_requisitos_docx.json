@@ -1,0 +1,4749 @@
+[
+  {
+    "id": "DOCX-P0001",
+    "secao": "Adaptação da aplicação para tablets e celulares",
+    "requisito": "A versão para tablets e celulares deve preservar integralmente as regras operacionais, alarmes, auditoria, funcionamento offline e integridade cadastral da aplicação desktop. A adaptação deve ocorrer principalmente na apresentação, navegação e distribuição dos componentes, evitando transformar a interface móvel em uma simples redução proporcional da versão para monitores.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_js_ui.py:94",
+      "parts_css.py:1665"
+    ],
+    "observacao": "Arquitetura compartilhada e modos existem; Automático não atribui mobile/tablet ao body; componentes desses modos dependem do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0001"
+  },
+  {
+    "id": "DOCX-P0006",
+    "secao": "1. Estratégia responsiva geral",
+    "requisito": "A aplicação utilizará uma arquitetura de interface mobile-first, com componentes capazes de se reorganizar conforme a largura efetivamente disponível.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_js_ui.py:94",
+      "parts_css.py:1665"
+    ],
+    "observacao": "Arquitetura compartilhada e modos existem; Automático não atribui mobile/tablet ao body; componentes desses modos dependem do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0006"
+  },
+  {
+    "id": "DOCX-P0007",
+    "secao": "1. Estratégia responsiva geral",
+    "requisito": "Não serão mantidos três sistemas separados. A aplicação continuará utilizando o mesmo arquivo index.html, a mesma base IndexedDB, as mesmas regras de negócio e o mesmo motor de alarmes. Apenas a composição visual será alterada por CSS responsivo e, quando necessário, pelo comportamento da camada App.UI.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:6",
+      "parts_js_core.py:428",
+      "parts_js_service.py:1"
+    ],
+    "observacao": "Mesma camada App.UI/DB/Service; não existem bases por dispositivo.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0007"
+  },
+  {
+    "id": "DOCX-P0009",
+    "secao": "Faixas recomendadas",
+    "requisito": "Os breakpoints não devem ser tratados como fronteiras rígidas entre dispositivos. A interface também deverá funcionar corretamente em larguras intermediárias, durante rotação da tela, uso em janela dividida e ampliação por recursos de acessibilidade.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_js_ui.py:94",
+      "parts_css.py:1665"
+    ],
+    "observacao": "Arquitetura compartilhada e modos existem; Automático não atribui mobile/tablet ao body; componentes desses modos dependem do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0009"
+  },
+  {
+    "id": "DOCX-P0011",
+    "secao": "1.1 Adaptação universal conforme o espaço disponível",
+    "requisito": "Independentemente do tamanho, resolução, proporção ou categoria nominal do dispositivo, a interface deverá se adaptar ao espaço efetivamente disponível, seguindo os padrões definidos nos wireframes para celular, tablet, monitor convencional, widescreen e ultrawide. A aplicação não deverá decidir o layout apenas pelo tipo informado pelo navegador, mas principalmente pela largura e altura úteis do viewport, densidade configurada, orientação, zoom e espaço ocupado pelos painéis visíveis.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_js_ui.py:94",
+      "parts_css.py:1665"
+    ],
+    "observacao": "Arquitetura compartilhada e modos existem; Automático não atribui mobile/tablet ao body; componentes desses modos dependem do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0011"
+  },
+  {
+    "id": "DOCX-P0012",
+    "secao": "1.1 Adaptação universal conforme o espaço disponível",
+    "requisito": "Os wireframes representam comportamentos de referência, e não telas fixas. Os mesmos componentes deverão reorganizar-se progressivamente: empilhamento e navegação inferior em espaços estreitos; lista e detalhe em tablets; painel operacional com navegação lateral em monitores convencionais; painéis simultâneos em widescreen; e múltiplas regiões coordenadas em ultrawide. Nenhuma largura deverá produzir conteúdo cortado, sobreposto ou dependente de rolagem horizontal da página inteira.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_js_ui.py:94",
+      "parts_css.py:1665"
+    ],
+    "observacao": "Arquitetura compartilhada e modos existem; Automático não atribui mobile/tablet ao body; componentes desses modos dependem do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0012"
+  },
+  {
+    "id": "DOCX-P0013",
+    "secao": "1.1 Adaptação universal conforme o espaço disponível",
+    "requisito": "A prioridade visual deverá permanecer constante em todas as dimensões: eventos pendentes, evento mais próximo, tempo restante ou tempo de atraso, alarmes ativos e criação rápida de uma nova previsão. O aumento de área disponível deverá acrescentar contexto e painéis complementares, sem reduzir o destaque dos elementos operacionais críticos.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_js_ui.py:94",
+      "parts_css.py:1665"
+    ],
+    "observacao": "Arquitetura compartilhada e modos existem; Automático não atribui mobile/tablet ao body; componentes desses modos dependem do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0013"
+  },
+  {
+    "id": "DOCX-P0015",
+    "secao": "1.2 Modo automático e escolha manual da visualização",
+    "requisito": "A aplicação deverá oferecer duas formas de definição da visualização: adaptação automática e escolha manual pelo usuário. O modo Automático será o padrão para novas instalações e será utilizado sempre que o usuário não tiver selecionado uma preferência.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:45",
+      "parts_js_ui.py:108"
+    ],
+    "observacao": "Auto é padrão, mas não aplica os tiers mobile/tablet.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0015"
+  },
+  {
+    "id": "DOCX-P0016",
+    "secao": "1.2 Modo automático e escolha manual da visualização",
+    "requisito": "No modo Automático, a camada App.UI deverá identificar o espaço útil e aplicar a composição mais adequada entre os padrões Celular, Tablet, Monitor convencional, Widescreen e Ultrawide. A mudança deverá ocorrer também durante redimensionamento da janela, rotação do dispositivo, uso de tela dividida ou alteração do zoom, sem perda de dados digitados, filtros, seleção atual, desenho da lousa ou posição lógica de navegação.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_js_ui.py:94",
+      "parts_css.py:1665"
+    ],
+    "observacao": "Arquitetura compartilhada e modos existem; Automático não atribui mobile/tablet ao body; componentes desses modos dependem do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0016"
+  },
+  {
+    "id": "DOCX-P0017",
+    "secao": "1.2 Modo automático e escolha manual da visualização",
+    "requisito": "O usuário poderá substituir a decisão automática e escolher manualmente o tipo de visualização, mesmo que isso resulte em cartões, fontes, campos ou demais objetos exibidos em tamanho menor. Essa escolha deverá ser respeitada enquanto for tecnicamente viável e não poderá remover conteúdo, esconder alarmes críticos nem tornar ações essenciais inacessíveis. Quando o espaço for insuficiente, a aplicação poderá usar rolagem interna nos painéis, menus retráteis e barras compactas, preservando a estrutura visual escolhida.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_js_ui.py:94",
+      "parts_css.py:1665"
+    ],
+    "observacao": "Arquitetura compartilhada e modos existem; Automático não atribui mobile/tablet ao body; componentes desses modos dependem do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0017"
+  },
+  {
+    "id": "DOCX-P0019",
+    "secao": "Opções de visualização",
+    "requisito": "Automática: seleciona e atualiza o layout conforme o espaço útil disponível.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:45",
+      "parts_js_ui.py:108"
+    ],
+    "observacao": "Auto é padrão, mas não aplica os tiers mobile/tablet.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0019"
+  },
+  {
+    "id": "DOCX-P0020",
+    "secao": "Opções de visualização",
+    "requisito": "Compacta: reduz espaçamentos, altura dos cartões e textos auxiliares, mantendo todas as informações essenciais.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1654"
+    ],
+    "observacao": "Densidade compacta reduz espaços/altura e textos auxiliares.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0020"
+  },
+  {
+    "id": "DOCX-P0021",
+    "secao": "Opções de visualização",
+    "requisito": "Celular: força a composição em uma coluna, navegação inferior, cartões e painéis deslizantes.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Opção manual disponível; composições não incluem todos os comportamentos exigidos (sidebar tablet/retrato).",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0021"
+  },
+  {
+    "id": "DOCX-P0022",
+    "secao": "Opções de visualização",
+    "requisito": "Tablet: força a composição touch com navegação lateral retrátil e estruturas de lista e detalhe.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Opção manual disponível; composições não incluem todos os comportamentos exigidos (sidebar tablet/retrato).",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0022"
+  },
+  {
+    "id": "DOCX-P0023",
+    "secao": "Opções de visualização",
+    "requisito": "Monitor convencional: utiliza navegação lateral fixa, métricas, evento em destaque e lista operacional principal.",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_html.py:209",
+      "parts_css.py:1866"
+    ],
+    "observacao": "Não há composição conventional específica com navegação lateral fixa.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0023"
+  },
+  {
+    "id": "DOCX-P0024",
+    "secao": "Opções de visualização",
+    "requisito": "Widescreen: amplia a lista de eventos e mantém filtros, métricas e painéis auxiliares simultaneamente visíveis.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1868",
+      "parts_css.py:1882"
+    ],
+    "observacao": "Filtros/regiões alargados; não há gráficos coordenados e navegação lateral especificada.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0024"
+  },
+  {
+    "id": "DOCX-P0025",
+    "secao": "Opções de visualização",
+    "requisito": "Ultrawide: distribui lista, detalhe do evento, métricas, gráficos e ações rápidas em regiões paralelas.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1868",
+      "parts_css.py:1882"
+    ],
+    "observacao": "Filtros/regiões alargados; não há gráficos coordenados e navegação lateral especificada.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0025"
+  },
+  {
+    "id": "DOCX-P0026",
+    "secao": "Opções de visualização",
+    "requisito": "A opção deverá estar disponível em Configurações de interface e também por um comando rápido no cabeçalho ou menu de usuário. O seletor poderá utilizar um ícone de layout acompanhado do rótulo acessível “Visualização”.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:68",
+      "parts_html.py:1230",
+      "parts_js_ui.py:139"
+    ],
+    "observacao": "Seletores no cabeçalho/drawer/configurações e persistência local responsiveLayoutMode.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0026"
+  },
+  {
+    "id": "DOCX-P0028",
+    "secao": "1.3 Regras de persistência e segurança da preferência",
+    "requisito": "A preferência deverá ser gravada em settings.viewMode ou em uma chave específica, como settings.responsiveLayoutMode, permitindo os valores auto, compact, mobile, tablet, conventional, widescreen e ultrawide. A escolha será local ao dispositivo e ao navegador, de forma coerente com o armazenamento atual em IndexedDB.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:68",
+      "parts_html.py:1230",
+      "parts_js_ui.py:139"
+    ],
+    "observacao": "Seletores no cabeçalho/drawer/configurações e persistência local responsiveLayoutMode.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0028"
+  },
+  {
+    "id": "DOCX-P0029",
+    "secao": "1.3 Regras de persistência e segurança da preferência",
+    "requisito": "Deverá existir uma ação clara “Voltar para Automático”. Caso o modo forçado provoque limitações graves de usabilidade, a aplicação deverá exibir um aviso não bloqueante e oferecer o retorno ao modo Automático, sem alterar a preferência de forma silenciosa.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:147",
+      "parts_js_ui.py:664",
+      "parts_html.py:127"
+    ],
+    "observacao": "Aviso não bloqueante e botão Voltar para Automático; sem alteração silenciosa.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0029"
+  },
+  {
+    "id": "DOCX-P0030",
+    "secao": "1.3 Regras de persistência e segurança da preferência",
+    "requisito": "Alarmes, modais críticos e ações de reconhecimento deverão sempre utilizar uma composição segura e legível. Portanto, esses elementos poderão ignorar parcialmente a densidade escolhida quando necessário para manter contraste, área de toque, leitura do tempo restante e acesso às ações Reconhecer, Adiar, Concluir e Detalhes.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_js_ui.py:94",
+      "parts_css.py:1665"
+    ],
+    "observacao": "Arquitetura compartilhada e modos existem; Automático não atribui mobile/tablet ao body; componentes desses modos dependem do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0030"
+  },
+  {
+    "id": "DOCX-P0032",
+    "secao": "1.4 Referências de composição por faixa",
+    "requisito": "Como referência inicial, o modo Automático poderá utilizar até 767 px para composição de celular; de 768 a 1.199 px para tablet; de 1.200 a 1.919 px para monitor convencional; de 1.920 a 2.559 px para widescreen; e 2.560 px ou mais para composição ultrawide. Esses valores deverão ser refinados pelo comportamento real do conteúdo e não tratados como limites absolutos. A altura útil também deverá ser considerada para evitar barras, modais ou painéis comprimidos.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79"
+    ],
+    "observacao": "Larguras 768/1200/1600/2200 divergem da referência opcional 768/1200/1920/2560; altura útil não é considerada. Breakpoints recomendados não constituem limite obrigatório.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0032"
+  },
+  {
+    "id": "DOCX-P0036",
+    "secao": "2.1 Finalidade predominante",
+    "requisito": "A experiência para celular será orientada às atividades que podem precisar ser realizadas rapidamente e com uma única mão:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:330",
+      "parts_js_ui.py:2210",
+      "parts_html.py:1626"
+    ],
+    "observacao": "Operações e navegação existem, mas a composição celular depende de modo manual.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0036"
+  },
+  {
+    "id": "DOCX-P0037",
+    "secao": "2.1 Finalidade predominante",
+    "requisito": "consultar o próximo evento;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_js_ui.py:3370",
+      "parts_html.py:148"
+    ],
+    "observacao": "Ações acessíveis por visões e drawer compartilhados; ergonomia/composição avaliadas nos itens específicos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0037"
+  },
+  {
+    "id": "DOCX-P0038",
+    "secao": "2.1 Finalidade predominante",
+    "requisito": "verificar eventos atrasados ou críticos;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_js_ui.py:3370",
+      "parts_html.py:148"
+    ],
+    "observacao": "Ações acessíveis por visões e drawer compartilhados; ergonomia/composição avaliadas nos itens específicos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0038"
+  },
+  {
+    "id": "DOCX-P0039",
+    "secao": "2.1 Finalidade predominante",
+    "requisito": "reconhecer um alarme;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_js_ui.py:3370",
+      "parts_html.py:148"
+    ],
+    "observacao": "Ações acessíveis por visões e drawer compartilhados; ergonomia/composição avaliadas nos itens específicos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0039"
+  },
+  {
+    "id": "DOCX-P0040",
+    "secao": "2.1 Finalidade predominante",
+    "requisito": "adiar um alarme;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_js_ui.py:3370",
+      "parts_html.py:148"
+    ],
+    "observacao": "Ações acessíveis por visões e drawer compartilhados; ergonomia/composição avaliadas nos itens específicos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0040"
+  },
+  {
+    "id": "DOCX-P0041",
+    "secao": "2.1 Finalidade predominante",
+    "requisito": "concluir uma atividade;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_js_ui.py:3370",
+      "parts_html.py:148"
+    ],
+    "observacao": "Ações acessíveis por visões e drawer compartilhados; ergonomia/composição avaliadas nos itens específicos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0041"
+  },
+  {
+    "id": "DOCX-P0042",
+    "secao": "2.1 Finalidade predominante",
+    "requisito": "registrar uma nova previsão;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_js_ui.py:3370",
+      "parts_html.py:148"
+    ],
+    "observacao": "Ações acessíveis por visões e drawer compartilhados; ergonomia/composição avaliadas nos itens específicos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0042"
+  },
+  {
+    "id": "DOCX-P0043",
+    "secao": "2.1 Finalidade predominante",
+    "requisito": "editar uma previsão existente;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_js_ui.py:3370",
+      "parts_html.py:148"
+    ],
+    "observacao": "Ações acessíveis por visões e drawer compartilhados; ergonomia/composição avaliadas nos itens específicos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0043"
+  },
+  {
+    "id": "DOCX-P0044",
+    "secao": "2.1 Finalidade predominante",
+    "requisito": "consultar o histórico e os detalhes de um evento;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_js_ui.py:3370",
+      "parts_html.py:148"
+    ],
+    "observacao": "Ações acessíveis por visões e drawer compartilhados; ergonomia/composição avaliadas nos itens específicos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0044"
+  },
+  {
+    "id": "DOCX-P0045",
+    "secao": "2.1 Finalidade predominante",
+    "requisito": "receber indicação visual e sonora de criticidade.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_js_ui.py:3370",
+      "parts_html.py:148"
+    ],
+    "observacao": "Ações acessíveis por visões e drawer compartilhados; ergonomia/composição avaliadas nos itens específicos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0045"
+  },
+  {
+    "id": "DOCX-P0046",
+    "secao": "2.1 Finalidade predominante",
+    "requisito": "Cadastros complexos, configuração detalhada das faixas de cores, importação de backup e diagnóstico continuarão disponíveis, mas não ocuparão a navegação principal.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_js_ui.py:3370",
+      "parts_html.py:148"
+    ],
+    "observacao": "Ações acessíveis por visões e drawer compartilhados; ergonomia/composição avaliadas nos itens específicos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0046"
+  },
+  {
+    "id": "DOCX-P0049",
+    "secao": "2.2 Cabeçalho compacto",
+    "requisito": "No celular, o cabeçalho original será convertido em uma barra superior compacta e fixa.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:3",
+      "parts_html.py:25",
+      "parts_html.py:1960",
+      "parts_css.py:1671"
+    ],
+    "observacao": "Cabeçalho/status implementados; leiaute celular só é acionado manualmente e não garante uma primeira linha compacta única.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0049"
+  },
+  {
+    "id": "DOCX-P0052",
+    "secao": "Primeira linha",
+    "requisito": "botão do menu lateral;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:3",
+      "parts_html.py:25",
+      "parts_html.py:1960",
+      "parts_css.py:1671"
+    ],
+    "observacao": "Cabeçalho/status implementados; leiaute celular só é acionado manualmente e não garante uma primeira linha compacta única.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0052"
+  },
+  {
+    "id": "DOCX-P0053",
+    "secao": "Primeira linha",
+    "requisito": "nome abreviado da aplicação;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:3",
+      "parts_html.py:25",
+      "parts_html.py:1960",
+      "parts_css.py:1671"
+    ],
+    "observacao": "Cabeçalho/status implementados; leiaute celular só é acionado manualmente e não garante uma primeira linha compacta única.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0053"
+  },
+  {
+    "id": "DOCX-P0054",
+    "secao": "Primeira linha",
+    "requisito": "relógio no formato HH:mm:ss;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_service.py:1271",
+      "parts_js_service.py:1279"
+    ],
+    "observacao": "Relógio atualiza com segundos, mas inclui DD/MM/AAAA além de HH:mm:ss solicitado para cabeçalho compacto.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0054"
+  },
+  {
+    "id": "DOCX-P0055",
+    "secao": "Primeira linha",
+    "requisito": "botão de alertas, com badge de quantidade;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:3",
+      "parts_html.py:25",
+      "parts_html.py:1960",
+      "parts_css.py:1671"
+    ],
+    "observacao": "Cabeçalho/status implementados; leiaute celular só é acionado manualmente e não garante uma primeira linha compacta única.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0055"
+  },
+  {
+    "id": "DOCX-P0056",
+    "secao": "Primeira linha",
+    "requisito": "botão de ações adicionais.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:3",
+      "parts_html.py:25",
+      "parts_html.py:1960",
+      "parts_css.py:1671"
+    ],
+    "observacao": "Cabeçalho/status implementados; leiaute celular só é acionado manualmente e não garante uma primeira linha compacta única.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0056"
+  },
+  {
+    "id": "DOCX-P0062",
+    "secao": "Segunda linha operacional",
+    "requisito": "A seleção do console deverá permanecer sempre visível nas telas operacionais, pois modifica:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:273",
+      "parts_js_ui.py:289",
+      "parts_js_ui.py:840"
+    ],
+    "observacao": "Console persistente e atualização por tela; toast omite explicação painel/filtros; troca no formulário reinicializa combos e pode perder escolhas.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0062"
+  },
+  {
+    "id": "DOCX-P0063",
+    "secao": "Segunda linha operacional",
+    "requisito": "os dutos disponíveis;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:273",
+      "parts_js_ui.py:289",
+      "parts_js_ui.py:840"
+    ],
+    "observacao": "Console persistente e atualização por tela; toast omite explicação painel/filtros; troca no formulário reinicializa combos e pode perder escolhas.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0063"
+  },
+  {
+    "id": "DOCX-P0064",
+    "secao": "Segunda linha operacional",
+    "requisito": "as UOs disponíveis;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:273",
+      "parts_js_ui.py:289",
+      "parts_js_ui.py:840"
+    ],
+    "observacao": "Console persistente e atualização por tela; toast omite explicação painel/filtros; troca no formulário reinicializa combos e pode perder escolhas.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0064"
+  },
+  {
+    "id": "DOCX-P0065",
+    "secao": "Segunda linha operacional",
+    "requisito": "o evento em destaque;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:273",
+      "parts_js_ui.py:289",
+      "parts_js_ui.py:840"
+    ],
+    "observacao": "Console persistente e atualização por tela; toast omite explicação painel/filtros; troca no formulário reinicializa combos e pode perder escolhas.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0065"
+  },
+  {
+    "id": "DOCX-P0066",
+    "secao": "Segunda linha operacional",
+    "requisito": "o filtro inicial de pendências;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:273",
+      "parts_js_ui.py:289",
+      "parts_js_ui.py:840"
+    ],
+    "observacao": "Console persistente e atualização por tela; toast omite explicação painel/filtros; troca no formulário reinicializa combos e pode perder escolhas.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0066"
+  },
+  {
+    "id": "DOCX-P0067",
+    "secao": "Segunda linha operacional",
+    "requisito": "o preenchimento do formulário de nova previsão.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:273",
+      "parts_js_ui.py:289",
+      "parts_js_ui.py:840"
+    ],
+    "observacao": "Console persistente e atualização por tela; toast omite explicação painel/filtros; troca no formulário reinicializa combos e pode perder escolhas.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0067"
+  },
+  {
+    "id": "DOCX-P0068",
+    "secao": "Segunda linha operacional",
+    "requisito": "A troca de console deverá produzir uma mensagem clara:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:273",
+      "parts_js_ui.py:289",
+      "parts_js_ui.py:840"
+    ],
+    "observacao": "Console persistente e atualização por tela; toast omite explicação painel/filtros; troca no formulário reinicializa combos e pode perder escolhas.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0068"
+  },
+  {
+    "id": "DOCX-P0071",
+    "secao": "Indicadores técnicos",
+    "requisito": "As pílulas de banco, áudio, notificação e backup não permanecerão simultaneamente abertas no cabeçalho. Serão agrupadas em um painel denominado Status da aplicação, acessível pelo menu ou por um indicador compacto.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1960",
+      "parts_css.py:1673"
+    ],
+    "observacao": "Status agrupa informações, mas pillAudio permanece e o Auto não oculta outras pílulas.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0071"
+  },
+  {
+    "id": "DOCX-P0073",
+    "secao": "Indicadores técnicos",
+    "requisito": "Se houver falha ou ação necessária, o indicador correspondente deverá aparecer diretamente no cabeçalho. Por exemplo:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1673",
+      "parts_js_core.py:223"
+    ],
+    "observacao": "Não há exibição condicional das pílulas de falha ocultadas no celular; áudio fica visível independentemente do estado.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0073"
+  },
+  {
+    "id": "DOCX-P0077",
+    "secao": "2.3 Navegação inferior",
+    "requisito": "As funções mais frequentes serão posicionadas em uma barra de navegação inferior fixa, respeitando a área segura do sistema operacional:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0077"
+  },
+  {
+    "id": "DOCX-P0080",
+    "secao": "Destinos principais",
+    "requisito": "Painel",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0080"
+  },
+  {
+    "id": "DOCX-P0081",
+    "secao": "Destinos principais",
+    "requisito": "Pendentes",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0081"
+  },
+  {
+    "id": "DOCX-P0082",
+    "secao": "Destinos principais",
+    "requisito": "Nova previsão",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0082"
+  },
+  {
+    "id": "DOCX-P0083",
+    "secao": "Destinos principais",
+    "requisito": "Mais",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0083"
+  },
+  {
+    "id": "DOCX-P0085",
+    "secao": "Destinos principais",
+    "requisito": "Eventos concluídos;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0085"
+  },
+  {
+    "id": "DOCX-P0086",
+    "secao": "Destinos principais",
+    "requisito": "Cadastros operacionais;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0086"
+  },
+  {
+    "id": "DOCX-P0087",
+    "secao": "Destinos principais",
+    "requisito": "Configurações de alertas;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0087"
+  },
+  {
+    "id": "DOCX-P0088",
+    "secao": "Destinos principais",
+    "requisito": "Configurações de cores;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0088"
+  },
+  {
+    "id": "DOCX-P0089",
+    "secao": "Destinos principais",
+    "requisito": "Backup e dados;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0089"
+  },
+  {
+    "id": "DOCX-P0090",
+    "secao": "Destinos principais",
+    "requisito": "Diagnóstico;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0090"
+  },
+  {
+    "id": "DOCX-P0091",
+    "secao": "Destinos principais",
+    "requisito": "Tema claro ou escuro;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0091"
+  },
+  {
+    "id": "DOCX-P0092",
+    "secao": "Destinos principais",
+    "requisito": "Identificação do controlador.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1626",
+      "parts_js_ui.py:368",
+      "parts_css.py:1558",
+      "parts_css.py:1670"
+    ],
+    "observacao": "Barra inferior e Mais existem; permanecem ocultos no Automático móvel por falta do atributo.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0092"
+  },
+  {
+    "id": "DOCX-P0096",
+    "secao": "2.4 Botão de nova previsão",
+    "requisito": "Não devem existir dois botões flutuantes concorrentes para a mesma função.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:538",
+      "parts_css.py:1608",
+      "parts_html.py:1626"
+    ],
+    "observacao": "FABs ocultos por CSS; novo disponível na barra inferior. As duas estratégias são alternativas, não exigências cumulativas.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0096"
+  },
+  {
+    "id": "DOCX-P0098",
+    "secao": "2.4 Botão de nova previsão",
+    "requisito": "botão central Novo na barra inferior; ou",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:538",
+      "parts_css.py:1608",
+      "parts_html.py:1626"
+    ],
+    "observacao": "FABs ocultos por CSS; novo disponível na barra inferior. As duas estratégias são alternativas, não exigências cumulativas.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0098"
+  },
+  {
+    "id": "DOCX-P0099",
+    "secao": "2.4 Botão de nova previsão",
+    "requisito": "um único FAB +, acima da barra inferior.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:538",
+      "parts_css.py:1608",
+      "parts_html.py:1626"
+    ],
+    "observacao": "FABs ocultos por CSS; novo disponível na barra inferior. As duas estratégias são alternativas, não exigências cumulativas.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0099"
+  },
+  {
+    "id": "DOCX-P0100",
+    "secao": "2.4 Botão de nova previsão",
+    "requisito": "Recomenda-se o botão central na navegação inferior, pois ele permanece em posição previsível e reduz a possibilidade de o FAB encobrir ações dos cartões.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:538",
+      "parts_css.py:1608",
+      "parts_html.py:1626"
+    ],
+    "observacao": "FABs ocultos por CSS; novo disponível na barra inferior. As duas estratégias são alternativas, não exigências cumulativas.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0100"
+  },
+  {
+    "id": "DOCX-P0105",
+    "secao": "3.1 Ordem de prioridade",
+    "requisito": "alarmes ativos ainda não reconhecidos;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1704",
+      "parts_js_ui.py:1691",
+      "parts_js_ui.py:1738",
+      "parts_js_ui.py:1795"
+    ],
+    "observacao": "Ordem e cartões existem no modo manual; Automático conserva partes da apresentação desktop.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0105"
+  },
+  {
+    "id": "DOCX-P0106",
+    "secao": "3.1 Ordem de prioridade",
+    "requisito": "evento operacional mais próximo;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1704",
+      "parts_js_ui.py:1691",
+      "parts_js_ui.py:1738",
+      "parts_js_ui.py:1795"
+    ],
+    "observacao": "Ordem e cartões existem no modo manual; Automático conserva partes da apresentação desktop.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0106"
+  },
+  {
+    "id": "DOCX-P0107",
+    "secao": "3.1 Ordem de prioridade",
+    "requisito": "eventos atrasados e críticos;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1704",
+      "parts_js_ui.py:1691",
+      "parts_js_ui.py:1738",
+      "parts_js_ui.py:1795"
+    ],
+    "observacao": "Ordem e cartões existem no modo manual; Automático conserva partes da apresentação desktop.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0107"
+  },
+  {
+    "id": "DOCX-P0108",
+    "secao": "3.1 Ordem de prioridade",
+    "requisito": "resumo numérico;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1704",
+      "parts_js_ui.py:1691",
+      "parts_js_ui.py:1738",
+      "parts_js_ui.py:1795"
+    ],
+    "observacao": "Ordem e cartões existem no modo manual; Automático conserva partes da apresentação desktop.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0108"
+  },
+  {
+    "id": "DOCX-P0109",
+    "secao": "3.1 Ordem de prioridade",
+    "requisito": "próximos eventos;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1704",
+      "parts_js_ui.py:1691",
+      "parts_js_ui.py:1738",
+      "parts_js_ui.py:1795"
+    ],
+    "observacao": "Ordem e cartões existem no modo manual; Automático conserva partes da apresentação desktop.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0109"
+  },
+  {
+    "id": "DOCX-P0110",
+    "secao": "3.1 Ordem de prioridade",
+    "requisito": "atalhos secundários.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1704",
+      "parts_js_ui.py:1691",
+      "parts_js_ui.py:1738",
+      "parts_js_ui.py:1795"
+    ],
+    "observacao": "Ordem e cartões existem no modo manual; Automático conserva partes da apresentação desktop.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0110"
+  },
+  {
+    "id": "DOCX-P0114",
+    "secao": "3.2 Faixa de alarmes ativos",
+    "requisito": "Quando houver alarme não reconhecido, deverá aparecer uma faixa persistente logo abaixo do cabeçalho:",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1259",
+      "parts_js_ui.py:1691"
+    ],
+    "observacao": "Faixa alarmes sticky e exibida enquanto houver triggered. Sobreposição real depende de ensaio no navegador.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0114"
+  },
+  {
+    "id": "DOCX-P0116",
+    "secao": "3.2 Faixa de alarmes ativos",
+    "requisito": "Essa faixa não deverá desaparecer por rolagem enquanto houver alarmes em estado triggered.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1259",
+      "parts_js_ui.py:1691"
+    ],
+    "observacao": "Faixa alarmes sticky e exibida enquanto houver triggered. Sobreposição real depende de ensaio no navegador.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0116"
+  },
+  {
+    "id": "DOCX-P0119",
+    "secao": "3.3 Próximo evento operacional",
+    "requisito": "O card Spotlight ocupará toda a largura disponível e mostrará somente os dados essenciais inicialmente:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1769"
+    ],
+    "observacao": "Reconhecer aparece primeiro se triggered; continuam Editar/Duplicar/Detalhes diretamente no Spotlight, sem redução a dados/ações essenciais.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0119"
+  },
+  {
+    "id": "DOCX-P0121",
+    "secao": "3.3 Próximo evento operacional",
+    "requisito": "O botão Mais ações abrirá um painel inferior com:",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_css.py:1807"
+    ],
+    "observacao": "Menu contextual oferece reconhecer, adiar, editar, duplicar, detalhes e excluir; apresentação inferior depende do modo manual.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0121"
+  },
+  {
+    "id": "DOCX-P0122",
+    "secao": "3.3 Próximo evento operacional",
+    "requisito": "reconhecer alarme;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_css.py:1807"
+    ],
+    "observacao": "Menu contextual oferece reconhecer, adiar, editar, duplicar, detalhes e excluir; apresentação inferior depende do modo manual.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0122"
+  },
+  {
+    "id": "DOCX-P0123",
+    "secao": "3.3 Próximo evento operacional",
+    "requisito": "adiar;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_css.py:1807"
+    ],
+    "observacao": "Menu contextual oferece reconhecer, adiar, editar, duplicar, detalhes e excluir; apresentação inferior depende do modo manual.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0123"
+  },
+  {
+    "id": "DOCX-P0124",
+    "secao": "3.3 Próximo evento operacional",
+    "requisito": "editar;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_css.py:1807"
+    ],
+    "observacao": "Menu contextual oferece reconhecer, adiar, editar, duplicar, detalhes e excluir; apresentação inferior depende do modo manual.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0124"
+  },
+  {
+    "id": "DOCX-P0125",
+    "secao": "3.3 Próximo evento operacional",
+    "requisito": "duplicar;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_css.py:1807"
+    ],
+    "observacao": "Menu contextual oferece reconhecer, adiar, editar, duplicar, detalhes e excluir; apresentação inferior depende do modo manual.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0125"
+  },
+  {
+    "id": "DOCX-P0126",
+    "secao": "3.3 Próximo evento operacional",
+    "requisito": "abrir detalhes;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_css.py:1807"
+    ],
+    "observacao": "Menu contextual oferece reconhecer, adiar, editar, duplicar, detalhes e excluir; apresentação inferior depende do modo manual.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0126"
+  },
+  {
+    "id": "DOCX-P0127",
+    "secao": "3.3 Próximo evento operacional",
+    "requisito": "excluir.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2210",
+      "parts_css.py:1807"
+    ],
+    "observacao": "Menu contextual oferece reconhecer, adiar, editar, duplicar, detalhes e excluir; apresentação inferior depende do modo manual.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0127"
+  },
+  {
+    "id": "DOCX-P0128",
+    "secao": "3.3 Próximo evento operacional",
+    "requisito": "Se o alarme estiver disparado, Reconhecer deverá ocupar a posição da ação principal.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1769"
+    ],
+    "observacao": "Reconhecer aparece primeiro se triggered; continuam Editar/Duplicar/Detalhes diretamente no Spotlight, sem redução a dados/ações essenciais.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0128"
+  },
+  {
+    "id": "DOCX-P0131",
+    "secao": "3.4 Métricas",
+    "requisito": "As sete métricas do painel não devem ser exibidas em uma longa coluna de cartões grandes. No celular, elas deverão ser apresentadas como cartões compactos em uma grade de duas colunas:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1704",
+      "parts_js_ui.py:1691",
+      "parts_js_ui.py:1738",
+      "parts_js_ui.py:1795"
+    ],
+    "observacao": "Ordem e cartões existem no modo manual; Automático conserva partes da apresentação desktop.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0131"
+  },
+  {
+    "id": "DOCX-P0133",
+    "secao": "3.4 Métricas",
+    "requisito": "Em larguras inferiores a aproximadamente 360px, a grade poderá continuar em duas colunas desde que cada card mantenha legibilidade. Somente deverá migrar para uma coluna se os textos ou valores deixarem de caber adequadamente.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1704",
+      "parts_js_ui.py:1691",
+      "parts_js_ui.py:1738",
+      "parts_js_ui.py:1795"
+    ],
+    "observacao": "Ordem e cartões existem no modo manual; Automático conserva partes da apresentação desktop.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0133"
+  },
+  {
+    "id": "DOCX-P0134",
+    "secao": "3.4 Métricas",
+    "requisito": "Cada métrica continuará funcionando como filtro ou atalho.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:761"
+    ],
+    "observacao": "Próx.15/30/60 apenas navegam, não configuram filtro temporal; filtro unacknowledged usa hasAlarm em vez de triggered.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0134"
+  },
+  {
+    "id": "DOCX-P0137",
+    "secao": "3.5 Atenção imediata",
+    "requisito": "A tabela #tableDashboardUrgent será substituída, no celular, por uma lista de cartões resumidos:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1704",
+      "parts_js_ui.py:1691",
+      "parts_js_ui.py:1738",
+      "parts_js_ui.py:1795"
+    ],
+    "observacao": "Ordem e cartões existem no modo manual; Automático conserva partes da apresentação desktop.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0137"
+  },
+  {
+    "id": "DOCX-P0139",
+    "secao": "3.5 Atenção imediata",
+    "requisito": "A lista deverá exibir inicialmente de três a cinco eventos, seguida do botão:",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1799",
+      "parts_js_ui.py:1833"
+    ],
+    "observacao": "Lista limitada a cinco e botão para todos pendentes.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0139"
+  },
+  {
+    "id": "DOCX-P0140",
+    "secao": "3.5 Atenção imediata",
+    "requisito": "[ Ver todos os eventos pendentes ]",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1799",
+      "parts_js_ui.py:1833"
+    ],
+    "observacao": "Lista limitada a cinco e botão para todos pendentes.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0140"
+  },
+  {
+    "id": "DOCX-P0146",
+    "secao": "4.1 Barra de pesquisa e filtros",
+    "requisito": "Os filtros avançados não ocuparão permanentemente a tela. O botão Filtros abrirá um painel inferior de altura variável, com:",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1727",
+      "parts_js_ui.py:1530"
+    ],
+    "observacao": "CSS depende de active-sheet, mas handlers alteram somente style.display. Painel não vira bottom sheet.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0146"
+  },
+  {
+    "id": "DOCX-P0147",
+    "secao": "4.1 Barra de pesquisa e filtros",
+    "requisito": "apenas console ativo;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:651",
+      "parts_html.py:679",
+      "parts_js_ui.py:1916"
+    ],
+    "observacao": "Filtros pedidos existem; apenas-console fica fora do painel e pode combinar restrições com console escolhido.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0147"
+  },
+  {
+    "id": "DOCX-P0148",
+    "secao": "4.1 Barra de pesquisa e filtros",
+    "requisito": "console;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:651",
+      "parts_html.py:679",
+      "parts_js_ui.py:1916"
+    ],
+    "observacao": "Filtros pedidos existem; apenas-console fica fora do painel e pode combinar restrições com console escolhido.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0148"
+  },
+  {
+    "id": "DOCX-P0149",
+    "secao": "4.1 Barra de pesquisa e filtros",
+    "requisito": "duto;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:651",
+      "parts_html.py:679",
+      "parts_js_ui.py:1916"
+    ],
+    "observacao": "Filtros pedidos existem; apenas-console fica fora do painel e pode combinar restrições com console escolhido.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0149"
+  },
+  {
+    "id": "DOCX-P0150",
+    "secao": "4.1 Barra de pesquisa e filtros",
+    "requisito": "UO;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:651",
+      "parts_html.py:679",
+      "parts_js_ui.py:1916"
+    ],
+    "observacao": "Filtros pedidos existem; apenas-console fica fora do painel e pode combinar restrições com console escolhido.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0150"
+  },
+  {
+    "id": "DOCX-P0151",
+    "secao": "4.1 Barra de pesquisa e filtros",
+    "requisito": "situação;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:651",
+      "parts_html.py:679",
+      "parts_js_ui.py:1916"
+    ],
+    "observacao": "Filtros pedidos existem; apenas-console fica fora do painel e pode combinar restrições com console escolhido.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0151"
+  },
+  {
+    "id": "DOCX-P0152",
+    "secao": "4.1 Barra de pesquisa e filtros",
+    "requisito": "alarme;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:651",
+      "parts_html.py:679",
+      "parts_js_ui.py:1916"
+    ],
+    "observacao": "Filtros pedidos existem; apenas-console fica fora do painel e pode combinar restrições com console escolhido.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0152"
+  },
+  {
+    "id": "DOCX-P0153",
+    "secao": "4.1 Barra de pesquisa e filtros",
+    "requisito": "prioridade;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:651",
+      "parts_html.py:679",
+      "parts_js_ui.py:1916"
+    ],
+    "observacao": "Filtros pedidos existem; apenas-console fica fora do painel e pode combinar restrições com console escolhido.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0153"
+  },
+  {
+    "id": "DOCX-P0154",
+    "secao": "4.1 Barra de pesquisa e filtros",
+    "requisito": "período inicial e final.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:651",
+      "parts_html.py:679",
+      "parts_js_ui.py:1916"
+    ],
+    "observacao": "Filtros pedidos existem; apenas-console fica fora do painel e pode combinar restrições com console escolhido.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0154"
+  },
+  {
+    "id": "DOCX-P0156",
+    "secao": "4.1 Barra de pesquisa e filtros",
+    "requisito": "[ Limpar filtros ]  [ Aplicar filtros ]",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:746",
+      "parts_js_ui.py:1536",
+      "parts_css.py:1727"
+    ],
+    "observacao": "Botões Limpar/Aplicar existem e têm handlers. O conjunto é parcial porque o painel não ganha a classe active-sheet e permanece no fluxo; não se afirma ausência dos botões.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0156"
+  },
+  {
+    "id": "DOCX-P0157",
+    "secao": "4.1 Barra de pesquisa e filtros",
+    "requisito": "O número de filtros ativos deverá aparecer no próprio botão, por exemplo, Filtros 2.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1926"
+    ],
+    "observacao": "Badge conta oito selects e datas, mas ignora checkbox Apenas Console Ativo.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0157"
+  },
+  {
+    "id": "DOCX-P0160",
+    "secao": "4.2 Visualização padrão",
+    "requisito": "No celular, a visualização padrão será exclusivamente em cartões. A opção de tabela poderá:",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:36",
+      "parts_js_ui.py:1597"
+    ],
+    "observacao": "Preferência table é carregada em qualquer largura; nenhuma imposição de cartões ou ocultação do seletor no celular.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0160"
+  },
+  {
+    "id": "DOCX-P0161",
+    "secao": "4.2 Visualização padrão",
+    "requisito": "ser ocultada; ou",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:36",
+      "parts_js_ui.py:1597"
+    ],
+    "observacao": "Alternativas não cumulativas: tabela existe como opção com container rolável, porém preferência de tabela pode continuar no celular sem apresentação explícita como modo avançado. Não se exige ocultar e oferecer tabela simultaneamente; o problema principal do padrão móvel está em P0160.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0161"
+  },
+  {
+    "id": "DOCX-P0162",
+    "secao": "4.2 Visualização padrão",
+    "requisito": "ser disponibilizada como modo avançado, com rolagem horizontal.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:36",
+      "parts_js_ui.py:1597"
+    ],
+    "observacao": "Alternativas não cumulativas: tabela existe como opção com container rolável, porém preferência de tabela pode continuar no celular sem apresentação explícita como modo avançado. Não se exige ocultar e oferecer tabela simultaneamente; o problema principal do padrão móvel está em P0160.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0162"
+  },
+  {
+    "id": "DOCX-P0163",
+    "secao": "4.2 Visualização padrão",
+    "requisito": "Os cartões deverão destacar, nesta ordem:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1997"
+    ],
+    "observacao": "Hierarquia aparece antes da classificação/contador/descrição, divergindo da ordem exigida.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0163"
+  },
+  {
+    "id": "DOCX-P0164",
+    "secao": "4.2 Visualização padrão",
+    "requisito": "classificação temporal;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1997"
+    ],
+    "observacao": "Hierarquia aparece antes da classificação/contador/descrição, divergindo da ordem exigida.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0164"
+  },
+  {
+    "id": "DOCX-P0165",
+    "secao": "4.2 Visualização padrão",
+    "requisito": "contador;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1997"
+    ],
+    "observacao": "Hierarquia aparece antes da classificação/contador/descrição, divergindo da ordem exigida.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0165"
+  },
+  {
+    "id": "DOCX-P0166",
+    "secao": "4.2 Visualização padrão",
+    "requisito": "descrição;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1997"
+    ],
+    "observacao": "Hierarquia aparece antes da classificação/contador/descrição, divergindo da ordem exigida.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0166"
+  },
+  {
+    "id": "DOCX-P0167",
+    "secao": "4.2 Visualização padrão",
+    "requisito": "hierarquia operacional;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1997"
+    ],
+    "observacao": "Hierarquia aparece antes da classificação/contador/descrição, divergindo da ordem exigida.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0167"
+  },
+  {
+    "id": "DOCX-P0168",
+    "secao": "4.2 Visualização padrão",
+    "requisito": "data e hora;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1997"
+    ],
+    "observacao": "Hierarquia aparece antes da classificação/contador/descrição, divergindo da ordem exigida.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0168"
+  },
+  {
+    "id": "DOCX-P0169",
+    "secao": "4.2 Visualização padrão",
+    "requisito": "estado do alarme;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1997"
+    ],
+    "observacao": "Hierarquia aparece antes da classificação/contador/descrição, divergindo da ordem exigida.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0169"
+  },
+  {
+    "id": "DOCX-P0170",
+    "secao": "4.2 Visualização padrão",
+    "requisito": "ações.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1997"
+    ],
+    "observacao": "Hierarquia aparece antes da classificação/contador/descrição, divergindo da ordem exigida.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0170"
+  },
+  {
+    "id": "DOCX-P0173",
+    "secao": "Cartão recomendado",
+    "requisito": "As ações menos frequentes, como duplicar, detalhes e excluir, serão agrupadas em um menu contextual.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2025"
+    ],
+    "observacao": "Menu existe, porém duplicar/detalhes continuam como botões frequentes junto das ações principais.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0173"
+  },
+  {
+    "id": "DOCX-P0177",
+    "secao": "5.1 Fluxo vertical",
+    "requisito": "O formulário será apresentado em uma única coluna e dividido em blocos de preenchimento:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:439",
+      "parts_html.py:499",
+      "parts_html.py:609",
+      "parts_css.py:588",
+      "parts_css.py:1770"
+    ],
+    "observacao": "Formulário usa grade genérica; descrição é input simples e não textarea; barra é sticky, depende do modo manual e não há tratamento de teclado virtual.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0177"
+  },
+  {
+    "id": "DOCX-P0178",
+    "secao": "5.1 Fluxo vertical",
+    "requisito": "localização operacional;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:439",
+      "parts_html.py:499",
+      "parts_html.py:609",
+      "parts_css.py:588",
+      "parts_css.py:1770"
+    ],
+    "observacao": "Formulário usa grade genérica; descrição é input simples e não textarea; barra é sticky, depende do modo manual e não há tratamento de teclado virtual.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0178"
+  },
+  {
+    "id": "DOCX-P0179",
+    "secao": "5.1 Fluxo vertical",
+    "requisito": "programação;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:439",
+      "parts_html.py:499",
+      "parts_html.py:609",
+      "parts_css.py:588",
+      "parts_css.py:1770"
+    ],
+    "observacao": "Formulário usa grade genérica; descrição é input simples e não textarea; barra é sticky, depende do modo manual e não há tratamento de teclado virtual.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0179"
+  },
+  {
+    "id": "DOCX-P0180",
+    "secao": "5.1 Fluxo vertical",
+    "requisito": "atividade;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:439",
+      "parts_html.py:499",
+      "parts_html.py:609",
+      "parts_css.py:588",
+      "parts_css.py:1770"
+    ],
+    "observacao": "Formulário usa grade genérica; descrição é input simples e não textarea; barra é sticky, depende do modo manual e não há tratamento de teclado virtual.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0180"
+  },
+  {
+    "id": "DOCX-P0181",
+    "secao": "5.1 Fluxo vertical",
+    "requisito": "alarme;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:439",
+      "parts_html.py:499",
+      "parts_html.py:609",
+      "parts_css.py:588",
+      "parts_css.py:1770"
+    ],
+    "observacao": "Formulário usa grade genérica; descrição é input simples e não textarea; barra é sticky, depende do modo manual e não há tratamento de teclado virtual.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0181"
+  },
+  {
+    "id": "DOCX-P0182",
+    "secao": "5.1 Fluxo vertical",
+    "requisito": "anotação manuscrita;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:439",
+      "parts_html.py:499",
+      "parts_html.py:609",
+      "parts_css.py:588",
+      "parts_css.py:1770"
+    ],
+    "observacao": "Formulário usa grade genérica; descrição é input simples e não textarea; barra é sticky, depende do modo manual e não há tratamento de teclado virtual.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0182"
+  },
+  {
+    "id": "DOCX-P0183",
+    "secao": "5.1 Fluxo vertical",
+    "requisito": "confirmação.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:439",
+      "parts_html.py:499",
+      "parts_html.py:609",
+      "parts_css.py:588",
+      "parts_css.py:1770"
+    ],
+    "observacao": "Formulário usa grade genérica; descrição é input simples e não textarea; barra é sticky, depende do modo manual e não há tratamento de teclado virtual.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0183"
+  },
+  {
+    "id": "DOCX-P0186",
+    "secao": "Bloco 1: localização operacional",
+    "requisito": "A cada escolha, o próximo campo será habilitado. O carregamento dos seletores encadeados deverá ser comunicado não apenas pela mudança visual, mas também por texto acessível.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:991",
+      "parts_js_ui.py:1004",
+      "parts_js_ui.py:1016",
+      "parts_html.py:472"
+    ],
+    "observacao": "Seletores encadeados e região aria-live atualizados nos changes de duto, UO e tipo, anunciando quantidades carregadas.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0186"
+  },
+  {
+    "id": "DOCX-P0189",
+    "secao": "5.2 Data, hora e prioridade",
+    "requisito": "A data e a hora poderão ser apresentadas lado a lado em celulares com largura suficiente:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:439",
+      "parts_html.py:499",
+      "parts_html.py:609",
+      "parts_css.py:588",
+      "parts_css.py:1770"
+    ],
+    "observacao": "Formulário usa grade genérica; descrição é input simples e não textarea; barra é sticky, depende do modo manual e não há tratamento de teclado virtual.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0189"
+  },
+  {
+    "id": "DOCX-P0191",
+    "secao": "5.2 Data, hora e prioridade",
+    "requisito": "Em celulares compactos, os campos serão empilhados.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:439",
+      "parts_html.py:499",
+      "parts_html.py:609",
+      "parts_css.py:588",
+      "parts_css.py:1770"
+    ],
+    "observacao": "Formulário usa grade genérica; descrição é input simples e não textarea; barra é sticky, depende do modo manual e não há tratamento de teclado virtual.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0191"
+  },
+  {
+    "id": "DOCX-P0192",
+    "secao": "5.2 Data, hora e prioridade",
+    "requisito": "A prioridade deverá aparecer logo abaixo, mas não substituirá a classificação temporal automática.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:439",
+      "parts_html.py:499",
+      "parts_html.py:609",
+      "parts_css.py:588",
+      "parts_css.py:1770"
+    ],
+    "observacao": "Formulário usa grade genérica; descrição é input simples e não textarea; barra é sticky, depende do modo manual e não há tratamento de teclado virtual.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0192"
+  },
+  {
+    "id": "DOCX-P0195",
+    "secao": "5.3 Descrição e observações",
+    "requisito": "A descrição será um campo de múltiplas linhas, e não um campo simples de uma linha. Isso facilita a revisão do conteúdo em telas estreitas.",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_html.py:499"
+    ],
+    "observacao": "Descrição usa input type=text, não campo multilinha.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0195"
+  },
+  {
+    "id": "DOCX-P0197",
+    "secao": "5.3 Descrição e observações",
+    "requisito": "As observações permanecerão opcionais e poderão ser recolhidas quando vazias.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:505"
+    ],
+    "observacao": "Observações opcionais; recolhimento é possibilidade, não obrigação.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0197"
+  },
+  {
+    "id": "DOCX-P0200",
+    "secao": "5.4 Configurações de alarme",
+    "requisito": "O formulário não deverá exibir todos os parâmetros de alarme por padrão.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:550",
+      "parts_html.py:564",
+      "parts_js_ui.py:1014"
+    ],
+    "observacao": "Usar padrão recolhe parâmetros personalizados e desmarcar os expõe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0200"
+  },
+  {
+    "id": "DOCX-P0203",
+    "secao": "5.4 Configurações de alarme",
+    "requisito": "Ao desmarcar Usar configurações padrão, será aberta uma seção expansível com:",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:550",
+      "parts_html.py:564",
+      "parts_js_ui.py:1014"
+    ],
+    "observacao": "Usar padrão recolhe parâmetros personalizados e desmarcar os expõe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0203"
+  },
+  {
+    "id": "DOCX-P0204",
+    "secao": "5.4 Configurações de alarme",
+    "requisito": "antecedência;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:550",
+      "parts_html.py:564",
+      "parts_js_ui.py:1014"
+    ],
+    "observacao": "Usar padrão recolhe parâmetros personalizados e desmarcar os expõe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0204"
+  },
+  {
+    "id": "DOCX-P0205",
+    "secao": "5.4 Configurações de alarme",
+    "requisito": "som;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:550",
+      "parts_html.py:564",
+      "parts_js_ui.py:1014"
+    ],
+    "observacao": "Usar padrão recolhe parâmetros personalizados e desmarcar os expõe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0205"
+  },
+  {
+    "id": "DOCX-P0206",
+    "secao": "5.4 Configurações de alarme",
+    "requisito": "alerta visual;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:550",
+      "parts_html.py:564",
+      "parts_js_ui.py:1014"
+    ],
+    "observacao": "Usar padrão recolhe parâmetros personalizados e desmarcar os expõe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0206"
+  },
+  {
+    "id": "DOCX-P0207",
+    "secao": "5.4 Configurações de alarme",
+    "requisito": "notificação;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:550",
+      "parts_html.py:564",
+      "parts_js_ui.py:1014"
+    ],
+    "observacao": "Usar padrão recolhe parâmetros personalizados e desmarcar os expõe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0207"
+  },
+  {
+    "id": "DOCX-P0208",
+    "secao": "5.4 Configurações de alarme",
+    "requisito": "repetição;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:550",
+      "parts_html.py:564",
+      "parts_js_ui.py:1014"
+    ],
+    "observacao": "Usar padrão recolhe parâmetros personalizados e desmarcar os expõe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0208"
+  },
+  {
+    "id": "DOCX-P0209",
+    "secao": "5.4 Configurações de alarme",
+    "requisito": "intervalo;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:550",
+      "parts_html.py:564",
+      "parts_js_ui.py:1014"
+    ],
+    "observacao": "Usar padrão recolhe parâmetros personalizados e desmarcar os expõe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0209"
+  },
+  {
+    "id": "DOCX-P0210",
+    "secao": "5.4 Configurações de alarme",
+    "requisito": "número máximo de repetições.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:550",
+      "parts_html.py:564",
+      "parts_js_ui.py:1014"
+    ],
+    "observacao": "Usar padrão recolhe parâmetros personalizados e desmarcar os expõe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0210"
+  },
+  {
+    "id": "DOCX-P0214",
+    "secao": "5.5 Barra fixa de submissão",
+    "requisito": "Os botões de salvamento deverão permanecer em uma barra inferior fixa, acima da navegação:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1770",
+      "parts_html.py:609"
+    ],
+    "observacao": "Barra sticky com safe-area; não é fixed e só aplica no modo manual. Teclado virtual sem tratamento.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0214"
+  },
+  {
+    "id": "DOCX-P0218",
+    "secao": "5.5 Barra fixa de submissão",
+    "requisito": "A barra deverá respeitar env(safe-area-inset-bottom) para não ficar encoberta pelos controles do sistema operacional.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1770",
+      "parts_html.py:609"
+    ],
+    "observacao": "Barra sticky com safe-area; não é fixed e só aplica no modo manual. Teclado virtual sem tratamento.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0218"
+  },
+  {
+    "id": "DOCX-P0221",
+    "secao": "6. Lousa digital no celular",
+    "requisito": "A lousa permanecerá disponível, mas será tratada como função secundária.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:517",
+      "parts_js_ui.py:446"
+    ],
+    "observacao": "Lousa secundária recolhida; recomendação paisagem é opcional.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0221"
+  },
+  {
+    "id": "DOCX-P0222",
+    "secao": "6. Lousa digital no celular",
+    "requisito": "Ao tocar em Adicionar anotação manuscrita, a lousa deverá ser aberta preferencialmente em modo de tela cheia:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:410",
+      "parts_js_ui.py:540",
+      "parts_css.py:1032",
+      "parts_css.py:1541"
+    ],
+    "observacao": "Lousa opcional com tela cheia manual, undo e confirmação; não bloqueia explicitamente rolagem do body nem fixa ferramentas durante a rolagem.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0222"
+  },
+  {
+    "id": "DOCX-P0225",
+    "secao": "6. Lousa digital no celular",
+    "requisito": "a orientação paisagem poderá ser recomendada;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:517",
+      "parts_js_ui.py:446"
+    ],
+    "observacao": "Lousa secundária recolhida; recomendação paisagem é opcional.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0225"
+  },
+  {
+    "id": "DOCX-P0226",
+    "secao": "6. Lousa digital no celular",
+    "requisito": "a barra de ferramentas deverá permanecer fixa;",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1010",
+      "parts_css.py:1541"
+    ],
+    "observacao": "Toolbar não tem position sticky/fixed; fullscreen fixa contêiner inteiro, não toolbar individual.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0226"
+  },
+  {
+    "id": "DOCX-P0227",
+    "secao": "6. Lousa digital no celular",
+    "requisito": "touch-action: none deve ser aplicado somente à área do canvas;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1032"
+    ],
+    "observacao": "touch-action:none restrito ao canvas; controles usam manipulation.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0227"
+  },
+  {
+    "id": "DOCX-P0228",
+    "secao": "6. Lousa digital no celular",
+    "requisito": "a rolagem da página deverá ser bloqueada enquanto o desenho estiver ativo;",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:465",
+      "parts_js_ui.py:540"
+    ],
+    "observacao": "Não há bloqueio explícito de scroll da página durante desenho/tela cheia.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0228"
+  },
+  {
+    "id": "DOCX-P0229",
+    "secao": "6. Lousa digital no celular",
+    "requisito": "o desenho deverá preservar proporção ao retornar ao formulário;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:410",
+      "parts_js_ui.py:540",
+      "parts_css.py:1032",
+      "parts_css.py:1541"
+    ],
+    "observacao": "Lousa opcional com tela cheia manual, undo e confirmação; não bloqueia explicitamente rolagem do body nem fixa ferramentas durante a rolagem.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0229"
+  },
+  {
+    "id": "DOCX-P0230",
+    "secao": "6. Lousa digital no celular",
+    "requisito": "o botão Limpar deverá exigir confirmação se houver traços;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:465",
+      "parts_js_ui.py:516",
+      "parts_js_ui.py:540",
+      "parts_js_ui.py:549"
+    ],
+    "observacao": "Pointer events, rejeição básica de toque enquanto pen ativa, undo, tela cheia e confirmação implementados; precisão física não verificada.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0230"
+  },
+  {
+    "id": "DOCX-P0231",
+    "secao": "6. Lousa digital no celular",
+    "requisito": "o usuário deverá poder desfazer a última ação, preferencialmente.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:465",
+      "parts_js_ui.py:516",
+      "parts_js_ui.py:540",
+      "parts_js_ui.py:549"
+    ],
+    "observacao": "Pointer events, rejeição básica de toque enquanto pen ativa, undo, tela cheia e confirmação implementados; precisão física não verificada.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0231"
+  },
+  {
+    "id": "DOCX-P0236",
+    "secao": "7.1 Modal em tela cheia",
+    "requisito": "O alarme operacional não deve ser apresentado como uma pequena janela central. No celular, deve ocupar praticamente toda a tela:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1783",
+      "parts_js_ui.py:3320",
+      "parts_js_ui.py:3370",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Modal e ações existem; tela cheia só manual; aviso no status é incompleto e não há apresentação inicial dos limites móveis.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0236"
+  },
+  {
+    "id": "DOCX-P0239",
+    "secao": "Hierarquia das ações",
+    "requisito": "Reconhecer alarme, quando estiver disparado;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:3338",
+      "parts_js_ui.py:3370",
+      "parts_html.py:1654"
+    ],
+    "observacao": "Reconhecer e demais ações explícitas; fechar remove active sem reconhecer o alarme.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0239"
+  },
+  {
+    "id": "DOCX-P0240",
+    "secao": "Hierarquia das ações",
+    "requisito": "Concluir evento;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:3338",
+      "parts_js_ui.py:3370",
+      "parts_html.py:1654"
+    ],
+    "observacao": "Reconhecer e demais ações explícitas; fechar remove active sem reconhecer o alarme.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0240"
+  },
+  {
+    "id": "DOCX-P0241",
+    "secao": "Hierarquia das ações",
+    "requisito": "Adiar;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:3338",
+      "parts_js_ui.py:3370",
+      "parts_html.py:1654"
+    ],
+    "observacao": "Reconhecer e demais ações explícitas; fechar remove active sem reconhecer o alarme.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0241"
+  },
+  {
+    "id": "DOCX-P0242",
+    "secao": "Hierarquia das ações",
+    "requisito": "Abrir detalhes.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:3338",
+      "parts_js_ui.py:3370",
+      "parts_html.py:1654"
+    ],
+    "observacao": "Reconhecer e demais ações explícitas; fechar remove active sem reconhecer o alarme.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0242"
+  },
+  {
+    "id": "DOCX-P0243",
+    "secao": "Hierarquia das ações",
+    "requisito": "O botão de fechar não poderá ser confundido com reconhecimento. Fechar o modal deverá apenas ocultar temporariamente a janela, mantendo o estado do alarme como triggered.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:3338",
+      "parts_js_ui.py:3370",
+      "parts_html.py:1654"
+    ],
+    "observacao": "Reconhecer e demais ações explícitas; fechar remove active sem reconhecer o alarme.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0243"
+  },
+  {
+    "id": "DOCX-P0246",
+    "secao": "7.2 Adiamento",
+    "requisito": "O modal de adiamento será convertido em painel inferior:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1783",
+      "parts_js_ui.py:3320",
+      "parts_js_ui.py:3370",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Modal e ações existem; tela cheia só manual; aviso no status é incompleto e não há apresentação inicial dos limites móveis.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0246"
+  },
+  {
+    "id": "DOCX-P0248",
+    "secao": "7.2 Adiamento",
+    "requisito": "Os botões terão área mínima de toque confortável e não dependerão apenas da cor para indicar a seleção.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1715",
+      "parts_js_ui.py:3349"
+    ],
+    "observacao": "Toque muda valor do campo; não há estado aria-pressed ou destaque textual do preset selecionado.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0248"
+  },
+  {
+    "id": "DOCX-P0252",
+    "secao": "7.3 Comportamento em segundo plano",
+    "requisito": "o arquivo precisa permanecer aberto;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1195",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Alguns limites explicados em configurações; status só pede manter aba aberta. Sem aviso inicial e conjunto completo de limites.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0252"
+  },
+  {
+    "id": "DOCX-P0253",
+    "secao": "7.3 Comportamento em segundo plano",
+    "requisito": "o navegador pode limitar temporizadores em segundo plano;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1195",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Alguns limites explicados em configurações; status só pede manter aba aberta. Sem aviso inicial e conjunto completo de limites.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0253"
+  },
+  {
+    "id": "DOCX-P0254",
+    "secao": "7.3 Comportamento em segundo plano",
+    "requisito": "o áudio precisa ter sido desbloqueado por uma interação;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1195",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Alguns limites explicados em configurações; status só pede manter aba aberta. Sem aviso inicial e conjunto completo de limites.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0254"
+  },
+  {
+    "id": "DOCX-P0255",
+    "secao": "7.3 Comportamento em segundo plano",
+    "requisito": "notificações dependem de suporte e permissão do navegador;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1195",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Alguns limites explicados em configurações; status só pede manter aba aberta. Sem aviso inicial e conjunto completo de limites.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0255"
+  },
+  {
+    "id": "DOCX-P0256",
+    "secao": "7.3 Comportamento em segundo plano",
+    "requisito": "o bloqueio de tela ou encerramento do navegador pode impedir o alerta.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1195",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Alguns limites explicados em configurações; status só pede manter aba aberta. Sem aviso inicial e conjunto completo de limites.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0256"
+  },
+  {
+    "id": "DOCX-P0257",
+    "secao": "7.3 Comportamento em segundo plano",
+    "requisito": "Esse aviso deverá aparecer na primeira utilização do dispositivo e continuar acessível em Status da aplicação.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1195",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Alguns limites explicados em configurações; status só pede manter aba aberta. Sem aviso inicial e conjunto completo de limites.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0257"
+  },
+  {
+    "id": "DOCX-P0260",
+    "secao": "8. Eventos concluídos no celular",
+    "requisito": "A tabela de eventos concluídos será substituída por cartões expansíveis.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2345",
+      "parts_js_ui.py:2371",
+      "parts_css.py:1455",
+      "parts_css.py:1745"
+    ],
+    "observacao": "Cartões renderizados, mas CSS da expansão usa completed-card-extra e JS usa completed-card-details; Automático móvel mantém tabela.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0260"
+  },
+  {
+    "id": "DOCX-P0262",
+    "secao": "8. Eventos concluídos no celular",
+    "requisito": "A observação de conclusão, controlador responsável e informações dos alarmes poderão ser exibidas ao expandir o cartão.",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2371",
+      "parts_css.py:1455"
+    ],
+    "observacao": "Expansão alterna expanded, mas CSS oculta/revela completed-card-extra; markup usa completed-card-details e não é recolhido como especificado.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0262"
+  },
+  {
+    "id": "DOCX-P0266",
+    "secao": "9. Cadastros operacionais no celular",
+    "requisito": "O Hub Unificado de três colunas não será mantido no celular. A tela será transformada em uma lista de categorias:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:900",
+      "parts_html.py:951",
+      "parts_js_ui.py:2670",
+      "parts_css.py:1749"
+    ],
+    "observacao": "Categorias, busca e ativos existem; lista e formulário continuam no mesmo card e formulário não vira tela/painel próprio.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0266"
+  },
+  {
+    "id": "DOCX-P0269",
+    "secao": "9. Cadastros operacionais no celular",
+    "requisito": "busca;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:900",
+      "parts_html.py:951",
+      "parts_js_ui.py:2670",
+      "parts_css.py:1749"
+    ],
+    "observacao": "Categorias, busca e ativos existem; lista e formulário continuam no mesmo card e formulário não vira tela/painel próprio.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0269"
+  },
+  {
+    "id": "DOCX-P0270",
+    "secao": "9. Cadastros operacionais no celular",
+    "requisito": "filtro de ativos, inativos ou todos;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:951",
+      "parts_html.py:1016",
+      "parts_html.py:1062",
+      "parts_html.py:1108",
+      "parts_html.py:1171"
+    ],
+    "observacao": "Cinco filtros ativos/inativos/todos presentes e ligados a handlers.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0270"
+  },
+  {
+    "id": "DOCX-P0271",
+    "secao": "9. Cadastros operacionais no celular",
+    "requisito": "lista dos registros;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:900",
+      "parts_html.py:951",
+      "parts_js_ui.py:2670",
+      "parts_css.py:1749"
+    ],
+    "observacao": "Categorias, busca e ativos existem; lista e formulário continuam no mesmo card e formulário não vira tela/painel próprio.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0271"
+  },
+  {
+    "id": "DOCX-P0272",
+    "secao": "9. Cadastros operacionais no celular",
+    "requisito": "botão de inclusão;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:900",
+      "parts_html.py:951",
+      "parts_js_ui.py:2670",
+      "parts_css.py:1749"
+    ],
+    "observacao": "Categorias, busca e ativos existem; lista e formulário continuam no mesmo card e formulário não vira tela/painel próprio.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0272"
+  },
+  {
+    "id": "DOCX-P0273",
+    "secao": "9. Cadastros operacionais no celular",
+    "requisito": "formulário em tela própria ou painel inferior.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:900",
+      "parts_html.py:951",
+      "parts_js_ui.py:2670",
+      "parts_css.py:1749"
+    ],
+    "observacao": "Categorias, busca e ativos existem; lista e formulário continuam no mesmo card e formulário não vira tela/painel próprio.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0273"
+  },
+  {
+    "id": "DOCX-P0276",
+    "secao": "9. Cadastros operacionais no celular",
+    "requisito": "Essa adaptação também deve incluir os filtros de ativos e inativos atualmente referenciados no JavaScript, mas ausentes no HTML.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:951",
+      "parts_html.py:1016",
+      "parts_html.py:1062",
+      "parts_html.py:1108",
+      "parts_html.py:1171"
+    ],
+    "observacao": "Cinco filtros ativos/inativos/todos presentes e ligados a handlers.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0276"
+  },
+  {
+    "id": "DOCX-P0279",
+    "secao": "10. Configurações no celular",
+    "requisito": "As configurações serão organizadas em seções expansíveis:",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_html.py:1204",
+      "parts_html.py:1214"
+    ],
+    "observacao": "Configurações permanecem formulário contínuo; não há seções expansíveis details/summary nem implementação equivalente.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0279"
+  },
+  {
+    "id": "DOCX-P0281",
+    "secao": "10. Configurações no celular",
+    "requisito": "Os controles deslizantes, checkboxes e campos numéricos ocuparão toda a largura disponível.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1204",
+      "parts_html.py:1214"
+    ],
+    "observacao": "Form-grid expande controles pela coluna e slider está presente; há grupos de repetição lado a lado e áreas de checkbox próprias. A geometria varia por perfil (metricas_navegador.json). A ausência de seções expansíveis não é evidência para reprovar a largura dos controles.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0281"
+  },
+  {
+    "id": "DOCX-P0282",
+    "secao": "10. Configurações no celular",
+    "requisito": "A opção Testar som deverá ficar próxima ao tipo de timbre e ao volume. A opção Testar notificação deverá ficar próxima ao estado atual da permissão.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1255",
+      "parts_html.py:1324"
+    ],
+    "observacao": "Timbre e volume ficam antes de canais/repetição; Testar Som fica na barra de ações ao final, separado por esses grupos. Testar Notificação fica próximo ao botão de permissão. Avaliação parcial pela distribuição efetiva, não pela ausência de accordion.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0282"
+  },
+  {
+    "id": "DOCX-P0285",
+    "secao": "11. Configurações de cores no celular",
+    "requisito": "A barra proporcional de cores poderá continuar horizontal, com rolagem controlada ou escala reduzida. A tabela será convertida em cartões:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1372",
+      "parts_js_ui.py:3130",
+      "parts_js_service.py:846",
+      "parts_css.py:1754"
+    ],
+    "observacao": "Cartões e cadeia existem; edição continua na mesma visão e cadeia prévia reflete dados já salvos, não edição pendente.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0285"
+  },
+  {
+    "id": "DOCX-P0287",
+    "secao": "11. Configurações de cores no celular",
+    "requisito": "A inclusão ou edição da faixa será realizada em tela separada. Antes de salvar, a aplicação deverá mostrar a cadeia resultante:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:3141",
+      "parts_html.py:1408"
+    ],
+    "observacao": "Cadeia renderizada dos registros salvos; sem preview da faixa em edição e sem tela separada.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0287"
+  },
+  {
+    "id": "DOCX-P0289",
+    "secao": "11. Configurações de cores no celular",
+    "requisito": "Em caso de lacuna ou sobreposição, o erro deverá identificar claramente as faixas envolvidas.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_service.py:846"
+    ],
+    "observacao": "Erros de lacuna/sobreposição identificam nomes e limites das duas faixas.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0289"
+  },
+  {
+    "id": "DOCX-P0293",
+    "secao": "12.1 Backup",
+    "requisito": "A tela deverá apresentar ações grandes e separadas:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1460",
+      "parts_html.py:1929",
+      "parts_js_ui.py:3645",
+      "parts_js_service.py:1507"
+    ],
+    "observacao": "Backup e exportação existem; Substituir tudo não exige segunda confirmação reforçada e importação preserva listener ao cancelar.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0293"
+  },
+  {
+    "id": "DOCX-P0295",
+    "secao": "12.1 Backup",
+    "requisito": "A importação em modo Substituir tudo deverá exigir confirmação reforçada e informar explicitamente que um backup preventivo será gerado antes da substituição.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1929",
+      "parts_js_ui.py:3645",
+      "parts_js_service.py:1507"
+    ],
+    "observacao": "Backup preventivo existe e é anunciado; sem confirmação reforçada específica para replace; callback de importação cancelada continua registrado.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0295"
+  },
+  {
+    "id": "DOCX-P0298",
+    "secao": "12.2 Diagnóstico",
+    "requisito": "O diagnóstico poderá ser apresentado em cartões:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1558",
+      "parts_html.py:1590",
+      "parts_js_ui.py:3233",
+      "parts_js_ui.py:1370"
+    ],
+    "observacao": "Diagnóstico e cópia existem; Object Stores continuam em tabela, sem lista expansível.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0298"
+  },
+  {
+    "id": "DOCX-P0300",
+    "secao": "12.2 Diagnóstico",
+    "requisito": "As 11 Object Stores serão exibidas em uma lista expansível. Logs técnicos poderão abrir em um painel específico, com opção de copiar o diagnóstico completo.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1590",
+      "parts_js_ui.py:3233",
+      "parts_js_ui.py:1370"
+    ],
+    "observacao": "11 stores e cópia completa existem; stores não formam lista expansível.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0300"
+  },
+  {
+    "id": "DOCX-P0304",
+    "secao": "13.1 Conceito geral",
+    "requisito": "O tablet não deverá ser tratado como um celular ampliado. A adaptação aproveitará a largura adicional para manter contexto, reduzir navegação repetitiva e permitir trabalho com caneta.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1823",
+      "parts_html.py:209",
+      "parts_js_ui.py:330"
+    ],
+    "observacao": "Tablet só recebe composição manual; sem barra lateral persistente compacta em paisagem, navegação principal permanece horizontal.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0304"
+  },
+  {
+    "id": "DOCX-P0306",
+    "secao": "13.1 Conceito geral",
+    "requisito": "controles não serão reduzidos às dimensões do desktop;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1823",
+      "parts_html.py:209",
+      "parts_js_ui.py:330"
+    ],
+    "observacao": "Tablet só recebe composição manual; sem barra lateral persistente compacta em paisagem, navegação principal permanece horizontal.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0306"
+  },
+  {
+    "id": "DOCX-P0307",
+    "secao": "13.1 Conceito geral",
+    "requisito": "ações não dependerão de hover;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1823",
+      "parts_html.py:209",
+      "parts_js_ui.py:330"
+    ],
+    "observacao": "Tablet só recebe composição manual; sem barra lateral persistente compacta em paisagem, navegação principal permanece horizontal.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0307"
+  },
+  {
+    "id": "DOCX-P0308",
+    "secao": "13.1 Conceito geral",
+    "requisito": "tabelas não utilizarão densidade excessiva;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1823",
+      "parts_html.py:209",
+      "parts_js_ui.py:330"
+    ],
+    "observacao": "Tablet só recebe composição manual; sem barra lateral persistente compacta em paisagem, navegação principal permanece horizontal.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0308"
+  },
+  {
+    "id": "DOCX-P0309",
+    "secao": "13.1 Conceito geral",
+    "requisito": "campos e botões manterão áreas de toque amplas;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1823",
+      "parts_html.py:209",
+      "parts_js_ui.py:330"
+    ],
+    "observacao": "Tablet só recebe composição manual; sem barra lateral persistente compacta em paisagem, navegação principal permanece horizontal.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0309"
+  },
+  {
+    "id": "DOCX-P0310",
+    "secao": "13.1 Conceito geral",
+    "requisito": "painéis poderão ser apresentados lado a lado.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1823",
+      "parts_html.py:209",
+      "parts_js_ui.py:330"
+    ],
+    "observacao": "Tablet só recebe composição manual; sem barra lateral persistente compacta em paisagem, navegação principal permanece horizontal.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0310"
+  },
+  {
+    "id": "DOCX-P0313",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "No tablet em paisagem, será utilizada uma barra lateral compacta:",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1823",
+      "parts_html.py:209"
+    ],
+    "observacao": "Drawer disponível; não há sidebar compacta persistente em paisagem ou somente ícones. Alternativas retrato não exigidas simultaneamente.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0313"
+  },
+  {
+    "id": "DOCX-P0315",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "A barra poderá ser recolhida para o modo somente ícones.",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1823",
+      "parts_html.py:209"
+    ],
+    "observacao": "Drawer disponível; não há sidebar compacta persistente em paisagem ou somente ícones. Alternativas retrato não exigidas simultaneamente.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0315"
+  },
+  {
+    "id": "DOCX-P0316",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "No tablet em retrato, poderá ser usado:",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1823",
+      "parts_html.py:209"
+    ],
+    "observacao": "Alternativas não cumulativas para tablet em retrato. Drawer retrátil é a alternativa implementada e atende a possibilidade do conjunto; não se exige também barra estreita. O Auto ainda não ativa a composição tablet, conforme GUI-01; sidebar persistente paisagem é outro requisito.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0316"
+  },
+  {
+    "id": "DOCX-P0317",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "drawer lateral retrátil; ou",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:330",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Drawer retrátil existe como alternativa válida no retrato; lateral persistente paisagem permanece ausente.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0317"
+  },
+  {
+    "id": "DOCX-P0318",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "barra lateral estreita, se a largura útil permitir.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1823",
+      "parts_html.py:209"
+    ],
+    "observacao": "Alternativas não cumulativas para tablet em retrato. Drawer retrátil é a alternativa implementada e atende a possibilidade do conjunto; não se exige também barra estreita. O Auto ainda não ativa a composição tablet, conforme GUI-01; sidebar persistente paisagem é outro requisito.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0318"
+  },
+  {
+    "id": "DOCX-P0320",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "console ativo;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:25",
+      "parts_html.py:35",
+      "parts_html.py:80",
+      "parts_html.py:95"
+    ],
+    "observacao": "Cabeçalho possui console, relógio, áudio, quantidade alarmes, usuário, tema e nova previsão.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0320"
+  },
+  {
+    "id": "DOCX-P0321",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "relógio;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:25",
+      "parts_html.py:35",
+      "parts_html.py:80",
+      "parts_html.py:95"
+    ],
+    "observacao": "Cabeçalho possui console, relógio, áudio, quantidade alarmes, usuário, tema e nova previsão.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0321"
+  },
+  {
+    "id": "DOCX-P0322",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "estado do áudio;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:25",
+      "parts_html.py:35",
+      "parts_html.py:80",
+      "parts_html.py:95"
+    ],
+    "observacao": "Cabeçalho possui console, relógio, áudio, quantidade alarmes, usuário, tema e nova previsão.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0322"
+  },
+  {
+    "id": "DOCX-P0323",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "quantidade de alarmes;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:25",
+      "parts_html.py:35",
+      "parts_html.py:80",
+      "parts_html.py:95"
+    ],
+    "observacao": "Cabeçalho possui console, relógio, áudio, quantidade alarmes, usuário, tema e nova previsão.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0323"
+  },
+  {
+    "id": "DOCX-P0324",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "usuário;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:25",
+      "parts_html.py:35",
+      "parts_html.py:80",
+      "parts_html.py:95"
+    ],
+    "observacao": "Cabeçalho possui console, relógio, áudio, quantidade alarmes, usuário, tema e nova previsão.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0324"
+  },
+  {
+    "id": "DOCX-P0325",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "tema;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:25",
+      "parts_html.py:35",
+      "parts_html.py:80",
+      "parts_html.py:95"
+    ],
+    "observacao": "Cabeçalho possui console, relógio, áudio, quantidade alarmes, usuário, tema e nova previsão.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0325"
+  },
+  {
+    "id": "DOCX-P0326",
+    "secao": "13.2 Navegação lateral",
+    "requisito": "ação de nova previsão.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:25",
+      "parts_html.py:35",
+      "parts_html.py:80",
+      "parts_html.py:95"
+    ],
+    "observacao": "Cabeçalho possui console, relógio, áudio, quantidade alarmes, usuário, tema e nova previsão.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0326"
+  },
+  {
+    "id": "DOCX-P0331",
+    "secao": "14. Painel principal no tablet",
+    "requisito": "A prioridade continuará sendo o próximo evento do console ativo.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1705",
+      "parts_js_ui.py:1738",
+      "parts_js_ui.py:2247"
+    ],
+    "observacao": "pending é ordenado cronologicamente antes do Spotlight e privilegia console ativo; timer depois usa activePendingEvents[0] global e pode exibir tempo de outro evento.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0331"
+  },
+  {
+    "id": "DOCX-P0333",
+    "secao": "14. Painel principal no tablet",
+    "requisito": "alarmes não reconhecidos;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1825",
+      "parts_js_ui.py:1708",
+      "parts_js_ui.py:1738"
+    ],
+    "observacao": "Regiões e alarmes implementados no modo manual; grade não distingue orientação nem empilha explicitamente em retrato.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0333"
+  },
+  {
+    "id": "DOCX-P0334",
+    "secao": "14. Painel principal no tablet",
+    "requisito": "eventos atrasados;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1825",
+      "parts_js_ui.py:1708",
+      "parts_js_ui.py:1738"
+    ],
+    "observacao": "Regiões e alarmes implementados no modo manual; grade não distingue orientação nem empilha explicitamente em retrato.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0334"
+  },
+  {
+    "id": "DOCX-P0335",
+    "secao": "14. Painel principal no tablet",
+    "requisito": "ações rápidas.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1825",
+      "parts_js_ui.py:1708",
+      "parts_js_ui.py:1738"
+    ],
+    "observacao": "Regiões e alarmes implementados no modo manual; grade não distingue orientação nem empilha explicitamente em retrato.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0335"
+  },
+  {
+    "id": "DOCX-P0336",
+    "secao": "14. Painel principal no tablet",
+    "requisito": "Em retrato, essas áreas serão empilhadas.",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1828"
+    ],
+    "observacao": "Tablet usa sempre 1.75fr/1fr, sem condição de orientação para empilhar em retrato.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0336"
+  },
+  {
+    "id": "DOCX-P0339",
+    "secao": "15. Eventos pendentes no tablet",
+    "requisito": "A tela poderá utilizar o padrão lista e detalhe:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1834",
+      "parts_js_ui.py:2089",
+      "parts_js_ui.py:2099"
+    ],
+    "observacao": "Master/detail implementado no modo tablet manual; Auto não exibe painel; retrato não tem painel deslizante específico.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0339"
+  },
+  {
+    "id": "DOCX-P0342",
+    "secao": "Benefícios",
+    "requisito": "o controlador mantém a visão da fila;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2099",
+      "parts_css.py:1834"
+    ],
+    "observacao": "Painel mantém fila, detalhes, desenho e ações no tablet manual. Automático não o exibe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0342"
+  },
+  {
+    "id": "DOCX-P0343",
+    "secao": "Benefícios",
+    "requisito": "a seleção de um evento não exige mudança de tela;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2099",
+      "parts_css.py:1834"
+    ],
+    "observacao": "Painel mantém fila, detalhes, desenho e ações no tablet manual. Automático não o exibe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0343"
+  },
+  {
+    "id": "DOCX-P0344",
+    "secao": "Benefícios",
+    "requisito": "detalhes e desenho podem ser consultados rapidamente;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2099",
+      "parts_css.py:1834"
+    ],
+    "observacao": "Painel mantém fila, detalhes, desenho e ações no tablet manual. Automático não o exibe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0344"
+  },
+  {
+    "id": "DOCX-P0345",
+    "secao": "Benefícios",
+    "requisito": "ações permanecem disponíveis no painel direito.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:2099",
+      "parts_css.py:1834"
+    ],
+    "observacao": "Painel mantém fila, detalhes, desenho e ações no tablet manual. Automático não o exibe.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0345"
+  },
+  {
+    "id": "DOCX-P0346",
+    "secao": "Benefícios",
+    "requisito": "Em tablet retrato, o detalhe poderá abrir como painel deslizante sobre a lista.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1834",
+      "parts_js_ui.py:2089",
+      "parts_js_ui.py:2099"
+    ],
+    "observacao": "Master/detail implementado no modo tablet manual; Auto não exibe painel; retrato não tem painel deslizante específico.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0346"
+  },
+  {
+    "id": "DOCX-P0349",
+    "secao": "16. Nova previsão no tablet",
+    "requisito": "O formulário poderá ser distribuído em duas colunas:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:588",
+      "parts_html.py:439",
+      "parts_html.py:609"
+    ],
+    "observacao": "Grade auto-fit permite duas colunas, mas mistura campos sem regiões semânticas localização/programação; salvar outra disponível.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0349"
+  },
+  {
+    "id": "DOCX-P0351",
+    "secao": "16. Nova previsão no tablet",
+    "requisito": "Os campos encadeados deverão permanecer juntos na mesma região para deixar clara a relação:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:588",
+      "parts_html.py:439",
+      "parts_html.py:609"
+    ],
+    "observacao": "Grade auto-fit permite duas colunas, mas mistura campos sem regiões semânticas localização/programação; salvar outra disponível.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0351"
+  },
+  {
+    "id": "DOCX-P0353",
+    "secao": "16. Nova previsão no tablet",
+    "requisito": "O botão Salvar e + Outra no Duto deverá permanecer em evidência, pois o tablet favorece o registro consecutivo de diversas previsões durante o planejamento operacional.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:609",
+      "parts_js_ui.py:1080"
+    ],
+    "observacao": "Salvar e outra no duto existe e preserva contexto operacional.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0353"
+  },
+  {
+    "id": "DOCX-P0356",
+    "secao": "17. Lousa digital no tablet",
+    "requisito": "O tablet será o dispositivo prioritário para uso da lousa.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:410",
+      "parts_js_ui.py:465",
+      "parts_css.py:1843"
+    ],
+    "observacao": "Canvas, pen e undo presentes; toolbar não fixa; mínimo 280px depende de modo manual; preservar proporção exige ensaio visual.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0356"
+  },
+  {
+    "id": "DOCX-P0358",
+    "secao": "17.1 Comportamento recomendado",
+    "requisito": "canvas com largura total do painel;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:410",
+      "parts_js_ui.py:465",
+      "parts_css.py:1843"
+    ],
+    "observacao": "Canvas, pen e undo presentes; toolbar não fixa; mínimo 280px depende de modo manual; preservar proporção exige ensaio visual.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0358"
+  },
+  {
+    "id": "DOCX-P0359",
+    "secao": "17.1 Comportamento recomendado",
+    "requisito": "altura mínima entre 280px e 400px, conforme orientação;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:410",
+      "parts_js_ui.py:465",
+      "parts_css.py:1843"
+    ],
+    "observacao": "Canvas, pen e undo presentes; toolbar não fixa; mínimo 280px depende de modo manual; preservar proporção exige ensaio visual.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0359"
+  },
+  {
+    "id": "DOCX-P0360",
+    "secao": "17.1 Comportamento recomendado",
+    "requisito": "barra de ferramentas fixa;",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_css.py:1010",
+      "parts_css.py:1541"
+    ],
+    "observacao": "Toolbar não tem position sticky/fixed; fullscreen fixa contêiner inteiro, não toolbar individual.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0360"
+  },
+  {
+    "id": "DOCX-P0361",
+    "secao": "17.1 Comportamento recomendado",
+    "requisito": "suporte a toque, mouse e caneta;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:465",
+      "parts_js_ui.py:516",
+      "parts_js_ui.py:540",
+      "parts_js_ui.py:549"
+    ],
+    "observacao": "Pointer events, rejeição básica de toque enquanto pen ativa, undo, tela cheia e confirmação implementados; precisão física não verificada.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0361"
+  },
+  {
+    "id": "DOCX-P0362",
+    "secao": "17.1 Comportamento recomendado",
+    "requisito": "prioridade de entrada para caneta quando pointerType === 'pen';",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:465",
+      "parts_js_ui.py:516",
+      "parts_js_ui.py:540",
+      "parts_js_ui.py:549"
+    ],
+    "observacao": "Pointer events, rejeição básica de toque enquanto pen ativa, undo, tela cheia e confirmação implementados; precisão física não verificada.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0362"
+  },
+  {
+    "id": "DOCX-P0363",
+    "secao": "17.1 Comportamento recomendado",
+    "requisito": "prevenção de rolagem acidental somente durante o traço;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1032",
+      "parts_js_ui.py:465"
+    ],
+    "observacao": "touch-action:none permanente no canvas; evita scroll mesmo sem traço, além da regra somente durante traço.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0363"
+  },
+  {
+    "id": "DOCX-P0364",
+    "secao": "17.1 Comportamento recomendado",
+    "requisito": "desenho preservado durante rotação;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:170",
+      "parts_js_ui.py:410"
+    ],
+    "observacao": "Resize não redefine bitmap; preservação de proporção/retorno precisa ensaio de orientação.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0364"
+  },
+  {
+    "id": "DOCX-P0365",
+    "secao": "17.1 Comportamento recomendado",
+    "requisito": "visualização em tela cheia;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:465",
+      "parts_js_ui.py:516",
+      "parts_js_ui.py:540",
+      "parts_js_ui.py:549"
+    ],
+    "observacao": "Pointer events, rejeição básica de toque enquanto pen ativa, undo, tela cheia e confirmação implementados; precisão física não verificada.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0365"
+  },
+  {
+    "id": "DOCX-P0366",
+    "secao": "17.1 Comportamento recomendado",
+    "requisito": "botão de desfazer;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:465",
+      "parts_js_ui.py:516",
+      "parts_js_ui.py:540",
+      "parts_js_ui.py:549"
+    ],
+    "observacao": "Pointer events, rejeição básica de toque enquanto pen ativa, undo, tela cheia e confirmação implementados; precisão física não verificada.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0366"
+  },
+  {
+    "id": "DOCX-P0367",
+    "secao": "17.1 Comportamento recomendado",
+    "requisito": "indicação explícita do modo ativo: Caneta ou Borracha.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:465",
+      "parts_js_ui.py:516",
+      "parts_js_ui.py:540",
+      "parts_js_ui.py:549"
+    ],
+    "observacao": "Pointer events, rejeição básica de toque enquanto pen ativa, undo, tela cheia e confirmação implementados; precisão física não verificada.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0367"
+  },
+  {
+    "id": "DOCX-P0370",
+    "secao": "17.1 Comportamento recomendado",
+    "requisito": "Se o navegador fornecer pressão da caneta em PointerEvent.pressure, a aplicação poderá futuramente variar a espessura do traço, mantendo como fallback a espessura selecionada manualmente.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:480"
+    ],
+    "observacao": "Pressão de caneta suportada com espessura manual como base; melhoria futura opcional já implementada.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0370"
+  },
+  {
+    "id": "DOCX-P0373",
+    "secao": "18. Cadastros operacionais no tablet",
+    "requisito": "O Hub de três colunas do desktop deverá ser convertido em um fluxo hierárquico de duas regiões.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1846",
+      "parts_html.py:900"
+    ],
+    "observacao": "Categorias e card único; tablet continua em grade de uma coluna com categoria acima, sem duas regiões esquerda/principal.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0373"
+  },
+  {
+    "id": "DOCX-P0378",
+    "secao": "Região principal",
+    "requisito": "Lista e formulário da categoria selecionada.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1846",
+      "parts_html.py:900"
+    ],
+    "observacao": "Categorias e card único; tablet continua em grade de uma coluna com categoria acima, sem duas regiões esquerda/principal.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0378"
+  },
+  {
+    "id": "DOCX-P0386",
+    "secao": "19.1 Celular",
+    "requisito": "tela cheia para alarme, detalhes e formulário complexo;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1783",
+      "parts_css.py:1050",
+      "parts_js_ui.py:3320"
+    ],
+    "observacao": "Modais têm limites e Escape, mas não restauram foco, não tratam teclado virtual e fecham por clique externo inclusive ações críticas.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0386"
+  },
+  {
+    "id": "DOCX-P0387",
+    "secao": "19.1 Celular",
+    "requisito": "painel inferior para adiamento e ações contextuais;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1783",
+      "parts_css.py:1050",
+      "parts_js_ui.py:3320"
+    ],
+    "observacao": "Modais têm limites e Escape, mas não restauram foco, não tratam teclado virtual e fecham por clique externo inclusive ações críticas.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0387"
+  },
+  {
+    "id": "DOCX-P0388",
+    "secao": "19.1 Celular",
+    "requisito": "diálogo central para confirmações simples;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1783",
+      "parts_css.py:1050",
+      "parts_js_ui.py:3320"
+    ],
+    "observacao": "Modais têm limites e Escape, mas não restauram foco, não tratam teclado virtual e fecham por clique externo inclusive ações críticas.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0388"
+  },
+  {
+    "id": "DOCX-P0389",
+    "secao": "19.1 Celular",
+    "requisito": "tela própria para importação de backup.",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_html.py:1906",
+      "parts_js_ui.py:3630"
+    ],
+    "observacao": "Importação abre modalImportSummary comum; não há tela própria móvel.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0389"
+  },
+  {
+    "id": "DOCX-P0392",
+    "secao": "19.2 Tablet",
+    "requisito": "confirmação: aproximadamente 420px;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1783",
+      "parts_css.py:1050",
+      "parts_js_ui.py:3320"
+    ],
+    "observacao": "Modais têm limites e Escape, mas não restauram foco, não tratam teclado virtual e fecham por clique externo inclusive ações críticas.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0392"
+  },
+  {
+    "id": "DOCX-P0393",
+    "secao": "19.2 Tablet",
+    "requisito": "conclusão e adiamento: 480px a 560px;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1783",
+      "parts_css.py:1050",
+      "parts_js_ui.py:3320"
+    ],
+    "observacao": "Modais têm limites e Escape, mas não restauram foco, não tratam teclado virtual e fecham por clique externo inclusive ações críticas.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0393"
+  },
+  {
+    "id": "DOCX-P0394",
+    "secao": "19.2 Tablet",
+    "requisito": "detalhes e histórico: 720px a 900px;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1783",
+      "parts_css.py:1050",
+      "parts_js_ui.py:3320"
+    ],
+    "observacao": "Modais têm limites e Escape, mas não restauram foco, não tratam teclado virtual e fecham por clique externo inclusive ações críticas.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0394"
+  },
+  {
+    "id": "DOCX-P0395",
+    "secao": "19.2 Tablet",
+    "requisito": "alerta operacional: largura ampla e alto contraste.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1783",
+      "parts_css.py:1050",
+      "parts_js_ui.py:3320"
+    ],
+    "observacao": "Modais têm limites e Escape, mas não restauram foco, não tratam teclado virtual e fecham por clique externo inclusive ações críticas.",
+    "prioridade": "alta",
+    "natureza": "recomendacao",
+    "origem": "P0395"
+  },
+  {
+    "id": "DOCX-P0397",
+    "secao": "19.2 Tablet",
+    "requisito": "manter título e ação principal visíveis;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1050",
+      "parts_css.py:1101"
+    ],
+    "observacao": "Modal em flex com body rolável mantém header/footer; teclado e baixa altura não tratados.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0397"
+  },
+  {
+    "id": "DOCX-P0398",
+    "secao": "19.2 Tablet",
+    "requisito": "impedir que o teclado virtual cubra o campo ativo;",
+    "status": "nao_verificado",
+    "evidencia_codigo": [
+      "parts_js_ui.py:3320"
+    ],
+    "observacao": "Não há tratamento explícito de visualViewport/rolagem ao foco no código. O navegador pode aplicar comportamento nativo; cobertura real de campos por teclado virtual e barras fixas exige aparelho físico e não foi comprovada nesta auditoria.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0398"
+  },
+  {
+    "id": "DOCX-P0399",
+    "secao": "19.2 Tablet",
+    "requisito": "permitir fechamento por Escape quando houver teclado físico;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:3321"
+    ],
+    "observacao": "Escape fecha modais ativos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0399"
+  },
+  {
+    "id": "DOCX-P0400",
+    "secao": "19.2 Tablet",
+    "requisito": "devolver o foco ao elemento que abriu o modal;",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:3320"
+    ],
+    "observacao": "Sem manejo de visualViewport, rolagem ao campo ativo ou restauração de foco ao elemento de origem.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0400"
+  },
+  {
+    "id": "DOCX-P0401",
+    "secao": "19.2 Tablet",
+    "requisito": "evitar fechamento acidental durante ações críticas.",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:3329",
+      "parts_js_ui.py:3598"
+    ],
+    "observacao": "Clique externo fecha qualquer modal; listeners de confirmação cancelada permanecem e podem executar ação anterior ao confirmar outra.",
+    "prioridade": "critica",
+    "natureza": "obrigacao",
+    "origem": "P0401"
+  },
+  {
+    "id": "DOCX-P0405",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "área de toque mínima próxima de 44 × 44px;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1758",
+      "parts_css.py:1855",
+      "parts_html.py:1946"
+    ],
+    "observacao": "Áreas maiores nos modos manuais; fontes auxiliares abaixo de 14px, vários ícones sem aria-label/title e botões 46/44px. Recomendações ergonômicas tratadas como recomendações.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0405"
+  },
+  {
+    "id": "DOCX-P0406",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "botões principais com altura entre 48px e 56px;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1758",
+      "parts_css.py:1855",
+      "parts_html.py:1946"
+    ],
+    "observacao": "Áreas maiores nos modos manuais; fontes auxiliares abaixo de 14px, vários ícones sem aria-label/title e botões 46/44px. Recomendações ergonômicas tratadas como recomendações.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0406"
+  },
+  {
+    "id": "DOCX-P0407",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "campos com altura mínima de 48px;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1758",
+      "parts_css.py:1855",
+      "parts_html.py:1946"
+    ],
+    "observacao": "Áreas maiores nos modos manuais; fontes auxiliares abaixo de 14px, vários ícones sem aria-label/title e botões 46/44px. Recomendações ergonômicas tratadas como recomendações.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0407"
+  },
+  {
+    "id": "DOCX-P0408",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "distância mínima visual de aproximadamente 8px entre ações;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1758",
+      "parts_css.py:1855",
+      "parts_html.py:1946"
+    ],
+    "observacao": "Áreas maiores nos modos manuais; fontes auxiliares abaixo de 14px, vários ícones sem aria-label/title e botões 46/44px. Recomendações ergonômicas tratadas como recomendações.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0408"
+  },
+  {
+    "id": "DOCX-P0409",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "margens laterais de 16px no celular;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1758",
+      "parts_css.py:1855",
+      "parts_html.py:1946"
+    ],
+    "observacao": "Áreas maiores nos modos manuais; fontes auxiliares abaixo de 14px, vários ícones sem aria-label/title e botões 46/44px. Recomendações ergonômicas tratadas como recomendações.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0409"
+  },
+  {
+    "id": "DOCX-P0410",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "margens de 24px a 32px no tablet;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1758",
+      "parts_css.py:1855",
+      "parts_html.py:1946"
+    ],
+    "observacao": "Áreas maiores nos modos manuais; fontes auxiliares abaixo de 14px, vários ícones sem aria-label/title e botões 46/44px. Recomendações ergonômicas tratadas como recomendações.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0410"
+  },
+  {
+    "id": "DOCX-P0411",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "texto principal com pelo menos 16px;",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_css.py:596",
+      "parts_js_ui.py:2367",
+      "parts_html.py:1970"
+    ],
+    "observacao": "Labels .825rem e vários auxiliares .75/.76/.78rem; não asseguram mínimos 16/14px. Recomendação ergonômica.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0411"
+  },
+  {
+    "id": "DOCX-P0412",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "texto auxiliar com pelo menos 14px;",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_css.py:596",
+      "parts_js_ui.py:2367",
+      "parts_html.py:1970"
+    ],
+    "observacao": "Labels .825rem e vários auxiliares .75/.76/.78rem; não asseguram mínimos 16/14px. Recomendação ergonômica.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0412"
+  },
+  {
+    "id": "DOCX-P0413",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "contador regressivo crítico com destaque entre 24px e 36px;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1758",
+      "parts_css.py:1855",
+      "parts_html.py:1946"
+    ],
+    "observacao": "Áreas maiores nos modos manuais; fontes auxiliares abaixo de 14px, vários ícones sem aria-label/title e botões 46/44px. Recomendações ergonômicas tratadas como recomendações.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0413"
+  },
+  {
+    "id": "DOCX-P0414",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "ações destrutivas separadas das ações frequentes.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_css.py:1758",
+      "parts_css.py:1855",
+      "parts_html.py:1946"
+    ],
+    "observacao": "Áreas maiores nos modos manuais; fontes auxiliares abaixo de 14px, vários ícones sem aria-label/title e botões 46/44px. Recomendações ergonômicas tratadas como recomendações.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0414"
+  },
+  {
+    "id": "DOCX-P0416",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "aria-label;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1946",
+      "parts_js_ui.py:1829"
+    ],
+    "observacao": "Há ícones com aria-label/title no cabeçalho, mas fechar modal e reticências de cartões não têm rótulo acessível suficiente.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0416"
+  },
+  {
+    "id": "DOCX-P0417",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "título acessível;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1946",
+      "parts_js_ui.py:1829"
+    ],
+    "observacao": "Há ícones com aria-label/title no cabeçalho, mas fechar modal e reticências de cartões não têm rótulo acessível suficiente.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0417"
+  },
+  {
+    "id": "DOCX-P0418",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "área clicável ampliada;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1946",
+      "parts_js_ui.py:1829"
+    ],
+    "observacao": "Há ícones com aria-label/title no cabeçalho, mas fechar modal e reticências de cartões não têm rótulo acessível suficiente.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0418"
+  },
+  {
+    "id": "DOCX-P0419",
+    "secao": "20. Tamanhos e ergonomia de toque",
+    "requisito": "significado inequívoco.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_html.py:1946",
+      "parts_js_ui.py:1829"
+    ],
+    "observacao": "Há ícones com aria-label/title no cabeçalho, mas fechar modal e reticências de cartões não têm rótulo acessível suficiente.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0419"
+  },
+  {
+    "id": "DOCX-P0422",
+    "secao": "21. Cores, criticidade e acessibilidade",
+    "requisito": "A classificação não poderá depender exclusivamente das cores.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1761",
+      "parts_js_ui.py:2236",
+      "parts_css.py:193"
+    ],
+    "observacao": "Nome/cor/contador presentes e reduced-motion existe; classificação fica estática até render e preferências visuais globais não são usadas pelo render.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0422"
+  },
+  {
+    "id": "DOCX-P0424",
+    "secao": "21. Cores, criticidade e acessibilidade",
+    "requisito": "nome da faixa;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1761",
+      "parts_js_ui.py:2236",
+      "parts_css.py:193"
+    ],
+    "observacao": "Nome/cor/contador presentes e reduced-motion existe; classificação fica estática até render e preferências visuais globais não são usadas pelo render.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0424"
+  },
+  {
+    "id": "DOCX-P0425",
+    "secao": "21. Cores, criticidade e acessibilidade",
+    "requisito": "cor;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1761",
+      "parts_js_ui.py:2236",
+      "parts_css.py:193"
+    ],
+    "observacao": "Nome/cor/contador presentes e reduced-motion existe; classificação fica estática até render e preferências visuais globais não são usadas pelo render.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0425"
+  },
+  {
+    "id": "DOCX-P0426",
+    "secao": "21. Cores, criticidade e acessibilidade",
+    "requisito": "ícone ou marcador;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1761",
+      "parts_js_ui.py:2236",
+      "parts_css.py:193"
+    ],
+    "observacao": "Nome/cor/contador presentes e reduced-motion existe; classificação fica estática até render e preferências visuais globais não são usadas pelo render.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0426"
+  },
+  {
+    "id": "DOCX-P0427",
+    "secao": "21. Cores, criticidade e acessibilidade",
+    "requisito": "contador;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1761",
+      "parts_js_ui.py:2236",
+      "parts_css.py:193"
+    ],
+    "observacao": "Nome/cor/contador presentes e reduced-motion existe; classificação fica estática até render e preferências visuais globais não são usadas pelo render.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0427"
+  },
+  {
+    "id": "DOCX-P0428",
+    "secao": "21. Cores, criticidade e acessibilidade",
+    "requisito": "texto temporal.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1761",
+      "parts_js_ui.py:2236",
+      "parts_css.py:193"
+    ],
+    "observacao": "Nome/cor/contador presentes e reduced-motion existe; classificação fica estática até render e preferências visuais globais não são usadas pelo render.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0428"
+  },
+  {
+    "id": "DOCX-P0433",
+    "secao": "21. Cores, criticidade e acessibilidade",
+    "requisito": "As animações pulsantes deverão respeitar a preferência prefers-reduced-motion. Quando o sistema solicitar redução de movimento, a pulsação deverá ser substituída por:",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:193"
+    ],
+    "observacao": "Reduced-motion desativa animações, aplica borda/contorno e mantém texto/ícone existentes.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0433"
+  },
+  {
+    "id": "DOCX-P0434",
+    "secao": "21. Cores, criticidade e acessibilidade",
+    "requisito": "borda de alto contraste;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:193"
+    ],
+    "observacao": "Reduced-motion desativa animações, aplica borda/contorno e mantém texto/ícone existentes.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0434"
+  },
+  {
+    "id": "DOCX-P0435",
+    "secao": "21. Cores, criticidade e acessibilidade",
+    "requisito": "ícone persistente;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:193"
+    ],
+    "observacao": "Reduced-motion desativa animações, aplica borda/contorno e mantém texto/ícone existentes.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0435"
+  },
+  {
+    "id": "DOCX-P0436",
+    "secao": "21. Cores, criticidade e acessibilidade",
+    "requisito": "texto destacado;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:193"
+    ],
+    "observacao": "Reduced-motion desativa animações, aplica borda/contorno e mantém texto/ícone existentes.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0436"
+  },
+  {
+    "id": "DOCX-P0437",
+    "secao": "21. Cores, criticidade e acessibilidade",
+    "requisito": "sinal sonoro, quando habilitado.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1761",
+      "parts_js_ui.py:2236",
+      "parts_css.py:193"
+    ],
+    "observacao": "Nome/cor/contador presentes e reduced-motion existe; classificação fica estática até render e preferências visuais globais não são usadas pelo render.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0437"
+  },
+  {
+    "id": "DOCX-P0441",
+    "secao": "22. Teclado virtual e orientação",
+    "requisito": "barras fixas não podem cobrir campos;",
+    "status": "nao_verificado",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1517",
+      "parts_js_ui.py:1038"
+    ],
+    "observacao": "Não há tratamento explícito de visualViewport/rolagem ao foco no código. O navegador pode aplicar comportamento nativo; cobertura real de campos por teclado virtual e barras fixas exige aparelho físico e não foi comprovada nesta auditoria.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0441"
+  },
+  {
+    "id": "DOCX-P0442",
+    "secao": "22. Teclado virtual e orientação",
+    "requisito": "o campo ativo deve ser rolado para a área visível;",
+    "status": "nao_verificado",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1517",
+      "parts_js_ui.py:1038"
+    ],
+    "observacao": "Não há tratamento explícito de visualViewport/rolagem ao foco no código. O navegador pode aplicar comportamento nativo; cobertura real de campos por teclado virtual e barras fixas exige aparelho físico e não foi comprovada nesta auditoria.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0442"
+  },
+  {
+    "id": "DOCX-P0443",
+    "secao": "22. Teclado virtual e orientação",
+    "requisito": "campos numéricos devem solicitar teclado numérico;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:478",
+      "parts_html.py:483",
+      "parts_html.py:1726"
+    ],
+    "observacao": "Datas/horas nativas e campos numéricos type=number; teclado final depende do navegador-alvo.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0443"
+  },
+  {
+    "id": "DOCX-P0444",
+    "secao": "22. Teclado virtual e orientação",
+    "requisito": "data e hora devem utilizar controles nativos quando adequados;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:478",
+      "parts_html.py:483",
+      "parts_html.py:1726"
+    ],
+    "observacao": "Datas/horas nativas e campos numéricos type=number; teclado final depende do navegador-alvo.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0444"
+  },
+  {
+    "id": "DOCX-P0445",
+    "secao": "22. Teclado virtual e orientação",
+    "requisito": "a busca deve permitir ação direta pelo teclado;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1517",
+      "parts_js_ui.py:1038"
+    ],
+    "observacao": "Pesquisa reage ao evento input, portanto digitação pelo teclado já filtra; não há enterkeyhint/ação móvel explícita. Ausência desse atributo não significa busca inoperante. Interação com teclado virtual físico permanece pendente.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0445"
+  },
+  {
+    "id": "DOCX-P0446",
+    "secao": "22. Teclado virtual e orientação",
+    "requisito": "o formulário não poderá ser submetido acidentalmente ao avançar entre campos.",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1517",
+      "parts_js_ui.py:1038"
+    ],
+    "observacao": "Sem controle explícito de teclado virtual/scroll ao campo ou proteção de submit por Enter; pesquisa reage input, sem enterkeyhint/ação direta.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0446"
+  },
+  {
+    "id": "DOCX-P0448",
+    "secao": "22. Teclado virtual e orientação",
+    "requisito": "o formulário não deve perder valores;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:170",
+      "parts_js_ui.py:12"
+    ],
+    "observacao": "Resize não remonta formulário nem remove selectedDetailEventId. Mudança de categoria deve ser avaliada separadamente.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0448"
+  },
+  {
+    "id": "DOCX-P0449",
+    "secao": "22. Teclado virtual e orientação",
+    "requisito": "a lousa não deve perder o desenho;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:170",
+      "parts_js_ui.py:410"
+    ],
+    "observacao": "Resize não redefine bitmap; preservação de proporção/retorno precisa ensaio de orientação.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0449"
+  },
+  {
+    "id": "DOCX-P0450",
+    "secao": "22. Teclado virtual e orientação",
+    "requisito": "o evento selecionado deve permanecer selecionado;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:170",
+      "parts_js_ui.py:12"
+    ],
+    "observacao": "Resize não remonta formulário nem remove selectedDetailEventId. Mudança de categoria deve ser avaliada separadamente.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0450"
+  },
+  {
+    "id": "DOCX-P0451",
+    "secao": "22. Teclado virtual e orientação",
+    "requisito": "filtros e posição de rolagem devem ser preservados;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:170",
+      "parts_css.py:1789"
+    ],
+    "observacao": "Filtros/DOM preservados; scroll lógico não é explicitamente memorizado e modais usam CSS de viewport sem teclado virtual.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0451"
+  },
+  {
+    "id": "DOCX-P0452",
+    "secao": "22. Teclado virtual e orientação",
+    "requisito": "modais devem recalcular altura e largura.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:170",
+      "parts_css.py:1789"
+    ],
+    "observacao": "Filtros/DOM preservados; scroll lógico não é explicitamente memorizado e modais usam CSS de viewport sem teclado virtual.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0452"
+  },
+  {
+    "id": "DOCX-P0455",
+    "secao": "23. Funcionamento offline em dispositivos móveis",
+    "requisito": "A base continuará armazenada no IndexedDB do navegador utilizado no dispositivo. A interface deverá deixar explícito que os dados pertencem à combinação:",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_html.py:1460",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Não há explicação completa e explícita do vínculo dispositivo+navegador+perfil, perda ao limpar dados e ausência de sincronização.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0455"
+  },
+  {
+    "id": "DOCX-P0458",
+    "secao": "23. Funcionamento offline em dispositivos móveis",
+    "requisito": "abrir o mesmo index.html em outro navegador não garante acesso aos mesmos registros;",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_html.py:1460",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Não há explicação completa e explícita do vínculo dispositivo+navegador+perfil, perda ao limpar dados e ausência de sincronização.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0458"
+  },
+  {
+    "id": "DOCX-P0459",
+    "secao": "23. Funcionamento offline em dispositivos móveis",
+    "requisito": "limpar dados do navegador pode eliminar a base local;",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_html.py:1460",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Não há explicação completa e explícita do vínculo dispositivo+navegador+perfil, perda ao limpar dados e ausência de sincronização.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0459"
+  },
+  {
+    "id": "DOCX-P0460",
+    "secao": "23. Funcionamento offline em dispositivos móveis",
+    "requisito": "a aplicação não sincroniza automaticamente celular, tablet e desktop;",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_html.py:1460",
+      "parts_html.py:2001"
+    ],
+    "observacao": "Não há explicação completa e explícita do vínculo dispositivo+navegador+perfil, perda ao limpar dados e ausência de sincronização.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0460"
+  },
+  {
+    "id": "DOCX-P0461",
+    "secao": "23. Funcionamento offline em dispositivos móveis",
+    "requisito": "o backup JSON permanece essencial;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:221",
+      "parts_html.py:1460"
+    ],
+    "observacao": "Backup JSON e data último backup disponíveis na tela/status/banner.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0461"
+  },
+  {
+    "id": "DOCX-P0462",
+    "secao": "23. Funcionamento offline em dispositivos móveis",
+    "requisito": "o usuário deve visualizar a data do último backup;",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:221",
+      "parts_html.py:1460"
+    ],
+    "observacao": "Backup JSON e data último backup disponíveis na tela/status/banner.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0462"
+  },
+  {
+    "id": "DOCX-P0463",
+    "secao": "23. Funcionamento offline em dispositivos móveis",
+    "requisito": "importação e exportação precisam ser testadas no navegador-alvo.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_service.py:1430",
+      "parts_js_service.py:1504"
+    ],
+    "observacao": "Downloads JSON e três CSVs exercitados pela GUI no Edge em perfil temporário; importações inválidas e conflito foram reproduzidos em testes isolados. Android/iOS e navegadores-alvo reais continuam pendentes. Ver testes_estados.json e testes_integridade_visual.json.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0463"
+  },
+  {
+    "id": "DOCX-P0464",
+    "secao": "23. Funcionamento offline em dispositivos móveis",
+    "requisito": "Recomenda-se exibir um aviso persistente quando o último backup ultrapassar um período configurável, por exemplo:",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:234"
+    ],
+    "observacao": "Aviso persistente existe; prazo fixo 7 dias, não configurável. Trata-se de recomendação.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "P0464"
+  },
+  {
+    "id": "DOCX-P0470",
+    "secao": "Prioridade crítica",
+    "requisito": "Unificar .open e .active no drawer e no overlay.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:340",
+      "parts_css.py:414",
+      "parts_css.py:433"
+    ],
+    "observacao": "Drawer e overlay adicionam/removem open e active conjuntamente; CSS aceita ambas.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0470"
+  },
+  {
+    "id": "DOCX-P0471",
+    "secao": "Prioridade crítica",
+    "requisito": "Manter somente um FAB ou usar a navegação inferior.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:538",
+      "parts_css.py:1608",
+      "parts_html.py:1626"
+    ],
+    "observacao": "FABs ocultos; barra inferior com Novo.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0471"
+  },
+  {
+    "id": "DOCX-P0472",
+    "secao": "Prioridade crítica",
+    "requisito": "Corrigir a variável --bg-surface-elevated para --bg-elevated.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:13",
+      "parts_css.py:1733"
+    ],
+    "observacao": "Usos atuais empregam bg-elevated; variável legada permanece definida nos três temas como valor equivalente. Correção funcional atende ao requisito; manter compatibilidade não é falha.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0472"
+  },
+  {
+    "id": "DOCX-P0473",
+    "secao": "Prioridade crítica",
+    "requisito": "Atualizar os badges do drawer mobile.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1675"
+    ],
+    "observacao": "Todos badges drawer/mobile são atualizados no renderDashboard.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0473"
+  },
+  {
+    "id": "DOCX-P0474",
+    "secao": "Prioridade crítica",
+    "requisito": "Vincular corretamente os botões de backup e exportação.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1288",
+      "parts_js_ui.py:1331"
+    ],
+    "observacao": "Botões backup/CSV vinculados por listeners e aliases; validar downloads no navegador-alvo.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0474"
+  },
+  {
+    "id": "DOCX-P0475",
+    "secao": "Prioridade crítica",
+    "requisito": "Corrigir exportCSV('concluido') para exportCSV('completed').",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_js_ui.py:1332",
+      "parts_js_service.py:1567"
+    ],
+    "observacao": "Chamada continua concluido, mas serviço normaliza para completed. Correção funcional equivalente, não literal.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0475"
+  },
+  {
+    "id": "DOCX-P0476",
+    "secao": "Prioridade crítica",
+    "requisito": "Harmonizar os valores do filtro de pontualidade.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:833",
+      "parts_js_ui.py:2318"
+    ],
+    "observacao": "Handlers aceitam antecedencia, atraso e noprazo usados no HTML. Tolerância <=1min para rótulo Exato no Horário deve ser esclarecida.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0476"
+  },
+  {
+    "id": "DOCX-P0477",
+    "secao": "Prioridade crítica",
+    "requisito": "Adicionar ao HTML os filtros de registros ativos e inativos.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:951",
+      "parts_html.py:1016",
+      "parts_html.py:1062",
+      "parts_html.py:1108",
+      "parts_html.py:1171"
+    ],
+    "observacao": "Cinco filtros ativos/inativos presentes.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0477"
+  },
+  {
+    "id": "DOCX-P0478",
+    "secao": "Prioridade crítica",
+    "requisito": "Normalizar as classes das faixas, por exemplo, range_critico para critico.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_css.py:670",
+      "parts_css.py:676",
+      "parts_css.py:682",
+      "parts_css.py:688"
+    ],
+    "observacao": "CSS aceita chaves range_* e nomes normalizados. Equivalência funcional; não exige remover ids persistidos.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0478"
+  },
+  {
+    "id": "DOCX-P0479",
+    "secao": "Prioridade crítica",
+    "requisito": "Unificar o container de desenho do modal de detalhes.",
+    "status": "nao_aderente",
+    "evidencia_codigo": [
+      "parts_html.py:1843",
+      "parts_html.py:1845",
+      "parts_js_ui.py:3542",
+      "parts_js_ui.py:3564"
+    ],
+    "observacao": "Pai detailsModalDrawingBox está display:none. JS seleciona filho detailsStylusContainer e mostra somente filho; anotação continua invisível.",
+    "prioridade": "alta",
+    "natureza": "obrigacao",
+    "origem": "P0479"
+  },
+  {
+    "id": "DOCX-P0480",
+    "secao": "Prioridade crítica",
+    "requisito": "Corrigir a quantidade de colunas do histórico de concluídos.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:856",
+      "parts_js_ui.py:2400"
+    ],
+    "observacao": "Nove cabeçalhos correspondem a nove td renderizadas.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0480"
+  },
+  {
+    "id": "DOCX-P0481",
+    "secao": "Prioridade crítica",
+    "requisito": "Remover referências a elementos inexistentes, como #labelActiveConsoleFilter, ou criar os elementos necessários.",
+    "status": "aderente",
+    "evidencia_codigo": [
+      "parts_html.py:654",
+      "parts_js_ui.py:326"
+    ],
+    "observacao": "Elemento labelActiveConsoleFilter criado e atualizado.",
+    "prioridade": "media",
+    "natureza": "obrigacao",
+    "origem": "P0481"
+  },
+  {
+    "id": "DOCX-P0487",
+    "secao": "Celular",
+    "requisito": "consulta rápida;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0487"
+  },
+  {
+    "id": "DOCX-P0488",
+    "secao": "Celular",
+    "requisito": "alarmes e reconhecimento;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0488"
+  },
+  {
+    "id": "DOCX-P0489",
+    "secao": "Celular",
+    "requisito": "conclusão de eventos;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0489"
+  },
+  {
+    "id": "DOCX-P0490",
+    "secao": "Celular",
+    "requisito": "criação simples;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0490"
+  },
+  {
+    "id": "DOCX-P0491",
+    "secao": "Celular",
+    "requisito": "pesquisa e filtros;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0491"
+  },
+  {
+    "id": "DOCX-P0492",
+    "secao": "Celular",
+    "requisito": "cartões operacionais;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0492"
+  },
+  {
+    "id": "DOCX-P0493",
+    "secao": "Celular",
+    "requisito": "navegação inferior;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0493"
+  },
+  {
+    "id": "DOCX-P0494",
+    "secao": "Celular",
+    "requisito": "formulários em uma coluna;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0494"
+  },
+  {
+    "id": "DOCX-P0495",
+    "secao": "Celular",
+    "requisito": "ações secundárias em painéis inferiores.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0495"
+  },
+  {
+    "id": "DOCX-P0498",
+    "secao": "Tablet",
+    "requisito": "acompanhamento contínuo;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0498"
+  },
+  {
+    "id": "DOCX-P0499",
+    "secao": "Tablet",
+    "requisito": "lista e detalhe;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0499"
+  },
+  {
+    "id": "DOCX-P0500",
+    "secao": "Tablet",
+    "requisito": "multitarefa visual;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0500"
+  },
+  {
+    "id": "DOCX-P0501",
+    "secao": "Tablet",
+    "requisito": "formulários em duas colunas;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0501"
+  },
+  {
+    "id": "DOCX-P0502",
+    "secao": "Tablet",
+    "requisito": "cadastro operacional;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0502"
+  },
+  {
+    "id": "DOCX-P0503",
+    "secao": "Tablet",
+    "requisito": "anotação manuscrita;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0503"
+  },
+  {
+    "id": "DOCX-P0504",
+    "secao": "Tablet",
+    "requisito": "menus laterais;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0504"
+  },
+  {
+    "id": "DOCX-P0505",
+    "secao": "Tablet",
+    "requisito": "maior densidade sem perder ergonomia de toque.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0505"
+  },
+  {
+    "id": "DOCX-P0508",
+    "secao": "Desktop",
+    "requisito": "visão ampla multi-console;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0508"
+  },
+  {
+    "id": "DOCX-P0509",
+    "secao": "Desktop",
+    "requisito": "tabelas densas;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0509"
+  },
+  {
+    "id": "DOCX-P0510",
+    "secao": "Desktop",
+    "requisito": "configuração completa;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0510"
+  },
+  {
+    "id": "DOCX-P0511",
+    "secao": "Desktop",
+    "requisito": "administração da estrutura operacional;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0511"
+  },
+  {
+    "id": "DOCX-P0512",
+    "secao": "Desktop",
+    "requisito": "diagnóstico técnico;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0512"
+  },
+  {
+    "id": "DOCX-P0513",
+    "secao": "Desktop",
+    "requisito": "backup e tratamento de dados;",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0513"
+  },
+  {
+    "id": "DOCX-P0514",
+    "secao": "Desktop",
+    "requisito": "atividades prolongadas em sala de controle.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0514"
+  },
+  {
+    "id": "DOCX-P0517",
+    "secao": "Definição final recomendada",
+    "requisito": "A adaptação responsiva do Caderno de Previsões Operacionais em Dutos deverá preservar integralmente o motor de monitoramento, os alarmes, as regras de negócio, a trilha de auditoria e o armazenamento offline. Em celulares, a interface será reorganizada para uma experiência operacional focada, de uma coluna, baseada em cartões, navegação inferior e ações rápidas. Em tablets, a aplicação utilizará o espaço adicional para apresentar estruturas de lista e detalhe, formulários em duas colunas, navegação lateral e uma lousa digital otimizada para caneta stylus. Tabelas densas serão convertidas em cartões ou listas expansíveis, filtros serão apresentados em painéis deslizantes e ações críticas terão prioridade visual e áreas de toque adequadas. A responsividade será orientada pelo conteúdo e pela forma de interação, e não apenas pela redução proporcional dos componentes da versão desktop. A composição deverá adaptar-se automaticamente a qualquer tamanho e proporção de tela conforme os wireframes de celular, tablet, monitor convencional, widescreen e ultrawide. O usuário também poderá escolher manualmente a visualização e a densidade dos objetos, inclusive optando por elementos menores; na ausência de escolha, prevalecerá o modo Automático.",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:94",
+      "parts_css.py:1665",
+      "parts_css.py:1823"
+    ],
+    "observacao": "Síntese de requisitos anteriores: cobertura funcional ampla, composição responsiva não integral no Automático. Não somar como novas obrigações independentes.",
+    "prioridade": "media",
+    "natureza": "sintese",
+    "origem": "P0517"
+  },
+  {
+    "id": "DOCX-T0R1",
+    "secao": "1. Estratégia responsiva geral / Faixas recomendadas",
+    "requisito": "Até 479px: uma coluna e priorização",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_css.py:1890"
+    ],
+    "observacao": "Referência recomendada da tabela original. Conflita com 1.4 (tablet até 1199px e monitor com lateral). Falta aplicar os modos mobile/tablet no Auto.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "T0R1"
+  },
+  {
+    "id": "DOCX-T0R2",
+    "secao": "1. Estratégia responsiva geral / Faixas recomendadas",
+    "requisito": "480–767px: uma coluna, métricas em duas colunas",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_css.py:1890"
+    ],
+    "observacao": "Referência recomendada da tabela original. Conflita com 1.4 (tablet até 1199px e monitor com lateral). Falta aplicar os modos mobile/tablet no Auto.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "T0R2"
+  },
+  {
+    "id": "DOCX-T0R3",
+    "secao": "1. Estratégia responsiva geral / Faixas recomendadas",
+    "requisito": "768–1024px: duas colunas operacionais e painel lateral",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_css.py:1890"
+    ],
+    "observacao": "Referência recomendada da tabela original. Conflita com 1.4 (tablet até 1199px e monitor com lateral). Falta aplicar os modos mobile/tablet no Auto.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "T0R3"
+  },
+  {
+    "id": "DOCX-T0R4",
+    "secao": "1. Estratégia responsiva geral / Faixas recomendadas",
+    "requisito": "Acima de 1024px: navegação horizontal e maior densidade",
+    "status": "parcial",
+    "evidencia_codigo": [
+      "parts_js_ui.py:79",
+      "parts_css.py:1890"
+    ],
+    "observacao": "Referência recomendada da tabela original. Conflita com 1.4 (tablet até 1199px e monitor com lateral). Falta aplicar os modos mobile/tablet no Auto.",
+    "prioridade": "media",
+    "natureza": "recomendacao",
+    "origem": "T0R4"
+  }
+]

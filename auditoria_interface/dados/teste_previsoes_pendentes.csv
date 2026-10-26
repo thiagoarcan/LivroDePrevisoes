@@ -1,0 +1,14 @@
+﻿ID;Situação;Console;Duto;UO;Tipo de Equipamento;TAG;Data Prevista;Hora Prevista;Descrição;Observações;Alarme Ativo;Antecedência (min);Data Conclusão;Hora Conclusão;Diferença Efetiva;Observação Conclusão;Data Criação;Data Atualização
+347d5296-0a58-49a4-ba13-6fff398764a3;Pendente;C04;OSCAN;TEDEP;;;25/10/2026;10:09;Chegada estimada de PIG raspador no recebedor de TEDEP;Aviso prévio à equipe de manutenção para abertura de câmara.;Sim;30;;;--;;25/10/2026 07:39;25/10/2026 07:39
+474a1f81-9228-42bb-865b-3ac8969cbe06;Pendente;C10;DTCS;TEDEP;Válvula de Controle;PCV-301;25/10/2026;08:29;Ajuste de controle de contrapressão na PCV-301;Ajuste fino de setpoint para amortecimento de transiente.;Sim;15;;;--;;25/10/2026 07:39;25/10/2026 07:39
+52960f96-854c-438a-bc59-43ce32525ec7;Pendente;C08;OSBRA;REPLAN;Esfera;ES-201;25/10/2026;08:01;Acompanhar transferência de GLP para a esfera ES-201;Vazão prevista de 180 m³/h.;Sim;15;;;--;;25/10/2026 07:39;25/10/2026 07:39
+d1e8beac-8966-43ef-b57d-ee14daa5378a;Pendente;C04;OSCAN;REFAP;Bomba;BB-101A;25/10/2026;07:27;Atividade operacional longa para verificar quebra de texto e preservação das ações essenciais. Atividade operacional longa para verificar quebra de texto e preservação das ações essenciais. Atividade operacional longa para verificar quebra de texto e preservação das ações essenciais. Atividade operacional longa para verificar quebra de texto e preservação das ações essenciais. Atividade operacional longa para verificar quebra de texto e preservação das ações essenciais. Atividade operacional longa para verificar quebra de texto e preservação das ações essenciais. Atividade operacional longa para verificar quebra de texto e preservação das ações essenciais. Atividade operacional longa para verificar quebra de texto e preservação das ações essenciais. Atividade operacional longa para verificar quebra de texto e preservação das ações essenciais. Atividade operacional longa para verificar quebra de texto e preservação das ações essenciais. ;"Observações com várias linhas.
+Observações com várias linhas.
+Observações com várias linhas.
+Observações com várias linhas.
+Observações com várias linhas.
+Observações com várias linhas.
+Observações com várias linhas.
+Observações com várias linhas.
+";Sim;15;;;--;;25/10/2026 07:39;25/10/2026 07:39
+e8dd8f7b-5a74-471e-bbbf-03f6df62aa3d;Pendente;C04;OSCAN;REFAP;Tanque;TQ-804;25/10/2026;07:47;Verificar o término do recebimento de MGO no TQ-804;Monitorar nível máximo seguro de 85% e preparar fechamento de válvula.;Sim;15;;;--;;25/10/2026 07:39;25/10/2026 07:39

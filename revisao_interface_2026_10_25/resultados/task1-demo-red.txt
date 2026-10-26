@@ -1,0 +1,25 @@
+test_demo_clear_and_backup_roundtrip (test_core_browser.CoreBrowserTests.test_demo_clear_and_backup_roundtrip) ... FAIL
+
+======================================================================
+FAIL: test_demo_clear_and_backup_roundtrip (test_core_browser.CoreBrowserTests.test_demo_clear_and_backup_roundtrip)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 99, in test_demo_clear_and_backup_roundtrip
+    self.assertEqual(self.runjs("await App.Service.clearAllData();await App.Service.loadDemoData();const b=await App.Backup.createSnapshot();App.Backup.validateBackupData(b);return [b.data.events.length,b.data.pipelineOperationalUnits.length,b.data.settings[0].value.activeConsoleId!==null,b.data.events.filter(e=>e.status==='concluido').length,b.data.operationalUnits.length,b.data.equipmentTags.length];"),[6,6,True,1,4,4])
+AssertionError: Lists differ: [1, 2, True, 0, 2, 0] != [6, 6, True, 1, 4, 4]
+
+First differing element 0:
+1
+6
+
+- [1, 2, True, 0, 2, 0]
+?  ^  ^        ^  ^  ^
+
++ [6, 6, True, 1, 4, 4]
+?  ^  ^        ^  ^  ^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 9.982s
+
+FAILED (failures=1)

@@ -1,0 +1,21 @@
+test_alarm_ack_snooze_do_not_complete_event (test_workflows_browser.Workflows.test_alarm_ack_snooze_do_not_complete_event) ... ok
+test_browser_rotation_keeps_form_and_drawing (test_workflows_browser.Workflows.test_browser_rotation_keeps_form_and_drawing) ... FAIL
+test_create_complete_reopen_duplicate_journey (test_workflows_browser.Workflows.test_create_complete_reopen_duplicate_journey) ... ok
+test_download_json_and_three_csv_types (test_workflows_browser.Workflows.test_download_json_and_three_csv_types) ... ok
+test_modes_and_themes_persist_after_reload (test_workflows_browser.Workflows.test_modes_and_themes_persist_after_reload) ... ok
+test_offline_has_no_remote_requests (test_workflows_browser.Workflows.test_offline_has_no_remote_requests) ... ok
+test_save_and_another_preserves_location (test_workflows_browser.Workflows.test_save_and_another_preserves_location) ... ok
+test_search_filter_sort_and_clear (test_workflows_browser.Workflows.test_search_filter_sort_and_clear) ... ok
+
+======================================================================
+FAIL: test_browser_rotation_keeps_form_and_drawing (test_workflows_browser.Workflows.test_browser_rotation_keeps_form_and_drawing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_workflows_browser.py", line 99, in test_browser_rotation_keeps_form_and_drawing
+    self.assertLess(abs(ratio['bitmap']-ratio['css']),0.03,ratio)
+AssertionError: 3.2906092171717174 not less than 0.03 : {'bitmap': 2.727272727272727, 'css': 6.0178819444444445}
+
+----------------------------------------------------------------------
+Ran 8 tests in 38.236s
+
+FAILED (failures=1)

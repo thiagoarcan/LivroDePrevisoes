@@ -1,0 +1,23 @@
+test_alarm_snooze_escape_only_closes_top (test_ui_controller_browser.UIController.test_alarm_snooze_escape_only_closes_top) ... ok
+test_async_confirmation_is_single_and_cannot_escape (test_ui_controller_browser.UIController.test_async_confirmation_is_single_and_cannot_escape) ... ok
+test_cancelled_loading_dialog_does_not_open_later (test_ui_controller_browser.UIController.test_cancelled_loading_dialog_does_not_open_later) ... ok
+test_catalog_forms_publish_create_update_and_confirmed_delete (test_ui_controller_browser.UIController.test_catalog_forms_publish_create_update_and_confirmed_delete) ... ok
+test_complete_identity_survives_interleaved_alarm (test_ui_controller_browser.UIController.test_complete_identity_survives_interleaved_alarm) ... ok
+test_completed_metric_uses_local_day_and_can_be_cleared (test_ui_controller_browser.UIController.test_completed_metric_uses_local_day_and_can_be_cleared) ... ok
+test_completed_modality_changes_preserve_page_filter_selection_and_expansion (test_ui_controller_browser.UIController.test_completed_modality_changes_preserve_page_filter_selection_and_expansion) ... ok
+test_dashboard_urgent_list_is_bounded (test_ui_controller_browser.UIController.test_dashboard_urgent_list_is_bounded) ... ok
+test_declined_import_reports_conflict_without_success (test_ui_controller_browser.UIController.test_declined_import_reports_conflict_without_success) ... ok
+test_delayed_catalog_confirmation_publishes_only_after_commit (test_ui_controller_browser.UIController.test_delayed_catalog_confirmation_publishes_only_after_commit) ... ok
+test_five_catalog_toggles_publish_committed_snapshot (test_ui_controller_browser.UIController.test_five_catalog_toggles_publish_committed_snapshot) ... ok
+test_fullscreen_drawing_escape_returns_to_form (test_ui_controller_browser.UIController.test_fullscreen_drawing_escape_returns_to_form) ... ok
+test_idle_timers_do_not_read_or_render_pages (test_ui_controller_browser.UIController.test_idle_timers_do_not_read_or_render_pages) ... ok
+test_newer_request_wins_for_every_event_dialog (test_ui_controller_browser.UIController.test_newer_request_wins_for_every_event_dialog) ... ok
+test_pagination_keeps_all_data_but_one_modality_and_fifty_nodes (test_ui_controller_browser.UIController.test_pagination_keeps_all_data_but_one_modality_and_fifty_nodes) ... ok
+test_pending_modality_and_page_survive_resize_and_manual_tiers (test_ui_controller_browser.UIController.test_pending_modality_and_page_survive_resize_and_manual_tiers) ... ok
+test_pinch_zoom_does_not_claim_keyboard_and_editable_shrink_does (test_ui_controller_browser.UIController.test_pinch_zoom_does_not_claim_keyboard_and_editable_shrink_does) ... ok
+test_zero_settings_and_event_alarm_reopen_without_defaults (test_ui_controller_browser.UIController.test_zero_settings_and_event_alarm_reopen_without_defaults) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 12.463s
+
+OK

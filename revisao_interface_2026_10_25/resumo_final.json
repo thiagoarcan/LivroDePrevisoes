@@ -1,0 +1,31 @@
+{
+  "version": "1.2.0",
+  "date": "2026-10-25",
+  "tests_total": 3011,
+  "tests_passed": 3011,
+  "behavioral": 131,
+  "edge_layout": 1651,
+  "firefox": 1229,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "source_hashes": {
+    "index.html": "f6ae6e81325747394ff2b06147fbc79ed5426989cf74b02818d5f030edd9c12b",
+    "build_all.py": "e1b177f3bb822bf508eea6c87a90442d4ef3feddd49225afea6a8d459b6967d0",
+    "parts_css.py": "97db9c98bd246dc08ddc636ef29870f879bf8461e1536f1b27e59e89a0744ae4",
+    "parts_html.py": "eff656079a7502977e91870599d3b9f74447ba1c94429f1748aef0fb1e4c75a8",
+    "parts_js_core.py": "f92897a9a3b775cc267e772780e1b1dfe55f3692f6c66f42008b4ce21ab21236",
+    "parts_js_presentation.py": "36e14271af21eb48fb2c41859452478203b77e95a9d5597bffa52e5a5b5d7fe1",
+    "parts_js_service.py": "0adeccdd8d58d5dad88b7da6669ca97d438e98c58066d97d925c6535bfa43db0",
+    "parts_js_ui.py": "12a5baf207710deabee2bd5ad1290e0ada4d8e8a51e03c718e1255b9395c04f5"
+  },
+  "scope": "100% dos cenários catalogados e executados nesta máquina; não é 100% de code coverage ou prova de ausência de todos os defeitos.",
+  "physical_not_verified": [
+    "Teclado virtual real, áreas seguras do sistema e rotação em Android/iOS físicos; viewport e visualViewport emulados não substituem aparelho.",
+    "Caneta, pressão, rejeição da palma e nitidez física da lousa; mouse e eventos sintéticos de caneta/pressão/palma foram exercitados.",
+    "Som audível nos alto-falantes e notificação exibida pelo sistema operacional; APIs, volume zero e ramos de permissão foram exercitados.",
+    "Entrega de alarmes com tela bloqueada, suspensão ou navegador fechado; o produto informa essas limitações.",
+    "Leitura por leitor de tela e luminosidade externa; nomes/foco/teclado e contraste amostrado foram verificados, sem certificação formal WCAG.",
+    "Desempenho em tablet físico; paginação e volume de nós foram testados nesta máquina."
+  ]
+}

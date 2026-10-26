@@ -1,0 +1,811 @@
+{
+  "metodo": "Todos os parágrafos foram lidos. Matriz por obrigação/lista; exemplos e títulos abaixo ficam rastreados e não somam obrigação adicional. Recomendações e sínteses identificadas em natureza. Aderência é estática, sem teste em navegador.",
+  "paragrafos_lidos": 478,
+  "paragrafos_contextuais": [
+    {
+      "paragrafo": "P0000",
+      "motivo": "título estrutural",
+      "texto": "Adaptação da aplicação para tablets e celulares"
+    },
+    {
+      "paragrafo": "P0002",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "O princípio geral será:"
+    },
+    {
+      "paragrafo": "P0003",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "No celular, a aplicação prioriza consulta, reconhecimento de alarmes e execução rápida de atividades. No tablet, além dessas funções, oferece condições ergonômicas para cadastro, acompanhamento simultâneo e anotação com caneta stylus."
+    },
+    {
+      "paragrafo": "P0005",
+      "motivo": "título estrutural",
+      "texto": "1. Estratégia responsiva geral"
+    },
+    {
+      "paragrafo": "P0008",
+      "motivo": "título estrutural",
+      "texto": "Faixas recomendadas"
+    },
+    {
+      "paragrafo": "P0010",
+      "motivo": "título estrutural",
+      "texto": "1.1 Adaptação universal conforme o espaço disponível"
+    },
+    {
+      "paragrafo": "P0014",
+      "motivo": "título estrutural",
+      "texto": "1.2 Modo automático e escolha manual da visualização"
+    },
+    {
+      "paragrafo": "P0018",
+      "motivo": "título estrutural",
+      "texto": "Opções de visualização"
+    },
+    {
+      "paragrafo": "P0027",
+      "motivo": "título estrutural",
+      "texto": "1.3 Regras de persistência e segurança da preferência"
+    },
+    {
+      "paragrafo": "P0031",
+      "motivo": "título estrutural",
+      "texto": "1.4 Referências de composição por faixa"
+    },
+    {
+      "paragrafo": "P0034",
+      "motivo": "título estrutural",
+      "texto": "2. Estrutura da aplicação em celulares"
+    },
+    {
+      "paragrafo": "P0035",
+      "motivo": "título estrutural",
+      "texto": "2.1 Finalidade predominante"
+    },
+    {
+      "paragrafo": "P0048",
+      "motivo": "título estrutural",
+      "texto": "2.2 Cabeçalho compacto"
+    },
+    {
+      "paragrafo": "P0050",
+      "motivo": "título estrutural",
+      "texto": "Primeira linha"
+    },
+    {
+      "paragrafo": "P0051",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A primeira linha apresentará:"
+    },
+    {
+      "paragrafo": "P0057",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Exemplo:"
+    },
+    {
+      "paragrafo": "P0058",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ ☰  Previsões        14:35:22  🔔3│\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0059",
+      "motivo": "título estrutural",
+      "texto": "Segunda linha operacional"
+    },
+    {
+      "paragrafo": "P0060",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Abaixo do cabeçalho será exibido o seletor do console ativo:"
+    },
+    {
+      "paragrafo": "P0061",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ Console ativo        [ C04  ▼ ] │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0069",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Console ativo alterado para C08.\nO painel e os filtros foram atualizados."
+    },
+    {
+      "paragrafo": "P0070",
+      "motivo": "título estrutural",
+      "texto": "Indicadores técnicos"
+    },
+    {
+      "paragrafo": "P0072",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Status da aplicação\n● Banco local: pronto\n● Áudio: ativo\n● Notificações: concedidas\n● Último backup: 24/10/2026 22:15"
+    },
+    {
+      "paragrafo": "P0074",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "⚠ Áudio não iniciado"
+    },
+    {
+      "paragrafo": "P0076",
+      "motivo": "título estrutural",
+      "texto": "2.3 Navegação inferior"
+    },
+    {
+      "paragrafo": "P0078",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│  Painel  │ Pendentes │  Novo  │ Mais │\n│    ◉     │     ◷     │   ＋   │  ⋯   │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0079",
+      "motivo": "título estrutural",
+      "texto": "Destinos principais"
+    },
+    {
+      "paragrafo": "P0084",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "O item Mais abrirá um menu contendo:"
+    },
+    {
+      "paragrafo": "P0093",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Essa solução reduz a dependência exclusiva do menu hambúrguer e mantém as funções críticas acessíveis com um único toque."
+    },
+    {
+      "paragrafo": "P0095",
+      "motivo": "título estrutural",
+      "texto": "2.4 Botão de nova previsão"
+    },
+    {
+      "paragrafo": "P0097",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A versão para celular deverá utilizar apenas uma destas estratégias:"
+    },
+    {
+      "paragrafo": "P0102",
+      "motivo": "título estrutural",
+      "texto": "3. Painel principal no celular"
+    },
+    {
+      "paragrafo": "P0103",
+      "motivo": "título estrutural",
+      "texto": "3.1 Ordem de prioridade"
+    },
+    {
+      "paragrafo": "P0104",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "O Painel Principal será reorganizado na seguinte ordem:"
+    },
+    {
+      "paragrafo": "P0111",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Essa ordem substitui a lógica visual do desktop, na qual há espaço para apresentar simultaneamente métricas, destaque e tabela."
+    },
+    {
+      "paragrafo": "P0113",
+      "motivo": "título estrutural",
+      "texto": "3.2 Faixa de alarmes ativos"
+    },
+    {
+      "paragrafo": "P0115",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ ⚠ 2 alarmes aguardando ação     │\n│ [Ver alarmes]      [Reconhecer] │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0118",
+      "motivo": "título estrutural",
+      "texto": "3.3 Próximo evento operacional"
+    },
+    {
+      "paragrafo": "P0120",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ CRÍTICO               08min 34s │\n│                                │\n│ C04 • OSCAN • REFAP            │\n│ TQ-804                          │\n│                                │\n│ Verificar término do            │\n│ recebimento de MGO              │\n│                                │\n│ Previsto: 25/10/2026 14:45      │\n│                                │\n│ [Concluir]    [Mais ações ⋯]    │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0130",
+      "motivo": "título estrutural",
+      "texto": "3.4 Métricas"
+    },
+    {
+      "paragrafo": "P0132",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌───────────────┬───────────────┐\n│ Pendentes     │ Atrasados     │\n│      12       │       3       │\n├───────────────┼───────────────┤\n│ Próx. 15 min  │ Próx. 30 min  │\n│       2       │       4       │\n├───────────────┼───────────────┤\n│ Próx. 60 min  │ Alarmes       │\n│       6       │       1       │\n└───────────────┴───────────────┘"
+    },
+    {
+      "paragrafo": "P0136",
+      "motivo": "título estrutural",
+      "texto": "3.5 Atenção imediata"
+    },
+    {
+      "paragrafo": "P0138",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ ATRASADO HÁ 12 MIN              │\n│ 14:10 • C04 • OSCAN             │\n│ REFAP • TQ-804                  │\n│                                │\n│ Confirmar término do            │\n│ recebimento                     │\n│                                │\n│ [Concluir]             [⋯]      │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0142",
+      "motivo": "título estrutural",
+      "texto": "4. Eventos pendentes no celular"
+    },
+    {
+      "paragrafo": "P0143",
+      "motivo": "título estrutural",
+      "texto": "4.1 Barra de pesquisa e filtros"
+    },
+    {
+      "paragrafo": "P0144",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A parte superior apresentará:"
+    },
+    {
+      "paragrafo": "P0145",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ Pesquisar evento, duto, UO... 🔍│\n├─────────────────────────────────┤\n│ [Filtros 2]  [Cronológica ▼]    │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0155",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "No rodapé do painel:"
+    },
+    {
+      "paragrafo": "P0159",
+      "motivo": "título estrutural",
+      "texto": "4.2 Visualização padrão"
+    },
+    {
+      "paragrafo": "P0171",
+      "motivo": "título estrutural",
+      "texto": "Cartão recomendado"
+    },
+    {
+      "paragrafo": "P0172",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ URGENTE             Faltam 22min│\n│                                │\n│ Verificar chegada do PIG        │\n│ raspador                        │\n│                                │\n│ C04 • OSCAN • TEDEP             │\n│ Geral da UO                     │\n│ 25/10/2026 às 15:05             │\n│                                │\n│ 🔔 Alarme programado para 14:50 │\n│                                │\n│ [Concluir] [Editar]       [⋯]   │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0175",
+      "motivo": "título estrutural",
+      "texto": "5. Formulário de nova previsão no celular"
+    },
+    {
+      "paragrafo": "P0176",
+      "motivo": "título estrutural",
+      "texto": "5.1 Fluxo vertical"
+    },
+    {
+      "paragrafo": "P0184",
+      "motivo": "título estrutural",
+      "texto": "Bloco 1: localização operacional"
+    },
+    {
+      "paragrafo": "P0185",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Console ativo\nC04\n\nDuto *\n[ Selecionar duto             ▼ ]\n\nUnidade Operacional *\n[ Selecionar UO               ▼ ]\n\nTipo de equipamento\n[ Geral da UO                 ▼ ]\n\nTAG\n[ Selecionar TAG              ▼ ]"
+    },
+    {
+      "paragrafo": "P0188",
+      "motivo": "título estrutural",
+      "texto": "5.2 Data, hora e prioridade"
+    },
+    {
+      "paragrafo": "P0190",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Data *               Hora *\n[25/10/2026]         [14:45]"
+    },
+    {
+      "paragrafo": "P0194",
+      "motivo": "título estrutural",
+      "texto": "5.3 Descrição e observações"
+    },
+    {
+      "paragrafo": "P0196",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Descrição da atividade *\n┌─────────────────────────────────┐\n│ Verificar término do             │\n│ recebimento de MGO               │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0199",
+      "motivo": "título estrutural",
+      "texto": "5.4 Configurações de alarme"
+    },
+    {
+      "paragrafo": "P0201",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Inicialmente:"
+    },
+    {
+      "paragrafo": "P0202",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Alarme\n☑ Ativar alarme\n\n☑ Usar configurações padrão\nDisparo: 15 min antes\nSom + alerta visual"
+    },
+    {
+      "paragrafo": "P0211",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Isso reduz consideravelmente o comprimento do formulário em situações normais."
+    },
+    {
+      "paragrafo": "P0213",
+      "motivo": "título estrutural",
+      "texto": "5.5 Barra fixa de submissão"
+    },
+    {
+      "paragrafo": "P0215",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ [Salvar e + outra]   [Salvar]   │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0216",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Durante a edição:"
+    },
+    {
+      "paragrafo": "P0217",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ [Cancelar]          [Atualizar] │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0220",
+      "motivo": "título estrutural",
+      "texto": "6. Lousa digital no celular"
+    },
+    {
+      "paragrafo": "P0223",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ Anotação             [Concluir] │\n├─────────────────────────────────┤\n│ Cor  Espessura  Borracha  Limpar│\n├─────────────────────────────────┤\n│                                 │\n│                                 │\n│          ÁREA DE DESENHO        │\n│                                 │\n│                                 │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0224",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Em celulares:"
+    },
+    {
+      "paragrafo": "P0232",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "O funcionamento básico por toque será mantido, mas a precisão será inferior à experiência em tablet com caneta stylus."
+    },
+    {
+      "paragrafo": "P0234",
+      "motivo": "título estrutural",
+      "texto": "7. Alarmes no celular"
+    },
+    {
+      "paragrafo": "P0235",
+      "motivo": "título estrutural",
+      "texto": "7.1 Modal em tela cheia"
+    },
+    {
+      "paragrafo": "P0237",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ ⚠ ALARME OPERACIONAL            │\n│                                 │\n│ C04 • OSCAN • REFAP             │\n│ TQ-804                          │\n│                                 │\n│ Verificar término do            │\n│ recebimento de MGO              │\n│                                 │\n│ Previsto: 14:45                 │\n│ ATRASADO HÁ 03min 12s           │\n│                                 │\n│ [ RECONHECER ALARME ]           │\n│                                 │\n│ [Adiar] [Concluir] [Detalhes]   │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0238",
+      "motivo": "título estrutural",
+      "texto": "Hierarquia das ações"
+    },
+    {
+      "paragrafo": "P0245",
+      "motivo": "título estrutural",
+      "texto": "7.2 Adiamento"
+    },
+    {
+      "paragrafo": "P0247",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Adiar alarme\n\n[ 5 min ] [ 10 min ]\n[15 min ] [ 30 min ]\n\nOutro período\n[ 45 ] minutos\n\n[Cancelar]       [Confirmar]"
+    },
+    {
+      "paragrafo": "P0250",
+      "motivo": "título estrutural",
+      "texto": "7.3 Comportamento em segundo plano"
+    },
+    {
+      "paragrafo": "P0251",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A interface deverá informar claramente que, por ser uma aplicação web local:"
+    },
+    {
+      "paragrafo": "P0259",
+      "motivo": "título estrutural",
+      "texto": "8. Eventos concluídos no celular"
+    },
+    {
+      "paragrafo": "P0261",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ CONCLUÍDO                       │\n│ Verificar chegada do PIG        │\n│                                │\n│ C04 • OSCAN • TEDEP             │\n│ Previsto: 14:00                 │\n│ Concluído: 14:07                │\n│ Com atraso de 7 min             │\n│                                │\n│ [Detalhes] [Reabrir]      [⋯]   │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0263",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A apresentação em cartão também elimina o problema atual de divergência entre as nove colunas declaradas no cabeçalho e as sete células renderizadas pelo JavaScript."
+    },
+    {
+      "paragrafo": "P0265",
+      "motivo": "título estrutural",
+      "texto": "9. Cadastros operacionais no celular"
+    },
+    {
+      "paragrafo": "P0267",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Cadastros operacionais\n\n[ Consoles                 12  > ]\n[ Dutos                     8  > ]\n[ Unidades Operacionais    15  > ]\n[ Tipos de Equipamento     21  > ]\n[ TAGs                     84  > ]"
+    },
+    {
+      "paragrafo": "P0268",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Ao abrir uma categoria, a tela apresentará:"
+    },
+    {
+      "paragrafo": "P0274",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Exemplo:"
+    },
+    {
+      "paragrafo": "P0275",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "TAGs de equipamentos\n\n[ Pesquisar TAG...             ]\n\n[Ativos] [Inativos] [Todos]\n\nTQ-804\nREFAP • Tanque\nAtivo\n[Editar] [⋯]"
+    },
+    {
+      "paragrafo": "P0278",
+      "motivo": "título estrutural",
+      "texto": "10. Configurações no celular"
+    },
+    {
+      "paragrafo": "P0280",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Configurações de alertas\n\n▾ Identificação do controlador\n▾ Antecedência padrão\n▾ Sinal sonoro\n▾ Alerta visual\n▾ Notificações do sistema\n▾ Repetição de alarmes\n▾ Testes e permissões"
+    },
+    {
+      "paragrafo": "P0284",
+      "motivo": "título estrutural",
+      "texto": "11. Configurações de cores no celular"
+    },
+    {
+      "paragrafo": "P0286",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌─────────────────────────────────┐\n│ ● Crítico                       │\n│ 0 até 15 minutos                │\n│ Cor: #dc2626                    │\n│ Prioridade: 1                   │\n│ Pulsar: Sim • Som: Sim          │\n│                     [Editar]     │\n└─────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0288",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "0 ─ 15 ─ 30 ─ 45 ─ 60 ─ Normal"
+    },
+    {
+      "paragrafo": "P0291",
+      "motivo": "título estrutural",
+      "texto": "12. Backup e diagnóstico no celular"
+    },
+    {
+      "paragrafo": "P0292",
+      "motivo": "título estrutural",
+      "texto": "12.1 Backup"
+    },
+    {
+      "paragrafo": "P0294",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Backup e dados\n\nÚltimo backup\n24/10/2026 22:15\n\n[ Baixar backup completo JSON ]\n\nImportar backup\n[ Selecionar arquivo JSON ]\n[ Validar arquivo ]\n\nExportar CSV\n[ Pendentes ] [ Concluídos ]\n[ Estrutura cadastral ]\n\nÁrea de risco\n[ Apagar todos os dados ]"
+    },
+    {
+      "paragrafo": "P0297",
+      "motivo": "título estrutural",
+      "texto": "12.2 Diagnóstico"
+    },
+    {
+      "paragrafo": "P0299",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Versão\nv1.1.0\n\nBanco local\nOnline • Esquema v1\n\nÁudio\nAtivo\n\nNotificações\nConcedidas"
+    },
+    {
+      "paragrafo": "P0302",
+      "motivo": "título estrutural",
+      "texto": "13. Estrutura da aplicação em tablets"
+    },
+    {
+      "paragrafo": "P0303",
+      "motivo": "título estrutural",
+      "texto": "13.1 Conceito geral"
+    },
+    {
+      "paragrafo": "P0305",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A experiência continuará orientada ao toque, portanto:"
+    },
+    {
+      "paragrafo": "P0312",
+      "motivo": "título estrutural",
+      "texto": "13.2 Navegação lateral"
+    },
+    {
+      "paragrafo": "P0314",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌───────────────┬──────────────────────────────────────┐\n│ Previsões     │ Conteúdo da visão ativa             │\n│               │                                      │\n│ Painel        │                                      │\n│ Novo evento   │                                      │\n│ Pendentes  12 │                                      │\n│ Concluídos    │                                      │\n│ Cadastros     │                                      │\n│ Configurações │                                      │\n│ Backup        │                                      │\n│ Diagnóstico   │                                      │\n└───────────────┴──────────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0319",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "O cabeçalho continuará exibindo:"
+    },
+    {
+      "paragrafo": "P0328",
+      "motivo": "título estrutural",
+      "texto": "14. Painel principal no tablet"
+    },
+    {
+      "paragrafo": "P0329",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "O Dashboard será organizado em regiões:"
+    },
+    {
+      "paragrafo": "P0330",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌──────────────────────────────────────────────────────┐\n│ Métricas operacionais em 3 ou 4 colunas             │\n├───────────────────────────────┬──────────────────────┤\n│ Próximo evento operacional   │ Alarmes ativos       │\n│ Spotlight                    │ e atrasados          │\n├───────────────────────────────┴──────────────────────┤\n│ Próximos eventos em cartões compactos ou tabela     │\n└──────────────────────────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0332",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Em paisagem, o Spotlight poderá ocupar aproximadamente dois terços da largura, enquanto a coluna lateral mostrará:"
+    },
+    {
+      "paragrafo": "P0338",
+      "motivo": "título estrutural",
+      "texto": "15. Eventos pendentes no tablet"
+    },
+    {
+      "paragrafo": "P0340",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌──────────────────────────┬───────────────────────────┐\n│ Eventos pendentes        │ Detalhes do selecionado  │\n│                          │                           │\n│ Evento 1                 │ Descrição                 │\n│ Evento 2                 │ Hierarquia                │\n│ Evento 3                 │ Horário e contador        │\n│ Evento 4                 │ Histórico resumido       │\n│                          │                           │\n│                          │ [Concluir] [Editar] [⋯]   │\n└──────────────────────────┴───────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0341",
+      "motivo": "título estrutural",
+      "texto": "Benefícios"
+    },
+    {
+      "paragrafo": "P0348",
+      "motivo": "título estrutural",
+      "texto": "16. Nova previsão no tablet"
+    },
+    {
+      "paragrafo": "P0350",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌──────────────────────────┬───────────────────────────┐\n│ Localização operacional  │ Programação              │\n│ Console                  │ Data e hora              │\n│ Duto                     │ Prioridade               │\n│ UO                       │ Descrição                │\n│ Tipo                     │ Observações              │\n│ TAG                      │ Configuração de alarme   │\n├──────────────────────────┴───────────────────────────┤\n│ Lousa digital com caneta stylus                     │\n├──────────────────────────────────────────────────────┤\n│ [Limpar] [Salvar e + outra] [Salvar previsão]       │\n└──────────────────────────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0352",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Console → Duto → UO → Tipo → TAG"
+    },
+    {
+      "paragrafo": "P0355",
+      "motivo": "título estrutural",
+      "texto": "17. Lousa digital no tablet"
+    },
+    {
+      "paragrafo": "P0357",
+      "motivo": "título estrutural",
+      "texto": "17.1 Comportamento recomendado"
+    },
+    {
+      "paragrafo": "P0368",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Exemplo:"
+    },
+    {
+      "paragrafo": "P0369",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌──────────────────────────────────────────────────────┐\n│ ● Cor  [Fina|Normal|Grossa] [Caneta] [Borracha]     │\n│                                  [Desfazer] [Limpar] │\n├──────────────────────────────────────────────────────┤\n│                                                      │\n│                   ÁREA DE DESENHO                    │\n│                                                      │\n└──────────────────────────────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0372",
+      "motivo": "título estrutural",
+      "texto": "18. Cadastros operacionais no tablet"
+    },
+    {
+      "paragrafo": "P0374",
+      "motivo": "título estrutural",
+      "texto": "Coluna esquerda"
+    },
+    {
+      "paragrafo": "P0375",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Categorias e registros:"
+    },
+    {
+      "paragrafo": "P0376",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Consoles\nDutos\nUOs\nTipos\nTAGs"
+    },
+    {
+      "paragrafo": "P0377",
+      "motivo": "título estrutural",
+      "texto": "Região principal"
+    },
+    {
+      "paragrafo": "P0379",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Exemplo para dutos:"
+    },
+    {
+      "paragrafo": "P0380",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "┌──────────────────────┬───────────────────────────────┐\n│ Dutos cadastrados    │ Cadastro ou edição de duto   │\n│                      │                               │\n│ OSCAN                │ Console responsável          │\n│ OSBRA                │ Nome                         │\n│ DTCS                 │ UOs associadas               │\n│                      │ Criador inline de UO          │\n│                      │                               │\n│                      │ [Cancelar] [Salvar duto]      │\n└──────────────────────┴───────────────────────────────┘"
+    },
+    {
+      "paragrafo": "P0381",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Essa distribuição preserva produtividade sem reproduzir o excesso de densidade do desktop."
+    },
+    {
+      "paragrafo": "P0383",
+      "motivo": "título estrutural",
+      "texto": "19. Modais em dispositivos móveis"
+    },
+    {
+      "paragrafo": "P0384",
+      "motivo": "título estrutural",
+      "texto": "19.1 Celular"
+    },
+    {
+      "paragrafo": "P0385",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Os modais serão convertidos em:"
+    },
+    {
+      "paragrafo": "P0390",
+      "motivo": "título estrutural",
+      "texto": "19.2 Tablet"
+    },
+    {
+      "paragrafo": "P0391",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Os modais poderão permanecer centralizados, com largura máxima adequada:"
+    },
+    {
+      "paragrafo": "P0396",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Todos deverão:"
+    },
+    {
+      "paragrafo": "P0403",
+      "motivo": "título estrutural",
+      "texto": "20. Tamanhos e ergonomia de toque"
+    },
+    {
+      "paragrafo": "P0404",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Para celulares e tablets, recomenda-se:"
+    },
+    {
+      "paragrafo": "P0415",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Ícones isolados deverão possuir:"
+    },
+    {
+      "paragrafo": "P0421",
+      "motivo": "título estrutural",
+      "texto": "21. Cores, criticidade e acessibilidade"
+    },
+    {
+      "paragrafo": "P0423",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Cada evento deverá apresentar simultaneamente:"
+    },
+    {
+      "paragrafo": "P0429",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Exemplo:"
+    },
+    {
+      "paragrafo": "P0430",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "⚠ CRÍTICO • Faltam 08 minutos"
+    },
+    {
+      "paragrafo": "P0431",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Para eventos atrasados:"
+    },
+    {
+      "paragrafo": "P0432",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "⏱ ATRASADO • Há 12 minutos"
+    },
+    {
+      "paragrafo": "P0439",
+      "motivo": "título estrutural",
+      "texto": "22. Teclado virtual e orientação"
+    },
+    {
+      "paragrafo": "P0440",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A aplicação deverá tratar explicitamente o teclado virtual:"
+    },
+    {
+      "paragrafo": "P0447",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Na mudança entre retrato e paisagem:"
+    },
+    {
+      "paragrafo": "P0454",
+      "motivo": "título estrutural",
+      "texto": "23. Funcionamento offline em dispositivos móveis"
+    },
+    {
+      "paragrafo": "P0456",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Dispositivo + navegador + perfil do navegador"
+    },
+    {
+      "paragrafo": "P0457",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Como consequência:"
+    },
+    {
+      "paragrafo": "P0465",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "⚠ Último backup realizado há 7 dias.\n[Realizar backup agora]"
+    },
+    {
+      "paragrafo": "P0467",
+      "motivo": "título estrutural",
+      "texto": "24. Correções necessárias antes da versão móvel"
+    },
+    {
+      "paragrafo": "P0468",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A adaptação móvel dependerá da correção das divergências já identificadas, principalmente porque algumas delas atingem diretamente celulares e tablets."
+    },
+    {
+      "paragrafo": "P0469",
+      "motivo": "título estrutural",
+      "texto": "Prioridade crítica"
+    },
+    {
+      "paragrafo": "P0482",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "Sem essas correções, a versão responsiva poderá aparentar estar completa visualmente, mas terá navegação, filtros, badges e ações sem funcionamento."
+    },
+    {
+      "paragrafo": "P0484",
+      "motivo": "título estrutural",
+      "texto": "25. Resumo da experiência por dispositivo"
+    },
+    {
+      "paragrafo": "P0485",
+      "motivo": "título estrutural",
+      "texto": "Celular"
+    },
+    {
+      "paragrafo": "P0486",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A versão para celular será otimizada para:"
+    },
+    {
+      "paragrafo": "P0496",
+      "motivo": "título estrutural",
+      "texto": "Tablet"
+    },
+    {
+      "paragrafo": "P0497",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A versão para tablet será otimizada para:"
+    },
+    {
+      "paragrafo": "P0506",
+      "motivo": "título estrutural",
+      "texto": "Desktop"
+    },
+    {
+      "paragrafo": "P0507",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A versão desktop continuará destinada a:"
+    },
+    {
+      "paragrafo": "P0516",
+      "motivo": "título estrutural",
+      "texto": "Definição final recomendada"
+    },
+    {
+      "paragrafo": "P0518",
+      "motivo": "título estrutural",
+      "texto": "Principais mudanças realizadas na descrição"
+    },
+    {
+      "paragrafo": "P0519",
+      "motivo": "exemplo/introdução/explicação ou síntese contextual, coberto nos requisitos associados",
+      "texto": "A proposta transforma os breakpoints já existentes em comportamentos concretos para cada tela da aplicação. Também define a hierarquia móvel dos alarmes, a reorganização das nove visões, o tratamento de tabelas, formulários, modais, lousa stylus, navegação e limitações do armazenamento offline. O objetivo é preservar a complexidade operacional do sistema sem transportar para celulares e tablets a densidade visual própria de uma estação desktop."
+    }
+  ]
+}

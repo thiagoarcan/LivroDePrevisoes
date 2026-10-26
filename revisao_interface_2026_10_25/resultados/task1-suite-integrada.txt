@@ -1,0 +1,426 @@
+test_async_visual_error_is_logged_without_loop (test_core_browser.CoreBrowserTests.test_async_visual_error_is_logged_without_loop) ... ok
+test_atomic_abort_after_write (test_core_browser.CoreBrowserTests.test_atomic_abort_after_write) ... ok
+test_backup_duplicate_business_conflict_preserves_every_store (test_core_browser.CoreBrowserTests.test_backup_duplicate_business_conflict_preserves_every_store) ... ok
+test_backup_rejects_invalid_types_png_and_impossible_iso (test_core_browser.CoreBrowserTests.test_backup_rejects_invalid_types_png_and_impossible_iso) ... ok
+test_backup_rejects_unknown_collection_and_wrong_free_text_type (test_core_browser.CoreBrowserTests.test_backup_rejects_unknown_collection_and_wrong_free_text_type) ... ok
+test_backup_rejects_unsafe_metadata_and_missing_collections (test_core_browser.CoreBrowserTests.test_backup_rejects_unsafe_metadata_and_missing_collections) ... ok
+test_backup_replace_rolls_back_aborted_write (test_core_browser.CoreBrowserTests.test_backup_replace_rolls_back_aborted_write) ... ok
+test_crud_rejects_abort_after_request_success (test_core_browser.CoreBrowserTests.test_crud_rejects_abort_after_request_success) ... ok
+test_csv_download_bom_formula_and_inactive_filter (test_core_browser.CoreBrowserTests.test_csv_download_bom_formula_and_inactive_filter) ... ok
+test_demo_clear_and_backup_roundtrip (test_core_browser.CoreBrowserTests.test_demo_clear_and_backup_roundtrip) ... ok
+test_distinct_pipeline_units_required (test_core_browser.CoreBrowserTests.test_distinct_pipeline_units_required) ... ok
+test_duplicate_and_orphan_backup_rows_rejected (test_core_browser.CoreBrowserTests.test_duplicate_and_orphan_backup_rows_rejected) ... ok
+test_existing_inactive_references_only_on_original_link (test_core_browser.CoreBrowserTests.test_existing_inactive_references_only_on_original_link) ... ok
+test_history_preserved_on_delete (test_core_browser.CoreBrowserTests.test_history_preserved_on_delete) ... ok
+test_import_legacy_snapshot_and_roundtrip (test_core_browser.CoreBrowserTests.test_import_legacy_snapshot_and_roundtrip) ... ok
+test_impossible_calendar_day_rejected (test_core_browser.CoreBrowserTests.test_impossible_calendar_day_rejected) ... ok
+test_incompatible_reference_rejected (test_core_browser.CoreBrowserTests.test_incompatible_reference_rejected) ... ok
+test_invalid_import_preserves_base (test_core_browser.CoreBrowserTests.test_invalid_import_preserves_base) ... ok
+test_local_date_and_csv_formula (test_core_browser.CoreBrowserTests.test_local_date_and_csv_formula) ... ok
+test_master_change_cannot_break_existing_event (test_core_browser.CoreBrowserTests.test_master_change_cannot_break_existing_event) ... ok
+test_merge_does_not_regress_equal_version_older_timestamp (test_core_browser.CoreBrowserTests.test_merge_does_not_regress_equal_version_older_timestamp) ... ok
+test_parallel_ticks_one_alarm_and_title_persists (test_core_browser.CoreBrowserTests.test_parallel_ticks_one_alarm_and_title_persists) ... ok
+test_reopen_and_reschedule_reset_alarm_cycle (test_core_browser.CoreBrowserTests.test_reopen_and_reschedule_reset_alarm_cycle) ... ok
+test_snooze_out_of_bounds (test_core_browser.CoreBrowserTests.test_snooze_out_of_bounds) ... ok
+test_stale_fire_cannot_overwrite_completed_event (test_core_browser.CoreBrowserTests.test_stale_fire_cannot_overwrite_completed_event) ... ok
+test_supported_industrial_theme_and_all_layouts (test_core_browser.CoreBrowserTests.test_supported_industrial_theme_and_all_layouts) ... ok
+test_two_tabs_claim_single_firing (test_core_browser.CoreBrowserTests.test_two_tabs_claim_single_firing) ... ok
+test_zero_default_lead_does_not_fire_fifteen_minutes_early (test_core_browser.CoreBrowserTests.test_zero_default_lead_does_not_fire_fifteen_minutes_early) ... ok
+test_zero_repeat_and_real_actor (test_core_browser.CoreBrowserTests.test_zero_repeat_and_real_actor) ... ok
+test_action_sheet_has_context (test_ui_browser.UIRegression.test_action_sheet_has_context) ... FAIL
+test_alarm_counts_agree (test_ui_browser.UIRegression.test_alarm_counts_agree) ... FAIL
+test_alarm_modal_countdown_moves (test_ui_browser.UIRegression.test_alarm_modal_countdown_moves) ... FAIL
+test_all_dialogs_and_controls_have_accessible_names (test_ui_browser.UIRegression.test_all_dialogs_and_controls_have_accessible_names) ... FAIL
+test_cancel_import_discards_old_file (test_ui_browser.UIRegression.test_cancel_import_discards_old_file) ... FAIL
+test_cancelled_confirmation_never_executes (test_ui_browser.UIRegression.test_cancelled_confirmation_never_executes) ... FAIL
+test_cancelled_dependency_never_executes (test_ui_browser.UIRegression.test_cancelled_dependency_never_executes) ... FAIL
+test_category_survives_layout_change (test_ui_browser.UIRegression.test_category_survives_layout_change) ... FAIL
+test_closed_drawer_not_in_tab_sequence (test_ui_browser.UIRegression.test_closed_drawer_not_in_tab_sequence) ... FAIL
+test_completed_cards_really_expand (test_ui_browser.UIRegression.test_completed_cards_really_expand) ... ERROR
+test_demo_button_actually_loads_demo (test_ui_browser.UIRegression.test_demo_button_actually_loads_demo) ... FAIL
+test_description_is_multiline (test_ui_browser.UIRegression.test_description_is_multiline) ... FAIL
+test_details_shows_saved_drawing (test_ui_browser.UIRegression.test_details_shows_saved_drawing) ... FAIL
+test_display_preferences_actually_disable_pulsing (test_ui_browser.UIRegression.test_display_preferences_actually_disable_pulsing) ... ok
+test_drawer_opens_and_closes_by_keyboard (test_ui_browser.UIRegression.test_drawer_opens_and_closes_by_keyboard) ... FAIL
+test_filters_are_bottom_sheet_on_mobile (test_ui_browser.UIRegression.test_filters_are_bottom_sheet_on_mobile) ... FAIL
+test_metrics_apply_correct_time_filter (test_ui_browser.UIRegression.test_metrics_apply_correct_time_filter) ... FAIL
+test_modal_moves_and_traps_focus_and_restores (test_ui_browser.UIRegression.test_modal_moves_and_traps_focus_and_restores) ... FAIL
+test_new_master_data_appears_in_filters (test_ui_browser.UIRegression.test_new_master_data_appears_in_filters) ... FAIL
+test_settings_keep_zero_values (test_ui_browser.UIRegression.test_settings_keep_zero_values) ... FAIL
+test_spotlight_keeps_own_countdown_after_filtered_list (test_ui_browser.UIRegression.test_spotlight_keeps_own_countdown_after_filtered_list) ... ok
+test_tablet_detail_initial_content_and_alarm_value (test_ui_browser.UIRegression.test_tablet_detail_initial_content_and_alarm_value) ... FAIL
+test_temporal_classification_updates_without_action (test_ui_browser.UIRegression.test_temporal_classification_updates_without_action) ... ERROR
+test_alarm_ack_snooze_do_not_complete_event (test_workflows_browser.Workflows.test_alarm_ack_snooze_do_not_complete_event) ... ok
+test_browser_rotation_keeps_form_and_drawing (test_workflows_browser.Workflows.test_browser_rotation_keeps_form_and_drawing) ... FAIL
+test_create_complete_reopen_duplicate_journey (test_workflows_browser.Workflows.test_create_complete_reopen_duplicate_journey) ... ERROR
+test_download_json_and_three_csv_types (test_workflows_browser.Workflows.test_download_json_and_three_csv_types) ... ok
+test_modes_and_themes_persist_after_reload (test_workflows_browser.Workflows.test_modes_and_themes_persist_after_reload) ... ok
+test_offline_has_no_remote_requests (test_workflows_browser.Workflows.test_offline_has_no_remote_requests) ... ok
+test_save_and_another_preserves_location (test_workflows_browser.Workflows.test_save_and_another_preserves_location) ... ERROR
+test_search_filter_sort_and_clear (test_workflows_browser.Workflows.test_search_filter_sort_and_clear) ... FAIL
+
+======================================================================
+ERROR: test_completed_cards_really_expand (test_ui_browser.UIRegression.test_completed_cards_really_expand)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 55, in test_completed_cards_really_expand
+    result=self.ev('()=>{let card=document.querySelector(".completed-event-card"),extra=card.querySelector(".completed-card-details,.completed-card-extra");let before=!!extra.getClientRects().length;card.click();return {before,after:!!extra.getClientRects().length}}')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 20, in ev
+    def ev(self,code):return self.page.evaluate(code)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\sync_api\_generated.py", line 9385, in evaluate
+    self._sync(
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_page.py", line 472, in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_frame.py", line 345, in evaluate
+    await self._channel.send(
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.evaluate: TypeError: Cannot read properties of null (reading 'querySelector')
+    at eval (eval at evaluate (:311:30), <anonymous>:1:74)
+    at UtilityScript.evaluate (<anonymous>:318:18)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+
+======================================================================
+ERROR: test_temporal_classification_updates_without_action (test_ui_browser.UIRegression.test_temporal_classification_updates_without_action)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 44, in test_temporal_classification_updates_without_action
+    result=self.ev('async()=>{let ev=(await App.DB.getAll("events")).find(e=>e.status==="pendente"&&e.consoleId===App.UI.activeConsoleId);ev.scheduledAt=new Date(Date.now()+16*60000).toISOString();ev.hasAlarm=false;await App.DB.update("events",ev);await App.UI.navigateTo("viewPendingEvents");let old=Date.now;Date.now=()=>old()+120000;await App.UI.updateLiveTimers();let card=[...document.querySelectorAll("#containerPendingCards .event-card")].find(e=>e.dataset.eventId===ev.id),after=card?.innerText||"";Date.now=old;return after}')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 20, in ev
+    def ev(self,code):return self.page.evaluate(code)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\sync_api\_generated.py", line 9385, in evaluate
+    self._sync(
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_page.py", line 472, in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_frame.py", line 345, in evaluate
+    await self._channel.send(
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.evaluate: TypeError: Cannot set properties of undefined (setting 'scheduledAt')
+    at eval (eval at evaluate (:311:30), <anonymous>:1:133)
+    at async <anonymous>:337:30
+
+======================================================================
+ERROR: test_create_complete_reopen_duplicate_journey (test_workflows_browser.Workflows.test_create_complete_reopen_duplicate_journey)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_workflows_browser.py", line 18, in test_create_complete_reopen_duplicate_journey
+    ids=self.ev('async()=>{let cs=await App.DB.getAll("consoles"),ps=await App.DB.getAll("pipelines"),us=await App.DB.getAll("operationalUnits");return {pipeline:ps.find(e=>e.name==="OSCAN").id,uo:us.find(e=>e.name==="REFAP").id}}')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_workflows_browser.py", line 14, in ev
+    def ev(self,s):return self.page.evaluate(s)
+                          ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\sync_api\_generated.py", line 9385, in evaluate
+    self._sync(
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_page.py", line 472, in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_frame.py", line 345, in evaluate
+    await self._channel.send(
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.evaluate: TypeError: Cannot read properties of undefined (reading 'id')
+    at eval (eval at evaluate (:311:30), <anonymous>:1:174)
+    at async <anonymous>:337:30
+
+======================================================================
+ERROR: test_save_and_another_preserves_location (test_workflows_browser.Workflows.test_save_and_another_preserves_location)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_workflows_browser.py", line 40, in test_save_and_another_preserves_location
+    ids=self.ev('async()=>({pipeline:(await App.DB.getAll("pipelines")).find(e=>e.name==="OSCAN").id,uo:(await App.DB.getAll("operationalUnits")).find(e=>e.name==="REFAP").id})')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_workflows_browser.py", line 14, in ev
+    def ev(self,s):return self.page.evaluate(s)
+                          ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\sync_api\_generated.py", line 9385, in evaluate
+    self._sync(
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_page.py", line 472, in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_frame.py", line 345, in evaluate
+    await self._channel.send(
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.evaluate: TypeError: Cannot read properties of undefined (reading 'id')
+    at eval (eval at evaluate (:311:30), <anonymous>:1:81)
+    at async <anonymous>:337:30
+
+======================================================================
+FAIL: test_action_sheet_has_context (test_ui_browser.UIRegression.test_action_sheet_has_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 96, in test_action_sheet_has_context
+    self.assertNotIn(result,['','--'])
+AssertionError: '--' unexpectedly found in ['', '--']
+
+======================================================================
+FAIL: test_alarm_counts_agree (test_ui_browser.UIRegression.test_alarm_counts_agree)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 52, in test_alarm_counts_agree
+    self.assertEqual(result,{'metric':'2','side':'2'})
+AssertionError: {'metric': '1', 'side': '0'} != {'metric': '2', 'side': '2'}
+- {'metric': '1', 'side': '0'}
+?             ^            ^
+
++ {'metric': '2', 'side': '2'}
+?             ^            ^
+
+
+======================================================================
+FAIL: test_alarm_modal_countdown_moves (test_ui_browser.UIRegression.test_alarm_modal_countdown_moves)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 42, in test_alarm_modal_countdown_moves
+    self.assertNotEqual(result['before'],result['after'])
+AssertionError: 'Faltam 29 minutos' == 'Faltam 29 minutos'
+
+======================================================================
+FAIL: test_all_dialogs_and_controls_have_accessible_names (test_ui_browser.UIRegression.test_all_dialogs_and_controls_have_accessible_names)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 110, in test_all_dialogs_and_controls_have_accessible_names
+    self.assertEqual(missing,[])
+AssertionError: Lists differ: ['modalSnooze', 'modalCompleteEvent', 'mod[131 chars]tus'] != []
+
+First list contains 9 additional elements.
+First extra element 0:
+'modalSnooze'
+
++ []
+- ['modalSnooze',
+-  'modalCompleteEvent',
+-  'modalReopenEvent',
+-  'modalEventDetails',
+-  'modalConfirm',
+-  'modalDependency',
+-  'modalImportSummary',
+-  'modalEventActionSheet',
+-  'modalAppStatus']
+
+======================================================================
+FAIL: test_cancel_import_discards_old_file (test_ui_browser.UIRegression.test_cancel_import_discards_old_file)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 86, in test_cancel_import_discards_old_file
+    self.assertEqual(result,['2026-02-01T00:00:00Z'])
+AssertionError: Lists differ: ['2026-01-01T00:00:00Z', '2026-02-01T00:00:00Z'] != ['2026-02-01T00:00:00Z']
+
+First differing element 0:
+'2026-01-01T00:00:00Z'
+'2026-02-01T00:00:00Z'
+
+First list contains 1 additional elements.
+First extra element 1:
+'2026-02-01T00:00:00Z'
+
+- ['2026-01-01T00:00:00Z', '2026-02-01T00:00:00Z']
++ ['2026-02-01T00:00:00Z']
+
+======================================================================
+FAIL: test_cancelled_confirmation_never_executes (test_ui_browser.UIRegression.test_cancelled_confirmation_never_executes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 24, in test_cancelled_confirmation_never_executes
+    self.assertEqual(actions,['B'])
+AssertionError: Lists differ: ['A', 'B'] != ['B']
+
+First differing element 0:
+'A'
+'B'
+
+First list contains 1 additional elements.
+First extra element 1:
+'B'
+
+- ['A', 'B']
++ ['B']
+
+======================================================================
+FAIL: test_cancelled_dependency_never_executes (test_ui_browser.UIRegression.test_cancelled_dependency_never_executes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 27, in test_cancelled_dependency_never_executes
+    self.assertEqual(actions,['B'])
+AssertionError: Lists differ: ['A', 'B'] != ['B']
+
+First differing element 0:
+'A'
+'B'
+
+First list contains 1 additional elements.
+First extra element 1:
+'B'
+
+- ['A', 'B']
++ ['B']
+
+======================================================================
+FAIL: test_category_survives_layout_change (test_ui_browser.UIRegression.test_category_survives_layout_change)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 61, in test_category_survives_layout_change
+    self.assertEqual(result,'tags')
+AssertionError: 'consoles' != 'tags'
+- consoles
++ tags
+
+
+======================================================================
+FAIL: test_closed_drawer_not_in_tab_sequence (test_ui_browser.UIRegression.test_closed_drawer_not_in_tab_sequence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 73, in test_closed_drawer_not_in_tab_sequence
+    self.page.keyboard.press('Tab');self.assertFalse(self.ev('!!document.activeElement.closest("#appMobileDrawer")'))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_demo_button_actually_loads_demo (test_ui_browser.UIRegression.test_demo_button_actually_loads_demo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 33, in test_demo_button_actually_loads_demo
+    self.assertGreaterEqual(result['events'],6);self.assertGreaterEqual(result['uos'],4)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 not greater than or equal to 6
+
+======================================================================
+FAIL: test_description_is_multiline (test_ui_browser.UIRegression.test_description_is_multiline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 58, in test_description_is_multiline
+    self.assertEqual(self.ev('document.getElementById("inputEventDescription").tagName'),'TEXTAREA')
+AssertionError: 'INPUT' != 'TEXTAREA'
+- INPUT
++ TEXTAREA
+
+
+======================================================================
+FAIL: test_details_shows_saved_drawing (test_ui_browser.UIRegression.test_details_shows_saved_drawing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 36, in test_details_shows_saved_drawing
+    self.assertTrue(result['visible']);self.assertTrue(result['source'])
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_drawer_opens_and_closes_by_keyboard (test_ui_browser.UIRegression.test_drawer_opens_and_closes_by_keyboard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 76, in test_drawer_opens_and_closes_by_keyboard
+    self.page.locator('#btnToggleMobileMenu').click();self.assertTrue(self.ev('!!document.activeElement.closest("#appMobileDrawer")'))
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_filters_are_bottom_sheet_on_mobile (test_ui_browser.UIRegression.test_filters_are_bottom_sheet_on_mobile)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 83, in test_filters_are_bottom_sheet_on_mobile
+    self.assertEqual(position,'fixed')
+AssertionError: 'static' != 'fixed'
+- static
++ fixed
+
+
+======================================================================
+FAIL: test_metrics_apply_correct_time_filter (test_ui_browser.UIRegression.test_metrics_apply_correct_time_filter)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 90, in test_metrics_apply_correct_time_filter
+    self.assertTrue(visible);self.assertTrue(all(0<=x<=15*60000 for x in visible),visible)
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_modal_moves_and_traps_focus_and_restores (test_ui_browser.UIRegression.test_modal_moves_and_traps_focus_and_restores)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 65, in test_modal_moves_and_traps_focus_and_restores
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_new_master_data_appears_in_filters (test_ui_browser.UIRegression.test_new_master_data_appears_in_filters)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 93, in test_new_master_data_appears_in_filters
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_settings_keep_zero_values (test_ui_browser.UIRegression.test_settings_keep_zero_values)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 107, in test_settings_keep_zero_values
+    self.assertEqual(result,{'lead':0,'volume':0})
+AssertionError: {'lead': 15, 'volume': 80} != {'lead': 0, 'volume': 0}
+- {'lead': 15, 'volume': 80}
+?          ^^            -
+
++ {'lead': 0, 'volume': 0}
+?          ^
+
+
+======================================================================
+FAIL: test_tablet_detail_initial_content_and_alarm_value (test_ui_browser.UIRegression.test_tablet_detail_initial_content_and_alarm_value)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 49, in test_tablet_detail_initial_content_and_alarm_value
+    self.assertIn('Hierarquia',text.title());self.assertNotIn('undefined',text)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'Hierarquia' not found in 'Selecione Uma Previsão Na Lista Ao Lado Para Visualizar Detalhes, Esboço Manual E Histórico De Auditoria.'
+
+======================================================================
+FAIL: test_browser_rotation_keeps_form_and_drawing (test_workflows_browser.Workflows.test_browser_rotation_keeps_form_and_drawing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_workflows_browser.py", line 99, in test_browser_rotation_keeps_form_and_drawing
+    self.assertLess(abs(ratio['bitmap']-ratio['css']),0.03,ratio)
+AssertionError: 3.2906092171717174 not less than 0.03 : {'bitmap': 2.727272727272727, 'css': 6.0178819444444445}
+
+======================================================================
+FAIL: test_search_filter_sort_and_clear (test_workflows_browser.Workflows.test_search_filter_sort_and_clear)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_workflows_browser.py", line 84, in test_search_filter_sort_and_clear
+    self.assertTrue(values);self.assertTrue(all('PIG' in x for x in values))
+    ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true
+
+----------------------------------------------------------------------
+Ran 60 tests in 123.121s
+
+FAILED (failures=21, errors=4)

@@ -1,0 +1,489 @@
+{
+  "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
+  "tests": 67,
+  "passed": 49,
+  "failed": 18,
+  "results": [
+    {
+      "name": "firefox-local-date",
+      "passed": true,
+      "details": "25/10/2026"
+    },
+    {
+      "name": "firefox-iso-time",
+      "passed": true,
+      "details": "12:30"
+    },
+    {
+      "name": "firefox-missing-alarm-rejected",
+      "passed": true,
+      "details": "Campo obrigatório ausente: events.hasAlarm."
+    },
+    {
+      "name": "firefox-cancel-discard",
+      "passed": true,
+      "details": [
+        "B"
+      ]
+    },
+    {
+      "name": "firefox-layout:390:auto:viewDashboard",
+      "passed": false,
+      "details": {
+        "width": 390,
+        "scroll": 457,
+        "layout": "mobile"
+      }
+    },
+    {
+      "name": "firefox-layout:390:auto:viewNewEvent",
+      "passed": false,
+      "details": {
+        "width": 390,
+        "scroll": 457,
+        "layout": "mobile"
+      }
+    },
+    {
+      "name": "firefox-layout:390:auto:viewPendingEvents",
+      "passed": false,
+      "details": {
+        "width": 390,
+        "scroll": 457,
+        "layout": "mobile"
+      }
+    },
+    {
+      "name": "firefox-layout:390:auto:viewCompletedEvents",
+      "passed": false,
+      "details": {
+        "width": 390,
+        "scroll": 457,
+        "layout": "mobile"
+      }
+    },
+    {
+      "name": "firefox-layout:390:auto:viewCadastros",
+      "passed": false,
+      "details": {
+        "width": 390,
+        "scroll": 483,
+        "layout": "mobile"
+      }
+    },
+    {
+      "name": "firefox-layout:390:auto:viewConfigAlerts",
+      "passed": false,
+      "details": {
+        "width": 390,
+        "scroll": 457,
+        "layout": "mobile"
+      }
+    },
+    {
+      "name": "firefox-layout:390:auto:viewConfigColors",
+      "passed": false,
+      "details": {
+        "width": 390,
+        "scroll": 457,
+        "layout": "mobile"
+      }
+    },
+    {
+      "name": "firefox-layout:390:auto:viewBackup",
+      "passed": false,
+      "details": {
+        "width": 390,
+        "scroll": 457,
+        "layout": "mobile"
+      }
+    },
+    {
+      "name": "firefox-layout:390:auto:viewDiagnostic",
+      "passed": false,
+      "details": {
+        "width": 390,
+        "scroll": 457,
+        "layout": "mobile"
+      }
+    },
+    {
+      "name": "firefox-layout:1024:auto:viewDashboard",
+      "passed": false,
+      "details": {
+        "width": 1024,
+        "scroll": 1060,
+        "layout": "tablet"
+      }
+    },
+    {
+      "name": "firefox-layout:1024:auto:viewNewEvent",
+      "passed": false,
+      "details": {
+        "width": 1024,
+        "scroll": 1060,
+        "layout": "tablet"
+      }
+    },
+    {
+      "name": "firefox-layout:1024:auto:viewPendingEvents",
+      "passed": false,
+      "details": {
+        "width": 1024,
+        "scroll": 1060,
+        "layout": "tablet"
+      }
+    },
+    {
+      "name": "firefox-layout:1024:auto:viewCompletedEvents",
+      "passed": false,
+      "details": {
+        "width": 1024,
+        "scroll": 1060,
+        "layout": "tablet"
+      }
+    },
+    {
+      "name": "firefox-layout:1024:auto:viewCadastros",
+      "passed": false,
+      "details": {
+        "width": 1024,
+        "scroll": 1060,
+        "layout": "tablet"
+      }
+    },
+    {
+      "name": "firefox-layout:1024:auto:viewConfigAlerts",
+      "passed": false,
+      "details": {
+        "width": 1024,
+        "scroll": 1060,
+        "layout": "tablet"
+      }
+    },
+    {
+      "name": "firefox-layout:1024:auto:viewConfigColors",
+      "passed": false,
+      "details": {
+        "width": 1024,
+        "scroll": 1060,
+        "layout": "tablet"
+      }
+    },
+    {
+      "name": "firefox-layout:1024:auto:viewBackup",
+      "passed": false,
+      "details": {
+        "width": 1024,
+        "scroll": 1060,
+        "layout": "tablet"
+      }
+    },
+    {
+      "name": "firefox-layout:1024:auto:viewDiagnostic",
+      "passed": false,
+      "details": {
+        "width": 1024,
+        "scroll": 1060,
+        "layout": "tablet"
+      }
+    },
+    {
+      "name": "firefox-layout:1440:auto:viewDashboard",
+      "passed": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440,
+        "layout": "conventional"
+      }
+    },
+    {
+      "name": "firefox-layout:1440:auto:viewNewEvent",
+      "passed": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440,
+        "layout": "conventional"
+      }
+    },
+    {
+      "name": "firefox-layout:1440:auto:viewPendingEvents",
+      "passed": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440,
+        "layout": "conventional"
+      }
+    },
+    {
+      "name": "firefox-layout:1440:auto:viewCompletedEvents",
+      "passed": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440,
+        "layout": "conventional"
+      }
+    },
+    {
+      "name": "firefox-layout:1440:auto:viewCadastros",
+      "passed": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440,
+        "layout": "conventional"
+      }
+    },
+    {
+      "name": "firefox-layout:1440:auto:viewConfigAlerts",
+      "passed": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440,
+        "layout": "conventional"
+      }
+    },
+    {
+      "name": "firefox-layout:1440:auto:viewConfigColors",
+      "passed": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440,
+        "layout": "conventional"
+      }
+    },
+    {
+      "name": "firefox-layout:1440:auto:viewBackup",
+      "passed": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440,
+        "layout": "conventional"
+      }
+    },
+    {
+      "name": "firefox-layout:1440:auto:viewDiagnostic",
+      "passed": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440,
+        "layout": "conventional"
+      }
+    },
+    {
+      "name": "firefox-layout:3440:auto:viewDashboard",
+      "passed": true,
+      "details": {
+        "width": 3440,
+        "scroll": 3440,
+        "layout": "ultrawide"
+      }
+    },
+    {
+      "name": "firefox-layout:3440:auto:viewNewEvent",
+      "passed": true,
+      "details": {
+        "width": 3440,
+        "scroll": 3440,
+        "layout": "ultrawide"
+      }
+    },
+    {
+      "name": "firefox-layout:3440:auto:viewPendingEvents",
+      "passed": true,
+      "details": {
+        "width": 3440,
+        "scroll": 3440,
+        "layout": "ultrawide"
+      }
+    },
+    {
+      "name": "firefox-layout:3440:auto:viewCompletedEvents",
+      "passed": true,
+      "details": {
+        "width": 3440,
+        "scroll": 3440,
+        "layout": "ultrawide"
+      }
+    },
+    {
+      "name": "firefox-layout:3440:auto:viewCadastros",
+      "passed": true,
+      "details": {
+        "width": 3440,
+        "scroll": 3440,
+        "layout": "ultrawide"
+      }
+    },
+    {
+      "name": "firefox-layout:3440:auto:viewConfigAlerts",
+      "passed": true,
+      "details": {
+        "width": 3440,
+        "scroll": 3440,
+        "layout": "ultrawide"
+      }
+    },
+    {
+      "name": "firefox-layout:3440:auto:viewConfigColors",
+      "passed": true,
+      "details": {
+        "width": 3440,
+        "scroll": 3440,
+        "layout": "ultrawide"
+      }
+    },
+    {
+      "name": "firefox-layout:3440:auto:viewBackup",
+      "passed": true,
+      "details": {
+        "width": 3440,
+        "scroll": 3440,
+        "layout": "ultrawide"
+      }
+    },
+    {
+      "name": "firefox-layout:3440:auto:viewDiagnostic",
+      "passed": true,
+      "details": {
+        "width": 3440,
+        "scroll": 3440,
+        "layout": "ultrawide"
+      }
+    },
+    {
+      "name": "firefox-theme:dark:viewDashboard",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:dark:viewNewEvent",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:dark:viewPendingEvents",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:dark:viewCompletedEvents",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:dark:viewCadastros",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:dark:viewConfigAlerts",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:dark:viewConfigColors",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:dark:viewBackup",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:dark:viewDiagnostic",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:light:viewDashboard",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:light:viewNewEvent",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:light:viewPendingEvents",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:light:viewCompletedEvents",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:light:viewCadastros",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:light:viewConfigAlerts",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:light:viewConfigColors",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:light:viewBackup",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:light:viewDiagnostic",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:industrial:viewDashboard",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:industrial:viewNewEvent",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:industrial:viewPendingEvents",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:industrial:viewCompletedEvents",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:industrial:viewCadastros",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:industrial:viewConfigAlerts",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:industrial:viewConfigColors",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:industrial:viewBackup",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "firefox-theme:industrial:viewDiagnostic",
+      "passed": true,
+      "details": null
+    }
+  ]
+}

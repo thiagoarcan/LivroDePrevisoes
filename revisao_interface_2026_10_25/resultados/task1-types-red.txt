@@ -1,0 +1,14 @@
+test_backup_rejects_invalid_types_png_and_impossible_iso (test_core_browser.CoreBrowserTests.test_backup_rejects_invalid_types_png_and_impossible_iso) ... FAIL
+
+======================================================================
+FAIL: test_backup_rejects_invalid_types_png_and_impossible_iso (test_core_browser.CoreBrowserTests.test_backup_rejects_invalid_types_png_and_impossible_iso)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 90, in test_backup_rejects_invalid_types_png_and_impossible_iso
+    self.assertEqual(self.runjs("await App.Service.saveEvent(fixture);const base=await App.Backup.createSnapshot();let count=0;for(const update of [b=>b.exportedAt='2026-02-31T00:00:00Z',b=>b.data.events[0].stylusDrawing='data:image/svg+xml,<svg onload=alert(1)>',b=>b.data.events[0].id=\"x');alert(1);//\",b=>b.data.events[0].status='other',b=>b.data.settings[0].value.soundVolume=101,b=>b.data.colorRanges[0].color='red;display:none',b=>b.data.events[0].alarmMaxRepeats='bad',b=>b.data.events[0].version='1',b=>b.data.events[0].alarmMaxRepeats='0',b=>b.data.settings[0].value.soundVolume='50']){const b=structuredClone(base);update(b);try{App.Backup.validateBackupData(b);}catch(e){count++;}}return count;"),10)
+AssertionError: 7 != 10
+
+----------------------------------------------------------------------
+Ran 1 test in 5.642s
+
+FAILED (failures=1)

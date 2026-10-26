@@ -1,0 +1,669 @@
+--- task2_r1_base/parts_js_ui.py
++++ parts_js_ui.py
+@@ -7,8 +7,30 @@
+   modalStack: [],
+   modalActions: new Map(),
+   modalBusy: new Set(),
++  modalRequests: new Map(),
+   pageSize: 50,
+   pages: {pending: 1, completed: 1},
++  renderedListModalities: {},
++  expandedCompletedIds: new Set(),
++  getListModality: function(kind) {
++    if(kind==='pending')return this.viewMode;
++    return this.getEffectiveViewportTier()==='mobile' || window.innerWidth<768 ? 'cards' : 'table';
++  },
++  syncActiveListModality: function() {
++    if(this._listModalityTask)return this._listModalityTask;
++    const update=async()=>{
++      while(true){
++        const view=this.currentView,kind=view==='viewCompletedEvents'?'completed':view==='viewPendingEvents'?'pending':null;
++        if(!kind || this.renderedListModalities[kind]===this.getListModality(kind))return;
++        const scroll={x:window.scrollX,y:window.scrollY};
++        const positions=[...document.querySelectorAll(kind==='completed'?'#containerCompletedCards,#tableCompletedWrapper':'#containerPendingCards,#containerPendingTable')].map(element=>({element,top:element.scrollTop,left:element.scrollLeft}));
++        await this[kind==='completed'?'renderCompletedEvents':'renderPendingEvents']();
++        if(this.currentView===view){for(const p of positions){p.element.scrollTop=p.top;p.element.scrollLeft=p.left;}window.scrollTo(scroll.x,scroll.y);}
++      }
++    };
++    this._listModalityTask=update().finally(()=>{this._listModalityTask=null;});
++    return this._listModalityTask;
++  },
+   localDate: function(value = Date.now()) {
+     const d = new Date(value);
+     return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+@@ -31,6 +53,11 @@
+     this._ranges = this._snapshot.colorRanges.filter(x=>x.active !== false);
+     this._temporalSignature = this.temporalSignature();
+     this.applyVisualPreferences();
++  },
++  publishCatalogChange: async function() {
++    await this.refreshPresentationCache();
++    this.populateFilterDropdowns(this._snapshot.consoles,this._snapshot.pipelines,this._snapshot.operationalUnits);
++    this.notifyPresentation('catalog');
+   },
+   getPresentationState: function() {
+     return {snapshot:this._snapshot,settings:this._settings,ranges:this._ranges,view:this.currentView,
+@@ -103,6 +130,7 @@
+   },
+   toggleCompletedCard: function(card) {
+     const expanded=card.classList.toggle('expanded');card.setAttribute('aria-expanded',String(expanded));
++    if(expanded)this.expandedCompletedIds.add(card.dataset.eventId);else this.expandedCompletedIds.delete(card.dataset.eventId);
+     const details=card.querySelector('.completed-card-details');details.hidden=!expanded;details.style.display=expanded?'block':'none';
+     this.selectedCompletedEventId=card.dataset.eventId;this.notifyPresentation('selection',card.dataset.eventId);
+   },
+@@ -124,11 +152,22 @@
+     const drawer=document.getElementById('appMobileDrawer');if(drawer && top!==drawer && !drawer.classList.contains('open'))drawer.inert=true;
+     for(const entry of this.modalStack)if(entry.element!==top){entry.element.inert=true;this._inerted.push(entry.element);}
+   },
+-  openModal: function(id) {
++  beginModalRequest: function(id, eventId) {
++    if(this.modalBusy.has(id))return null;
++    const generation=(this.modalRequests.get(id)||0)+1;
++    this.modalRequests.set(id,generation);
++    return {id,eventId,generation,returnFocus:document.activeElement};
++  },
++  isModalRequestCurrent: function(request) {
++    return Boolean(request && this.modalRequests.get(request.id)===request.generation && !this.modalBusy.has(request.id));
++  },
++  openModal: function(id, event = null, request = null) {
++    if(this.modalBusy.has(id) || (request && !this.isModalRequestCurrent(request)))return false;
+     const element=document.getElementById(id);if(!element)return;
+     const current=this.modalStack.find(e=>e.element===element);
+-    if(!current)this.modalStack.push({element,returnFocus:document.activeElement,event:this.selectedEventForAction});
+-    else current.event=this.selectedEventForAction;
++    if(!current)this.modalStack.push({element,returnFocus:request?.returnFocus || document.activeElement,event});
++    else current.event=event;
++    if(event)this.selectedEventForAction=event;
+     element.inert=false;element.hidden=false;element.classList.add('active');element.setAttribute('role','dialog');element.setAttribute('aria-modal','true');element.tabIndex=-1;
+     if(!element.getAttribute('aria-label')&&!element.getAttribute('aria-labelledby'))element.setAttribute('aria-label',element.querySelector('.modal-header,h2,h3')?.textContent.trim() || 'Diálogo');
+     element.setAttribute('aria-hidden','false');this.syncModalInert();
+@@ -136,6 +175,7 @@
+   },
+   closeModal: function(id, force=false) {
+     if(this.modalBusy.has(id)&&!force)return false;
++    this.modalRequests.set(id,(this.modalRequests.get(id)||0)+1);
+     const index=this.modalStack.findIndex(x=>x.element.id===id),entry=this.modalStack[index];
+     const element=document.getElementById(id);this.modalActions.delete(id);
+     if(element){element.classList.remove('active','open','active-sheet');element.setAttribute('aria-hidden','true');element.removeAttribute('aria-modal');}
+@@ -166,6 +206,14 @@
+       .finally(()=>{this.modalBusy.delete(id);button.disabled=false;});
+     };
+   },
++  updateKeyboardState: function() {
++    const viewport=window.visualViewport,focused=document.activeElement;
++    const editable=Boolean(focused && !focused.disabled && !focused.readOnly && (focused.isContentEditable || focused.tagName==='TEXTAREA' || focused.tagName==='INPUT' && ['text','search','email','url','tel','number','password','date','time','datetime-local'].includes(focused.type)));
++    // Pinch changes visual height and scale together; normalize them before
++    // comparing to the layout viewport. Height alone is not a keyboard signal.
++    const available=viewport ? viewport.height*(viewport.scale || 1) : window.innerHeight;
++    document.body.classList.toggle('keyboard-open',editable && available<window.innerHeight*.7);
++  },
+   initUIController: function() {
+     if(!this._settings.firstMobileNoticeShown && this.getEffectiveViewportTier()==='mobile'){
+       const notice=document.createElement('aside');notice.id='appRuntimeNotice';notice.className='runtime-notice';notice.setAttribute('role','note');
+@@ -184,7 +232,9 @@
+       if(ids!==this._triggeredIds){this._triggeredIds=ids;await this.refreshPresentationCache();await this.renderDashboard();if(this.currentView==='viewPendingEvents')await this.renderPendingEvents();}
+       await this.updateLiveTimers();
+     });
+-    if(window.visualViewport){const resize=()=>{document.body.classList.toggle('keyboard-open',visualViewport.height<window.innerHeight*.7);};visualViewport.addEventListener('resize',resize);}
++    if(window.visualViewport)visualViewport.addEventListener('resize',()=>this.updateKeyboardState());
++    document.addEventListener('focusin',()=>this.updateKeyboardState());
++    document.addEventListener('focusout',()=>this.updateKeyboardState());
+     this.notifyPresentation('init');
+   },
+   currentView: 'viewDashboard',
+@@ -312,9 +362,7 @@
+       this._settings=settings;await this.refreshPresentationCache();this.notifyPresentation('settings');
+     }
+ 
+-    if (this.currentView === 'viewPendingEvents') {
+-      await this.renderPendingDetailPane(this.selectedDetailEventId);
+-    }
++    await this.syncActiveListModality();
+     this.notifyPresentation('layout');
+   },
+ 
+@@ -343,10 +391,11 @@
+     }
+   },
+ 
+-  handleViewportResize: function() {
++  handleViewportResize: async function() {
+     document.body.dataset.layoutMode = this.getEffectiveViewportTier(this.responsiveLayoutMode);
+     document.body.classList.toggle('layout-narrow', window.innerWidth < 768);
+     this.checkViewModeUsabilityWarning();
++    await this.syncActiveListModality();
+     this.notifyPresentation('layout');
+   },
+ 
+@@ -2177,6 +2226,8 @@
+     events = this.applyMetricFilter(events);
+     this.activePendingEvents = events;
+     const pageEvents = this.paginateEvents('pending', events);
++    this.renderedListModalities.pending=this.getListModality('pending');
++    this.updateViewModeUI();
+ 
+     const cardsContainer = document.getElementById('containerPendingCards');
+     const tbodyTable = document.getElementById('tbodyPendingEvents');
+@@ -2425,9 +2476,12 @@
+   },
+ 
+   openEventActionSheet: async function(eventId) {
++    const request=this.beginModalRequest('modalEventActionSheet',eventId);
++    if(!request)return;
+     const ev = await App.DB.get('events', eventId);
+     if (!ev) return;
+-    this.selectedEventForAction = ev;
++    const snapshot=await App.DB.snapshot();
++    if(!this.isModalRequestCurrent(request))return;
+ 
+     const titleEl = document.getElementById('actionSheetEventTitle');
+     const container = document.getElementById('actionSheetButtonsContainer');
+@@ -2435,7 +2489,6 @@
+     if (!container || !modal) return;
+ 
+     if (titleEl) titleEl.textContent = ev.description;
+-    const snapshot = await App.DB.snapshot();
+     const names = [['consoles', ev.consoleId], ['pipelines', ev.pipelineId], ['operationalUnits', ev.uoId]].map(([store,id]) => snapshot[store].find(x=>x.id===id)?.name || '');
+     document.getElementById('actionSheetEventSubtitle').textContent = names.join(' / ') + ' • ' + App.Utils.formatDateTime(ev.scheduledAt);
+ 
+@@ -2454,7 +2507,7 @@
+       <button class="btn btn-danger" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.deleteEvent('${ev.id}')">&times; Excluir Previsão</button>
+     `;
+ 
+-    this.openModal(modal.id);
++    this.openModal(modal.id,ev,request);
+   },
+ 
+   updateLiveTimers: async function() {
+@@ -2550,10 +2603,13 @@
+     this.activeCompletedEvents = completed;
+     const pageCompleted = this.paginateEvents('completed', completed);
+     if(!completed.some(e=>e.id===this.selectedCompletedEventId))this.selectedCompletedEventId=completed[0]?.id || null;
+-    const mobileCompleted = this.getEffectiveViewportTier() === 'mobile' || window.innerWidth < 768;
++    const mobileCompleted = this.getListModality('completed')==='cards';
++    this.renderedListModalities.completed=mobileCompleted?'cards':'table';
+     const tbody = document.getElementById('tbodyCompletedEvents');
+     const cardsContainer = document.getElementById('containerCompletedCards');
+     const emptyMsg = document.getElementById('completedEmptyMessage');
++    cardsContainer.style.display=mobileCompleted?'flex':'none';
++    document.getElementById('tableCompletedWrapper').style.display=mobileCompleted?'none':'block';
+ 
+     if (completed.length === 0) {
+       if (tbody) tbody.innerHTML = '';
+@@ -2566,6 +2622,7 @@
+     // Renderizar Cards Expansíveis para Mobile (Seção 12.6 / Fix #11)
+     if (cardsContainer) {
+       cardsContainer.innerHTML = (mobileCompleted ? pageCompleted : []).map(ev => {
++        const expanded=this.expandedCompletedIds.has(ev.id);
+         const conName = consoleMap.get(ev.consoleId) || '';
+         const pipeName = pipeMap.get(ev.pipelineId) || '';
+         const uoName = uoMap.get(ev.uoId) || '';
+@@ -2577,7 +2634,7 @@
+         const alarmSummary = ev.alarmTriggerCount ? `${ev.alarmTriggerCount} disparo(s)` : (ev.hasAlarm ? 'Ativo (0 disparos)' : 'Sem alarme');
+ 
+         return `
+-          <div class="completed-event-card" data-event-id="${ev.id}" tabindex="0" role="button" aria-expanded="false" onclick="if(!event.target.closest('button')) App.UI.toggleCompletedCard(this)" onkeydown="if(event.target===this && (event.key==='Enter'||event.key===' ')){event.preventDefault();App.UI.toggleCompletedCard(this)}">
++          <div class="completed-event-card${expanded?' expanded':''}" data-event-id="${ev.id}" tabindex="0" role="button" aria-expanded="${expanded}" onclick="if(!event.target.closest('button')) App.UI.toggleCompletedCard(this)" onkeydown="if(event.target===this && (event.key==='Enter'||event.key===' ')){event.preventDefault();App.UI.toggleCompletedCard(this)}">
+             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+               <span class="status-badge concluido">&#x2713; Concluído</span>
+               <span style="font-size: 0.78rem; font-weight: 700;">${diffStr}</span>
+@@ -2591,7 +2648,7 @@
+               <span>Prev: ${schedStr}</span>
+               <span>Conc: <strong>${compStr}</strong></span>
+             </div>
+-            <div class="completed-card-details" hidden style="display:none;">
++            <div class="completed-card-details" ${expanded?'':'hidden'} style="display:${expanded?'block':'none'};">
+               ${ev.completionNote ? `<div style="margin-bottom: 0.35rem;"><strong>Obs. Conclusão:</strong> ${App.Utils.escapeHTML(ev.completionNote)}</div>` : ''}
+               <div style="margin-bottom: 0.35rem;"><strong>Controlador:</strong> ${App.Utils.escapeHTML(controllerName)} &bull; <strong>Alarmes:</strong> ${alarmSummary}</div>
+               <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem;">
+@@ -2700,6 +2757,7 @@
+         const id = document.getElementById('consoleEditId').value;
+         const name = document.getElementById('inputConsoleName').value;
+         await App.Service.saveConsole({ id: id || undefined, name });
++        await this.publishCatalogChange();
+         this.showToast('Console salvo com sucesso!', 'success');
+         document.getElementById('consoleEditId').value = '';
+         formConsole.reset();
+@@ -2731,6 +2789,7 @@
+         const uoIds = Array.from(uoCheckboxes).map(cb => cb.value);
+ 
+         await App.Service.savePipeline({ id: id || undefined, name, consoleId, uoIds });
++        await this.publishCatalogChange();
+         this.showToast('Duto salvo com sucesso!', 'success');
+         document.getElementById('pipelineEditId').value = '';
+         formPipeline.reset();
+@@ -2759,6 +2818,7 @@
+       }
+       try {
+         const result = await App.Service.saveUOBatch(val);
++        await this.publishCatalogChange();
+         input.value = '';
+         await this.refreshAllMasterDataDropdowns();
+         await this.renderUOsTable();
+@@ -2795,10 +2855,12 @@
+         if (id) {
+           // Edição de UO única
+           await App.Service.saveUO({ id: id, name: nameVal });
++          await this.publishCatalogChange();
+           this.showToast('UO atualizada com sucesso!', 'success');
+         } else {
+           // Criação (suporta lote por vírgula, ex: REFAP, TEDEP)
+           const result = await App.Service.saveUOBatch(nameVal);
++          await this.publishCatalogChange();
+           const total = result.created.length;
+           this.showToast(total > 1 ? `${total} UOs cadastradas com sucesso!` : 'UO salva com sucesso!', 'success');
+         }
+@@ -2833,6 +2895,7 @@
+         const uoId = document.getElementById('selectEquipmentTypeUO').value;
+         const name = document.getElementById('inputEquipmentTypeName').value;
+         await App.Service.saveEquipmentType({ id: id || undefined, uoId, name });
++        await this.publishCatalogChange();
+         this.showToast('Tipo de equipamento salvo com sucesso!', 'success');
+         document.getElementById('equipmentTypeEditId').value = '';
+         formType.reset();
+@@ -2870,6 +2933,7 @@
+         const tag = document.getElementById('inputTagCode').value;
+ 
+         await App.Service.saveEquipmentTag({ id: id || undefined, uoId, equipmentTypeId, tag });
++        await this.publishCatalogChange();
+         this.showToast('TAG de equipamento salvo com sucesso!', 'success');
+         document.getElementById('tagEditId').value = '';
+         formTag.reset();
+@@ -3117,6 +3181,7 @@
+   toggleConsoleActive: async function(id) {
+     try {
+       await App.Service.toggleConsoleActive(id);
++      await this.publishCatalogChange();
+       await this.initHeaderConsole();
+       await this.renderConsolesTable();
+     } catch (err) {
+@@ -3128,6 +3193,7 @@
+     this.showConfirmModal('Excluir Console', 'Deseja realmente excluir este console?', async () => {
+       try {
+         await App.Service.deleteConsole(id);
++        await this.publishCatalogChange();
+         this.showToast('Console excluído com sucesso.', 'info');
+         await this.initHeaderConsole();
+         await this.renderConsolesTable();
+@@ -3135,6 +3201,7 @@
+         if (err.isDependencyError) {
+           this.showDependencyModal('Console com Dependências', err.dependencies, async () => {
+             await App.Service.toggleConsoleActive(id);
++            await this.publishCatalogChange();
+             this.showToast('Console inativado.', 'info');
+             await this.initHeaderConsole();
+             await this.renderConsolesTable();
+@@ -3167,6 +3234,7 @@
+   togglePipelineActive: async function(id) {
+     try {
+       await App.Service.togglePipelineActive(id);
++      await this.publishCatalogChange();
+       await this.renderPipelinesTable();
+     } catch (err) {
+       this.showToast(err.message, 'danger');
+@@ -3177,12 +3245,14 @@
+     this.showConfirmModal('Excluir Duto', 'Deseja realmente excluir este duto?', async () => {
+       try {
+         await App.Service.deletePipeline(id);
++        await this.publishCatalogChange();
+         this.showToast('Duto excluído com sucesso.', 'info');
+         await this.renderPipelinesTable();
+       } catch (err) {
+         if (err.isDependencyError) {
+           this.showDependencyModal('Duto com Dependências', err.dependencies, async () => {
+             await App.Service.togglePipelineActive(id);
++            await this.publishCatalogChange();
+             this.showToast('Duto inativado.', 'info');
+             await this.renderPipelinesTable();
+           });
+@@ -3205,6 +3275,7 @@
+   toggleUOActive: async function(id) {
+     try {
+       await App.Service.toggleUOActive(id);
++      await this.publishCatalogChange();
+       await this.refreshAllMasterDataDropdowns();
+       await this.renderUOsTable();
+     } catch (err) {
+@@ -3216,6 +3287,7 @@
+     this.showConfirmModal('Excluir UO', 'Deseja realmente excluir esta Unidade Operacional?', async () => {
+       try {
+         await App.Service.deleteUO(id);
++        await this.publishCatalogChange();
+         this.showToast('UO excluída com sucesso.', 'info');
+         await this.refreshAllMasterDataDropdowns();
+         await this.renderUOsTable();
+@@ -3223,6 +3295,7 @@
+         if (err.isDependencyError) {
+           this.showDependencyModal('UO com Dependências', err.dependencies, async () => {
+             await App.Service.toggleUOActive(id);
++            await this.publishCatalogChange();
+             this.showToast('UO inativada com sucesso.', 'info');
+             await this.refreshAllMasterDataDropdowns();
+             await this.renderUOsTable();
+@@ -3247,6 +3320,7 @@
+   toggleEquipmentTypeActive: async function(id) {
+     try {
+       await App.Service.toggleEquipmentTypeActive(id);
++      await this.publishCatalogChange();
+       await this.renderEquipmentTypesTable();
+     } catch (err) {
+       this.showToast(err.message, 'danger');
+@@ -3257,12 +3331,14 @@
+     this.showConfirmModal('Excluir Tipo', 'Deseja realmente excluir este tipo de equipamento?', async () => {
+       try {
+         await App.Service.deleteEquipmentType(id);
++        await this.publishCatalogChange();
+         this.showToast('Tipo de equipamento excluído com sucesso.', 'info');
+         await this.renderEquipmentTypesTable();
+       } catch (err) {
+         if (err.isDependencyError) {
+           this.showDependencyModal('Tipo com Dependências', err.dependencies, async () => {
+             await App.Service.toggleEquipmentTypeActive(id);
++            await this.publishCatalogChange();
+             this.showToast('Tipo inativado.', 'info');
+             await this.renderEquipmentTypesTable();
+           });
+@@ -3287,6 +3363,7 @@
+   toggleEquipmentTagActive: async function(id) {
+     try {
+       await App.Service.toggleEquipmentTagActive(id);
++      await this.publishCatalogChange();
+       await this.renderEquipmentTagsTable();
+     } catch (err) {
+       this.showToast(err.message, 'danger');
+@@ -3297,12 +3374,14 @@
+     this.showConfirmModal('Excluir TAG', 'Deseja realmente excluir este TAG?', async () => {
+       try {
+         await App.Service.deleteEquipmentTag(id);
++        await this.publishCatalogChange();
+         this.showToast('TAG excluído com sucesso.', 'info');
+         await this.renderEquipmentTagsTable();
+       } catch (err) {
+         if (err.isDependencyError) {
+           this.showDependencyModal('TAG com Dependências', err.dependencies, async () => {
+             await App.Service.toggleEquipmentTagActive(id);
++            await this.publishCatalogChange();
+             this.showToast('TAG inativado com sucesso.', 'info');
+             await this.renderEquipmentTagsTable();
+           });
+@@ -3577,7 +3656,7 @@
+       const button=document.getElementById(buttonId);if(!button)return;
+       button.addEventListener('click',async()=>{
+         if(this.modalBusy.has(modalId))return;
+-        const selected=this.modalStack.find(x=>x.element.id===modalId)?.event || this.selectedEventForAction;if(!selected)return;
++        const selected=this.modalStack.find(x=>x.element.id===modalId)?.event;if(!selected)return;
+         this.modalBusy.add(modalId);button.disabled=true;
+         try{await callback(selected);this.closeModal(modalId,true);await this.renderDashboard();if(this.currentView==='viewPendingEvents')await this.renderPendingEvents();if(this.currentView==='viewCompletedEvents')await this.renderCompletedEvents();}
+         catch(error){this.showToast(error.message,'danger');await App.DB.logError(error,'Interface: '+modalId);}
+@@ -3592,17 +3671,20 @@
+     bindCritical('btnAlarmAcknowledge','modalAlarmTrigger',async selected=>{await App.Service.acknowledgeAlarm(selected.id);this.showToast('Alarme reconhecido.','info');});
+     bindCritical('btnConfirmCompleteModal','modalCompleteEvent',async selected=>{await App.Service.completeEvent(selected.id,document.getElementById('inputCompleteNotes').value);this.showToast('Previsão operacional concluída.','success');});
+     bindCritical('btnConfirmReopenModal','modalReopenEvent',async selected=>{await App.Service.reopenEvent(selected.id,document.getElementById('inputReopenDate').value,document.getElementById('inputReopenTime').value);this.showToast('Previsão reaberta.','success');});
+-    document.getElementById('btnAlarmSnoozePrompt')?.addEventListener('click',()=>this.openModal('modalSnooze'));
+-    document.getElementById('btnAlarmCompleteDirect')?.addEventListener('click',()=>{const id=this.selectedEventForAction?.id;this.closeModal('modalAlarmTrigger');if(id)this.showCompleteModal(id);});
+-    document.getElementById('btnAlarmOpenDetails')?.addEventListener('click',()=>{const id=this.selectedEventForAction?.id;this.closeModal('modalAlarmTrigger');if(id)this.showDetailsModal(id);});
++    document.getElementById('btnAlarmSnoozePrompt')?.addEventListener('click',()=>{const event=this.modalStack.find(x=>x.element.id==='modalAlarmTrigger')?.event;if(event)this.showSnoozeModal(event.id,event);});
++    document.getElementById('btnAlarmCompleteDirect')?.addEventListener('click',()=>{const id=this.modalStack.find(x=>x.element.id==='modalAlarmTrigger')?.event?.id;this.closeModal('modalAlarmTrigger');if(id)this.showCompleteModal(id);});
++    document.getElementById('btnAlarmOpenDetails')?.addEventListener('click',()=>{const id=this.modalStack.find(x=>x.element.id==='modalAlarmTrigger')?.event?.id;this.closeModal('modalAlarmTrigger');if(id)this.showDetailsModal(id);});
+   },
+ 
+   showAlarmModal: async function(event, isTest = false) {
+-    this.selectedEventForAction = event;
++    const request=this.beginModalRequest('modalAlarmTrigger',event.id);
++    if(!request)return;
++    event={...event};
+     const consoles = await App.DB.getAll('consoles');
+     const pipelines = await App.DB.getAll('pipelines');
+     const uos = await App.DB.getAll('operationalUnits');
+     const tags = await App.DB.getAll('equipmentTags');
++    if(!this.isModalRequestCurrent(request))return;
+ 
+     const con = consoles.find(c => c.id === event.consoleId);
+     const pipe = pipelines.find(p => p.id === event.pipelineId);
+@@ -3621,27 +3703,29 @@
+     document.getElementById('alarmModalCountdown').dataset.timestamp = isTest ? '' : new Date(event.scheduledAt).getTime();
+     this.alarmEventId = event.id;
+ 
+-    this.openModal('modalAlarmTrigger');
+-  },
+-
+-  showSnoozeModal: function(eventId) {
+-    App.DB.get('events', eventId).then(ev => {
+-      if (!ev) return;
+-      this.selectedEventForAction = ev;
+-      document.getElementById('inputSnoozeMinutes').value = 5;
+-      this.openModal('modalSnooze');
+-    });
++    this.openModal('modalAlarmTrigger',event,request);
++  },
++
++  showSnoozeModal: async function(eventId, currentAlarm = null) {
++    const request=this.beginModalRequest('modalSnooze',eventId);
++    if(!request)return;
++    const event=currentAlarm?.id===request.eventId ? {...currentAlarm} : await App.DB.get('events',request.eventId);
++    if(!event || !this.isModalRequestCurrent(request))return;
++    document.getElementById('inputSnoozeMinutes').value=5;
++    this.openModal('modalSnooze',event,request);
+   },
+ 
+   showCompleteModal: async function(eventId) {
++    const request=this.beginModalRequest('modalCompleteEvent',eventId);
++    if(!request)return;
+     const event = await App.DB.get('events', eventId);
+     if (!event) return;
+-    this.selectedEventForAction = event;
+ 
+     const consoles = await App.DB.getAll('consoles');
+     const pipelines = await App.DB.getAll('pipelines');
+     const uos = await App.DB.getAll('operationalUnits');
+     const tags = await App.DB.getAll('equipmentTags');
++    if(!this.isModalRequestCurrent(request))return;
+ 
+     const con = consoles.find(c => c.id === event.consoleId);
+     const pipe = pipelines.find(p => p.id === event.pipelineId);
+@@ -3661,13 +3745,14 @@
+     document.getElementById('completeModalTimeDiff').textContent = App.Utils.formatDiffMinutes(diffMins);
+     document.getElementById('inputCompleteNotes').value = '';
+ 
+-    this.openModal('modalCompleteEvent');
++    this.openModal('modalCompleteEvent',event,request);
+   },
+ 
+   showReopenModal: async function(eventId) {
++    const request=this.beginModalRequest('modalReopenEvent',eventId);
++    if(!request)return;
+     const event = await App.DB.get('events', eventId);
+-    if (!event) return;
+-    this.selectedEventForAction = event;
++    if (!event || !this.isModalRequestCurrent(request)) return;
+ 
+     const now = new Date();
+     const isPast = new Date(event.scheduledAt).getTime() < now.getTime();
+@@ -3688,10 +3773,12 @@
+       document.getElementById('inputReopenTime').value = event.scheduledTime;
+     }
+ 
+-    this.openModal('modalReopenEvent');
++    this.openModal('modalReopenEvent',event,request);
+   },
+ 
+   showDetailsModal: async function(eventId) {
++    const request=this.beginModalRequest('modalEventDetails',eventId);
++    if(!request)return;
+     const event = await App.DB.get('events', eventId);
+     if (!event) return;
+ 
+@@ -3700,6 +3787,8 @@
+     const uos = await App.DB.getAll('operationalUnits');
+     const types = await App.DB.getAll('equipmentTypes');
+     const tags = await App.DB.getAll('equipmentTags');
++    const allHistory = await App.DB.getAll('eventHistory');
++    if(!this.isModalRequestCurrent(request))return;
+ 
+     const con = consoles.find(c => c.id === event.consoleId);
+     const pipe = pipelines.find(p => p.id === event.pipelineId);
+@@ -3747,7 +3836,6 @@
+     }
+ 
+     // Buscar histórico de auditoria
+-    const allHistory = await App.DB.getAll('eventHistory');
+     const eventHist = allHistory.filter(h => h.eventId === eventId);
+     eventHist.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+ 
+@@ -3772,7 +3860,7 @@
+       }).join('');
+     }
+ 
+-    this.openModal('modalEventDetails');
++    this.openModal('modalEventDetails',event,request);
+   },
+ 
+   showConfirmModal: function(title, message, onConfirm) {
+--- task2_r1_base/test_ui_controller_browser.py
++++ tests/test_ui_controller_browser.py
+@@ -18,7 +18,8 @@
+         self.assertEqual(self.ev('calls'),1);self.assertTrue(self.ev('document.getElementById("modalConfirm").classList.contains("active")'))
+         self.ev('finish()');self.page.wait_for_selector('#modalConfirm.active',state='hidden')
+     def test_alarm_snooze_escape_only_closes_top(self):
+-        self.ev('async()=>{const e=(await App.DB.getAll("events")).find(x=>x.status==="pendente");await App.UI.showAlarmModal(e);document.getElementById("btnAlarmSnoozePrompt").click()}')
++        opened=self.ev('async()=>{const e=(await App.DB.getAll("events")).find(x=>x.status==="pendente");await App.UI.showAlarmModal(e);document.getElementById("btnAlarmSnoozePrompt").click();return document.getElementById("modalSnooze").classList.contains("active")}')
++        self.assertTrue(opened)
+         self.page.keyboard.press('Escape')
+         self.assertFalse(self.ev('document.getElementById("modalSnooze").classList.contains("active")'))
+         self.assertTrue(self.ev('document.getElementById("modalAlarmTrigger").classList.contains("active")'))
+@@ -49,6 +50,134 @@
+         result=self.ev('''async()=>{const backup=await App.Backup.createSnapshot(),original=App.Backup.importJSON;App.Backup.importJSON=async()=>({applied:false,inserted:0,updated:0,skipped:1,conflicts:[{store:'events',id:'x',reason:'Revisão conflitante'}]});try{App.UI.showImportSummaryModal(backup);document.getElementById('btnConfirmImportSummary').click();await new Promise(r=>setTimeout(r,30));return {active:document.getElementById('modalImportSummary').classList.contains('active'),message:document.getElementById('importSummaryCounts').textContent,success:[...document.querySelectorAll('.toast-success')].some(x=>x.textContent.includes('Importação'))}}finally{App.Backup.importJSON=original}}''')
+         self.assertTrue(result['active']);self.assertIn('Revisão conflitante',result['message']);self.assertFalse(result['success'])
+ 
++    def test_complete_identity_survives_interleaved_alarm(self):
++        result=self.ev('''async()=>{
++          const [a,b]=(await App.DB.getAll('events')).filter(e=>e.status==='pendente');
++          const original=App.DB.getAll;let release,reached,once=true;const ready=new Promise(r=>reached=r);
++          App.DB.getAll=function(store){if(store==='consoles'&&once){once=false;reached();return new Promise(resolve=>release=()=>original.call(App.DB,store).then(resolve));}return original.call(App.DB,store)};
++          try{const pending=App.UI.showCompleteModal(a.id);await ready;await App.UI.showAlarmModal(b);release();await pending;
++            const bound=App.UI.modalStack.find(x=>x.element.id==='modalCompleteEvent')?.event?.id;
++            document.getElementById('btnConfirmCompleteModal').click();while(App.UI.modalBusy.has('modalCompleteEvent'))await new Promise(r=>setTimeout(r,5));
++            return {bound,expected:a.id,a:(await App.DB.get('events',a.id)).status,b:(await App.DB.get('events',b.id)).status};
++          }finally{App.DB.getAll=original;}
++        }''')
++        self.assertEqual(result['bound'],result['expected']);self.assertEqual(result['a'],'concluido');self.assertEqual(result['b'],'pendente')
++
++    def test_newer_request_wins_for_every_event_dialog(self):
++        result=self.ev('''async()=>{
++          const [a,b]=(await App.DB.getAll('events')).filter(e=>e.status==='pendente'),results=[];
++          const cases=[['showCompleteModal','modalCompleteEvent'],['showReopenModal','modalReopenEvent'],['showSnoozeModal','modalSnooze'],['showDetailsModal','modalEventDetails'],['openEventActionSheet','modalEventActionSheet'],['showAlarmModal','modalAlarmTrigger']];
++          for(const [method,modal] of cases){
++            const originalGet=App.DB.get,originalAll=App.DB.getAll;let release,reached,once=true;const ready=new Promise(r=>reached=r);
++            const delay=run=>{once=false;reached();return new Promise(resolve=>release=()=>run().then(resolve));};
++            App.DB.get=function(store,id){if(method!=='showAlarmModal'&&once&&store==='events'&&id===a.id)return delay(()=>originalGet.call(App.DB,store,id));return originalGet.call(App.DB,store,id)};
++            App.DB.getAll=function(store){if(method==='showAlarmModal'&&once&&store==='consoles')return delay(()=>originalAll.call(App.DB,store));return originalAll.call(App.DB,store)};
++            try{const slow=App.UI[method](method==='showAlarmModal'?a:a.id);await ready;await App.UI[method](method==='showAlarmModal'?b:b.id);await release();await slow;await new Promise(r=>setTimeout(r,20));
++              const textId={showCompleteModal:'completeModalEventDesc',showDetailsModal:'detailsModalDescription',openEventActionSheet:'actionSheetEventTitle',showAlarmModal:'alarmModalDescription'}[method];
++              results.push({method,bound:App.UI.modalStack.find(x=>x.element.id===modal)?.event?.id,expected:b.id,textCorrect:!textId || document.getElementById(textId).textContent===b.description});App.UI.closeModal(modal);
++            }finally{App.DB.get=originalGet;App.DB.getAll=originalAll;}
++          }return results;
++        }''')
++        self.assertTrue(all(x.get('bound')==x['expected'] and x['textCorrect'] for x in result),result)
++
++    def test_cancelled_loading_dialog_does_not_open_later(self):
++        result=self.ev('''async()=>{
++          const e=(await App.DB.getAll('events')).find(x=>x.status==='pendente'),original=App.DB.get;let release,reached;const ready=new Promise(r=>reached=r);
++          App.DB.get=function(store,id){if(store==='events'&&id===e.id){reached();return new Promise(resolve=>release=()=>original.call(App.DB,store,id).then(resolve))}return original.call(App.DB,store,id)};
++          try{const pending=App.UI.showCompleteModal(e.id);await ready;App.UI.closeModal('modalCompleteEvent');release();await pending;return document.getElementById('modalCompleteEvent').classList.contains('active');}finally{App.DB.get=original;}
++        }''')
++        self.assertFalse(result)
++
++    def test_completed_modality_changes_preserve_page_filter_selection_and_expansion(self):
++        self.page.set_viewport_size({'width':390,'height':844})
++        self.ev('''async()=>{const original=(await App.DB.getAll('events')).find(e=>e.status==='concluido');await App.DB.atomic(['events'],d=>{d.events=Array.from({length:110},(_,i)=>({...original,id:'completed-'+String(i).padStart(3,'0'),description:'Mudança '+i}));});await App.UI.applyResponsiveLayoutMode('auto',false);await App.UI.navigateTo('viewCompletedEvents');document.getElementById('inputSearchCompleted').value='Mudança';await App.UI.renderCompletedEvents();App.UI.pages.completed=2;await App.UI.renderCompletedEvents();App.UI.toggleCompletedCard(document.querySelector('.completed-event-card'));}''')
++        selected=self.ev('App.UI.selectedCompletedEventId')
++        for width,mode,expected in [(1440,None,'table'),(390,None,'cards'),(1440,'mobile','cards'),(1440,'conventional','table'),(1440,'mobile','cards')]:
++            self.page.set_viewport_size({'width':width,'height':1000})
++            if mode:self.page.evaluate('(mode)=>App.UI.applyResponsiveLayoutMode(mode,false)',mode)
++            self.page.wait_for_function('(mode)=>mode==="cards"?document.querySelectorAll(".completed-event-card").length===50:document.querySelectorAll("#tbodyCompletedEvents tr").length===50',arg=expected)
++            state=self.ev('''()=>({page:App.UI.pages.completed,filter:document.getElementById('inputSearchCompleted').value,selection:App.UI.selectedCompletedEventId,cards:document.querySelectorAll('.completed-event-card').length,rows:document.querySelectorAll('#tbodyCompletedEvents tr').length,expanded:document.querySelector('.completed-event-card')?.getAttribute('aria-expanded')})''')
++            self.assertEqual(state['page'],2);self.assertEqual(state['filter'],'Mudança');self.assertEqual(state['selection'],selected)
++            self.assertEqual((state['cards'],state['rows']),(50,0) if expected=='cards' else (0,50))
++            if expected=='cards':self.assertEqual(state['expanded'],'true')
++
++    def test_pending_modality_and_page_survive_resize_and_manual_tiers(self):
++        self.ev('''async()=>{const original=(await App.DB.getAll('events')).find(e=>e.status==='pendente'&&e.consoleId===App.UI.activeConsoleId);await App.DB.atomic(['events'],d=>{d.events=Array.from({length:110},(_,i)=>({...original,id:'pending-'+String(i).padStart(3,'0'),description:'Manter '+i}));});await App.UI.navigateTo('viewPendingEvents');document.getElementById('inputSearchPending').value='Manter';await App.UI.renderPendingEvents();App.UI.pages.pending=2;await App.UI.renderPendingEvents();await App.UI.selectPendingDetailEvent(App.UI.activePendingEvents[50].id)}''')
++        selected=self.ev('App.UI.selectedDetailEventId')
++        self.ev('async()=>{App.UI.viewMode="table";App.UI.updateViewModeUI();await App.UI.renderPendingEvents()}')
++        for width,mode in [(390,'auto'),(1440,'mobile'),(1440,'conventional')]:
++            self.page.set_viewport_size({'width':width,'height':1000});self.page.evaluate('(mode)=>App.UI.applyResponsiveLayoutMode(mode,false)',mode)
++            state=self.ev('''()=>({page:App.UI.pages.pending,selection:App.UI.selectedDetailEventId,filter:document.getElementById('inputSearchPending').value,cards:document.querySelectorAll('#containerPendingCards .event-card').length,rows:document.querySelectorAll('#tbodyPendingEvents tr').length})''')
++            self.assertEqual(state,{'page':2,'selection':selected,'filter':'Manter','cards':0,'rows':50})
++            self.assertTrue(self.ev('!!document.getElementById("containerPendingTable").getClientRects().length'))
++
++    def test_five_catalog_toggles_publish_committed_snapshot(self):
++        result=self.ev('''async()=>{
++          await App.UI.navigateTo('viewCadastros');const results=[];
++          for(const [method,store] of [['toggleConsoleActive','consoles'],['togglePipelineActive','pipelines'],['toggleUOActive','operationalUnits'],['toggleEquipmentTypeActive','equipmentTypes'],['toggleEquipmentTagActive','equipmentTags']]){
++            const original=(await App.DB.getAll(store))[0];let observed=[];
++            const listener=e=>observed.push({reason:e.detail.reason,value:App.UI.getPresentationState().snapshot[store].find(x=>x.id===original.id)?.active});window.addEventListener('app-ui-update',listener);
++            try{await App.UI[method](original.id);results.push({method,db:(await App.DB.get(store,original.id)).active,cache:App.UI.getPresentationState().snapshot[store].find(x=>x.id===original.id)?.active,observed});await App.UI[method](original.id);}finally{window.removeEventListener('app-ui-update',listener);}
++          }return results;
++        }''')
++        for x in result:
++            self.assertFalse(x['db'],x);self.assertFalse(x['cache'],x);self.assertTrue(any(e['value'] is False for e in x['observed']),x)
++
++    def test_catalog_forms_publish_create_update_and_confirmed_delete(self):
++        self.ev('''async()=>{await App.UI.navigateTo('viewCadastros');window.catalogSignals=[];window.addEventListener('app-ui-update',e=>{if(e.detail.reason==='catalog')catalogSignals.push(structuredClone(App.UI.getPresentationState().snapshot))});}''')
++        configs=[('consoles','formConsole','inputConsoleName','editConsole','deleteConsole','name'),('pipelines','formPipeline','inputPipelineName','editPipeline','deletePipeline','name'),('operationalUnits','formUO','inputUOName','editUO','deleteUO','name'),('equipmentTypes','formEquipmentType','inputEquipmentTypeName','editEquipmentType','deleteEquipmentType','name'),('equipmentTags','formEquipmentTag','inputTagCode','editEquipmentTag','deleteEquipmentTag','tag')]
++        for store,form,field,edit,delete,key in configs:
++            with self.subTest(store=store):
++                name='CRUD-'+store
++                self.page.evaluate('''async({store,form,field,name})=>{
++                  const s=await App.DB.snapshot();
++                  if(store==='pipelines'){document.getElementById('selectPipelineConsole').value=App.UI.activeConsoleId;[...document.querySelectorAll('#boxPipelineUOs input')].forEach((x,i)=>x.checked=i<2);}
++                  if(store==='equipmentTypes')document.getElementById('selectEquipmentTypeUO').value=s.operationalUnits[0].id;
++                  if(store==='equipmentTags'){const type=s.equipmentTypes[0];document.getElementById('selectTagUO').value=type.uoId;await App.UI.loadEquipmentTypeOptions(type.uoId,'selectTagType');document.getElementById('selectTagType').value=type.id;}
++                  document.getElementById(field).value=name;document.getElementById(form).requestSubmit();
++                }''',{'store':store,'form':form,'field':field,'name':name})
++                self.page.wait_for_function('''({store,key,name})=>catalogSignals.some(s=>s[store].some(x=>x[key]===name))''',arg={'store':store,'key':key,'name':name})
++                row=self.page.evaluate('''async({store,key,name})=>(await App.DB.getAll(store)).find(x=>x[key]===name)''',{'store':store,'key':key,'name':name})
++                self.page.evaluate('''async({edit,id,field,form,name})=>{await App.UI[edit](id);document.getElementById(field).value=name;document.getElementById(form).requestSubmit()}''',{'edit':edit,'id':row['id'],'field':field,'form':form,'name':name+'-edit'})
++                self.page.wait_for_function('''({store,key,name})=>catalogSignals.some(s=>s[store].some(x=>x[key]===name))''',arg={'store':store,'key':key,'name':name+'-edit'})
++                state=self.page.evaluate('''async({store,id,key})=>({db:(await App.DB.get(store,id))[key],cache:App.UI.getPresentationState().snapshot[store].find(x=>x.id===id)[key]})''',{'store':store,'id':row['id'],'key':key})
++                self.assertEqual(state,{'db':name+'-edit','cache':name+'-edit'})
++                self.page.evaluate('''async({method,id})=>{catalogSignals=[];await App.UI[method](id)}''',{'method':delete,'id':row['id']})
++                self.assertEqual(self.ev('catalogSignals.length'),0)
++                self.page.locator('#btnAcceptConfirm').click()
++                self.page.wait_for_function('''({store,id})=>catalogSignals.some(s=>!s[store].some(x=>x.id===id))''',arg={'store':store,'id':row['id']})
++                self.assertIsNone(self.page.evaluate('''async({store,id})=>(await App.DB.get(store,id))||null''',{'store':store,'id':row['id']}))
++                self.page.wait_for_function('!App.UI.modalBusy.has("modalConfirm")')
++
++    def test_pinch_zoom_does_not_claim_keyboard_and_editable_shrink_does(self):
++        self.page.set_viewport_size({'width':390,'height':844});self.ev('App.UI.navigateTo("viewNewEvent")')
++        cdp=self.context.new_cdp_session(self.page);cdp.send('Emulation.setPageScaleFactor',{'pageScaleFactor':2})
++        self.page.wait_for_function('visualViewport.scale===2');self.page.wait_for_timeout(50)
++        self.assertFalse(self.ev('document.body.classList.contains("keyboard-open")'))
++        cdp.send('Emulation.setPageScaleFactor',{'pageScaleFactor':1});self.page.wait_for_function('visualViewport.scale===1')
++        result=self.ev('''()=>{
++          const viewport=visualViewport,originalHeight=Object.getOwnPropertyDescriptor(viewport,'height'),originalScale=Object.getOwnPropertyDescriptor(viewport,'scale');
++          const update=()=>viewport.dispatchEvent(new Event('resize'));
++          try{document.getElementById('inputEventDescription').focus();Object.defineProperty(viewport,'height',{configurable:true,value:innerHeight*.5});Object.defineProperty(viewport,'scale',{configurable:true,value:1});update();const keyboard=document.body.classList.contains('keyboard-open');Object.defineProperty(viewport,'scale',{configurable:true,value:2});update();const zoom=document.body.classList.contains('keyboard-open');document.activeElement.blur();Object.defineProperty(viewport,'scale',{configurable:true,value:1});update();return {keyboard,zoom,blur:document.body.classList.contains('keyboard-open')};}
++          finally{if(originalHeight)Object.defineProperty(viewport,'height',originalHeight);else delete viewport.height;if(originalScale)Object.defineProperty(viewport,'scale',originalScale);else delete viewport.scale;update();}
++        }''')
++        self.assertEqual(result,{'keyboard':True,'zoom':False,'blur':False})
++
++    def test_delayed_catalog_confirmation_publishes_only_after_commit(self):
++        result=self.ev('''async()=>{
++          const s=await App.DB.snapshot();const row=await App.Service.savePipeline({name:'EXCLUIR-COMMIT',consoleId:App.UI.activeConsoleId,uoIds:s.operationalUnits.slice(0,2).map(x=>x.id)});await App.UI.navigateTo('viewCadastros');
++          const original=App.Service.deletePipeline;let release;const gate=new Promise(r=>release=r),signals=[];
++          const listener=e=>{if(e.detail.reason==='catalog')signals.push(App.UI.getPresentationState().snapshot.pipelines.some(x=>x.id===row.id))};window.addEventListener('app-ui-update',listener);
++          App.Service.deletePipeline=async id=>{await gate;return original.call(App.Service,id)};
++          try{await App.UI.deletePipeline(row.id);document.getElementById('btnAcceptConfirm').click();await Promise.resolve();
++            const before={signals:signals.length,exists:!!(await App.DB.get('pipelines',row.id)),busy:App.UI.modalBusy.has('modalConfirm')};release();
++            while(App.UI.modalBusy.has('modalConfirm'))await new Promise(r=>setTimeout(r,5));
++            return {before,after:{signals,db:!!(await App.DB.get('pipelines',row.id)),cache:App.UI.getPresentationState().snapshot.pipelines.some(x=>x.id===row.id)}};
++          }finally{App.Service.deletePipeline=original;window.removeEventListener('app-ui-update',listener);}
++        }''')
++        self.assertEqual(result['before'],{'signals':0,'exists':True,'busy':True});self.assertFalse(result['after']['db']);self.assertFalse(result['after']['cache']);self.assertIn(False,result['after']['signals'])
++
+ if __name__=='__main__':
+-    result=unittest.TextTestRunner(verbosity=2,stream=sys.stdout).run(unittest.defaultTestLoader.loadTestsFromTestCase(UIController))
++    suite=unittest.defaultTestLoader.loadTestsFromNames(sys.argv[1:],module=sys.modules[__name__]) if len(sys.argv)>1 else unittest.defaultTestLoader.loadTestsFromTestCase(UIController)
++    result=unittest.TextTestRunner(verbosity=2,stream=sys.stdout).run(suite)
+     sys.exit(0 if result.wasSuccessful() else 1)

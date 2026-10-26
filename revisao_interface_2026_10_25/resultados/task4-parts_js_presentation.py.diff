@@ -1,0 +1,11 @@
+--- final_fix_base/parts_js_presentation.py
++++ parts_js_presentation.py
+@@ -6,6 +6,8 @@
+   init() {
+     if(this.initialized)return;
+     this.initialized=true;
++    for(const version of document.querySelectorAll('[data-app-version]'))version.textContent='v'+App.Config.APP_VERSION;
++    for(const button of document.querySelectorAll('.app-nav .nav-item'))button.title=button.querySelector('span:not(.badge-count)')?.textContent.trim()||'';
+     window.addEventListener('app-ui-update',e=>this.refresh(e.detail?.reason));
+     document.addEventListener('input',e=>this.editing(e));
+     document.addEventListener('change',e=>this.editing(e));

@@ -1,0 +1,260 @@
+{
+  "screenshots": [
+    "task3-fix1-768-viewDashboard.png",
+    "task3-fix1-768-viewConfigAlerts.png",
+    "task3-fix1-1024-viewDashboard.png",
+    "task3-fix1-1024-viewConfigAlerts.png",
+    "task3-fix1-1440-viewDashboard.png",
+    "task3-fix1-1440-viewConfigAlerts.png",
+    "task3-fix1-1920-viewDashboard.png",
+    "task3-fix1-1920-viewConfigAlerts.png",
+    "task3-fix1-3440-viewDashboard.png",
+    "task3-fix1-3440-viewConfigAlerts.png",
+    "task3-fix1-modal-confirm-dark-390.png",
+    "task3-fix1-modal-complete-dark-390.png",
+    "task3-fix1-modal-dependency-dark-390.png",
+    "task3-fix1-modal-confirm-light-390.png",
+    "task3-fix1-modal-complete-light-390.png",
+    "task3-fix1-modal-dependency-light-390.png",
+    "task3-fix1-modal-confirm-industrial-390.png",
+    "task3-fix1-modal-complete-industrial-390.png",
+    "task3-fix1-modal-dependency-industrial-390.png",
+    "task3-fix1-backup-file-320.png",
+    "task3-fix1-backup-file-390.png",
+    "task3-fix1-viewDiagnostic-390.png",
+    "task3-fix1-viewCadastros-390.png",
+    "task3-fix1-viewConfigColors-390.png",
+    "task3-fix1-viewDiagnostic-1024.png",
+    "task3-fix1-viewCadastros-1024.png",
+    "task3-fix1-viewConfigColors-1024.png",
+    "task3-fix1-viewDiagnostic-1440.png",
+    "task3-fix1-viewCadastros-1440.png",
+    "task3-fix1-viewConfigColors-1440.png",
+    "task3-fix1-completed-filters-collapsed.png",
+    "task3-fix1-completed-filters-open.png",
+    "task3-fix1-junction-pipelines.png",
+    "task3-fix1-junction-uos.png"
+  ],
+  "measurements": [
+    {
+      "width": 768,
+      "view": "viewConfigAlerts",
+      "notice": {
+        "x": 16,
+        "y": 205.65625,
+        "width": 736,
+        "height": 243.828125,
+        "top": 205.65625,
+        "right": 752,
+        "bottom": 449.484375,
+        "left": 16
+      },
+      "form": {
+        "x": 34.59375,
+        "y": 523.015625,
+        "width": 698.8125,
+        "height": 1308.015625,
+        "top": 523.015625,
+        "right": 733.40625,
+        "bottom": 1831.03125,
+        "left": 34.59375
+      },
+      "preview": {
+        "x": 16,
+        "y": 1849.625,
+        "width": 736,
+        "height": 679.734375,
+        "top": 1849.625,
+        "right": 752,
+        "bottom": 2529.359375,
+        "left": 16
+      },
+      "console": {
+        "x": 263.625,
+        "y": 11.1875,
+        "width": 180,
+        "height": 48,
+        "top": 11.1875,
+        "right": 443.625,
+        "bottom": 59.1875,
+        "left": 263.625
+      }
+    },
+    {
+      "width": 1024,
+      "view": "viewConfigAlerts",
+      "notice": {
+        "x": 16,
+        "y": 180.765625,
+        "width": 992,
+        "height": 165.453125,
+        "top": 180.765625,
+        "right": 1008,
+        "bottom": 346.21875,
+        "left": 16
+      },
+      "form": {
+        "x": 34.59375,
+        "y": 419.75,
+        "width": 954.8125,
+        "height": 1087.890625,
+        "top": 419.75,
+        "right": 989.40625,
+        "bottom": 1507.640625,
+        "left": 34.59375
+      },
+      "preview": {
+        "x": 16,
+        "y": 1526.234375,
+        "width": 992,
+        "height": 679.734375,
+        "top": 1526.234375,
+        "right": 1008,
+        "bottom": 2205.96875,
+        "left": 16
+      },
+      "console": {
+        "x": 279.71875,
+        "y": 11.1875,
+        "width": 180,
+        "height": 48,
+        "top": 11.1875,
+        "right": 459.71875,
+        "bottom": 59.1875,
+        "left": 279.71875
+      }
+    },
+    {
+      "width": 1440,
+      "view": "viewConfigAlerts",
+      "notice": {
+        "x": 246.390625,
+        "y": 180.140625,
+        "width": 1171.21875,
+        "height": 165.453125,
+        "top": 180.140625,
+        "right": 1417.609375,
+        "bottom": 345.59375,
+        "left": 246.390625
+      },
+      "form": {
+        "x": 264.984375,
+        "y": 419.125,
+        "width": 1134.03125,
+        "height": 936.21875,
+        "top": 419.125,
+        "right": 1399.015625,
+        "bottom": 1355.34375,
+        "left": 264.984375
+      },
+      "preview": {
+        "x": 246.390625,
+        "y": 1373.9375,
+        "width": 1171.21875,
+        "height": 679.734375,
+        "top": 1373.9375,
+        "right": 1417.609375,
+        "bottom": 2053.671875,
+        "left": 246.390625
+      },
+      "console": {
+        "x": 323.453125,
+        "y": 11.1875,
+        "width": 180,
+        "height": 44.1875,
+        "top": 11.1875,
+        "right": 503.453125,
+        "bottom": 55.375,
+        "left": 323.453125
+      }
+    },
+    {
+      "width": 1920,
+      "view": "viewConfigAlerts",
+      "notice": {
+        "x": 246.390625,
+        "y": 196.140625,
+        "width": 1651.21875,
+        "height": 194.640625,
+        "top": 196.140625,
+        "right": 1897.609375,
+        "bottom": 390.78125,
+        "left": 246.390625
+      },
+      "form": {
+        "x": 264.984375,
+        "y": 480.3125,
+        "width": 1052.953125,
+        "height": 1158.6875,
+        "top": 480.3125,
+        "right": 1317.9375,
+        "bottom": 1639,
+        "left": 264.984375
+      },
+      "preview": {
+        "x": 1352.53125,
+        "y": 406.78125,
+        "width": 545.078125,
+        "height": 679.734375,
+        "top": 406.78125,
+        "right": 1897.609375,
+        "bottom": 1086.515625,
+        "left": 1352.53125
+      },
+      "console": {
+        "x": 323.453125,
+        "y": 11.1875,
+        "width": 180,
+        "height": 44.1875,
+        "top": 11.1875,
+        "right": 503.453125,
+        "bottom": 55.375,
+        "left": 323.453125
+      }
+    },
+    {
+      "width": 3440,
+      "view": "viewConfigAlerts",
+      "notice": {
+        "x": 246.390625,
+        "y": 196.140625,
+        "width": 3171.21875,
+        "height": 194.640625,
+        "top": 196.140625,
+        "right": 3417.609375,
+        "bottom": 390.78125,
+        "left": 246.390625
+      },
+      "form": {
+        "x": 264.984375,
+        "y": 480.3125,
+        "width": 2066.28125,
+        "height": 747,
+        "top": 480.3125,
+        "right": 2331.265625,
+        "bottom": 1227.3125,
+        "left": 264.984375
+      },
+      "preview": {
+        "x": 2365.859375,
+        "y": 406.78125,
+        "width": 1051.75,
+        "height": 679.734375,
+        "top": 406.78125,
+        "right": 3417.609375,
+        "bottom": 1086.515625,
+        "left": 2365.859375
+      },
+      "console": {
+        "x": 323.453125,
+        "y": 11.1875,
+        "width": 180,
+        "height": 44.1875,
+        "top": 11.1875,
+        "right": 503.453125,
+        "bottom": 55.375,
+        "left": 323.453125
+      }
+    }
+  ]
+}

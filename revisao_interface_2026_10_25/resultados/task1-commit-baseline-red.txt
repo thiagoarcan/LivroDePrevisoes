@@ -1,0 +1,21 @@
+test_crud_rejects_abort_after_request_success (test_core_browser.CoreBrowserTests.test_crud_rejects_abort_after_request_success) ... FAIL
+
+======================================================================
+FAIL: test_crud_rejects_abort_after_request_success (test_core_browser.CoreBrowserTests.test_crud_rejects_abort_after_request_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 68, in test_crud_rejects_abort_after_request_success
+    self.assertEqual(self.runjs("const nativePut=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args){const q=nativePut.apply(this,args);q.addEventListener('success',()=>this.transaction.abort());return q;};let failed=false;try{await App.DB.update('consoles',{id:'abort-crud',name:'Abort'});}catch(e){failed=true;}IDBObjectStore.prototype.put=nativePut;return [failed,await App.DB.get('consoles','abort-crud')];"),[True,None])
+AssertionError: Lists differ: [False, None] != [True, None]
+
+First differing element 0:
+False
+True
+
+- [False, None]
++ [True, None]
+
+----------------------------------------------------------------------
+Ran 1 test in 4.894s
+
+FAILED (failures=1)

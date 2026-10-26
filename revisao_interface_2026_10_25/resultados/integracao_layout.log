@@ -1,0 +1,20 @@
+LAYOUT 320 cases 81 failures 0
+LAYOUT 360 cases 162 failures 0
+LAYOUT 390 cases 243 failures 0
+LAYOUT 480 cases 324 failures 0
+LAYOUT 600 cases 405 failures 0
+LAYOUT 767 cases 486 failures 0
+LAYOUT 768 cases 558 failures 0
+LAYOUT 820 cases 630 failures 0
+LAYOUT 1024 cases 702 failures 0
+LAYOUT 1199 cases 774 failures 0
+LAYOUT 1200 cases 855 failures 0
+LAYOUT 1440 cases 936 failures 0
+LAYOUT 1600 cases 1017 failures 0
+LAYOUT 1919 cases 1098 failures 0
+LAYOUT 1920 cases 1179 failures 0
+LAYOUT 2200 cases 1260 failures 0
+LAYOUT 2559 cases 1341 failures 0
+LAYOUT 2560 cases 1426 failures 0
+LAYOUT 3440 cases 1511 failures 0
+RESULT 1651 / 1651

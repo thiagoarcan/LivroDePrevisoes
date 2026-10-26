@@ -1,0 +1,25 @@
+test_zero_and_nan_volume_never_create_real_oscillators (test_core_browser.CoreBrowserTests.test_zero_and_nan_volume_never_create_real_oscillators) ... FAIL
+
+======================================================================
+FAIL: test_zero_and_nan_volume_never_create_real_oscillators (test_core_browser.CoreBrowserTests.test_zero_and_nan_volume_never_create_real_oscillators)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 110, in test_zero_and_nan_volume_never_create_real_oscillators
+    self.assertEqual(self.runjs("App.Audio.init();const ctx=App.Audio.ctx,original=ctx.createOscillator.bind(ctx);let count=0;ctx.createOscillator=(...args)=>{count++;return original(...args);};for(const type of ['chime','beep','siren','blip'])for(const volume of [0,NaN]){try{App.Audio.play(type,volume);}catch(e){}}const settings={...await App.Service.getSettings(),soundVolume:0,soundEnabled:true};App.Audio.isUnlocked=true;const available=App.AlarmEngine.channels({useDefaultAlarmSettings:true},settings).audio;await ctx.close();return [count,available];"),[0,False])
+AssertionError: Lists differ: [7, False] != [0, False]
+
+First differing element 0:
+7
+0
+
+- [7, False]
+?  ^
+
++ [0, False]
+?  ^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 9.067s
+
+FAILED (failures=1)

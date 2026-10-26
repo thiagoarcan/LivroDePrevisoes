@@ -1,0 +1,93 @@
+test_async_visual_error_is_logged_without_loop (test_core_browser.CoreBrowserTests.test_async_visual_error_is_logged_without_loop) ... ok
+test_atomic_abort_after_write (test_core_browser.CoreBrowserTests.test_atomic_abort_after_write) ... ok
+test_backup_duplicate_business_conflict_preserves_every_store (test_core_browser.CoreBrowserTests.test_backup_duplicate_business_conflict_preserves_every_store) ... ok
+test_backup_rejects_invalid_types_png_and_impossible_iso (test_core_browser.CoreBrowserTests.test_backup_rejects_invalid_types_png_and_impossible_iso) ... ok
+test_backup_rejects_unknown_collection_and_wrong_free_text_type (test_core_browser.CoreBrowserTests.test_backup_rejects_unknown_collection_and_wrong_free_text_type) ... FAIL
+test_backup_rejects_unsafe_metadata_and_missing_collections (test_core_browser.CoreBrowserTests.test_backup_rejects_unsafe_metadata_and_missing_collections) ... ok
+test_backup_replace_rolls_back_aborted_write (test_core_browser.CoreBrowserTests.test_backup_replace_rolls_back_aborted_write) ... ok
+test_crud_rejects_abort_after_request_success (test_core_browser.CoreBrowserTests.test_crud_rejects_abort_after_request_success) ... ok
+test_csv_download_bom_formula_and_inactive_filter (test_core_browser.CoreBrowserTests.test_csv_download_bom_formula_and_inactive_filter) ... FAIL
+test_demo_clear_and_backup_roundtrip (test_core_browser.CoreBrowserTests.test_demo_clear_and_backup_roundtrip) ... ok
+test_distinct_pipeline_units_required (test_core_browser.CoreBrowserTests.test_distinct_pipeline_units_required) ... ok
+test_duplicate_and_orphan_backup_rows_rejected (test_core_browser.CoreBrowserTests.test_duplicate_and_orphan_backup_rows_rejected) ... ok
+test_existing_inactive_references_only_on_original_link (test_core_browser.CoreBrowserTests.test_existing_inactive_references_only_on_original_link) ... ok
+test_history_preserved_on_delete (test_core_browser.CoreBrowserTests.test_history_preserved_on_delete) ... ok
+test_import_legacy_snapshot_and_roundtrip (test_core_browser.CoreBrowserTests.test_import_legacy_snapshot_and_roundtrip) ... ok
+test_impossible_calendar_day_rejected (test_core_browser.CoreBrowserTests.test_impossible_calendar_day_rejected) ... ok
+test_incompatible_reference_rejected (test_core_browser.CoreBrowserTests.test_incompatible_reference_rejected) ... ok
+test_invalid_import_preserves_base (test_core_browser.CoreBrowserTests.test_invalid_import_preserves_base) ... ok
+test_local_date_and_csv_formula (test_core_browser.CoreBrowserTests.test_local_date_and_csv_formula) ... ok
+test_master_change_cannot_break_existing_event (test_core_browser.CoreBrowserTests.test_master_change_cannot_break_existing_event) ... ok
+test_merge_does_not_regress_equal_version_older_timestamp (test_core_browser.CoreBrowserTests.test_merge_does_not_regress_equal_version_older_timestamp) ... ok
+test_parallel_ticks_one_alarm_and_title_persists (test_core_browser.CoreBrowserTests.test_parallel_ticks_one_alarm_and_title_persists) ... ok
+test_reopen_and_reschedule_reset_alarm_cycle (test_core_browser.CoreBrowserTests.test_reopen_and_reschedule_reset_alarm_cycle) ... ok
+test_snooze_out_of_bounds (test_core_browser.CoreBrowserTests.test_snooze_out_of_bounds) ... ok
+test_stale_fire_cannot_overwrite_completed_event (test_core_browser.CoreBrowserTests.test_stale_fire_cannot_overwrite_completed_event) ... ok
+test_supported_industrial_theme_and_all_layouts (test_core_browser.CoreBrowserTests.test_supported_industrial_theme_and_all_layouts) ... ERROR
+test_two_tabs_claim_single_firing (test_core_browser.CoreBrowserTests.test_two_tabs_claim_single_firing) ... ok
+test_zero_default_lead_does_not_fire_fifteen_minutes_early (test_core_browser.CoreBrowserTests.test_zero_default_lead_does_not_fire_fifteen_minutes_early) ... ok
+test_zero_repeat_and_real_actor (test_core_browser.CoreBrowserTests.test_zero_repeat_and_real_actor) ... ok
+
+======================================================================
+ERROR: test_supported_industrial_theme_and_all_layouts (test_core_browser.CoreBrowserTests.test_supported_industrial_theme_and_all_layouts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 76, in test_supported_industrial_theme_and_all_layouts
+    self.assertEqual(self.runjs("const settings=await App.Service.getSettings();for(const mode of ['auto','compact','mobile','tablet','conventional','widescreen','ultrawide'])await App.Service.saveSettings({...settings,theme:'industrial',responsiveLayoutMode:mode});return (await App.Service.getSettings()).theme;"),'industrial')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 44, in runjs
+    return self.page.evaluate('async () => Promise.race([(async () => {'+code+'})(),new Promise((_,reject)=>setTimeout(()=>reject(new Error("Test exceeded 15s")),15000))])')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\sync_api\_generated.py", line 9385, in evaluate
+    self._sync(
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_page.py", line 472, in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_frame.py", line 345, in evaluate
+    await self._channel.send(
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tdyb\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.evaluate: Error: Configuração theme inválida.
+    at fail (http://127.0.0.1:63214/:6322:30)
+    at settingsValid (http://127.0.0.1:63214/:6333:105)
+    at http://127.0.0.1:63214/:6405:42
+    at http://127.0.0.1:63214/:6401:64
+    at q.onsuccess (http://127.0.0.1:63214/:4617:20)
+
+======================================================================
+FAIL: test_backup_rejects_unknown_collection_and_wrong_free_text_type (test_core_browser.CoreBrowserTests.test_backup_rejects_unknown_collection_and_wrong_free_text_type)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 102, in test_backup_rejects_unknown_collection_and_wrong_free_text_type
+    self.assertEqual(self.runjs("await App.Service.saveEvent(fixture);const b=await App.Backup.createSnapshot();let rejected=0;b.data.events[0].notes={text:'wrong'};try{App.Backup.validateBackupData(b);}catch(e){rejected++;}b.data.events[0].notes='';b.data.unknown=[];try{App.Backup.validateBackupData(b);}catch(e){rejected++;}return rejected;"),2)
+AssertionError: 0 != 2
+
+======================================================================
+FAIL: test_csv_download_bom_formula_and_inactive_filter (test_core_browser.CoreBrowserTests.test_csv_download_bom_formula_and_inactive_filter)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 100, in test_csv_download_bom_formula_and_inactive_filter
+    self.assertEqual(self.runjs("const e=await App.Service.saveEvent({...fixture,description:'=SUM(A1)'});let blob;App.Backup.downloadBlob=b=>blob=b;await App.Backup.exportCSV('pending');const bytes=new Uint8Array(await blob.arrayBuffer()),text=await blob.text();await App.Service.deleteEvent(e.id);await App.Backup.exportCSV('pending');return [Array.from(bytes.slice(0,3)),text.includes(\"'=SUM(A1)\"),!(await blob.text()).includes('SUM(A1)')];"),[[239,187,191],True,True])
+AssertionError: Lists differ: [[239, 187, 191], True, False] != [[239, 187, 191], True, True]
+
+First differing element 2:
+False
+True
+
+- [[239, 187, 191], True, False]
+?                         ^^^^
+
++ [[239, 187, 191], True, True]
+?                         ^^^
+
+
+----------------------------------------------------------------------
+Ran 29 tests in 22.131s
+
+FAILED (failures=2, errors=1)

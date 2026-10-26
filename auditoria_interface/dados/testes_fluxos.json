@@ -1,0 +1,565 @@
+{
+  "browser": "156.0.4314.42",
+  "initial": {
+    "consoles": 12,
+    "settings": {
+      "localUserName": "Usuário local",
+      "soundEnabled": true,
+      "soundType": "chime",
+      "soundVolume": 80,
+      "visualAlertEnabled": true,
+      "highlightCardEnabled": true,
+      "pulsingEnabled": true,
+      "changeTitleEnabled": true,
+      "notificationEnabled": false,
+      "repeatAlarm": true,
+      "repeatIntervalMinutes": 2,
+      "maxRepeats": 5,
+      "defaultLeadTimeMinutes": 15,
+      "theme": "dark",
+      "viewMode": "cards",
+      "responsiveLayoutMode": "auto",
+      "backupReminderDays": 7,
+      "firstMobileNoticeShown": false,
+      "lastBackupAt": null,
+      "activeConsoleId": "5a7ad91c-64bf-4ae8-97d8-368f58a94adb",
+      "keepDutoUOPrefilled": true
+    }
+  },
+  "modal_drawer": {
+    "active": [],
+    "focus": "",
+    "drawer": "mobile-drawer open active",
+    "filterClass": "toolbar-filters"
+  },
+  "modal_filtros": {
+    "active": [],
+    "focus": "",
+    "drawer": "mobile-drawer",
+    "filterClass": "toolbar-filters"
+  },
+  "modal_acoes": {
+    "active": [
+      {
+        "id": "modalEventActionSheet",
+        "box": {
+          "width": 390,
+          "height": 844
+        },
+        "children": [
+          {
+            "id": "btnCloseActionSheet",
+            "text": "×",
+            "h": 36,
+            "y": 416.96875
+          },
+          {
+            "id": "",
+            "text": "✓ Concluir Evento",
+            "h": 46,
+            "y": 517.46875
+          },
+          {
+            "id": "",
+            "text": "⏱ Adiar Alarme (5 / 10 / 15 min)",
+            "h": 46,
+            "y": 570.65625
+          },
+          {
+            "id": "",
+            "text": "✎ Editar Previsão",
+            "h": 46,
+            "y": 623.84375
+          },
+          {
+            "id": "",
+            "text": "+ Duplicar para Novo Horário",
+            "h": 46,
+            "y": 677.03125
+          },
+          {
+            "id": "",
+            "text": "📋 Ver Detalhes e Auditoria",
+            "h": 46,
+            "y": 730.21875
+          },
+          {
+            "id": "",
+            "text": "× Excluir Previsão",
+            "h": 46,
+            "y": 783.40625
+          }
+        ]
+      }
+    ],
+    "focus": "",
+    "drawer": "mobile-drawer",
+    "filterClass": "toolbar-filters"
+  },
+  "modal_conclusao": {
+    "active": [
+      {
+        "id": "modalCompleteEvent",
+        "box": {
+          "width": 390,
+          "height": 844
+        },
+        "children": [
+          {
+            "id": "btnCloseCompleteModal",
+            "text": "×",
+            "h": 36,
+            "y": 192.734375
+          },
+          {
+            "id": "btnCancelCompleteModal",
+            "text": "Cancelar",
+            "h": 46,
+            "y": 607.640625
+          },
+          {
+            "id": "btnConfirmCompleteModal",
+            "text": "Confirmar Conclusão",
+            "h": 46,
+            "y": 607.640625
+          }
+        ]
+      }
+    ],
+    "focus": "",
+    "drawer": "mobile-drawer",
+    "filterClass": "toolbar-filters"
+  },
+  "modal_adiamento": {
+    "active": [
+      {
+        "id": "modalSnooze",
+        "box": {
+          "width": 390,
+          "height": 844
+        },
+        "children": [
+          {
+            "id": "btnCloseSnoozeModal",
+            "text": "×",
+            "h": 36,
+            "y": 491.65625
+          },
+          {
+            "id": "",
+            "text": "5 min",
+            "h": 46,
+            "y": 618.21875
+          },
+          {
+            "id": "",
+            "text": "10 min",
+            "h": 46,
+            "y": 618.21875
+          },
+          {
+            "id": "",
+            "text": "15 min",
+            "h": 46,
+            "y": 618.21875
+          },
+          {
+            "id": "",
+            "text": "30 min",
+            "h": 46,
+            "y": 618.21875
+          },
+          {
+            "id": "btnCancelSnooze",
+            "text": "Cancelar",
+            "h": 46,
+            "y": 785
+          },
+          {
+            "id": "btnConfirmSnooze",
+            "text": "Confirmar Adiamento",
+            "h": 46,
+            "y": 785
+          }
+        ]
+      }
+    ],
+    "focus": "",
+    "drawer": "mobile-drawer",
+    "filterClass": "toolbar-filters"
+  },
+  "modal_reabertura": {
+    "active": [
+      {
+        "id": "modalReopenEvent",
+        "box": {
+          "width": 390,
+          "height": 844
+        },
+        "children": [
+          {
+            "id": "btnCloseReopenModal",
+            "text": "×",
+            "h": 36,
+            "y": 177.25
+          },
+          {
+            "id": "btnCancelReopenModal",
+            "text": "Cancelar",
+            "h": 46,
+            "y": 623.125
+          },
+          {
+            "id": "btnConfirmReopenModal",
+            "text": "Confirmar Reabertura",
+            "h": 46,
+            "y": 623.125
+          }
+        ]
+      }
+    ],
+    "focus": "",
+    "drawer": "mobile-drawer",
+    "filterClass": "toolbar-filters"
+  },
+  "modal_detalhes": {
+    "active": [
+      {
+        "id": "modalEventDetails",
+        "box": {
+          "width": 390,
+          "height": 844
+        },
+        "children": [
+          {
+            "id": "btnCloseDetailsModal",
+            "text": "×",
+            "h": 36,
+            "y": 22.578125
+          },
+          {
+            "id": "btnCloseDetailsModalBtn",
+            "text": "Fechar",
+            "h": 46,
+            "y": 785
+          }
+        ]
+      }
+    ],
+    "focus": "",
+    "drawer": "mobile-drawer",
+    "filterClass": "toolbar-filters"
+  },
+  "modal_status": {
+    "active": [
+      {
+        "id": "modalAppStatus",
+        "box": {
+          "width": 390,
+          "height": 844
+        },
+        "children": [
+          {
+            "id": "btnCloseAppStatusModal",
+            "text": "×",
+            "h": 36,
+            "y": 133.765625
+          },
+          {
+            "id": "btnStatusModalTestAudio",
+            "text": "Ativar / Testar Som",
+            "h": 46,
+            "y": 222.546875
+          },
+          {
+            "id": "btnStatusModalTestNotif",
+            "text": "Permitir / Testar",
+            "h": 46,
+            "y": 316.9375
+          },
+          {
+            "id": "",
+            "text": "Backup",
+            "h": 46,
+            "y": 476.5
+          },
+          {
+            "id": "btnCloseAppStatusFooter",
+            "text": "Fechar",
+            "h": 46,
+            "y": 666.625
+          }
+        ]
+      }
+    ],
+    "focus": "",
+    "drawer": "mobile-drawer",
+    "filterClass": "toolbar-filters"
+  },
+  "modal_confirmacao": {
+    "active": [
+      {
+        "id": "modalConfirm",
+        "box": {
+          "width": 390,
+          "height": 844
+        },
+        "children": [
+          {
+            "id": "btnCloseConfirmModal",
+            "text": "×",
+            "h": 36,
+            "y": 339.109375
+          },
+          {
+            "id": "btnCancelConfirm",
+            "text": "Cancelar",
+            "h": 46,
+            "y": 461.28125
+          },
+          {
+            "id": "btnAcceptConfirm",
+            "text": "Confirmar",
+            "h": 46,
+            "y": 461.28125
+          }
+        ]
+      }
+    ],
+    "focus": "",
+    "drawer": "mobile-drawer",
+    "filterClass": "toolbar-filters"
+  },
+  "modal_dependencias": {
+    "active": [
+      {
+        "id": "modalDependency",
+        "box": {
+          "width": 390,
+          "height": 844
+        },
+        "children": [
+          {
+            "id": "btnCloseDependencyModal",
+            "text": "×",
+            "h": 36,
+            "y": 148.96875
+          },
+          {
+            "id": "btnCloseDependencyModalBtn",
+            "text": "Entendido",
+            "h": 46,
+            "y": 651.40625
+          },
+          {
+            "id": "btnDependencyInactivate",
+            "text": "Inativar Registro",
+            "h": 46,
+            "y": 651.40625
+          }
+        ]
+      }
+    ],
+    "focus": "",
+    "drawer": "mobile-drawer",
+    "filterClass": "toolbar-filters"
+  },
+  "modal_importacao": {
+    "active": [
+      {
+        "id": "modalImportSummary",
+        "box": {
+          "width": 390,
+          "height": 844
+        },
+        "children": [
+          {
+            "id": "btnCloseImportSummaryModal",
+            "text": "×",
+            "h": 36,
+            "y": 165.640625
+          },
+          {
+            "id": "btnCancelImportSummary",
+            "text": "Cancelar",
+            "h": 46,
+            "y": 634.734375
+          },
+          {
+            "id": "btnConfirmImportSummary",
+            "text": "Executar Importação",
+            "h": 46,
+            "y": 634.734375
+          }
+        ]
+      }
+    ],
+    "focus": "",
+    "drawer": "mobile-drawer",
+    "filterClass": "toolbar-filters"
+  },
+  "modal_alarme": {
+    "active": [
+      {
+        "id": "modalAlarmTrigger",
+        "box": {
+          "width": 390,
+          "height": 844
+        },
+        "children": [
+          {
+            "id": "btnCloseAlarmModal",
+            "text": "×",
+            "h": 36,
+            "y": 23.578125
+          },
+          {
+            "id": "btnAlarmAcknowledge",
+            "text": "Reconhecer Alarme",
+            "h": 50,
+            "y": 597.21875
+          },
+          {
+            "id": "btnAlarmSnoozePrompt",
+            "text": "Adiar...",
+            "h": 50,
+            "y": 656.8125
+          },
+          {
+            "id": "btnAlarmCompleteDirect",
+            "text": "Concluir Evento",
+            "h": 50,
+            "y": 716.40625
+          },
+          {
+            "id": "btnAlarmOpenDetails",
+            "text": "Abrir Detalhes",
+            "h": 50,
+            "y": 776
+          }
+        ]
+      }
+    ],
+    "focus": "",
+    "drawer": "mobile-drawer",
+    "filterClass": "toolbar-filters"
+  },
+  "confirmation_cancel": [
+    "A",
+    "B"
+  ],
+  "description_type": {
+    "tag": "INPUT",
+    "type": "text"
+  },
+  "canvas_before": {
+    "width": 600,
+    "height": 220,
+    "rect": {
+      "x": 48.390625,
+      "y": 331.5,
+      "width": 293.21875,
+      "height": 180,
+      "top": 331.5,
+      "right": 341.609375,
+      "bottom": 511.5,
+      "left": 48.390625
+    },
+    "history": 1,
+    "drawing_length": 8858
+  },
+  "rotation": {
+    "text": "Texto preservado na rotação",
+    "width": 600,
+    "height": 220,
+    "rect": {
+      "x": 48.390625,
+      "y": -216.28125,
+      "width": 747.203125,
+      "height": 180,
+      "top": -216.28125,
+      "right": 795.59375,
+      "bottom": -36.28125,
+      "left": 48.390625
+    },
+    "drawing_length": 8858
+  },
+  "canvas_fullscreen": {
+    "box": {
+      "x": 0,
+      "y": 0,
+      "width": 844,
+      "height": 390,
+      "top": 0,
+      "right": 844,
+      "bottom": 390,
+      "left": 0
+    },
+    "canvas": {
+      "x": 17,
+      "y": 71,
+      "width": 810,
+      "height": 297,
+      "top": 71,
+      "right": 827,
+      "bottom": 368,
+      "left": 17
+    },
+    "toolbar": "static"
+  },
+  "drawing_preserved_rotation": true,
+  "drawing_details": {
+    "img": "inline",
+    "outer": "none",
+    "inner": "block",
+    "visible": false
+  },
+  "spotlight_before": {
+    "desc": "Verificar alinhamento e término de partida da bomba BB-101A",
+    "time": "Atrasado há 12 minutos",
+    "source": "Chegada estimada de PIG raspador no recebedor de TEDEP"
+  },
+  "spotlight_after": {
+    "desc": "Verificar alinhamento e término de partida da bomba BB-101A",
+    "time": "Faltam 2 horas e 29 minutos"
+  },
+  "filter_sheet": {
+    "class": "toolbar-filters",
+    "display": "grid",
+    "position": "static",
+    "rect": {
+      "x": 33,
+      "y": 407.5625,
+      "width": 324,
+      "height": 664.9375,
+      "top": 407.5625,
+      "right": 357,
+      "bottom": 1072.5,
+      "left": 33
+    },
+    "footerVisible": true
+  },
+  "modal_focus_open": {
+    "focus": "btnToggleFilters",
+    "inModal": false
+  },
+  "modal_focus_tab": {
+    "focus": "checkFilterOnlyActiveConsole",
+    "inModal": false
+  },
+  "modal_focus_close": {
+    "focus": "checkFilterOnlyActiveConsole",
+    "activeModals": 0
+  },
+  "reduced_motion": {
+    "cards": [
+      "0s",
+      "0s"
+    ],
+    "badges": [
+      "0s",
+      "0s"
+    ]
+  },
+  "errors": []
+}

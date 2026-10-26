@@ -1,0 +1,666 @@
+test_description_enter_does_not_submit (test_accessibility_browser.Accessibility.test_description_enter_does_not_submit) ... FAIL
+test_metric_cards_support_keyboard (test_accessibility_browser.Accessibility.test_metric_cards_support_keyboard) ... ok
+test_mobile_fields_and_main_actions_have_touch_size (test_accessibility_browser.Accessibility.test_mobile_fields_and_main_actions_have_touch_size) ... FAIL
+test_no_duplicate_ids_after_repeated_navigation (test_accessibility_browser.Accessibility.test_no_duplicate_ids_after_repeated_navigation) ... ok
+test_rendered_text_contrast_key_components (test_accessibility_browser.Accessibility.test_rendered_text_contrast_key_components) ... FAIL
+test_no_audio_nodes_for_zero_or_invalid_volume (test_compatibility_browser.Compatibility.test_no_audio_nodes_for_zero_or_invalid_volume) ... ok
+test_permission_denied_and_unavailable_notification_are_safe (test_compatibility_browser.Compatibility.test_permission_denied_and_unavailable_notification_are_safe) ... ok
+test_two_tabs_lease_fallback_without_navigator_locks (test_compatibility_browser.Compatibility.test_two_tabs_lease_fallback_without_navigator_locks) ... ok
+test_async_visual_error_is_logged_without_loop (test_core_browser.CoreBrowserTests.test_async_visual_error_is_logged_without_loop) ... ok
+test_atomic_abort_after_write (test_core_browser.CoreBrowserTests.test_atomic_abort_after_write) ... ok
+test_backup_duplicate_business_conflict_preserves_every_store (test_core_browser.CoreBrowserTests.test_backup_duplicate_business_conflict_preserves_every_store) ... ok
+test_backup_rejects_invalid_types_png_and_impossible_iso (test_core_browser.CoreBrowserTests.test_backup_rejects_invalid_types_png_and_impossible_iso) ... ok
+test_backup_rejects_unknown_collection_and_wrong_free_text_type (test_core_browser.CoreBrowserTests.test_backup_rejects_unknown_collection_and_wrong_free_text_type) ... ok
+test_backup_rejects_unsafe_metadata_and_missing_collections (test_core_browser.CoreBrowserTests.test_backup_rejects_unsafe_metadata_and_missing_collections) ... ok
+test_backup_replace_rolls_back_aborted_write (test_core_browser.CoreBrowserTests.test_backup_replace_rolls_back_aborted_write) ... ok
+test_backup_requires_functional_fields_and_preserves_legacy_optional_metadata (test_core_browser.CoreBrowserTests.test_backup_requires_functional_fields_and_preserves_legacy_optional_metadata) ... ok
+test_crud_rejects_abort_after_request_success (test_core_browser.CoreBrowserTests.test_crud_rejects_abort_after_request_success) ... ok
+test_csv_download_bom_formula_and_inactive_filter (test_core_browser.CoreBrowserTests.test_csv_download_bom_formula_and_inactive_filter) ... ok
+test_demo_clear_and_backup_roundtrip (test_core_browser.CoreBrowserTests.test_demo_clear_and_backup_roundtrip) ... ok
+test_distinct_pipeline_units_required (test_core_browser.CoreBrowserTests.test_distinct_pipeline_units_required) ... ok
+test_duplicate_and_orphan_backup_rows_rejected (test_core_browser.CoreBrowserTests.test_duplicate_and_orphan_backup_rows_rejected) ... ok
+test_existing_inactive_references_only_on_original_link (test_core_browser.CoreBrowserTests.test_existing_inactive_references_only_on_original_link) ... ok
+test_history_preserved_on_delete (test_core_browser.CoreBrowserTests.test_history_preserved_on_delete) ... ok
+test_idle_tick_and_unchanged_atomic_issue_zero_native_writes (test_core_browser.CoreBrowserTests.test_idle_tick_and_unchanged_atomic_issue_zero_native_writes) ... ok
+test_import_legacy_snapshot_and_roundtrip (test_core_browser.CoreBrowserTests.test_import_legacy_snapshot_and_roundtrip) ... ok
+test_impossible_calendar_day_rejected (test_core_browser.CoreBrowserTests.test_impossible_calendar_day_rejected) ... ok
+test_incompatible_reference_rejected (test_core_browser.CoreBrowserTests.test_incompatible_reference_rejected) ... ok
+test_invalid_import_preserves_base (test_core_browser.CoreBrowserTests.test_invalid_import_preserves_base) ... ok
+test_local_date_and_csv_formula (test_core_browser.CoreBrowserTests.test_local_date_and_csv_formula) ... ok
+test_master_change_cannot_break_existing_event (test_core_browser.CoreBrowserTests.test_master_change_cannot_break_existing_event) ... ok
+test_merge_does_not_regress_equal_version_older_timestamp (test_core_browser.CoreBrowserTests.test_merge_does_not_regress_equal_version_older_timestamp) ... ok
+test_parallel_ticks_one_alarm_and_title_persists (test_core_browser.CoreBrowserTests.test_parallel_ticks_one_alarm_and_title_persists) ... ok
+test_reopen_and_reschedule_reset_alarm_cycle (test_core_browser.CoreBrowserTests.test_reopen_and_reschedule_reset_alarm_cycle) ... ok
+test_replace_requires_preventive_backup_without_metadata_side_effects (test_core_browser.CoreBrowserTests.test_replace_requires_preventive_backup_without_metadata_side_effects) ... ok
+test_snooze_out_of_bounds (test_core_browser.CoreBrowserTests.test_snooze_out_of_bounds) ... ok
+test_stale_fire_cannot_overwrite_completed_event (test_core_browser.CoreBrowserTests.test_stale_fire_cannot_overwrite_completed_event) ... ok
+test_supported_industrial_theme_and_all_layouts (test_core_browser.CoreBrowserTests.test_supported_industrial_theme_and_all_layouts) ... ok
+test_two_tabs_claim_single_firing (test_core_browser.CoreBrowserTests.test_two_tabs_claim_single_firing) ... ok
+test_zero_and_nan_volume_never_create_real_oscillators (test_core_browser.CoreBrowserTests.test_zero_and_nan_volume_never_create_real_oscillators) ... ok
+test_zero_default_lead_does_not_fire_fifteen_minutes_early (test_core_browser.CoreBrowserTests.test_zero_default_lead_does_not_fire_fifteen_minutes_early) ... ok
+test_zero_repeat_and_real_actor (test_core_browser.CoreBrowserTests.test_zero_repeat_and_real_actor) ... ok
+test_action_sheet_has_context (test_ui_browser.UIRegression.test_action_sheet_has_context) ... ok
+test_alarm_countdown_shows_second_precision (test_ui_browser.UIRegression.test_alarm_countdown_shows_second_precision) ... ok
+test_alarm_counts_agree (test_ui_browser.UIRegression.test_alarm_counts_agree) ... ok
+test_alarm_modal_countdown_moves (test_ui_browser.UIRegression.test_alarm_modal_countdown_moves) ... ok
+test_all_dialogs_and_controls_have_accessible_names (test_ui_browser.UIRegression.test_all_dialogs_and_controls_have_accessible_names) ... FAIL
+test_cancel_import_discards_old_file (test_ui_browser.UIRegression.test_cancel_import_discards_old_file) ... ok
+test_cancelled_confirmation_never_executes (test_ui_browser.UIRegression.test_cancelled_confirmation_never_executes) ... ok
+test_cancelled_dependency_never_executes (test_ui_browser.UIRegression.test_cancelled_dependency_never_executes) ... ok
+test_category_survives_layout_change (test_ui_browser.UIRegression.test_category_survives_layout_change) ... ok
+test_closed_drawer_not_in_tab_sequence (test_ui_browser.UIRegression.test_closed_drawer_not_in_tab_sequence) ... ok
+test_completed_cards_really_expand (test_ui_browser.UIRegression.test_completed_cards_really_expand) ... ok
+test_demo_button_actually_loads_demo (test_ui_browser.UIRegression.test_demo_button_actually_loads_demo) ... ok
+test_description_is_multiline (test_ui_browser.UIRegression.test_description_is_multiline) ... FAIL
+test_details_shows_saved_drawing (test_ui_browser.UIRegression.test_details_shows_saved_drawing) ... ok
+test_display_preferences_actually_disable_pulsing (test_ui_browser.UIRegression.test_display_preferences_actually_disable_pulsing) ... ok
+test_drawer_opens_and_closes_by_keyboard (test_ui_browser.UIRegression.test_drawer_opens_and_closes_by_keyboard) ... ok
+test_filters_are_bottom_sheet_on_mobile (test_ui_browser.UIRegression.test_filters_are_bottom_sheet_on_mobile) ... ok
+test_metrics_apply_correct_time_filter (test_ui_browser.UIRegression.test_metrics_apply_correct_time_filter) ... ok
+test_modal_moves_and_traps_focus_and_restores (test_ui_browser.UIRegression.test_modal_moves_and_traps_focus_and_restores) ... ok
+test_new_master_data_appears_in_filters (test_ui_browser.UIRegression.test_new_master_data_appears_in_filters) ... ok
+test_settings_keep_zero_values (test_ui_browser.UIRegression.test_settings_keep_zero_values) ... ok
+test_spotlight_keeps_own_countdown_after_filtered_list (test_ui_browser.UIRegression.test_spotlight_keeps_own_countdown_after_filtered_list) ... ok
+test_tablet_detail_initial_content_and_alarm_value (test_ui_browser.UIRegression.test_tablet_detail_initial_content_and_alarm_value) ... ok
+test_temporal_classification_updates_without_action (test_ui_browser.UIRegression.test_temporal_classification_updates_without_action) ... ok
+test_alarm_snooze_escape_only_closes_top (test_ui_controller_browser.UIController.test_alarm_snooze_escape_only_closes_top) ... ok
+test_async_confirmation_is_single_and_cannot_escape (test_ui_controller_browser.UIController.test_async_confirmation_is_single_and_cannot_escape) ... ok
+test_cancelled_loading_dialog_does_not_open_later (test_ui_controller_browser.UIController.test_cancelled_loading_dialog_does_not_open_later) ... ok
+test_catalog_forms_publish_create_update_and_confirmed_delete (test_ui_controller_browser.UIController.test_catalog_forms_publish_create_update_and_confirmed_delete) ... ok
+test_complete_identity_survives_interleaved_alarm (test_ui_controller_browser.UIController.test_complete_identity_survives_interleaved_alarm) ... ok
+test_completed_metric_uses_local_day_and_can_be_cleared (test_ui_controller_browser.UIController.test_completed_metric_uses_local_day_and_can_be_cleared) ... ok
+test_completed_modality_changes_preserve_page_filter_selection_and_expansion (test_ui_controller_browser.UIController.test_completed_modality_changes_preserve_page_filter_selection_and_expansion) ... ok
+test_dashboard_urgent_list_is_bounded (test_ui_controller_browser.UIController.test_dashboard_urgent_list_is_bounded) ... ok
+test_declined_import_reports_conflict_without_success (test_ui_controller_browser.UIController.test_declined_import_reports_conflict_without_success) ... ok
+test_delayed_catalog_confirmation_publishes_only_after_commit (test_ui_controller_browser.UIController.test_delayed_catalog_confirmation_publishes_only_after_commit) ... ok
+test_five_catalog_toggles_publish_committed_snapshot (test_ui_controller_browser.UIController.test_five_catalog_toggles_publish_committed_snapshot) ... ok
+test_fullscreen_drawing_escape_returns_to_form (test_ui_controller_browser.UIController.test_fullscreen_drawing_escape_returns_to_form) ... ok
+test_idle_timers_do_not_read_or_render_pages (test_ui_controller_browser.UIController.test_idle_timers_do_not_read_or_render_pages) ... ok
+test_newer_request_wins_for_every_event_dialog (test_ui_controller_browser.UIController.test_newer_request_wins_for_every_event_dialog) ... ok
+test_pagination_keeps_all_data_but_one_modality_and_fifty_nodes (test_ui_controller_browser.UIController.test_pagination_keeps_all_data_but_one_modality_and_fifty_nodes) ... ok
+test_pending_modality_and_page_survive_resize_and_manual_tiers (test_ui_controller_browser.UIController.test_pending_modality_and_page_survive_resize_and_manual_tiers) ... ok
+test_pinch_zoom_does_not_claim_keyboard_and_editable_shrink_does (test_ui_controller_browser.UIController.test_pinch_zoom_does_not_claim_keyboard_and_editable_shrink_does) ... ok
+test_zero_settings_and_event_alarm_reopen_without_defaults (test_ui_controller_browser.UIController.test_zero_settings_and_event_alarm_reopen_without_defaults) ... ok
+test_alarm_ack_snooze_do_not_complete_event (test_workflows_browser.Workflows.test_alarm_ack_snooze_do_not_complete_event) ... ok
+test_browser_rotation_keeps_form_and_drawing (test_workflows_browser.Workflows.test_browser_rotation_keeps_form_and_drawing) ... ok
+test_canvas_undo_eraser_and_confirmed_clear (test_workflows_browser.Workflows.test_canvas_undo_eraser_and_confirmed_clear) ... ok
+test_create_complete_reopen_duplicate_journey (test_workflows_browser.Workflows.test_create_complete_reopen_duplicate_journey) ... ok
+test_download_json_and_three_csv_types (test_workflows_browser.Workflows.test_download_json_and_three_csv_types) ... ok
+test_import_preview_cancel_and_valid_roundtrip_via_file (test_workflows_browser.Workflows.test_import_preview_cancel_and_valid_roundtrip_via_file) ... ok
+test_master_forms_create_hierarchy_and_dependency_dialog (test_workflows_browser.Workflows.test_master_forms_create_hierarchy_and_dependency_dialog) ... ok
+test_modes_and_themes_persist_after_reload (test_workflows_browser.Workflows.test_modes_and_themes_persist_after_reload) ... ok
+test_offline_has_no_remote_requests (test_workflows_browser.Workflows.test_offline_has_no_remote_requests) ... ok
+test_save_and_another_preserves_location (test_workflows_browser.Workflows.test_save_and_another_preserves_location) ... ok
+test_search_filter_sort_and_clear (test_workflows_browser.Workflows.test_search_filter_sort_and_clear) ... ok
+
+======================================================================
+FAIL: test_description_enter_does_not_submit (test_accessibility_browser.Accessibility.test_description_enter_does_not_submit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_accessibility_browser.py", line 33, in test_description_enter_does_not_submit
+    self.assertEqual(count,0)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_mobile_fields_and_main_actions_have_touch_size (test_accessibility_browser.Accessibility.test_mobile_fields_and_main_actions_have_touch_size)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_accessibility_browser.py", line 25, in test_mobile_fields_and_main_actions_have_touch_size
+    self.assertGreaterEqual(x['h'],44,x);self.assertGreaterEqual(x['font'],14,x)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 13.6 not greater than or equal to 14 : {'id': 'btnSubmitEvent', 'w': 154.5, 'h': 46, 'font': 13.6}
+
+======================================================================
+FAIL: test_rendered_text_contrast_key_components (test_accessibility_browser.Accessibility.test_rendered_text_contrast_key_components)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_accessibility_browser.py", line 53, in test_rendered_text_contrast_key_components
+    self.assertEqual(failures,[],json.dumps(failures,ensure_ascii=False,indent=2))
+AssertionError: Lists differ: [{'theme': 'dark', 'view': 'viewDashboard'[7422 chars]99]}] != []
+
+First list contains 34 additional elements.
+First extra element 0:
+{'theme': 'dark', 'view': 'viewDashboard', 'id': 'btnQuickAddEvent', 'cls': 'btn btn-primary btn-sm', 'text': 'Nova Previsão', 'ratio': 4.095330637522397, 'minimum': 4.5, 'color': 'rgb(255, 255, 255)', 'bg': [2, 132, 199]}
+
+Diff is 8664 characters long. Set self.maxDiff to None to see it. : [
+  {
+    "theme": "dark",
+    "view": "viewDashboard",
+    "id": "btnQuickAddEvent",
+    "cls": "btn btn-primary btn-sm",
+    "text": "Nova Previsão",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewNewEvent",
+    "id": "btnQuickAddEvent",
+    "cls": "btn btn-primary btn-sm",
+    "text": "Nova Previsão",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewNewEvent",
+    "id": "",
+    "cls": "form-help",
+    "text": "Dutos pertencentes ao console ativo",
+    "ratio": 3.0740074281592458,
+    "minimum": 4.5,
+    "color": "rgb(100, 116, 139)",
+    "bg": [
+      30,
+      41,
+      59
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewNewEvent",
+    "id": "",
+    "cls": "form-help",
+    "text": "UOs conectadas ao duto selecionado",
+    "ratio": 3.0740074281592458,
+    "minimum": 4.5,
+    "color": "rgb(100, 116, 139)",
+    "bg": [
+      30,
+      41,
+      59
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewNewEvent",
+    "id": "",
+    "cls": "form-help",
+    "text": "(opcional)",
+    "ratio": 3.0740074281592458,
+    "minimum": 4.5,
+    "color": "rgb(100, 116, 139)",
+    "bg": [
+      30,
+      41,
+      59
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewNewEvent",
+    "id": "",
+    "cls": "form-help",
+    "text": "(opcional)",
+    "ratio": 3.0740074281592458,
+    "minimum": 4.5,
+    "color": "rgb(100, 116, 139)",
+    "bg": [
+      30,
+      41,
+      59
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewNewEvent",
+    "id": "",
+    "cls": "form-help",
+    "text": "Texto claro e direto da atividade a ser acomp",
+    "ratio": 3.0740074281592458,
+    "minimum": 4.5,
+    "color": "rgb(100, 116, 139)",
+    "bg": [
+      30,
+      41,
+      59
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewNewEvent",
+    "id": "btnSubmitEvent",
+    "cls": "btn btn-primary",
+    "text": "Salvar Previsão",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewPendingEvents",
+    "id": "btnQuickAddEvent",
+    "cls": "btn btn-primary btn-sm",
+    "text": "Nova Previsão",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewConfigAlerts",
+    "id": "btnQuickAddEvent",
+    "cls": "btn btn-primary btn-sm",
+    "text": "Nova Previsão",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewConfigAlerts",
+    "id": "",
+    "cls": "form-help",
+    "text": "Utilizado para rastreabilidade nas auditorias",
+    "ratio": 3.0740074281592458,
+    "minimum": 4.5,
+    "color": "rgb(100, 116, 139)",
+    "bg": [
+      30,
+      41,
+      59
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewConfigAlerts",
+    "id": "",
+    "cls": "form-help",
+    "text": "Tempo prévio para alertar o controlador antes",
+    "ratio": 3.0740074281592458,
+    "minimum": 4.5,
+    "color": "rgb(100, 116, 139)",
+    "bg": [
+      30,
+      41,
+      59
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewConfigAlerts",
+    "id": "",
+    "cls": "form-help",
+    "text": "Permite forçar um formato específico ou mante",
+    "ratio": 3.0740074281592458,
+    "minimum": 4.5,
+    "color": "rgb(100, 116, 139)",
+    "bg": [
+      30,
+      41,
+      59
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewConfigAlerts",
+    "id": "",
+    "cls": "form-help",
+    "text": "Contraste calibrado para turnos prolongados",
+    "ratio": 3.0740074281592458,
+    "minimum": 4.5,
+    "color": "rgb(100, 116, 139)",
+    "bg": [
+      30,
+      41,
+      59
+    ]
+  },
+  {
+    "theme": "dark",
+    "view": "viewConfigAlerts",
+    "id": "",
+    "cls": "btn btn-primary btn-sm",
+    "text": "Salvar Configurações",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewDashboard",
+    "id": "btnQuickAddEvent",
+    "cls": "btn btn-primary btn-sm",
+    "text": "Nova Previsão",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewDashboard",
+    "id": "",
+    "cls": "nav-item",
+    "text": "Configurações de Alertas",
+    "ratio": 2.047526649333702,
+    "minimum": 4.5,
+    "color": "rgb(56, 189, 248)",
+    "bg": [
+      248,
+      250,
+      252
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewNewEvent",
+    "id": "btnQuickAddEvent",
+    "cls": "btn btn-primary btn-sm",
+    "text": "Nova Previsão",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewNewEvent",
+    "id": "",
+    "cls": "nav-item",
+    "text": "Configurações de Alertas",
+    "ratio": 2.047526649333702,
+    "minimum": 4.5,
+    "color": "rgb(56, 189, 248)",
+    "bg": [
+      248,
+      250,
+      252
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewNewEvent",
+    "id": "",
+    "cls": "form-help",
+    "text": "Dutos pertencentes ao console ativo",
+    "ratio": 2.5640413904962034,
+    "minimum": 4.5,
+    "color": "rgb(148, 163, 184)",
+    "bg": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewNewEvent",
+    "id": "",
+    "cls": "form-help",
+    "text": "UOs conectadas ao duto selecionado",
+    "ratio": 2.5640413904962034,
+    "minimum": 4.5,
+    "color": "rgb(148, 163, 184)",
+    "bg": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewNewEvent",
+    "id": "",
+    "cls": "form-help",
+    "text": "(opcional)",
+    "ratio": 2.5640413904962034,
+    "minimum": 4.5,
+    "color": "rgb(148, 163, 184)",
+    "bg": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewNewEvent",
+    "id": "",
+    "cls": "form-help",
+    "text": "(opcional)",
+    "ratio": 2.5640413904962034,
+    "minimum": 4.5,
+    "color": "rgb(148, 163, 184)",
+    "bg": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewNewEvent",
+    "id": "",
+    "cls": "form-help",
+    "text": "Texto claro e direto da atividade a ser acomp",
+    "ratio": 2.5640413904962034,
+    "minimum": 4.5,
+    "color": "rgb(148, 163, 184)",
+    "bg": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewNewEvent",
+    "id": "btnSubmitEvent",
+    "cls": "btn btn-primary",
+    "text": "Salvar Previsão",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewPendingEvents",
+    "id": "btnQuickAddEvent",
+    "cls": "btn btn-primary btn-sm",
+    "text": "Nova Previsão",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewPendingEvents",
+    "id": "",
+    "cls": "nav-item",
+    "text": "Configurações de Alertas",
+    "ratio": 2.166690139981206,
+    "minimum": 4.5,
+    "color": "rgb(56, 188, 246)",
+    "bg": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewConfigAlerts",
+    "id": "btnQuickAddEvent",
+    "cls": "btn btn-primary btn-sm",
+    "text": "Nova Previsão",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewConfigAlerts",
+    "id": "",
+    "cls": "nav-item active",
+    "text": "Configurações de Alertas",
+    "ratio": 2.166690139981206,
+    "minimum": 4.5,
+    "color": "rgb(56, 188, 246)",
+    "bg": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewConfigAlerts",
+    "id": "",
+    "cls": "form-help",
+    "text": "Utilizado para rastreabilidade nas auditorias",
+    "ratio": 2.5640413904962034,
+    "minimum": 4.5,
+    "color": "rgb(148, 163, 184)",
+    "bg": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewConfigAlerts",
+    "id": "",
+    "cls": "form-help",
+    "text": "Tempo prévio para alertar o controlador antes",
+    "ratio": 2.5640413904962034,
+    "minimum": 4.5,
+    "color": "rgb(148, 163, 184)",
+    "bg": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewConfigAlerts",
+    "id": "",
+    "cls": "form-help",
+    "text": "Permite forçar um formato específico ou mante",
+    "ratio": 2.5640413904962034,
+    "minimum": 4.5,
+    "color": "rgb(148, 163, 184)",
+    "bg": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewConfigAlerts",
+    "id": "",
+    "cls": "form-help",
+    "text": "Contraste calibrado para turnos prolongados",
+    "ratio": 2.5640413904962034,
+    "minimum": 4.5,
+    "color": "rgb(148, 163, 184)",
+    "bg": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "theme": "light",
+    "view": "viewConfigAlerts",
+    "id": "",
+    "cls": "btn btn-primary btn-sm",
+    "text": "Salvar Configurações",
+    "ratio": 4.095330637522397,
+    "minimum": 4.5,
+    "color": "rgb(255, 255, 255)",
+    "bg": [
+      2,
+      132,
+      199
+    ]
+  }
+]
+
+======================================================================
+FAIL: test_all_dialogs_and_controls_have_accessible_names (test_ui_browser.UIRegression.test_all_dialogs_and_controls_have_accessible_names)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 115, in test_all_dialogs_and_controls_have_accessible_names
+    self.assertEqual(missing,[])
+AssertionError: Lists differ: ['inputStylusStrokeColor', 'selectStylusSt[689 chars]ile'] != []
+
+First list contains 34 additional elements.
+First extra element 0:
+'inputStylusStrokeColor'
+
+Diff is 843 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_description_is_multiline (test_ui_browser.UIRegression.test_description_is_multiline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_ui_browser.py", line 61, in test_description_is_multiline
+    self.assertEqual(self.ev('document.getElementById("inputEventDescription").tagName'),'TEXTAREA')
+AssertionError: 'INPUT' != 'TEXTAREA'
+- INPUT
++ TEXTAREA
+
+
+----------------------------------------------------------------------
+Ran 94 tests in 72.851s
+
+FAILED (failures=5)

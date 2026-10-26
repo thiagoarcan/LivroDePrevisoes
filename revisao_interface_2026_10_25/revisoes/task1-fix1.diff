@@ -1,0 +1,149 @@
+--- task1_r1_base/parts_js_core.py
++++ parts_js_core.py
+@@ -706,8 +706,8 @@
+     return /[;"\n\r]/.test(text) ? '"'+text.replace(/"/g,'""')+'"' : text;
+   };
+   App.DB.DATA_STORES = ['consoles','pipelines','operationalUnits','pipelineOperationalUnits','equipmentTypes','equipmentTags','events','eventHistory','colorRanges','settings'];
+-  // callback(draft, transaction) MUST be synchronous. Draft arrays are replaced together
+-  // in one real IndexedDB transaction; throws/abort roll everything back. Do not await
++  // callback(draft, transaction) MUST be synchronous. Changed JSON record arrays are
++  // replaced together; unchanged arrays issue no writes. Throws/abort roll everything back. Do not await
+   // external work from callback: IndexedDB would close the transaction.
+   App.DB.atomic = async function(names, callback) {
+     await this.open();
+@@ -722,9 +722,11 @@
+           draft[name]=q.result;
+           if (--remaining) return;
+           try {
++            const before=Object.fromEntries(names.map(store=>[store,JSON.stringify(draft[store])]));
+             result=callback(draft,tx);
+             if (result && typeof result.then==='function') throw new Error('Callback transacional deve ser síncrono.');
+             for (const store of names) {
++              if (JSON.stringify(draft[store])===before[store]) continue;
+               const target=tx.objectStore(store); target.clear();
+               for (const item of draft[store]) target.add(item);
+             }
+--- task1_r1_base/parts_js_service.py
++++ parts_js_service.py
+@@ -1681,8 +1681,25 @@
+   const iso=value=>typeof value==='string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value) && Number.isFinite(Date.parse(value)) && (()=>{try{U.localDateTime(value.slice(0,10),value.slice(11,16));return true;}catch(_){return false;}})();
+   const text=(value,label)=>{if(typeof value!=='string'||!value.trim())fail(`${label} obrigatório.`);return value.trim();};
+   const drawing=value=>{if(value!=null && value!=='' && (typeof value!=='string'||value.length>3000000||!/^data:image\/png;base64,iVBORw0KGgo[A-Za-z0-9+/]*={0,2}$/.test(value)))fail('Desenho deve ser uma imagem PNG segura.');};
++  // These fields were written by the legacy v1 exporter. Actor/drawing additions,
++  // range units and metadata on settings/colorRanges remain optional for old files.
++  const catalogueFields=['id','name','active','createdAt','updatedAt','version','synchronizationStatus'];
++  const requiredFields={
++    consoles:catalogueFields,
++    operationalUnits:catalogueFields,
++    pipelines:[...catalogueFields,'consoleId'],
++    pipelineOperationalUnits:['id','pipelineId','uoId','createdAt','version','synchronizationStatus'],
++    equipmentTypes:[...catalogueFields,'uoId'],
++    equipmentTags:['id','tag','uoId','equipmentTypeId','active','createdAt','updatedAt','version','synchronizationStatus'],
++    events:['id','consoleId','pipelineId','uoId','equipmentTypeId','tagId','scheduledDate','scheduledTime','scheduledAt','description','notes','priority','status','hasAlarm','useDefaultAlarmSettings','alarmMinutesBefore','alarmAudio','alarmVisual','alarmNotification','alarmRepeat','alarmRepeatInterval','alarmMaxRepeats','alarmState','alarmSnoozedUntil','alarmTriggerCount','lastAlarmTriggeredAt','completedAt','completedTimeDiffMinutes','completionNote','active','createdAt','updatedAt','version','synchronizationStatus'],
++    eventHistory:['id','eventId','action','timestamp','description','previousValue','newValue','localUser'],
++    colorRanges:['id','name','color','minMinutes','maxMinutes','priority','blink','sound','active'],
++    settings:['key','value']
++  };
++  const nullableFields={events:new Set(['equipmentTypeId','tagId','alarmSnoozedUntil','lastAlarmTriggeredAt','completedAt','completedTimeDiffMinutes']),eventHistory:new Set(['previousValue','newValue'])};
+   const settingsValid=value=>{
+     if(!value || typeof value!=='object'||Array.isArray(value))fail('Configurações inválidas.');
++    for(const key of ['localUserName','soundEnabled','soundType','soundVolume','visualAlertEnabled','notificationEnabled','repeatAlarm','repeatIntervalMinutes','maxRepeats','defaultLeadTimeMinutes'])if(!Object.hasOwn(value,key)||value[key]==null)fail(`Configuração obrigatória ausente: ${key}.`);
+     const enums={soundType:['chime','beep','siren','blip'],theme:['dark','light','industrial'],viewMode:['cards','table'],responsiveLayoutMode:['auto','compact','mobile','tablet','conventional','widescreen','ultrawide']};
+     for(const [key,list] of Object.entries(enums))if(value[key]!==undefined&&!list.includes(value[key]))fail(`Configuração ${key} inválida.`);
+     for(const [key,min,max] of [['soundVolume',0,100],['defaultLeadTimeMinutes',0,525600],['repeatIntervalMinutes',1,1440],['maxRepeats',0,1000],['backupReminderDays',1,3650]])if(value[key]!==undefined){if(typeof value[key]!=='number')fail(`Configuração ${key} deve ser numérica.`);integer(value[key],min,max,key);}
+@@ -1708,6 +1725,7 @@
+       maps[store]=new Map();const business=new Set();
+       for(const row of data[store]){
+         if(!row||typeof row!=='object'||Array.isArray(row))fail(`Linha inválida em ${store}.`);
++        for(const key of requiredFields[store])if(!Object.hasOwn(row,key)||row[key]===undefined||(row[key]===null&&!nullableFields[store]?.has(key)))fail(`Campo obrigatório ausente: ${store}.${key}.`);
+         const id=store==='settings'?row.key:row.id;
+         if(typeof id!=='string'||!/^[A-Za-z0-9_-]{1,128}$/.test(id)||['__proto__','constructor','prototype'].includes(id))fail(`ID inválido em ${store}.`);
+         if(maps[store].has(id))fail(`ID duplicado em ${store}: ${id}.`);maps[store].set(id,row);
+@@ -1826,10 +1844,19 @@
+   const B=App.Backup;
+   B.validateBackupData=function(input){let parsed;try{parsed=typeof input==='string'?JSON.parse(input):structuredClone(input);}catch(_){fail('Backup JSON inválido.');}if(!parsed||!['1',1].includes(parsed.schemaVersion)||!iso(parsed.exportedAt))fail('Versão ou data de exportação inválida.');validateData(parsed.data||{});return parsed;};
+   B.createSnapshot=async()=>({application:'Controle de Previsões em Dutos',schemaVersion:1,exportedAt:new Date().toISOString(),data:await App.DB.snapshot()});
+-  B.exportJSON=async function(){const b=await this.createSnapshot();this.downloadBlob(new Blob([JSON.stringify(b,null,2)],{type:'application/json;charset=utf-8'}),`backup_previsoes_dutos_${new Date().toISOString().replace(/[:.]/g,'-')}.json`);const conf=await S.getSettings();conf.lastBackupAt=new Date().toISOString();await S.saveSettings(conf);await App.UI.updateBackupPill?.(conf.lastBackupAt);await App.UI.showToast?.('Backup JSON exportado com sucesso!','success');return b;};
++  B.exportJSON=async function(options={}){
++    const b=await this.createSnapshot();
++    await this.downloadBlob(new Blob([JSON.stringify(b,null,2)],{type:'application/json;charset=utf-8'}),`backup_previsoes_dutos_${new Date().toISOString().replace(/[:.]/g,'-')}.json`);
++    // Preventive export must not mutate lastBackupAt or any other persisted value:
++    // a failed export/download must leave the complete pre-import database intact.
++    if(options.preventive===true)return b;
++    const conf=await S.getSettings();conf.lastBackupAt=new Date().toISOString();await S.saveSettings(conf);
++    await App.UI.updateBackupPill?.(conf.lastBackupAt);await App.UI.showToast?.('Backup JSON exportado com sucesso!','success');return b;
++  };
+   // Merge conflicts leave the ENTIRE database unchanged. UI must display conflicts.
+   B.importJSON=async function(input,mode='merge'){
+     if(!['merge','replace'].includes(mode))fail('Modo de importação inválido.');const backup=this.validateBackupData(input);
++    if(mode==='replace')await this.exportJSON({preventive:true});
+     return App.DB.atomic(stores,d=>{
+       const result={mode,inserted:0,updated:0,skipped:0,conflicts:[],applied:false};
+       const candidate=structuredClone(d);
+@@ -1872,6 +1899,8 @@
+   };
+   E.withLock=async function(callback){
+     if(navigator.locks?.request)return navigator.locks.request('livro-previsoes-alarm-engine',{mode:'exclusive',ifAvailable:true},lock=>lock?callback():false);
++    // localStorage lease is advisory, not a mutex. Only navigator.locks excludes
++    // callbacks; IndexedDB's final transactional due check excludes duplicate claims.
+     const key='livro-previsoes-alarm-lease',owner=this._owner;let lease;
+     try{lease=JSON.parse(localStorage.getItem(key)||'null');if(lease&&lease.expires>Date.now()&&lease.owner!==owner)return false;localStorage.setItem(key,JSON.stringify({owner,expires:Date.now()+15000}));if(JSON.parse(localStorage.getItem(key)||'null')?.owner!==owner)return false;}catch(err){await App.DB.logError(err,'AlarmEngine lease');return false;}
+     const renew=setInterval(()=>{try{const current=JSON.parse(localStorage.getItem(key)||'null');if(current?.owner===owner)localStorage.setItem(key,JSON.stringify({owner,expires:Date.now()+15000}));}catch(_){}},5000);
+@@ -1903,7 +1932,10 @@
+       try{
+         const clock=document.getElementById('liveClock');if(clock)clock.textContent=new Date().toLocaleString('pt-BR');
+         await App.UI?.updateLiveTimers?.();
+-        await this.withLock(async()=>{const events=await App.DB.getAll('events');for(const event of events)await this.fireAlarm(event);});
++        await this.withLock(async()=>{
++          const snapshot=await App.DB.snapshot(['events','settings']),settings={...App.Config.DEFAULT_SETTINGS,...snapshot.settings.find(s=>s.key==='app_settings')?.value};
++          for(const event of snapshot.events.filter(event=>this.due(event,settings)))await this.fireAlarm(event);
++        });
+         const data=await App.DB.snapshot(['events','settings']),settings={...App.Config.DEFAULT_SETTINGS,...data.settings.find(s=>s.key==='app_settings')?.value};
+         const triggered=data.events.filter(e=>e.active!==false&&e.status==='pendente'&&e.alarmState==='triggered');
+         if(triggered.length&&settings.changeTitleEnabled){this.titleBlinkState=!this.titleBlinkState;document.title=this.titleBlinkState?'⚠ ALARME OPERACIONAL!':'ALARME — Caderno de Previsões';}else document.title=this.originalTitle;
+--- task1_r1_base/tests/test_core_browser.py
++++ tests/test_core_browser.py
+@@ -108,5 +108,43 @@
+         self.assertEqual(self.runjs("await App.Service.saveEvent(fixture);const b=await App.Backup.createSnapshot();let rejected=0;b.data.events[0].notes={text:'wrong'};try{App.Backup.validateBackupData(b);}catch(e){rejected++;}b.data.events[0].notes='';b.data.unknown=[];try{App.Backup.validateBackupData(b);}catch(e){rejected++;}return rejected;"),2)
+     def test_zero_and_nan_volume_never_create_real_oscillators(self):
+         self.assertEqual(self.runjs("App.Audio.init();const ctx=App.Audio.ctx,original=ctx.createOscillator.bind(ctx);let count=0;ctx.createOscillator=(...args)=>{count++;return original(...args);};for(const type of ['chime','beep','siren','blip'])for(const volume of [0,NaN]){try{App.Audio.play(type,volume);}catch(e){}}const settings={...await App.Service.getSettings(),soundVolume:0,soundEnabled:true};App.Audio.isUnlocked=true;const available=App.AlarmEngine.channels({useDefaultAlarmSettings:true},settings).audio;await ctx.close();return [count,available];"),[0,False])
++    def test_replace_requires_preventive_backup_without_metadata_side_effects(self):
++        self.assertEqual(self.runjs("""
++          const event=await App.Service.saveEvent(fixture), backup=await App.Backup.createSnapshot();
++          backup.data.events=[];backup.data.eventHistory=[];
++          const names=[...App.DB.DATA_STORES,'errorLogs'],before=JSON.stringify(await App.DB.snapshot(names));
++          const originalExport=App.Backup.exportJSON;let called=0,exportRejected=false;
++          App.Backup.exportJSON=async()=>{called++;throw new Error('backup failed');};
++          try{await App.Backup.importJSON(backup,'replace');}catch(e){exportRejected=true;}
++          const preservedAfterExport=before===JSON.stringify(await App.DB.snapshot(names));
++          App.Backup.exportJSON=originalExport;
++          const originalDownload=App.Backup.downloadBlob;let downloadRejected=false;
++          App.Backup.downloadBlob=async()=>{throw new Error('download failed');};
++          try{await App.Backup.importJSON(backup,'replace');}catch(e){downloadRejected=true;}
++          const preservedAfterDownload=before===JSON.stringify(await App.DB.snapshot(names));
++          let savedEvents=-1,originalStillPresent=false;
++          App.Backup.downloadBlob=async blob=>{savedEvents=JSON.parse(await blob.text()).data.events.length;originalStillPresent=!!(await App.DB.get('events',event.id));};
++          const result=await App.Backup.importJSON(backup,'replace');App.Backup.downloadBlob=originalDownload;
++          return [called,exportRejected,preservedAfterExport,downloadRejected,preservedAfterDownload,savedEvents,originalStillPresent,result.applied,await App.DB.get('events',event.id)];
++        """),[1,True,True,True,True,1,True,True,None])
++    def test_backup_requires_functional_fields_and_preserves_legacy_optional_metadata(self):
++        self.assertEqual(self.runjs("""
++          await App.Service.clearAllData();await App.Service.loadDemoData();const backup=await App.Backup.createSnapshot();
++          const required={consoles:['id','name','active','createdAt','updatedAt','version','synchronizationStatus'],pipelines:['id','name','consoleId','active','createdAt','updatedAt','version','synchronizationStatus'],operationalUnits:['id','name','active','createdAt','updatedAt','version','synchronizationStatus'],pipelineOperationalUnits:['id','pipelineId','uoId','createdAt','version','synchronizationStatus'],equipmentTypes:['id','name','uoId','active','createdAt','updatedAt','version','synchronizationStatus'],equipmentTags:['id','tag','uoId','equipmentTypeId','active','createdAt','updatedAt','version','synchronizationStatus'],events:['id','consoleId','pipelineId','uoId','equipmentTypeId','tagId','scheduledDate','scheduledTime','scheduledAt','description','notes','priority','status','hasAlarm','useDefaultAlarmSettings','alarmMinutesBefore','alarmAudio','alarmVisual','alarmNotification','alarmRepeat','alarmRepeatInterval','alarmMaxRepeats','alarmState','alarmSnoozedUntil','alarmTriggerCount','lastAlarmTriggeredAt','completedAt','completedTimeDiffMinutes','completionNote','active','createdAt','updatedAt','version','synchronizationStatus'],eventHistory:['id','eventId','action','timestamp','description','previousValue','newValue','localUser'],colorRanges:['id','name','color','minMinutes','maxMinutes','priority','blink','sound','active'],settings:['key','value']};
++          const accepted=[];for(const [store,fields] of Object.entries(required))for(const field of fields){const candidate=structuredClone(backup);delete candidate.data[store][0][field];try{App.Backup.validateBackupData(candidate);accepted.push(store+'.'+field);}catch(e){}}
++          const before=JSON.stringify(await App.DB.snapshot());const invalid=structuredClone(backup);delete invalid.data.events[0].hasAlarm;delete invalid.data.events[0].alarmTriggerCount;
++          let rejected=false;try{await App.Backup.importJSON(invalid,'replace');}catch(e){rejected=true;}
++          const preserved=before===JSON.stringify(await App.DB.snapshot());
++          const legacy=structuredClone(backup);for(const row of legacy.data.events){delete row.createdBy;delete row.completedBy;delete row.stylusDrawing;}for(const store of ['colorRanges','settings'])for(const row of legacy.data[store]){delete row.createdAt;delete row.updatedAt;delete row.version;delete row.synchronizationStatus;}
++          let legacyValid=true;try{App.Backup.validateBackupData(legacy);}catch(e){legacyValid=false;}
++          return [accepted,rejected,preserved,legacyValid];
++        """),[[],True,True,True])
++    def test_idle_tick_and_unchanged_atomic_issue_zero_native_writes(self):
++        self.assertEqual(self.runjs("""
++          await App.Service.clearAllData();await App.Service.loadDemoData();await App.DB.atomic(['events'],d=>{for(const event of d.events)event.hasAlarm=false;});
++          const originals={},writes=[];for(const method of ['add','put','clear','delete']){originals[method]=IDBObjectStore.prototype[method];IDBObjectStore.prototype[method]=function(...args){writes.push(this.name+'.'+method);return originals[method].apply(this,args);};}
++          try{await App.AlarmEngine.tick();await App.DB.atomic(['events','settings'],()=>null);const completed=(await App.DB.getAll('events')).find(e=>e.status==='concluido');await App.AlarmEngine.fireAlarm(completed);}finally{for(const [method,original] of Object.entries(originals))IDBObjectStore.prototype[method]=original;}
++          return writes;
++        """),[])
+ 
+ if __name__=='__main__': unittest.main(verbosity=2)

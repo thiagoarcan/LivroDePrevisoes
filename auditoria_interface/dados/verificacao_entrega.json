@@ -1,0 +1,32 @@
+{
+  "checks": {
+    "321_requisitos": true,
+    "22_itens_visuais": true,
+    "40_achados": true,
+    "90_capturas": true,
+    "198_medicoes": true,
+    "natureza_total": true,
+    "word_todos_requisitos": true,
+    "word_todos_achados": true,
+    "word_todos_visuais": true,
+    "word_figuras": true,
+    "html_matriz_integral": true,
+    "links_locais_validos": true,
+    "fontes_inalterados_desde_manifesto": true,
+    "html_busca_inicial": true,
+    "html_busca_funciona": true,
+    "html_busca_resultado": true,
+    "relatorio_sem_overflow_global": true
+  },
+  "problems": [],
+  "all_passed": true,
+  "files": {
+    "ACHADOS_PRIORIZADOS.csv": 28123,
+    "LEIA-ME.txt": 376,
+    "MATRIZ_REQUISITOS.csv": 102811,
+    "MATRIZ_VISUAL.csv": 9682,
+    "RELATORIO_INTERFACE.docx": 1618706,
+    "RELATORIO_INTERFACE.html": 205616,
+    "RELATORIO_INTERFACE.md": 144019
+  }
+}

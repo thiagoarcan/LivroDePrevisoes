@@ -1,0 +1,10 @@
+{
+  "parts_css.py": "81a9b5f437dddf4f0ba1ede38576ba48c4322dc7d35691e0fa88e5931c373e9c",
+  "parts_html.py": "55871f17e5ffbb33e4060de7ef146852d9aad985a0f0dfd8230de5fe7e45fe9e",
+  "parts_js_presentation.py": "23877feadb1e3ace5c1955a70ddae0337e391570dc102087f7cf1edf02b7b5bc",
+  "parts_js_ui.py": "231fd004d87a8407be499e7b7ad22ed1ae1f521d66d985b7a90880ccb841d119",
+  "parts_js_core.py": "f92897a9a3b775cc267e772780e1b1dfe55f3692f6c66f42008b4ce21ab21236",
+  "parts_js_service.py": "0adeccdd8d58d5dad88b7da6669ca97d438e98c58066d97d925c6535bfa43db0",
+  "build_all.py": "e1b177f3bb822bf508eea6c87a90442d4ef3feddd49225afea6a8d459b6967d0",
+  "index.html": "eff4aea9066735267fdbf1901b538d1e45bace1ab476943363909662b12ede88"
+}

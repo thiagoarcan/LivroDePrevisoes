@@ -1,0 +1,102 @@
+[
+  {
+    "viewport": [
+      3440,
+      1000
+    ],
+    "controls": [
+      {
+        "id": "checkEventAlarmActive",
+        "rect": {
+          "x": 285.984375,
+          "y": 894.578125,
+          "width": 20,
+          "height": 20,
+          "top": 894.578125,
+          "right": 305.984375,
+          "bottom": 914.578125,
+          "left": 285.984375
+        },
+        "reachable": true
+      },
+      {
+        "id": "checkEventUseDefaultAlarm",
+        "rect": {
+          "x": 1431.5,
+          "y": 894.578125,
+          "width": 20,
+          "height": 20,
+          "top": 894.578125,
+          "right": 1451.5,
+          "bottom": 914.578125,
+          "left": 1431.5
+        },
+        "reachable": true
+      }
+    ]
+  },
+  {
+    "id": "checkKeepDutoUO",
+    "rect": {
+      "x": 268.984375,
+      "y": 978.171875,
+      "width": 20,
+      "height": 20,
+      "top": 978.171875,
+      "right": 288.984375,
+      "bottom": 998.171875,
+      "left": 268.984375
+    },
+    "reachable": true
+  },
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "controls": [
+      {
+        "id": "checkEventAlarmActive",
+        "rect": {
+          "x": 45.984375,
+          "y": 496.890625,
+          "width": 20,
+          "height": 20,
+          "top": 496.890625,
+          "right": 65.984375,
+          "bottom": 516.890625,
+          "left": 45.984375
+        },
+        "reachable": true
+      },
+      {
+        "id": "checkEventUseDefaultAlarm",
+        "rect": {
+          "x": 45.984375,
+          "y": 552.890625,
+          "width": 20,
+          "height": 20,
+          "top": 552.890625,
+          "right": 65.984375,
+          "bottom": 572.890625,
+          "left": 45.984375
+        },
+        "reachable": true
+      }
+    ]
+  },
+  {
+    "id": "checkKeepDutoUO",
+    "rect": {
+      "x": 28.984375,
+      "y": 636.484375,
+      "width": 20,
+      "height": 20,
+      "top": 636.484375,
+      "right": 48.984375,
+      "bottom": 656.484375,
+      "left": 28.984375
+    },
+    "reachable": true
+  }
+]

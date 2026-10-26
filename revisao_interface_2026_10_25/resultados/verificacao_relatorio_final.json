@@ -1,0 +1,13 @@
+{
+  "checks": {
+    "all_local_links_exist": true,
+    "forty_findings": true,
+    "search_filters": true,
+    "search_restores": true,
+    "gallery_has_final_captures": true,
+    "no_page_errors": true
+  },
+  "passed": true,
+  "missing_links": [],
+  "page_errors": []
+}

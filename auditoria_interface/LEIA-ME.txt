@@ -1,0 +1,5 @@
+Abra RELATORIO_INTERFACE.html para consultar o relatório completo,as matrizes e a galeria.
+Alternativa:RELATORIO_INTERFACE.docx.
+As capturas dependem da pasta capturas e os anexos da pasta dados;preserve toda a estrutura ao copiar.
+Não foram alterados os fontes nem a base do usuário.
+Scripts auditam perfis temporários;gerar_relatorio.py consolida dados existentes.

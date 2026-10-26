@@ -1,0 +1,116 @@
+{
+  "checks": [
+    {
+      "file": "Designer (1).pdf",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "Designer (1).png",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "Designer (2).pdf",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "Designer (2).png",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "Designer (3).png",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "Designer.jpeg",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "Designer.jpg",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "Designer.pdf",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "auditoria_interface\\referencias\\Designer (1)_pagina_01.png",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "auditoria_interface\\referencias\\Designer (2)_pagina_01.png",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "auditoria_interface\\referencias\\Designer_pagina_01.png",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "revisao_interface_2026_10_25\\originais\\index.html",
+      "kind": "original_snapshot",
+      "passed": true
+    },
+    {
+      "file": "revisao_interface_2026_10_25\\originais\\parts_css.py",
+      "kind": "original_snapshot",
+      "passed": true
+    },
+    {
+      "file": "revisao_interface_2026_10_25\\originais\\parts_html.py",
+      "kind": "original_snapshot",
+      "passed": true
+    },
+    {
+      "file": "revisao_interface_2026_10_25\\originais\\parts_js_core.py",
+      "kind": "original_snapshot",
+      "passed": true
+    },
+    {
+      "file": "revisao_interface_2026_10_25\\originais\\parts_js_service.py",
+      "kind": "original_snapshot",
+      "passed": true
+    },
+    {
+      "file": "revisao_interface_2026_10_25\\originais\\parts_js_ui.py",
+      "kind": "original_snapshot",
+      "passed": true
+    },
+    {
+      "file": "revisao_interface_2026_10_25\\originais\\build_all.py",
+      "kind": "original_snapshot",
+      "passed": true
+    },
+    {
+      "file": "Adaptação da aplicação para tablets e celulares.docx",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "Designer (1).pdf",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "Designer (2).pdf",
+      "kind": "reference",
+      "passed": true
+    },
+    {
+      "file": "Designer.pdf",
+      "kind": "reference",
+      "passed": true
+    }
+  ],
+  "passed": 22,
+  "failed": 0
+}

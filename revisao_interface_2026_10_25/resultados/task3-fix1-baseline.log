@@ -1,0 +1,174 @@
+test_active_console_value_fits_closed_selector (test_layout_quality_browser.LayoutQuality.test_active_console_value_fits_closed_selector) ... FAIL
+test_catalog_context_uses_actual_relation_store_and_current_tag_draft (test_layout_quality_browser.LayoutQuality.test_catalog_context_uses_actual_relation_store_and_current_tag_draft) ... FAIL
+test_completed_mobile_advanced_filters_are_retractable_and_preserve_value (test_layout_quality_browser.LayoutQuality.test_completed_mobile_advanced_filters_are_retractable_and_preserve_value) ... FAIL
+test_dependency_recommendation_reads_as_one_sentence (test_layout_quality_browser.LayoutQuality.test_dependency_recommendation_reads_as_one_sentence) ... FAIL
+test_mobile_backup_operations_stack_at_readable_width (test_layout_quality_browser.LayoutQuality.test_mobile_backup_operations_stack_at_readable_width) ... FAIL
+test_mobile_catalog_tag_codes_keep_readable_column (test_layout_quality_browser.LayoutQuality.test_mobile_catalog_tag_codes_keep_readable_column) ... FAIL
+test_mobile_diagnostic_table_does_not_break_narrative_by_character (test_layout_quality_browser.LayoutQuality.test_mobile_diagnostic_table_does_not_break_narrative_by_character) ... FAIL
+test_modal_text_uses_readable_background_in_each_theme (test_layout_quality_browser.LayoutQuality.test_modal_text_uses_readable_background_in_each_theme) ... FAIL
+test_wide_alert_settings_prioritize_form_and_compact_notice (test_layout_quality_browser.LayoutQuality.test_wide_alert_settings_prioritize_form_and_compact_notice) ... FAIL
+test_wide_dashboard_regions_share_first_operational_row (test_layout_quality_browser.LayoutQuality.test_wide_dashboard_regions_share_first_operational_row) ... FAIL
+test_catalog_many_to_many_and_inactive_links_use_junction_readonly (test_layout_review_browser.LayoutReview.test_catalog_many_to_many_and_inactive_links_use_junction_readonly) ... FAIL
+test_completed_filter_scope_and_resize_preserve_selected_value (test_layout_review_browser.LayoutReview.test_completed_filter_scope_and_resize_preserve_selected_value) ... FAIL
+test_mobile_backup_keeps_complete_selected_filename_and_command (test_layout_review_browser.LayoutReview.test_mobile_backup_keeps_complete_selected_filename_and_command) ... FAIL
+test_modal_title_message_close_and_actions_contrast_in_three_themes (test_layout_review_browser.LayoutReview.test_modal_title_message_close_and_actions_contrast_in_three_themes) ... FAIL
+test_tables_have_named_keyboard_scroll_and_readable_cells (test_layout_review_browser.LayoutReview.test_tables_have_named_keyboard_scroll_and_readable_cells) ... FAIL
+test_tablet_and_conventional_metrics_precede_focus (test_layout_review_browser.LayoutReview.test_tablet_and_conventional_metrics_precede_focus) ... FAIL
+test_edit_from_list_updates_same_event_and_keeps_history (test_edit_journey_browser.EditJourney.test_edit_from_list_updates_same_event_and_keeps_history) ... ok
+test_missing_completion_actor_is_not_replaced_with_creator (test_edit_journey_browser.EditJourney.test_missing_completion_actor_is_not_replaced_with_creator) ... FAIL
+
+======================================================================
+FAIL: test_active_console_value_fits_closed_selector (test_layout_quality_browser.LayoutQuality.test_active_console_value_fits_closed_selector)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_quality_browser.py", line 110, in test_active_console_value_fits_closed_selector
+    self.assertGreaterEqual(d['width'],d['needed'],(width,d))
+AssertionError: 128 not greater than or equal to 136.15 : (1024, {'width': 128, 'needed': 136.15})
+
+======================================================================
+FAIL: test_catalog_context_uses_actual_relation_store_and_current_tag_draft (test_layout_quality_browser.LayoutQuality.test_catalog_context_uses_actual_relation_store_and_current_tag_draft)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_quality_browser.py", line 74, in test_catalog_context_uses_actual_relation_store_and_current_tag_draft
+    for name in pipes:self.assertIn(name,self.page.locator('#cadastrosRelationsPanel').inner_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'OSBRA' not found in 'Vínculos do registro\nCategoria\nUOs\nRegistros\n4\nEdição atual\nREFAP\nPrevisões pendentes\n2\nPrevisões concluídas\n0\nDutos vinculados\nNenhum\nVerificar alinhamento e término de partida da bomba BB-101A\nC04 / OSCAN / REFAP · 25/10/2026 09:35\nVerificar o término do recebimento de MGO no TQ-804\nC04 / OSCAN / REFAP · 25/10/2026 09:55'
+
+======================================================================
+FAIL: test_completed_mobile_advanced_filters_are_retractable_and_preserve_value (test_layout_quality_browser.LayoutQuality.test_completed_mobile_advanced_filters_are_retractable_and_preserve_value)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_quality_browser.py", line 122, in test_completed_mobile_advanced_filters_are_retractable_and_preserve_value
+    self.assertFalse(self.page.locator('#filterCompletedConsole').is_visible())
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_dependency_recommendation_reads_as_one_sentence (test_layout_quality_browser.LayoutQuality.test_dependency_recommendation_reads_as_one_sentence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_quality_browser.py", line 117, in test_dependency_recommendation_reads_as_one_sentence
+    self.assertGreaterEqual(d['width'],70,d)
+AssertionError: 16.984375 not greater than or equal to 70 : {'x': 86.984375, 'y': 434.421875, 'width': 16.984375, 'height': 101.484375}
+
+======================================================================
+FAIL: test_mobile_backup_operations_stack_at_readable_width (test_layout_quality_browser.LayoutQuality.test_mobile_backup_operations_stack_at_readable_width)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_quality_browser.py", line 47, in test_mobile_backup_operations_stack_at_readable_width
+    self.assertGreaterEqual(a['width'],d['parent']['width']-2,d)
+AssertionError: 144.265625 not greater than or equal to 268.03125 : {'parent': {'x': 24.984375, 'y': 519.015625, 'width': 270.03125, 'height': 614.6875, 'top': 519.015625, 'right': 295.015625, 'bottom': 1133.703125, 'left': 24.984375}, 'children': [{'x': 24.984375, 'y': 519.015625, 'width': 144.265625, 'height': 523.375, 'top': 519.015625, 'right': 169.25, 'bottom': 1042.390625, 'left': 24.984375}, {'x': 189.25, 'y': 519.015625, 'width': 113.609375, 'height': 614.6875, 'top': 519.015625, 'right': 302.859375, 'bottom': 1133.703125, 'left': 189.25}]}
+
+======================================================================
+FAIL: test_mobile_catalog_tag_codes_keep_readable_column (test_layout_quality_browser.LayoutQuality.test_mobile_catalog_tag_codes_keep_readable_column)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_quality_browser.py", line 87, in test_mobile_catalog_tag_codes_keep_readable_column
+    self.assertGreaterEqual(cell['width'],120,cell)
+AssertionError: 86 not greater than or equal to 120 : {'width': 86, 'height': 168.125, 'text': 'BB-101A'}
+
+======================================================================
+FAIL: test_mobile_diagnostic_table_does_not_break_narrative_by_character (test_layout_quality_browser.LayoutQuality.test_mobile_diagnostic_table_does_not_break_narrative_by_character)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_quality_browser.py", line 57, in test_mobile_diagnostic_table_does_not_break_narrative_by_character
+    self.assertGreaterEqual(row['width'],120,row)
+AssertionError: 21.140625 not greater than or equal to 120 : {'width': 21.140625, 'height': 285.640625, 'text': 'Consoles Operacionais (C02-C16)'}
+
+======================================================================
+FAIL: test_modal_text_uses_readable_background_in_each_theme (test_layout_quality_browser.LayoutQuality.test_modal_text_uses_readable_background_in_each_theme)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_quality_browser.py", line 102, in test_modal_text_uses_readable_background_in_each_theme
+    self.assertGreaterEqual((max(a,b)+.05)/(min(a,b)+.05),4.5,(theme,colors))
+AssertionError: 1.0359500155295212 not greater than or equal to 4.5 : ('light', {'text': 'rgb(24, 40, 59)', 'bg': 'rgb(24, 37, 54)'})
+
+======================================================================
+FAIL: test_wide_alert_settings_prioritize_form_and_compact_notice (test_layout_quality_browser.LayoutQuality.test_wide_alert_settings_prioritize_form_and_compact_notice)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_quality_browser.py", line 36, in test_wide_alert_settings_prioritize_form_and_compact_notice
+    self.assertLess(d['notice']['height'],350,d)
+AssertionError: 1454.90625 not less than 350 : {'main': {'x': 224, 'y': 130.15625, 'width': 1696, 'height': 2248.625, 'top': 130.15625, 'right': 1920, 'bottom': 2378.78125, 'left': 224}, 'notice': {'x': 246.390625, 'y': 196.140625, 'width': 1090.140625, 'height': 1454.90625, 'top': 196.140625, 'right': 1336.53125, 'bottom': 1651.046875, 'left': 246.390625}, 'form': {'x': 1371.125, 'y': 269.671875, 'width': 507.890625, 'height': 1362.78125, 'top': 269.671875, 'right': 1879.015625, 'bottom': 1632.453125, 'left': 1371.125}, 'preview': {'x': 246.390625, 'y': 1667.046875, 'width': 1090.140625, 'height': 679.734375, 'top': 1667.046875, 'right': 1336.53125, 'bottom': 2346.78125, 'left': 246.390625}}
+
+======================================================================
+FAIL: test_wide_dashboard_regions_share_first_operational_row (test_layout_quality_browser.LayoutQuality.test_wide_dashboard_regions_share_first_operational_row)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_quality_browser.py", line 27, in test_wide_dashboard_regions_share_first_operational_row
+    self.assertLessEqual(d['urgent']['top'],d['focus']['top']+80,(width,d))
+AssertionError: 775.84375 not less than or equal to 276.140625 : (1920, {'focus': {'x': 246.390625, 'y': 196.140625, 'width': 443.609375, 'height': 563.703125, 'top': 196.140625, 'right': 690, 'bottom': 759.84375, 'left': 246.390625}, 'urgent': {'x': 706, 'y': 775.84375, 'width': 731.984375, 'height': 701.46875, 'top': 775.84375, 'right': 1437.984375, 'bottom': 1477.3125, 'left': 706}, 'panorama': {'x': 1453.984375, 'y': 775.84375, 'width': 443.609375, 'height': 368.40625, 'top': 775.84375, 'right': 1897.59375, 'bottom': 1144.25, 'left': 1453.984375}, 'metrics': {'x': 246.390625, 'y': 1880.828125, 'width': 1651.203125, 'height': 79.484375, 'top': 1880.828125, 'right': 1897.59375, 'bottom': 1960.3125, 'left': 246.390625}})
+
+======================================================================
+FAIL: test_catalog_many_to_many_and_inactive_links_use_junction_readonly (test_layout_review_browser.LayoutReview.test_catalog_many_to_many_and_inactive_links_use_junction_readonly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_review_browser.py", line 44, in test_catalog_many_to_many_and_inactive_links_use_junction_readonly
+    self.assertEqual(sorted(linked.split(', ')),data['units'])
+AssertionError: Lists differ: ['Nenhuma'] != ['REFAP', 'TEDEP']
+
+First differing element 0:
+'Nenhuma'
+'REFAP'
+
+Second list contains 1 additional elements.
+First extra element 1:
+'TEDEP'
+
+- ['Nenhuma']
++ ['REFAP', 'TEDEP']
+
+======================================================================
+FAIL: test_completed_filter_scope_and_resize_preserve_selected_value (test_layout_review_browser.LayoutReview.test_completed_filter_scope_and_resize_preserve_selected_value)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_review_browser.py", line 85, in test_completed_filter_scope_and_resize_preserve_selected_value
+    self.assertEqual(self.page.locator('#completedFilters summary').count(),1,'Completed filters must expose a native disclosure')
+AssertionError: 0 != 1 : Completed filters must expose a native disclosure
+
+======================================================================
+FAIL: test_mobile_backup_keeps_complete_selected_filename_and_command (test_layout_review_browser.LayoutReview.test_mobile_backup_keeps_complete_selected_filename_and_command)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_review_browser.py", line 70, in test_mobile_backup_keeps_complete_selected_filename_and_command
+    self.assertEqual(self.page.locator('#backupSelectedFileName').count(),1,'Complete file name must be available outside the native input')
+AssertionError: 0 != 1 : Complete file name must be available outside the native input
+
+======================================================================
+FAIL: test_modal_title_message_close_and_actions_contrast_in_three_themes (test_layout_review_browser.LayoutReview.test_modal_title_message_close_and_actions_contrast_in_three_themes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_review_browser.py", line 35, in test_modal_title_message_close_and_actions_contrast_in_three_themes
+    for sample in samples:self.assertGreaterEqual(sample['ratio'],4.5,(theme,dialog,sample))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1.0359500155295212 not greater than or equal to 4.5 : ('light', 'confirm', {'text': 'Excluir previsão', 'ratio': 1.0359500155295212})
+
+======================================================================
+FAIL: test_tables_have_named_keyboard_scroll_and_readable_cells (test_layout_review_browser.LayoutReview.test_tables_have_named_keyboard_scroll_and_readable_cells)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_review_browser.py", line 56, in test_tables_have_named_keyboard_scroll_and_readable_cells
+    self.assertEqual(self.page.locator('#tableDiagCollections').count(),1,'Diagnostic table must have a stable accessible scroll region')
+AssertionError: 0 != 1 : Diagnostic table must have a stable accessible scroll region
+
+======================================================================
+FAIL: test_tablet_and_conventional_metrics_precede_focus (test_layout_review_browser.LayoutReview.test_tablet_and_conventional_metrics_precede_focus)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_layout_review_browser.py", line 82, in test_tablet_and_conventional_metrics_precede_focus
+    self.assertLessEqual(metrics['y']+metrics['height'],focus['y']+2,(width,metrics,focus))
+AssertionError: 2222.75 not less than or equal to 207.65625 : (768, {'x': 16, 'y': 2053.390625, 'width': 736, 'height': 169.359375}, {'x': 16, 'y': 205.65625, 'width': 736, 'height': 412.40625})
+
+======================================================================
+FAIL: test_missing_completion_actor_is_not_replaced_with_creator (test_edit_journey_browser.EditJourney.test_missing_completion_actor_is_not_replaced_with_creator)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_edit_journey_browser.py", line 65, in test_missing_completion_actor_is_not_replaced_with_creator
+    self.assertEqual(actor_detail,expected)
+AssertionError: '' != 'Não informado'
++ Não informado
+
+
+----------------------------------------------------------------------
+Ran 18 tests in 19.124s
+
+FAILED (failures=17)

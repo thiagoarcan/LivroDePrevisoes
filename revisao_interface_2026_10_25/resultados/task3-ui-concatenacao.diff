@@ -1,0 +1,9 @@
+--- task2-final/parts_js_ui.py
++++ parts_js_ui.py
+@@ -3992,3 +3992,6 @@
+ });
+ """
+ 
++from parts_js_presentation import JS_PRESENTATION
++JS_UI += JS_PRESENTATION
++

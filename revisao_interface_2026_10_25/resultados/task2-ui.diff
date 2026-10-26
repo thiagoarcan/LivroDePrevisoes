@@ -1,0 +1,1623 @@
+--- originais/parts_js_ui.py
++++ parts_js_ui.py
+@@ -4,13 +4,196 @@
+    9. CAMADA DE INTERFACE COM O USUÁRIO (UI CONTROLLER)
+    ========================================================================== */
+ App.UI = {
++  modalStack: [],
++  modalActions: new Map(),
++  modalBusy: new Set(),
++  pageSize: 50,
++  pages: {pending: 1, completed: 1},
++  localDate: function(value = Date.now()) {
++    const d = new Date(value);
++    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
++  },
++  isSafeDrawing: function(value) {
++    return typeof value === 'string' && value.length <= 3000000 && value.startsWith('data:image/png;base64,iVBORw0KGgo');
++  },
++  formatCountdown: function(timestamp) {
++    const diff=Number(timestamp)-Date.now(),seconds=Math.floor(Math.abs(diff)/1000);
++    const hours=Math.floor(seconds/3600),minutes=Math.floor(seconds%3600/60),remaining=seconds%60;
++    const text=(hours?`${hours}h `:'')+`${String(minutes).padStart(2,'0')}min ${String(remaining).padStart(2,'0')}s`;
++    return {text:(diff<0?'Atrasado há ':'Faltam ')+text,isOverdue:diff<0};
++  },
++  notifyPresentation: function(reason, eventId) {
++    window.dispatchEvent(new CustomEvent('app-ui-update', {detail:{reason,view:this.currentView,eventId}}));
++  },
++  refreshPresentationCache: async function() {
++    this._snapshot = await App.DB.snapshot();
++    this._settings = this._snapshot.settings.find(x=>x.key === 'app_settings')?.value || {...App.Config.DEFAULT_SETTINGS};
++    this._ranges = this._snapshot.colorRanges.filter(x=>x.active !== false);
++    this._temporalSignature = this.temporalSignature();
++    this.applyVisualPreferences();
++  },
++  getPresentationState: function() {
++    return {snapshot:this._snapshot,settings:this._settings,ranges:this._ranges,view:this.currentView,
++      activeConsoleId:this.activeConsoleId,pending:this.activePendingEvents,completed:this.activeCompletedEvents || [],
++      selectedEventId:this.currentView==='viewCompletedEvents'?this.selectedCompletedEventId:this.currentView==='viewDashboard'?this.spotlightEventId:this.selectedDetailEventId,
++      selections:{pending:this.selectedDetailEventId,completed:this.selectedCompletedEventId,dashboard:this.spotlightEventId},spotlightEventId:this.spotlightEventId,
++      category:this.currentCadastrosCategory,tier:this.getEffectiveViewportTier(),metricFilter:this.metricFilter,
++      filters:Object.fromEntries([...document.querySelectorAll('#filterDrawer input,#filterDrawer select')].map(e=>[e.id,e.type==='checkbox'?e.checked:e.value])),
++      classifyEvent:event=>App.Service.classifyEvent(event,this._ranges || [])};
++  },
++  temporalSignature: function() {
++    return (this._snapshot?.events || []).filter(e=>e.active!==false && e.status==='pendente').map(e=>{
++      const minutes=(new Date(e.scheduledAt).getTime()-Date.now())/60000;
++      const window=minutes<0?'overdue':minutes<=15?'15min':minutes<=30?'30min':minutes<=60?'60min':'later';
++      return e.id+':'+App.Service.classifyEvent(e,this._ranges||[]).key+':'+window+':'+e.alarmState;
++    }).join('|')+'|'+this.localDate();
++  },
++  applyVisualPreferences: function() {
++    const settings=this._settings || {};
++    document.body.classList.toggle('disable-pulsing',settings.pulsingEnabled===false);
++    document.body.classList.toggle('disable-highlight',settings.highlightCardEnabled===false);
++    if(settings.pulsingEnabled===false || matchMedia('(prefers-reduced-motion: reduce)').matches)
++      document.querySelectorAll('.pulsing-card,.pulsing-badge').forEach(e=>e.classList.remove('pulsing-card','pulsing-badge'));
++    if(settings.highlightCardEnabled===false) document.getElementById('spotlightCard')?.classList.remove('highlight-card','alarm-triggered');
++  },
++  reloadPreferences: async function() {
++    const settings=await App.Service.getSettings();this._settings=settings;
++    this.activeConsoleId=settings.activeConsoleId || null;
++    this.applyTheme(settings.theme || 'dark');
++    this.viewMode=['cards','table'].includes(settings.viewMode)?settings.viewMode:'cards';this.updateViewModeUI();
++    await this.applyResponsiveLayoutMode(settings.responsiveLayoutMode || 'auto',false);
++    document.getElementById('headerUserName').textContent=settings.localUserName;
++    const drawerUser=document.getElementById('labelDrawerUser');if(drawerUser)drawerUser.textContent='Usuário: '+settings.localUserName;
++    const user=document.getElementById('inputSettingsUserName');if(user)user.value=settings.localUserName;
++    this.updateBackupPill(settings.lastBackupAt);
++    await this.initHeaderConsole();await this.refreshAllMasterDataDropdowns();await this.refreshPresentationCache();
++    this.populateFilterDropdowns(this._snapshot.consoles,this._snapshot.pipelines,this._snapshot.operationalUnits);
++    await this.renderConfigAlerts();this.notifyPresentation('import');
++  },
++  clearPendingFilters: function() {
++    for(const id of ['inputSearchPending','filterConsole','filterPipeline','filterUO','filterStatus','filterAlarm','filterPriority','filterDateFrom','filterDateTo']){
++      const e=document.getElementById(id);if(e)e.value='';
++    }
++    this.metricFilter=null;this.pages.pending=1;
++  },
++  applyMetricFilter: function(events) {
++    const filter=this.metricFilter;
++    return events.filter(e=>{const minutes=(new Date(e.scheduledAt).getTime()-Date.now())/60000;
++      if(filter==='overdue')return minutes<0;if(filter==='unacknowledged')return e.alarmState==='triggered';
++      if(filter==='15min')return minutes>=0 && minutes<=15;if(filter==='30min')return minutes>15 && minutes<=30;
++      if(filter==='60min')return minutes>30 && minutes<=60;return true;});
++  },
++  paginateEvents: function(kind,events) {
++    const key=events.map(e=>e.id).join('|');
++    this._pageKeys ||= {};
++    if(this._pageKeys[kind]!==key){this.pages[kind]=1;this._pageKeys[kind]=key;}
++    const count=Math.max(1,Math.ceil(events.length/this.pageSize));
++    this.pages[kind]=Math.min(count,Math.max(1,this.pages[kind]||1));
++    const id=kind+'Pagination';let nav=document.getElementById(id);
++    if(!nav){nav=document.createElement('nav');nav.id=id;nav.className='events-pagination';nav.setAttribute('aria-label',kind==='pending'?'Páginas de previsões pendentes':'Páginas de previsões concluídas');document.getElementById(kind==='pending'?'pendingEmptyMessage':'completedEmptyMessage').before(nav);}
++    nav.replaceChildren();
++    const label=document.createElement('span');label.textContent=`${events.length} resultado(s) • Página ${this.pages[kind]} de ${count}`;
++    for(const [text,delta] of [['Anterior',-1],['Próxima',1]]){
++      const button=document.createElement('button');button.type='button';button.className='btn btn-outline btn-sm';button.textContent=text;
++      button.disabled=delta<0?this.pages[kind]<=1:this.pages[kind]>=count;
++      button.onclick=()=>{this.pages[kind]+=delta;this[kind==='pending'?'renderPendingEvents':'renderCompletedEvents']();};nav.append(button);
++    }
++    nav.prepend(label);
++    return events.slice((this.pages[kind]-1)*this.pageSize,this.pages[kind]*this.pageSize);
++  },
++  toggleCompletedCard: function(card) {
++    const expanded=card.classList.toggle('expanded');card.setAttribute('aria-expanded',String(expanded));
++    const details=card.querySelector('.completed-card-details');details.hidden=!expanded;details.style.display=expanded?'block':'none';
++    this.selectedCompletedEventId=card.dataset.eventId;this.notifyPresentation('selection',card.dataset.eventId);
++  },
++  movePendingSelection: function(direction) {
++    const index=this.activePendingEvents.findIndex(e=>e.id===this.selectedDetailEventId);
++    const event=this.activePendingEvents[index+direction];if(event)this.selectPendingDetailEvent(event.id);
++  },
++  selectCompletedEvent: function(eventId) {
++    this.selectedCompletedEventId=eventId;this.notifyPresentation('selection',eventId);
++  },
++  focusable: function(root) {
++    return [...root.querySelectorAll('button,a[href],input,select,textarea,[tabindex]')].filter(e=>!e.disabled && e.tabIndex>=0 && !e.closest('[inert]') && e.getClientRects().length);
++  },
++  syncModalInert: function() {
++    for(const e of this._inerted || []) e.inert=false;
++    this._inerted=[];
++    const top=this.modalStack.at(-1)?.element;
++    if(top){let node=top;while(node.parentElement && node.parentElement!==document.documentElement){for(const sibling of node.parentElement.children){if(sibling!==node && !['SCRIPT','STYLE'].includes(sibling.tagName) && sibling.id!=='toastContainer'){if(!sibling.inert){sibling.inert=true;this._inerted.push(sibling);}}}node=node.parentElement;}}
++    const drawer=document.getElementById('appMobileDrawer');if(drawer && top!==drawer && !drawer.classList.contains('open'))drawer.inert=true;
++    for(const entry of this.modalStack)if(entry.element!==top){entry.element.inert=true;this._inerted.push(entry.element);}
++  },
++  openModal: function(id) {
++    const element=document.getElementById(id);if(!element)return;
++    const current=this.modalStack.find(e=>e.element===element);
++    if(!current)this.modalStack.push({element,returnFocus:document.activeElement,event:this.selectedEventForAction});
++    else current.event=this.selectedEventForAction;
++    element.inert=false;element.hidden=false;element.classList.add('active');element.setAttribute('role','dialog');element.setAttribute('aria-modal','true');element.tabIndex=-1;
++    if(!element.getAttribute('aria-label')&&!element.getAttribute('aria-labelledby'))element.setAttribute('aria-label',element.querySelector('.modal-header,h2,h3')?.textContent.trim() || 'Diálogo');
++    element.setAttribute('aria-hidden','false');this.syncModalInert();
++    (this.focusable(element)[0] || element).focus();
++  },
++  closeModal: function(id, force=false) {
++    if(this.modalBusy.has(id)&&!force)return false;
++    const index=this.modalStack.findIndex(x=>x.element.id===id),entry=this.modalStack[index];
++    const element=document.getElementById(id);this.modalActions.delete(id);
++    if(element){element.classList.remove('active','open','active-sheet');element.setAttribute('aria-hidden','true');element.removeAttribute('aria-modal');}
++    if(id==='appMobileDrawer'){document.getElementById('mobileDrawerOverlay')?.classList.remove('open','active');document.getElementById('btnToggleMobileMenu')?.setAttribute('aria-expanded','false');if(element)element.inert=true;}
++    if(id==='filterDrawer'){element.style.display='none';document.getElementById('btnToggleFilters')?.setAttribute('aria-expanded','false');}
++    if(id==='boxStylusCanvas'){
++      element.classList.remove('fullscreen-lousa');
++      const button=document.getElementById('btnFullscreenStylusCanvas');button.textContent='⛶ Tela Cheia';button.classList.remove('btn-primary');button.classList.add('btn-outline');
++    }
++    if(entry)this.modalStack.splice(index,1);
++    this.syncModalInert();
++    const top=this.modalStack.at(-1);if(top)this.selectedEventForAction=top.event;
++    if(entry?.returnFocus?.isConnected && !entry.returnFocus.closest('[inert]'))entry.returnFocus.focus();
++    else if(top)(this.focusable(top.element)[0]||top.element).focus();
++    return true;
++  },
++  setModalAction: function(id,buttonId,action) {
++    this.modalActions.set(id,action);
++    const button=document.getElementById(buttonId);button.disabled=false;
++    button.onclick=()=>{
++      if(this.modalBusy.has(id))return;
++      const callback=this.modalActions.get(id);if(!callback)return;
++      this.modalActions.delete(id);this.modalBusy.add(id);button.disabled=true;
++      let result;
++      try{result=callback();}catch(error){result=Promise.reject(error);}
++      Promise.resolve(result).then(value=>{if(value!==false)this.closeModal(id,true);else if(this.modalStack.some(x=>x.element.id===id))this.modalActions.set(id,callback);})
++      .catch(error=>{this.showToast(error.message,'danger');App.DB.logError(error,'Interface: '+id);if(this.modalStack.some(x=>x.element.id===id))this.modalActions.set(id,callback);})
++      .finally(()=>{this.modalBusy.delete(id);button.disabled=false;});
++    };
++  },
++  initUIController: function() {
++    if(!this._settings.firstMobileNoticeShown && this.getEffectiveViewportTier()==='mobile'){
++      const notice=document.createElement('aside');notice.id='appRuntimeNotice';notice.className='runtime-notice';notice.setAttribute('role','note');
++      const text=document.createElement('p');text.textContent='Mantenha esta aplicação aberta e o áudio ativado. O navegador pode suspender alarmes em segundo plano ou com a tela bloqueada. Exporte backups dos dados locais.';
++      const dismiss=document.createElement('button');dismiss.type='button';dismiss.className='btn btn-outline btn-sm';dismiss.textContent='Entendi';dismiss.onclick=async()=>{const settings=await App.Service.getSettings();settings.firstMobileNoticeShown=true;await App.Service.saveSettings(settings);notice.remove();};
++      notice.append(text,dismiss);document.querySelector('.app-main')?.prepend(notice);
++    }
++    document.querySelectorAll('[role=dialog],.modal-overlay').forEach(e=>{
++      if(!e.getAttribute('aria-label')&&!e.getAttribute('aria-labelledby'))e.setAttribute('aria-label',e.querySelector('h2,h3,.modal-header')?.textContent.trim() || 'Diálogo');
++    });
++    document.querySelectorAll('.metric-card[data-filter]').forEach(e=>{e.setAttribute('role','button');e.tabIndex=0;e.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();e.click();}});});
++    const header=document.querySelector('.app-header');
++    if(header && window.ResizeObserver)new ResizeObserver(()=>document.documentElement.style.setProperty('--app-header-height',header.getBoundingClientRect().height+'px')).observe(header);
++    window.addEventListener('alarm-engine-tick',async e=>{
++      const ids=(e.detail.triggeredIds || []).slice().sort().join('|');
++      if(ids!==this._triggeredIds){this._triggeredIds=ids;await this.refreshPresentationCache();await this.renderDashboard();if(this.currentView==='viewPendingEvents')await this.renderPendingEvents();}
++      await this.updateLiveTimers();
++    });
++    if(window.visualViewport){const resize=()=>{document.body.classList.toggle('keyboard-open',visualViewport.height<window.innerHeight*.7);};visualViewport.addEventListener('resize',resize);}
++    this.notifyPresentation('init');
++  },
+   currentView: 'viewDashboard',
+   viewMode: 'cards', // 'cards' ou 'table' para lista de pendentes
+   responsiveLayoutMode: 'auto', // 'auto', 'compact', 'mobile', 'tablet', 'conventional', 'widescreen', 'ultrawide'
+   activePendingEvents: [],
+   selectedEventForAction: null,
+   selectedDetailEventId: null,
+-  selectedDetailTab: 'details', // 'details', 'notes', 'history'
++  selectedDetailTab: 'detalhes',
+   activeConsoleId: null,
+   currentCadastrosCategory: 'consoles',
+ 
+@@ -25,6 +208,13 @@
+   stylusActivePointerType: null,
+ 
+   init: async function() {
++    const alertsForm=document.getElementById('formAlertSettings');
++    if(alertsForm && !document.getElementById('inputBackupReminderDays')){
++      const group=document.createElement('div');group.className='form-group';
++      const label=document.createElement('label');label.htmlFor='inputBackupReminderDays';label.textContent='Lembrar backup após (dias)';
++      const input=document.createElement('input');input.id='inputBackupReminderDays';input.type='number';input.min='1';input.max='3650';input.required=true;input.value='7';
++      group.append(label,input);alertsForm.querySelector('.form-grid')?.append(group);
++    }
+     this.bindGlobalEvents();
+     this.bindNavEvents();
+     this.bindFormEvents();
+@@ -36,6 +226,7 @@
+     this.applyTheme(settings.theme || 'dark');
+ 
+     // Modo de visualização da lista (cards vs table)
++    this._settings = settings;
+     if (settings.viewMode === 'cards' || settings.viewMode === 'table') {
+       this.viewMode = settings.viewMode;
+     } else {
+@@ -73,6 +264,9 @@
+ 
+     // Iniciar na tela Painel
+     await this.renderDashboard();
++    this.initUIController();
++    await this.refreshPresentationCache();
++    if (App.Presentation) await App.Presentation.init();
+     App.AlarmEngine.start();
+   },
+ 
+@@ -87,8 +281,8 @@
+     const w = window.innerWidth || 1280;
+     if (w < 768) return 'mobile';
+     if (w < 1200) return 'tablet';
+-    if (w < 1600) return 'conventional';
+-    if (w < 2200) return 'widescreen';
++    if (w < 1920) return 'conventional';
++    if (w < 2560) return 'widescreen';
+     return 'ultrawide';
+   },
+ 
+@@ -97,22 +291,9 @@
+     const cleanMode = validModes.includes(mode) ? mode : 'auto';
+     this.responsiveLayoutMode = cleanMode;
+ 
+-    document.body.classList.remove('density-compact');
+-    document.body.removeAttribute('data-layout-mode');
+-
+-    if (cleanMode === 'compact') {
+-      document.body.classList.add('density-compact');
+-      const tier = this.getEffectiveViewportTier('auto');
+-      document.body.setAttribute('data-layout-mode', tier);
+-    } else if (cleanMode === 'auto') {
+-      // Em modo auto, também expomos o tier efetivo caso útil, mas deixamos as media queries livres
+-      const tier = this.getEffectiveViewportTier('auto');
+-      if (tier === 'widescreen' || tier === 'ultrawide') {
+-        document.body.setAttribute('data-layout-mode', tier);
+-      }
+-    } else {
+-      document.body.setAttribute('data-layout-mode', cleanMode);
+-    }
++    document.body.classList.toggle('density-compact', cleanMode === 'compact');
++    document.body.dataset.layoutMode = this.getEffectiveViewportTier(cleanMode);
++    document.body.classList.toggle('layout-narrow', window.innerWidth < 768);
+ 
+     // Sincronizar todos os seletores de modo de exibição
+     ['selectHeaderViewMode', 'selectDrawerViewMode', 'selectSettingsViewMode'].forEach(id => {
+@@ -122,23 +303,19 @@
+ 
+     this.checkViewModeUsabilityWarning();
+ 
+-    // Ajustar exibição padrão de Cadastros conforme tier
+-    const effTier = this.getEffectiveViewportTier(cleanMode);
+-    if (effTier === 'mobile' || effTier === 'tablet') {
+-      this.switchCadastrosCategory(this.currentCadastrosCategory || 'consoles');
+-    } else {
+-      this.switchCadastrosCategory('all');
+-    }
++    this.switchCadastrosCategory(this.currentCadastrosCategory || 'consoles');
+ 
+     if (persist) {
+       const settings = await App.Service.getSettings();
+       settings.responsiveLayoutMode = cleanMode;
+       await App.Service.saveSettings(settings);
++      this._settings=settings;await this.refreshPresentationCache();this.notifyPresentation('settings');
+     }
+ 
+     if (this.currentView === 'viewPendingEvents') {
+-      this.renderPendingDetailPane();
+-    }
++      await this.renderPendingDetailPane(this.selectedDetailEventId);
++    }
++    this.notifyPresentation('layout');
+   },
+ 
+   checkViewModeUsabilityWarning: function() {
+@@ -167,15 +344,10 @@
+   },
+ 
+   handleViewportResize: function() {
+-    if (this.responsiveLayoutMode === 'auto' || this.responsiveLayoutMode === 'compact') {
+-      const tier = this.getEffectiveViewportTier('auto');
+-      if (this.responsiveLayoutMode === 'compact' || tier === 'widescreen' || tier === 'ultrawide') {
+-        document.body.setAttribute('data-layout-mode', tier);
+-      } else {
+-        document.body.removeAttribute('data-layout-mode');
+-      }
+-    }
++    document.body.dataset.layoutMode = this.getEffectiveViewportTier(this.responsiveLayoutMode);
++    document.body.classList.toggle('layout-narrow', window.innerWidth < 768);
+     this.checkViewModeUsabilityWarning();
++    this.notifyPresentation('layout');
+   },
+ 
+   applyTheme: function(themeName) {
+@@ -214,6 +386,7 @@
+     const nextTheme = order[(curIdx + 1) % order.length];
+     settings.theme = nextTheme;
+     await App.Service.saveSettings(settings);
++      this._settings=settings;await this.refreshPresentationCache();this.notifyPresentation('settings');
+     this.applyTheme(nextTheme);
+     const names = { dark: 'Controle Escuro', light: 'Profissional Claro', industrial: 'Industrial Alto Contraste' };
+     this.showToast(`Tema visual alterado para: ${names[nextTheme]}`, 'info');
+@@ -230,14 +403,14 @@
+       const dt = App.Utils.formatDateTime(lastBackupAt);
+       const daysDiff = Math.floor((Date.now() - new Date(lastBackupAt).getTime()) / (1000 * 60 * 60 * 24));
+       if (pill) {
+-        pill.className = daysDiff > 7 ? 'status-pill warn' : 'status-pill ok';
++        pill.className = daysDiff >= (this._settings?.backupReminderDays ?? 7) ? 'status-pill warn' : 'status-pill ok';
+         pill.innerHTML = `<span class="indicator-dot">&bull;</span> Backup: ${App.Utils.formatDate(lastBackupAt)}`;
+       }
+       if (labelDate) labelDate.textContent = `Último backup: ${dt}`;
+       if (statusModalBackup) statusModalBackup.textContent = `${dt} (${daysDiff === 0 ? 'Hoje' : 'há ' + daysDiff + ' dia(s)'})`;
+ 
+       if (overdueBanner) {
+-        if (daysDiff > 7) {
++        if (daysDiff >= (this._settings?.backupReminderDays ?? 7)) {
+           if (overdueText) overdueText.textContent = `Último backup local realizado há ${daysDiff} dias (${App.Utils.formatDate(lastBackupAt)}). Recomenda-se exportar novo backup.`;
+           overdueBanner.style.display = 'flex';
+         } else {
+@@ -287,6 +460,7 @@
+           const settings = await App.Service.getSettings();
+           settings.activeConsoleId = this.activeConsoleId;
+           await App.Service.saveSettings(settings);
++      this._settings=settings;await this.refreshPresentationCache();this.notifyPresentation('settings');
+ 
+           await this.syncActiveConsoleUI();
+           const selName = selectHeader.options[selectHeader.selectedIndex]?.text.replace('Console: ', '') || '';
+@@ -304,6 +478,7 @@
+     }
+ 
+     await this.syncActiveConsoleUI();
++    this.notifyPresentation('console');
+   },
+ 
+   syncActiveConsoleUI: async function() {
+@@ -339,15 +514,18 @@
+     const btnBottomMore = document.getElementById('btnBottomNavMore');
+ 
+     const openDrawer = () => {
+-      drawer?.classList.add('open', 'active');
++      drawer?.classList.add('open');
+       overlay?.classList.add('open', 'active');
++      btnOpen?.setAttribute('aria-expanded','true');
++      this.openModal('appMobileDrawer');
+     };
+ 
+     const closeDrawer = () => {
+-      drawer?.classList.remove('open', 'active');
+-      overlay?.classList.remove('open', 'active');
++      this.closeModal('appMobileDrawer');
+     };
+ 
++    if(drawer)drawer.inert=true;
++    btnOpen?.setAttribute('aria-expanded','false');
+     btnOpen?.addEventListener('click', openDrawer);
+     btnBottomMore?.addEventListener('click', openDrawer);
+     btnClose?.addEventListener('click', closeDrawer);
+@@ -401,7 +579,7 @@
+     this.updateBackupPill(settings.lastBackupAt);
+     App.Audio.updateStatusPill();
+     App.Notifications.updateStatusPill();
+-    document.getElementById('modalAppStatus')?.classList.add('active');
++    this.openModal('modalAppStatus');
+   },
+ 
+   // --------------------------------------------------------------------------
+@@ -420,6 +598,8 @@
+     const modeIndicator = document.getElementById('stylusModeIndicator');
+ 
+     if (!canvas) return;
++    canvas.width=1200;canvas.height=440;
++    canvas.style.width='100%';canvas.style.height='auto';canvas.style.aspectRatio='1200 / 440';
+     this.stylusCanvas = canvas;
+     this.stylusCtx = canvas.getContext('2d');
+     this.stylusHistory = [];
+@@ -468,6 +648,9 @@
+       if (this.stylusIsDrawing && this.stylusActivePointerType === 'pen' && e.pointerType === 'touch') {
+         return;
+       }
++      if(this.stylusIsDrawing)return;
++      this.stylusActivePointerId=e.pointerId;
++      canvas.style.touchAction='none';e.preventDefault();
+       pushHistorySnapshot();
+       this.stylusActivePointerType = e.pointerType;
+       try { canvas.setPointerCapture(e.pointerId); } catch(err) {}
+@@ -495,7 +678,7 @@
+     });
+ 
+     canvas.addEventListener('pointermove', (e) => {
+-      if (!this.stylusIsDrawing) return;
++      if (!this.stylusIsDrawing || e.pointerId!==this.stylusActivePointerId) return;
+       if (this.stylusActivePointerType === 'pen' && e.pointerType === 'touch') return;
+       const pos = getPos(e);
+       this.stylusCtx.lineTo(pos.x, pos.y);
+@@ -503,9 +686,10 @@
+     });
+ 
+     const stopDrawing = (e) => {
+-      if (this.stylusIsDrawing) {
++      if (this.stylusIsDrawing && e.pointerId===this.stylusActivePointerId) {
+         this.stylusIsDrawing = false;
+         this.stylusActivePointerType = null;
++        this.stylusActivePointerId=null;canvas.style.touchAction='pan-y';
+         try { canvas.releasePointerCapture(e.pointerId); } catch(err) {}
+         this.stylusDrawingData = canvas.toDataURL('image/png');
+       }
+@@ -513,7 +697,9 @@
+ 
+     canvas.addEventListener('pointerup', stopDrawing);
+     canvas.addEventListener('pointercancel', stopDrawing);
+-    canvas.addEventListener('pointerleave', stopDrawing);
++    canvas.style.touchAction='pan-y';
++    canvas.addEventListener('touchstart',e=>{if(this.stylusIsDrawing)e.preventDefault();},{passive:false});
++    canvas.addEventListener('touchmove',e=>{if(this.stylusIsDrawing)e.preventDefault();},{passive:false});
+ 
+     // Desfazer último traço (Undo)
+     btnUndo?.addEventListener('click', () => {
+@@ -540,6 +726,7 @@
+     // Tela Cheia para Lousa
+     btnFullscreen?.addEventListener('click', () => {
+       const isFull = boxCanvas.classList.toggle('fullscreen-lousa');
++      if(isFull)this.openModal('boxStylusCanvas');else this.closeModal('boxStylusCanvas');
+       btnFullscreen.textContent = isFull ? '✕ Concluir Tela Cheia' : '⛶ Tela Cheia';
+       btnFullscreen.classList.toggle('btn-primary', isFull);
+       btnFullscreen.classList.toggle('btn-outline', !isFull);
+@@ -566,6 +753,7 @@
+   },
+ 
+   clearStylusPad: function(resetHistory = true) {
++    if(this.modalStack.some(x=>x.element.id==='boxStylusCanvas'))this.closeModal('boxStylusCanvas',true);
+     if (this.stylusCanvas && this.stylusCtx) {
+       this.stylusCtx.globalCompositeOperation = 'source-over';
+       this.stylusCtx.clearRect(0, 0, this.stylusCanvas.width, this.stylusCanvas.height);
+@@ -613,6 +801,7 @@
+   // ATUALIZAÇÃO CENTRALIZADA DE LISTAS DE UOS (SINCRONIZAÇÃO EM TEMPO REAL)
+   // --------------------------------------------------------------------------
+   refreshAllMasterDataDropdowns: async function() {
++    await this.refreshPresentationCache();this.notifyPresentation('catalog');
+     const uos = await App.DB.getAll('operationalUnits');
+     const activeUOs = uos.filter(u => u.active).sort((a, b) => a.name.localeCompare(b.name));
+ 
+@@ -692,11 +881,9 @@
+     });
+ 
+     document.getElementById('btnBannerViewAlarms')?.addEventListener('click', () => {
+-      this.navigateTo('viewPendingEvents', () => {
+-        const fAlarm = document.getElementById('filterAlarm');
+-        if (fAlarm) fAlarm.value = 'sim';
+-        this.renderPendingEvents();
+-      });
++      this.clearPendingFilters();this.metricFilter='unacknowledged';
++      document.getElementById('checkFilterOnlyActiveConsole').checked=false;
++      this.navigateTo('viewPendingEvents');
+     });
+ 
+     document.getElementById('btnBannerAckAll')?.addEventListener('click', async () => {
+@@ -711,8 +898,7 @@
+     });
+ 
+     document.getElementById('btnDrawerCloseBottom')?.addEventListener('click', () => {
+-      document.getElementById('appMobileDrawer')?.classList.remove('open', 'active');
+-      document.getElementById('mobileDrawerOverlay')?.classList.remove('open', 'active');
++      this.closeModal('appMobileDrawer');
+     });
+ 
+     // Seletor de Tema Visual nas Configurações
+@@ -721,16 +907,15 @@
+       const settings = await App.Service.getSettings();
+       settings.theme = newTheme;
+       await App.Service.saveSettings(settings);
++      this._settings=settings;await this.refreshPresentationCache();this.notifyPresentation('settings');
+       this.applyTheme(newTheme);
+     });
+ 
+     // Sino de Alarmes no Header Mobile/Tablet
+     document.getElementById('btnHeaderAlarmBell')?.addEventListener('click', () => {
+-      this.navigateTo('viewPendingEvents', () => {
+-        const fAlarm = document.getElementById('filterAlarm');
+-        if (fAlarm) fAlarm.value = 'sim';
+-        this.renderPendingEvents();
+-      });
++      this.clearPendingFilters();this.metricFilter='unacknowledged';
++      document.getElementById('checkFilterOnlyActiveConsole').checked=false;
++      this.navigateTo('viewPendingEvents');
+     });
+ 
+     // Mudar usuário local (Header e Gaveta)
+@@ -741,6 +926,7 @@
+       if (newName !== null) {
+         settings.localUserName = newName.trim() || 'Usuário local';
+         await App.Service.saveSettings(settings);
++      this._settings=settings;await this.refreshPresentationCache();this.notifyPresentation('settings');
+         document.getElementById('headerUserName').textContent = settings.localUserName;
+         const lblDrawerUser = document.getElementById('labelDrawerUser');
+         if (lblDrawerUser) lblDrawerUser.textContent = `👤 Usuário: ${settings.localUserName}`;
+@@ -762,16 +948,15 @@
+       card.addEventListener('click', () => {
+         const filter = card.getAttribute('data-filter');
+         if (filter === 'completed') {
++          for(const id of ['inputSearchCompleted','filterCompletedConsole','filterCompletedPipeline','filterCompletedUO','filterCompletedTiming','filterCompletedDateFrom','filterCompletedDateTo'])document.getElementById(id).value='';
++          this.completedTodayOnly = true;
+           this.navigateTo('viewCompletedEvents');
+         } else {
+-          this.navigateTo('viewPendingEvents', () => {
+-            if (filter === 'overdue') {
+-              document.getElementById('filterStatus').value = 'Atrasado';
+-            } else if (filter === 'unacknowledged') {
+-              document.getElementById('filterAlarm').value = 'sim';
+-            }
+-            this.renderPendingEvents();
+-          });
++          this.clearPendingFilters();
++          this.metricFilter = filter === 'all' ? null : filter;
++          this.activePendingEvents=this.applyMetricFilter((this._snapshot?.events||[]).filter(e=>e.active!==false && e.status==='pendente'));
++          document.getElementById('checkFilterOnlyActiveConsole').checked = false;
++          this.navigateTo('viewPendingEvents');
+         }
+       });
+     });
+@@ -814,7 +999,8 @@
+       await this.initNewEventCombos();
+     }
+ 
+-    if (callback) callback();
++    if (callback) await callback();
++    this.notifyPresentation('navigation');
+   },
+ 
+   // --------------------------------------------------------------------------
+@@ -1080,6 +1266,7 @@
+         };
+ 
+         await App.Service.saveEvent(eventData);
++        await this.refreshPresentationCache();this.notifyPresentation('crud');
+ 
+         if (continueOnPipeline) {
+           this.showToast('Previsão salva com sucesso! Pronto para nova previsão no duto.', 'success');
+@@ -1145,9 +1332,10 @@
+       try {
+         const settings = await App.Service.getSettings();
+         settings.localUserName = document.getElementById('inputSettingsUserName').value.trim() || 'Usuário local';
+-        settings.defaultLeadTimeMinutes = parseInt(document.getElementById('inputDefaultLeadTime').value, 10) || 15;
++        settings.backupReminderDays=Number(document.getElementById('inputBackupReminderDays').value);
++        settings.defaultLeadTimeMinutes = Number(document.getElementById('inputDefaultLeadTime').value);
+         settings.soundType = document.getElementById('selectSoundType').value;
+-        settings.soundVolume = parseInt(document.getElementById('rangeSoundVolume').value, 10) || 80;
++        settings.soundVolume = Number(document.getElementById('rangeSoundVolume').value);
+         settings.soundEnabled = document.getElementById('checkSettingSound').checked;
+         settings.visualAlertEnabled = document.getElementById('checkSettingVisualModal').checked;
+         settings.highlightCardEnabled = document.getElementById('checkSettingHighlightCard').checked;
+@@ -1155,8 +1343,8 @@
+         settings.changeTitleEnabled = document.getElementById('checkSettingChangeTitle').checked;
+         settings.notificationEnabled = document.getElementById('checkSettingNotification').checked;
+         settings.repeatAlarm = document.getElementById('checkSettingRepeat').checked;
+-        settings.repeatIntervalMinutes = parseInt(document.getElementById('inputSettingRepeatInterval').value, 10) || 2;
+-        settings.maxRepeats = parseInt(document.getElementById('inputSettingMaxRepeats').value, 10) || 5;
++        settings.repeatIntervalMinutes = Number(document.getElementById('inputSettingRepeatInterval').value);
++        settings.maxRepeats = Number(document.getElementById('inputSettingMaxRepeats').value);
+ 
+         const selViewMode = document.getElementById('selectSettingsViewMode');
+         if (selViewMode) {
+@@ -1171,6 +1359,7 @@
+         }
+ 
+         await App.Service.saveSettings(settings);
++      this._settings=settings;await this.refreshPresentationCache();this.notifyPresentation('settings');
+         document.getElementById('headerUserName').textContent = settings.localUserName;
+         this.showToast('Configurações salvas com sucesso!', 'success');
+       } catch (err) {
+@@ -1199,7 +1388,7 @@
+         id: 'test-event',
+         description: 'Verificar término do recebimento de Diesel S10 (Evento de Teste)',
+         notes: 'Alerta visual de demonstração do sistema.',
+-        scheduledDate: new Date().toISOString().substring(0, 10),
++        scheduledDate: this.localDate(),
+         scheduledTime: App.Utils.formatTime(new Date()),
+         scheduledAt: new Date(Date.now() + 600000).toISOString()
+       }, true);
+@@ -1344,9 +1533,12 @@
+     document.getElementById('btnLoadDemoData')?.addEventListener('click', () => {
+       this.showConfirmModal(
+         'Carregar Dados de Demonstração',
+-        'Deseja recarregar os dados operacionais de demonstração (Consoles C02-C16, Dutos, UOs, TAGs e Eventos de exemplo)?',
++        'Esta ação substituirá todos os dados locais por exemplos de demonstração. Um backup preventivo será exportado antes de apagar a base. Deseja continuar?',
+         async () => {
++          await App.Backup.exportJSON({preventive:true});
+           await App.Service.clearAllData();
++          await App.Service.loadDemoData();
++          await this.reloadPreferences();
+           this.showToast('Massa de dados de demonstração carregada com sucesso!', 'success');
+           await this.initHeaderConsole();
+           await this.renderDashboard();
+@@ -1360,6 +1552,7 @@
+         'ATENÇÃO: Esta ação apagará permanentemente todos os eventos, cadastros e históricos locais. Deseja realmente prosseguir?',
+         async () => {
+           await App.Service.clearAllData();
++          await this.reloadPreferences();
+           this.showToast('Todos os dados foram apagados e a base reiniciada.', 'warning');
+           await this.renderDashboard();
+         }
+@@ -1444,18 +1637,21 @@
+     chkAlarm.checked = event.hasAlarm;
+     chkDefault.checked = event.useDefaultAlarmSettings;
+ 
+-    document.getElementById('inputEventAlarmLeadTime').value = event.alarmMinutesBefore || 15;
++    document.getElementById('inputEventAlarmLeadTime').value = event.alarmMinutesBefore ?? 15;
+     document.getElementById('checkEventAlertSound').checked = event.alarmAudio !== false;
+     document.getElementById('checkEventAlertVisual').checked = event.alarmVisual !== false;
+     document.getElementById('checkEventAlertNotif').checked = !!event.alarmNotification;
+     document.getElementById('checkEventAlertRepeat').checked = !!event.alarmRepeat;
+-    document.getElementById('inputEventAlertRepeatInterval').value = event.alarmRepeatInterval || 2;
+-    document.getElementById('inputEventAlertMaxRepeats').value = event.alarmMaxRepeats || 5;
++    document.getElementById('inputEventAlertRepeatInterval').value = event.alarmRepeatInterval ?? 2;
++    document.getElementById('inputEventAlertMaxRepeats').value = event.alarmMaxRepeats ?? 5;
+ 
+     document.getElementById('boxCustomAlarmSettings').style.display = (!event.hasAlarm || event.useDefaultAlarmSettings) ? 'none' : 'grid';
+     document.getElementById('wrapperUseDefaultAlarm').style.display = event.hasAlarm ? 'flex' : 'none';
+ 
+-    if (event.stylusDrawing) {
++    const safeDrawing = this.isSafeDrawing(event.stylusDrawing);
++    const outerDrawing = document.getElementById('detailsModalDrawingBox');
++    if (outerDrawing) outerDrawing.style.display = safeDrawing ? 'block' : 'none';
++    if (safeDrawing) {
+       this.loadStylusData(event.stylusDrawing);
+     }
+ 
+@@ -1490,13 +1686,13 @@
+       chkAlarm.checked = clone.hasAlarm;
+       chkDefault.checked = clone.useDefaultAlarmSettings;
+ 
+-      document.getElementById('inputEventAlarmLeadTime').value = clone.alarmMinutesBefore || 15;
++      document.getElementById('inputEventAlarmLeadTime').value = clone.alarmMinutesBefore ?? 15;
+       document.getElementById('checkEventAlertSound').checked = clone.alarmAudio !== false;
+       document.getElementById('checkEventAlertVisual').checked = clone.alarmVisual !== false;
+       document.getElementById('checkEventAlertNotif').checked = !!clone.alarmNotification;
+       document.getElementById('checkEventAlertRepeat').checked = !!clone.alarmRepeat;
+-      document.getElementById('inputEventAlertRepeatInterval').value = clone.alarmRepeatInterval || 2;
+-      document.getElementById('inputEventAlertMaxRepeats').value = clone.alarmMaxRepeats || 5;
++      document.getElementById('inputEventAlertRepeatInterval').value = clone.alarmRepeatInterval ?? 2;
++      document.getElementById('inputEventAlertMaxRepeats').value = clone.alarmMaxRepeats ?? 5;
+ 
+       document.getElementById('boxCustomAlarmSettings').style.display = (!clone.hasAlarm || clone.useDefaultAlarmSettings) ? 'none' : 'grid';
+       document.getElementById('wrapperUseDefaultAlarm').style.display = clone.hasAlarm ? 'flex' : 'none';
+@@ -1529,24 +1725,25 @@
+ 
+     btnToggle?.addEventListener('click', () => {
+       const isVisible = filterDrawer.style.display !== 'none';
+-      filterDrawer.style.display = isVisible ? 'none' : 'grid';
+-      btnToggle.classList.toggle('btn-secondary', !isVisible);
++      if(isVisible){this.closeModal('filterDrawer');return;}
++      filterDrawer.style.display='grid';btnToggle.setAttribute('aria-expanded','true');
++      if(window.innerWidth<768 || this.getEffectiveViewportTier()==='mobile'){filterDrawer.classList.add('active-sheet');this.openModal('filterDrawer');}
+     });
+ 
+     document.getElementById('btnCloseFilterSheet')?.addEventListener('click', () => {
+-      if (filterDrawer) filterDrawer.style.display = 'none';
++      this.closeModal('filterDrawer');
+       btnToggle?.classList.remove('btn-secondary');
+     });
+ 
+     document.getElementById('btnSheetApplyFilters')?.addEventListener('click', () => {
+-      if (filterDrawer) filterDrawer.style.display = 'none';
++      this.closeModal('filterDrawer');
+       btnToggle?.classList.remove('btn-secondary');
+       this.renderPendingEvents();
+     });
+ 
+     document.getElementById('btnSheetClearFilters')?.addEventListener('click', () => {
+       btnClear?.click();
+-      if (filterDrawer) filterDrawer.style.display = 'none';
++      this.closeModal('filterDrawer');
+       btnToggle?.classList.remove('btn-secondary');
+     });
+ 
+@@ -1559,6 +1756,7 @@
+     });
+ 
+     btnClear?.addEventListener('click', () => {
++      this.metricFilter = null;
+       if (inputSearch) inputSearch.value = '';
+       if (selectSort) selectSort.value = 'cronologica';
+       filterInputs.forEach(id => {
+@@ -1572,17 +1770,21 @@
+     document.getElementById('btnViewCards')?.addEventListener('click', async () => {
+       this.viewMode = 'cards';
+       this.updateViewModeUI();
++      await this.renderPendingEvents();
+       const settings = await App.Service.getSettings();
+       settings.viewMode = 'cards';
+       await App.Service.saveSettings(settings);
++      this._settings=settings;await this.refreshPresentationCache();this.notifyPresentation('settings');
+     });
+ 
+     document.getElementById('btnViewTable')?.addEventListener('click', async () => {
+       this.viewMode = 'table';
+       this.updateViewModeUI();
++      await this.renderPendingEvents();
+       const settings = await App.Service.getSettings();
+       settings.viewMode = 'table';
+       await App.Service.saveSettings(settings);
++      this._settings=settings;await this.refreshPresentationCache();this.notifyPresentation('settings');
+     });
+ 
+     // Filtros de Eventos Concluídos
+@@ -1615,12 +1817,14 @@
+   // RENDERIZAÇÃO: PAINEL PRINCIPAL (DASHBOARD)
+   // --------------------------------------------------------------------------
+   renderDashboard: async function() {
+-    const allEvents = await App.DB.getAll('events');
+-    const colorRanges = await App.Service.getColorRanges();
+-    const consoles = await App.DB.getAll('consoles');
+-    const pipelines = await App.DB.getAll('pipelines');
+-    const uos = await App.DB.getAll('operationalUnits');
+-    const tags = await App.DB.getAll('equipmentTags');
++    await this.refreshPresentationCache();
++    try {
++    const allEvents = this._snapshot.events;
++    const colorRanges = this._ranges;
++    const consoles = this._snapshot.consoles;
++    const pipelines = this._snapshot.pipelines;
++    const uos = this._snapshot.operationalUnits;
++    const tags = this._snapshot.equipmentTags;
+ 
+     const consoleMap = new Map(consoles.map(c => [c.id, c.name]));
+     const pipeMap = new Map(pipelines.map(p => [p.id, p.name]));
+@@ -1659,8 +1863,8 @@
+     }
+ 
+     // Concluídos hoje
+-    const todayStr = new Date().toISOString().substring(0, 10);
+-    const completedTodayCount = completed.filter(e => e.completedAt && e.completedAt.startsWith(todayStr)).length;
++    const todayStr = this.localDate();
++    const completedTodayCount = completed.filter(e => e.completedAt && this.localDate(e.completedAt) === todayStr).length;
+ 
+     // Atualizar Contadores
+     document.getElementById('metricTotalPending').textContent = pending.length;
+@@ -1706,8 +1910,8 @@
+ 
+     // Painel Lateral de Alarmes Ativos (Tablet)
+     const tabletAlarmsList = document.getElementById('tabletAlarmsList');
+-    const badgeTabletAlarms = document.getElementById('badgeTabletAlarmsCount');
+-    const activeAlarmEvents = pending.filter(e => e.alarmState === 'triggered' || (new Date(e.scheduledAt).getTime() - nowTime) / 60000 <= 15);
++    const badgeTabletAlarms = document.getElementById('tabletAlarmsCount') || document.getElementById('badgeTabletAlarmsCount');
++    const activeAlarmEvents = pending.filter(e => e.alarmState === 'triggered');
+     if (badgeTabletAlarms) badgeTabletAlarms.textContent = activeAlarmEvents.length;
+     if (tabletAlarmsList) {
+       if (activeAlarmEvents.length === 0) {
+@@ -1715,7 +1919,7 @@
+       } else {
+         tabletAlarmsList.innerHTML = activeAlarmEvents.slice(0, 4).map(ev => {
+           const cl = App.Service.classifyEvent(ev, colorRanges);
+-          const tInfo = App.Utils.formatTimeRemaining(new Date(ev.scheduledAt).getTime());
++          const tInfo = this.formatCountdown(new Date(ev.scheduledAt).getTime());
+           return `
+             <div style="padding: 0.6rem; border-radius: var(--radius-sm); background: rgba(0,0,0,0.2); border-left: 3px solid ${cl.color}; margin-bottom: 0.5rem;">
+               <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; margin-bottom: 0.25rem;">
+@@ -1736,6 +1940,7 @@
+ 
+     // Spotlight: Próximo Evento (dando preferência ao console ativo se houver)
+     const spotlightTarget = (this.activeConsoleId ? pending.find(e => e.consoleId === this.activeConsoleId) : null) || pending[0];
++    this.spotlightEventId = spotlightTarget?.id || null;
+ 
+     const spDesc = document.getElementById('spotlightDescription');
+     const spPath = document.getElementById('spotlightHierarchy');
+@@ -1747,7 +1952,7 @@
+ 
+     if (spotlightTarget) {
+       const classification = App.Service.classifyEvent(spotlightTarget, colorRanges);
+-      const timerInfo = App.Utils.formatTimeRemaining(new Date(spotlightTarget.scheduledAt).getTime());
++      const timerInfo = this.formatCountdown(new Date(spotlightTarget.scheduledAt).getTime());
+ 
+       spDesc.textContent = spotlightTarget.description;
+       spNotes.textContent = spotlightTarget.notes ? `Observações: ${spotlightTarget.notes}` : '';
+@@ -1761,8 +1966,10 @@
+       spBadge.className = `status-badge ${classification.key} ${classification.blink ? 'pulsing-badge' : ''}`;
+       spBadge.textContent = `${classification.icon || ''} ${classification.name}`.trim();
+ 
++      spTimeLeft.dataset.timestamp = new Date(spotlightTarget.scheduledAt).getTime();
+       spTimeLeft.textContent = timerInfo.text;
+-      spTimeLeft.style.color = classification.color;
++      spTimeLeft.style.setProperty('--event-color',classification.color);
++      spTimeLeft.style.removeProperty('color');
+       spSched.textContent = `Previsto: ${App.Utils.formatDateTime(spotlightTarget.scheduledDate, spotlightTarget.scheduledTime)}`;
+ 
+       spActions.innerHTML = `
+@@ -1779,6 +1986,7 @@
+       spPath.textContent = 'Console • Duto • UO';
+       spBadge.className = 'status-badge normal';
+       spBadge.textContent = '● Sem Pendências';
++      delete spTimeLeft.dataset.timestamp;
+       spTimeLeft.textContent = '--:--';
+       spTimeLeft.style.color = 'inherit';
+       spSched.textContent = 'Horário Previsto: --:--';
+@@ -1798,7 +2006,7 @@
+       } else {
+         urgentCardsContainer.innerHTML = urgentEvents.slice(0, 5).map(ev => {
+           const cl = App.Service.classifyEvent(ev, colorRanges);
+-          const timerInfo = App.Utils.formatTimeRemaining(new Date(ev.scheduledAt).getTime());
++          const timerInfo = this.formatCountdown(new Date(ev.scheduledAt).getTime());
+           const conName = consoleMap.get(ev.consoleId) || '';
+           const pipeName = pipeMap.get(ev.pipelineId) || '';
+           const uoName = uoMap.get(ev.uoId) || '';
+@@ -1817,7 +2025,7 @@
+               <div class="event-desc" style="margin: 0.4rem 0;">${App.Utils.escapeHTML(ev.description)}</div>
+               <div class="event-card-meta">
+                 <span><strong>${App.Utils.formatDateTime(ev.scheduledDate, ev.scheduledTime)}</strong></span>
+-                <span class="event-countdown" style="color: ${cl.color};" data-timestamp="${new Date(ev.scheduledAt).getTime()}">${timerInfo.text}</span>
++                <span class="event-countdown" style="--event-color: ${cl.color};" data-timestamp="${new Date(ev.scheduledAt).getTime()}">${timerInfo.text}</span>
+               </div>
+               <div class="event-card-actions" style="margin-top: 0.6rem;">
+                 ${ev.alarmState === 'triggered' ? `<button class="btn btn-warning btn-sm" onclick="App.UI.acknowledgeAlarm('${ev.id}')">Reconhecer</button>` : ''}
+@@ -1840,9 +2048,9 @@
+     if (urgentEvents.length === 0) {
+       tbodyUrgent.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">Nenhum evento urgente no momento.</td></tr>`;
+     } else {
+-      tbodyUrgent.innerHTML = urgentEvents.map(ev => {
++      tbodyUrgent.innerHTML = urgentEvents.slice(0,50).map(ev => {
+         const classification = App.Service.classifyEvent(ev, colorRanges);
+-        const timerInfo = App.Utils.formatTimeRemaining(new Date(ev.scheduledAt).getTime());
++        const timerInfo = this.formatCountdown(new Date(ev.scheduledAt).getTime());
+         const conName = consoleMap.get(ev.consoleId) || '';
+         const pipeName = pipeMap.get(ev.pipelineId) || '';
+         const uoName = uoMap.get(ev.uoId) || '';
+@@ -1868,19 +2076,22 @@
+         `;
+       }).join('');
+     }
++    } finally { this.applyVisualPreferences(); this.notifyPresentation('dashboard'); }
+   },
+ 
+   // --------------------------------------------------------------------------
+   // RENDERIZAÇÃO: EVENTOS PENDENTES (CARDS, TABELA E MASTER-DETAIL TABLET)
+   // --------------------------------------------------------------------------
+   renderPendingEvents: async function() {
+-    const allEvents = await App.DB.getAll('events');
+-    const colorRanges = await App.Service.getColorRanges();
+-    const consoles = await App.DB.getAll('consoles');
+-    const pipelines = await App.DB.getAll('pipelines');
+-    const uos = await App.DB.getAll('operationalUnits');
+-    const types = await App.DB.getAll('equipmentTypes');
+-    const tags = await App.DB.getAll('equipmentTags');
++    await this.refreshPresentationCache();
++    try {
++    const allEvents = this._snapshot.events;
++    const colorRanges = this._ranges;
++    const consoles = this._snapshot.consoles;
++    const pipelines = this._snapshot.pipelines;
++    const uos = this._snapshot.operationalUnits;
++    const types = this._snapshot.equipmentTypes;
++    const tags = this._snapshot.equipmentTags;
+ 
+     const consoleMap = new Map(consoles.map(c => [c.id, c.name]));
+     const pipeMap = new Map(pipelines.map(p => [p.id, p.name]));
+@@ -1923,7 +2134,7 @@
+     const fDateTo = document.getElementById('filterDateTo')?.value;
+ 
+     // Contar filtros ativos para o badge do botão Filtros
+-    const activeFiltersCount = [fConsole, fPipe, fUO, fStatus, fAlarm, fPriority, fDateFrom, fDateTo].filter(Boolean).length;
++    const activeFiltersCount = [fConsole, fPipe, fUO, fStatus, fAlarm, fPriority, fDateFrom, fDateTo].filter(Boolean).length + (chkConsoleOnly ? 1 : 0) + (this.metricFilter ? 1 : 0);
+     const badgeFilters = document.getElementById('badgeActiveFiltersCount');
+     if (badgeFilters) {
+       badgeFilters.textContent = activeFiltersCount;
+@@ -1963,7 +2174,9 @@
+       events.sort((a, b) => (prioOrder[a.priority] || 99) - (prioOrder[b.priority] || 99));
+     }
+ 
++    events = this.applyMetricFilter(events);
+     this.activePendingEvents = events;
++    const pageEvents = this.paginateEvents('pending', events);
+ 
+     const cardsContainer = document.getElementById('containerPendingCards');
+     const tbodyTable = document.getElementById('tbodyPendingEvents');
+@@ -1983,9 +2196,9 @@
+     }
+ 
+     // Renderizar Cartões
+-    cardsContainer.innerHTML = events.map(ev => {
++    cardsContainer.innerHTML = (this.viewMode === 'cards' ? pageEvents : []).map(ev => {
+       const cl = App.Service.classifyEvent(ev, colorRanges);
+-      const timerInfo = App.Utils.formatTimeRemaining(new Date(ev.scheduledAt).getTime());
++      const timerInfo = this.formatCountdown(new Date(ev.scheduledAt).getTime());
+       const conName = consoleMap.get(ev.consoleId) || '';
+       const pipeName = pipeMap.get(ev.pipelineId) || '';
+       const uoName = uoMap.get(ev.uoId) || '';
+@@ -1997,7 +2210,7 @@
+       const isSelected = ev.id === this.selectedDetailEventId;
+ 
+       return `
+-        <div class="event-card ${cl.blink || isFiring ? 'pulsing-card' : ''} ${isSelected ? 'selected-master-card' : ''}" data-event-id="${ev.id}" style="border-left-color: ${cl.color}; cursor: pointer;" onclick="if(!event.target.closest('button')) App.UI.selectPendingDetailEvent('${ev.id}')">
++        <div tabindex="0" role="button" aria-label="${App.Utils.escapeHTML(ev.description)}" onkeydown="if(event.target===this && (event.key==='Enter'||event.key===' ')){event.preventDefault();App.UI.selectPendingDetailEvent('${ev.id}')}" class="event-card ${cl.blink || isFiring ? 'pulsing-card' : ''} ${isSelected ? 'selected-master-card' : ''}" data-event-id="${ev.id}" style="border-left-color: ${cl.color}; cursor: pointer;" onclick="if(!event.target.closest('button')) App.UI.selectPendingDetailEvent('${ev.id}')">
+           <div>
+             <div class="event-card-header">
+               <div class="event-hierarchy">
+@@ -2028,7 +2241,7 @@
+                 <span style="font-weight: 700;">${App.Utils.formatDateTime(ev.scheduledDate, ev.scheduledTime)}</span>
+                 ${ev.priority !== 'Normal' ? `<span style="margin-left: 0.4rem; font-size: 0.72rem; color: #fbbf24;">[${ev.priority}]</span>` : ''}
+               </div>
+-              <div class="event-countdown" style="color: ${cl.color};" data-timestamp="${new Date(ev.scheduledAt).getTime()}">
++              <div class="event-countdown" style="--event-color: ${cl.color};" data-timestamp="${new Date(ev.scheduledAt).getTime()}">
+                 ${timerInfo.text}
+               </div>
+             </div>
+@@ -2054,18 +2267,18 @@
+     }).join('');
+ 
+     // Renderizar Tabela Compacta
+-    tbodyTable.innerHTML = events.map(ev => {
++    tbodyTable.innerHTML = (this.viewMode === 'table' ? pageEvents : []).map(ev => {
+       const cl = App.Service.classifyEvent(ev, colorRanges);
+-      const timerInfo = App.Utils.formatTimeRemaining(new Date(ev.scheduledAt).getTime());
++      const timerInfo = this.formatCountdown(new Date(ev.scheduledAt).getTime());
+       const conName = consoleMap.get(ev.consoleId) || '';
+       const pipeName = pipeMap.get(ev.pipelineId) || '';
+       const uoName = uoMap.get(ev.uoId) || '';
+       const tagName = tagMap.get(ev.tagId) || '-';
+ 
+       return `
+-        <tr class="${cl.isOverdue ? 'row-overdue' : ''}">
++        <tr class="${cl.isOverdue ? 'row-overdue' : ''}" data-event-id="${ev.id}" tabindex="0" onclick="if(!event.target.closest('button')) App.UI.selectPendingDetailEvent('${ev.id}')" onkeydown="if(event.target===this && event.key==='Enter')App.UI.selectPendingDetailEvent('${ev.id}')">
+           <td style="white-space: nowrap;"><strong>${App.Utils.formatDateTime(ev.scheduledDate, ev.scheduledTime)}</strong></td>
+-          <td style="white-space: nowrap;"><span class="event-countdown" style="color: ${cl.color}; font-weight: 700;" data-timestamp="${new Date(ev.scheduledAt).getTime()}">${timerInfo.text}</span></td>
++          <td style="white-space: nowrap;"><span class="event-countdown" style="--event-color: ${cl.color}; font-weight: 700;" data-timestamp="${new Date(ev.scheduledAt).getTime()}">${timerInfo.text}</span></td>
+           <td><span class="status-badge ${cl.key}">${cl.icon || ''} ${cl.name}</span></td>
+           <td>${App.Utils.escapeHTML(conName)} / ${App.Utils.escapeHTML(pipeName)}</td>
+           <td>${App.Utils.escapeHTML(uoName)} ${tagName !== '-' ? `<span class="event-tag-badge">${App.Utils.escapeHTML(tagName)}</span>` : ''}</td>
+@@ -2085,6 +2298,7 @@
+ 
+     // Renderizar Painel Master-Detail (Tablet)
+     await this.renderPendingDetailPane(this.selectedDetailEventId);
++    } finally { this.applyVisualPreferences(); this.notifyPresentation('filters'); }
+   },
+ 
+   selectPendingDetailEvent: async function(eventId, tab = 'detalhes') {
+@@ -2094,6 +2308,7 @@
+       card.classList.toggle('selected-master-card', card.getAttribute('data-event-id') === eventId);
+     });
+     await this.renderPendingDetailPane(eventId, tab);
++    this.notifyPresentation('selection', eventId);
+   },
+ 
+   renderPendingDetailPane: async function(eventId, tab) {
+@@ -2121,7 +2336,7 @@
+     const type = types.find(t => t.id === ev.equipmentTypeId);
+     const tag = tags.find(t => t.id === ev.tagId);
+     const cl = App.Service.classifyEvent(ev, colorRanges);
+-    const timerInfo = App.Utils.formatTimeRemaining(new Date(ev.scheduledAt).getTime());
++    const timerInfo = this.formatCountdown(new Date(ev.scheduledAt).getTime());
+ 
+     let tabContentHtml = '';
+     if (activeTab === 'detalhes') {
+@@ -2141,7 +2356,7 @@
+           </div>
+           <div>
+             <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Prioridade / Alarme</div>
+-            <div style="font-weight: 700;">${ev.priority} &bull; ${ev.hasAlarm ? (ev.leadTimeMinutes + ' min antes') : 'Sem alarme'}</div>
++            <div style="font-weight: 700;">${ev.priority} &bull; ${ev.hasAlarm ? ((ev.useDefaultAlarmSettings ? (await App.Service.getSettings()).defaultLeadTimeMinutes : ev.alarmMinutesBefore) + ' min antes') : 'Sem alarme'}</div>
+           </div>
+         </div>
+         <div style="margin-bottom: 0.85rem;">
+@@ -2154,7 +2369,7 @@
+         </div>
+       `;
+     } else if (activeTab === 'anotacoes') {
+-      tabContentHtml = ev.stylusDrawing ? `
++      tabContentHtml = this.isSafeDrawing(ev.stylusDrawing) ? `
+         <div style="text-align: center; background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+           <img src="${ev.stylusDrawing}" alt="Esboço Manual" style="max-width: 100%; max-height: 260px; border-radius: 4px;">
+         </div>
+@@ -2181,10 +2396,16 @@
+       `;
+     }
+ 
++    const selectedIndex=this.activePendingEvents.findIndex(e=>e.id===ev.id);
+     pane.innerHTML = `
++      <nav class="detail-navigation" aria-label="Navegar nas previsões filtradas">
++        <button type="button" class="btn btn-outline btn-sm" ${selectedIndex<=0?'disabled':''} onclick="App.UI.movePendingSelection(-1)">Anterior</button>
++        <span>${selectedIndex+1} de ${this.activePendingEvents.length}</span>
++        <button type="button" class="btn btn-outline btn-sm" ${selectedIndex<0 || selectedIndex>=this.activePendingEvents.length-1?'disabled':''} onclick="App.UI.movePendingSelection(1)">Próxima</button>
++      </nav>
+       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.65rem; margin-bottom: 0.75rem;">
+         <span class="status-badge ${cl.key}">${cl.icon || ''} ${cl.name}</span>
+-        <span class="event-countdown" style="color: ${cl.color}; font-weight: 800; font-size: 1rem;" data-timestamp="${new Date(ev.scheduledAt).getTime()}">${timerInfo.text}</span>
++        <span class="event-countdown" style="--event-color: ${cl.color}; font-weight: 800; font-size: 1rem;" data-timestamp="${new Date(ev.scheduledAt).getTime()}">${timerInfo.text}</span>
+       </div>
+       <div style="display: flex; gap: 0.4rem; margin-bottom: 0.85rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+         <button class="btn ${activeTab === 'detalhes' ? 'btn-secondary' : 'btn-outline'} btn-sm" onclick="App.UI.selectPendingDetailEvent('${ev.id}', 'detalhes')">Detalhes</button>
+@@ -2214,8 +2435,11 @@
+     if (!container || !modal) return;
+ 
+     if (titleEl) titleEl.textContent = ev.description;
+-
+-    const closeSheet = "document.getElementById('modalEventActionSheet').classList.remove('active');";
++    const snapshot = await App.DB.snapshot();
++    const names = [['consoles', ev.consoleId], ['pipelines', ev.pipelineId], ['operationalUnits', ev.uoId]].map(([store,id]) => snapshot[store].find(x=>x.id===id)?.name || '');
++    document.getElementById('actionSheetEventSubtitle').textContent = names.join(' / ') + ' • ' + App.Utils.formatDateTime(ev.scheduledAt);
++
++    const closeSheet = "App.UI.closeModal('modalEventActionSheet');";
+     container.innerHTML = `
+       ${ev.status === 'pendente' ? `
+         <button class="btn btn-success" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.showCompleteModal('${ev.id}')">&#x2713; Concluir Evento</button>
+@@ -2230,57 +2454,46 @@
+       <button class="btn btn-danger" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.deleteEvent('${ev.id}')">&times; Excluir Previsão</button>
+     `;
+ 
+-    modal.classList.add('active');
+-  },
+-
+-  updateLiveTimers: function() {
+-    const countdownEls = document.querySelectorAll('.event-countdown[data-timestamp]');
+-    countdownEls.forEach(el => {
+-      const ts = parseInt(el.getAttribute('data-timestamp'), 10);
+-      if (ts) {
+-        const info = App.Utils.formatTimeRemaining(ts);
+-        el.textContent = info.text;
+-      }
+-    });
+-
+-    const spotlightTs = document.getElementById('spotlightTimeLeft');
+-    if (spotlightTs && this.activePendingEvents.length > 0) {
+-      const nextEv = this.activePendingEvents[0];
+-      const info = App.Utils.formatTimeRemaining(new Date(nextEv.scheduledAt).getTime());
+-      spotlightTs.textContent = info.text;
++    this.openModal(modal.id);
++  },
++
++  updateLiveTimers: async function() {
++    for(const element of document.querySelectorAll('.event-countdown[data-timestamp],#spotlightTimeLeft[data-timestamp],#alarmModalCountdown[data-timestamp]')){
++      const timestamp=Number(element.dataset.timestamp);if(timestamp)element.textContent=this.formatCountdown(timestamp).text;
++    }
++    const signature=this.temporalSignature();
++    if(this._snapshot && signature!==this._temporalSignature && !this._temporalRefresh){
++      this._temporalSignature=signature;this._temporalRefresh=true;
++      try{await this.renderDashboard();if(this.currentView==='viewPendingEvents')await this.renderPendingEvents();if(this.currentView==='viewCompletedEvents')await this.renderCompletedEvents();this.notifyPresentation('time');}
++      finally{this._temporalRefresh=false;}
+     }
+   },
+ 
+   populateFilterDropdowns: function(consoles, pipelines, uos) {
+-    const fill = (id, list, key = 'name') => {
++    const fill = (id, list) => {
+       const sel = document.getElementById(id);
+-      if (sel && sel.options.length <= 1) {
+-        list.forEach(item => {
+-          const opt = document.createElement('option');
+-          opt.value = item.id;
+-          opt.textContent = item[key];
+-          sel.appendChild(opt);
+-        });
+-      }
++      if (!sel) return;
++      const previous = sel.value, placeholder = sel.options[0]?.textContent || 'Todos';
++      sel.replaceChildren(new Option(placeholder, ''), ...list.map(x => new Option(x.name + (x.active === false ? ' (Inativo)' : ''), x.id)));
++      if (list.some(x => x.id === previous)) sel.value = previous;
+     };
+-    fill('filterConsole', consoles);
+-    fill('filterPipeline', pipelines);
+-    fill('filterUO', uos);
+-    fill('filterCompletedConsole', consoles);
+-    fill('filterCompletedPipeline', pipelines);
+-    fill('filterCompletedUO', uos);
++    for (const prefix of ['filter', 'filterCompleted']) {
++      fill(prefix+'Console', consoles); fill(prefix+'Pipeline', pipelines); fill(prefix+'UO', uos);
++    }
+   },
+ 
+   // --------------------------------------------------------------------------
+   // RENDERIZAÇÃO: EVENTOS CONCLUÍDOS (9 COLUNAS + CARDS EXPANSÍVEIS MOBILE)
+   // --------------------------------------------------------------------------
+   renderCompletedEvents: async function() {
+-    const allEvents = await App.DB.getAll('events');
+-    const consoles = await App.DB.getAll('consoles');
+-    const pipelines = await App.DB.getAll('pipelines');
+-    const uos = await App.DB.getAll('operationalUnits');
+-    const types = await App.DB.getAll('equipmentTypes');
+-    const tags = await App.DB.getAll('equipmentTags');
++    await this.refreshPresentationCache();
++    try {
++    const allEvents = this._snapshot.events;
++    const consoles = this._snapshot.consoles;
++    const pipelines = this._snapshot.pipelines;
++    const uos = this._snapshot.operationalUnits;
++    const types = this._snapshot.equipmentTypes;
++    const tags = this._snapshot.equipmentTags;
+ 
+     const consoleMap = new Map(consoles.map(c => [c.id, c.name]));
+     const pipeMap = new Map(pipelines.map(p => [p.id, p.name]));
+@@ -2289,6 +2502,12 @@
+ 
+     let completed = allEvents.filter(e => e.status === 'concluido' && e.active !== false);
+ 
++    this.populateFilterDropdowns(consoles, pipelines, uos);
++    let scope=document.getElementById('btnClearCompletedScope');
++    if(!scope){scope=document.createElement('button');scope.id='btnClearCompletedScope';scope.type='button';scope.className='btn btn-outline btn-sm';scope.textContent='Concluídos hoje • Remover filtro';scope.onclick=()=>{this.completedTodayOnly=false;this.renderCompletedEvents();};document.getElementById('inputSearchCompleted').parentElement.after(scope);}
++    scope.hidden=!this.completedTodayOnly;
++    if (this.completedTodayOnly) completed = completed.filter(e => e.completedAt && this.localDate(e.completedAt) === this.localDate());
++    this.activeCompletedEvents = completed;
+     const searchText = App.Utils.cleanStr(document.getElementById('inputSearchCompleted')?.value);
+     if (searchText) {
+       completed = completed.filter(e => {
+@@ -2328,6 +2547,10 @@
+ 
+     completed.sort((a, b) => new Date(b.completedAt || b.scheduledAt).getTime() - new Date(a.completedAt || a.scheduledAt).getTime());
+ 
++    this.activeCompletedEvents = completed;
++    const pageCompleted = this.paginateEvents('completed', completed);
++    if(!completed.some(e=>e.id===this.selectedCompletedEventId))this.selectedCompletedEventId=completed[0]?.id || null;
++    const mobileCompleted = this.getEffectiveViewportTier() === 'mobile' || window.innerWidth < 768;
+     const tbody = document.getElementById('tbodyCompletedEvents');
+     const cardsContainer = document.getElementById('containerCompletedCards');
+     const emptyMsg = document.getElementById('completedEmptyMessage');
+@@ -2342,7 +2565,7 @@
+ 
+     // Renderizar Cards Expansíveis para Mobile (Seção 12.6 / Fix #11)
+     if (cardsContainer) {
+-      cardsContainer.innerHTML = completed.map(ev => {
++      cardsContainer.innerHTML = (mobileCompleted ? pageCompleted : []).map(ev => {
+         const conName = consoleMap.get(ev.consoleId) || '';
+         const pipeName = pipeMap.get(ev.pipelineId) || '';
+         const uoName = uoMap.get(ev.uoId) || '';
+@@ -2354,7 +2577,7 @@
+         const alarmSummary = ev.alarmTriggerCount ? `${ev.alarmTriggerCount} disparo(s)` : (ev.hasAlarm ? 'Ativo (0 disparos)' : 'Sem alarme');
+ 
+         return `
+-          <div class="completed-event-card" onclick="if(!event.target.closest('button')) this.classList.toggle('expanded')">
++          <div class="completed-event-card" data-event-id="${ev.id}" tabindex="0" role="button" aria-expanded="false" onclick="if(!event.target.closest('button')) App.UI.toggleCompletedCard(this)" onkeydown="if(event.target===this && (event.key==='Enter'||event.key===' ')){event.preventDefault();App.UI.toggleCompletedCard(this)}">
+             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+               <span class="status-badge concluido">&#x2713; Concluído</span>
+               <span style="font-size: 0.78rem; font-weight: 700;">${diffStr}</span>
+@@ -2368,7 +2591,7 @@
+               <span>Prev: ${schedStr}</span>
+               <span>Conc: <strong>${compStr}</strong></span>
+             </div>
+-            <div class="completed-card-details">
++            <div class="completed-card-details" hidden style="display:none;">
+               ${ev.completionNote ? `<div style="margin-bottom: 0.35rem;"><strong>Obs. Conclusão:</strong> ${App.Utils.escapeHTML(ev.completionNote)}</div>` : ''}
+               <div style="margin-bottom: 0.35rem;"><strong>Controlador:</strong> ${App.Utils.escapeHTML(controllerName)} &bull; <strong>Alarmes:</strong> ${alarmSummary}</div>
+               <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem;">
+@@ -2384,7 +2607,7 @@
+     }
+ 
+     // Fix #11 da Seção 24: Renderizar as 9 colunas completas na tabela de concluídos
+-    tbody.innerHTML = completed.map(ev => {
++    tbody.innerHTML = (mobileCompleted ? [] : pageCompleted).map(ev => {
+       const conName = consoleMap.get(ev.consoleId) || '';
+       const pipeName = pipeMap.get(ev.pipelineId) || '';
+       const uoName = uoMap.get(ev.uoId) || '';
+@@ -2418,22 +2641,26 @@
+         </tr>
+       `;
+     }).join('');
++    } finally { this.applyVisualPreferences(); this.notifyPresentation('completed'); }
+   },
+ 
+   // --------------------------------------------------------------------------
+   // RENDERIZAÇÃO: HUB UNIFICADO DE CADASTROS (SEM ESPAÇO MORTO + DRILL-DOWN)
+   // --------------------------------------------------------------------------
+   renderCadastros: async function() {
++    await this.refreshPresentationCache();
++    try {
+     await this.refreshAllMasterDataDropdowns();
+     await this.renderConsolesTable();
+     await this.renderPipelinesTable();
+     await this.renderUOsTable();
+     await this.renderEquipmentTypesTable();
+     await this.renderEquipmentTagsTable();
++    } finally { this.applyVisualPreferences(); this.notifyPresentation('catalog'); }
+   },
+ 
+   switchCadastrosCategory: function(category) {
+-    this.activeCadastrosCategory = category;
++    this.currentCadastrosCategory = category;
+     document.querySelectorAll('#cadastrosCategoryBar .cadastros-category-btn').forEach(btn => {
+       btn.classList.toggle('active', btn.getAttribute('data-cat') === category);
+     });
+@@ -3090,12 +3317,15 @@
+   // RENDERIZAÇÃO: CONFIGURAÇÕES DE ALERTAS, LAYOUT E TEMA
+   // --------------------------------------------------------------------------
+   renderConfigAlerts: async function() {
++    await this.refreshPresentationCache();
++    try {
+     const settings = await App.Service.getSettings();
+     document.getElementById('inputSettingsUserName').value = settings.localUserName || 'Usuário local';
+-    document.getElementById('inputDefaultLeadTime').value = settings.defaultLeadTimeMinutes || 15;
++    document.getElementById('inputDefaultLeadTime').value = settings.defaultLeadTimeMinutes ?? 15;
++    document.getElementById('inputBackupReminderDays').value=settings.backupReminderDays ?? 7;
+     document.getElementById('selectSoundType').value = settings.soundType || 'chime';
+-    document.getElementById('rangeSoundVolume').value = settings.soundVolume || 80;
+-    document.getElementById('labelVolumeValue').textContent = `${settings.soundVolume || 80}%`;
++    document.getElementById('rangeSoundVolume').value = settings.soundVolume ?? 80;
++    document.getElementById('labelVolumeValue').textContent = `${settings.soundVolume ?? 80}%`;
+ 
+     const selViewMode = document.getElementById('selectSettingsViewMode');
+     if (selViewMode) selViewMode.value = settings.responsiveLayoutMode || 'auto';
+@@ -3110,20 +3340,23 @@
+     document.getElementById('checkSettingChangeTitle').checked = settings.changeTitleEnabled;
+     document.getElementById('checkSettingNotification').checked = settings.notificationEnabled;
+     document.getElementById('checkSettingRepeat').checked = settings.repeatAlarm;
+-    document.getElementById('inputSettingRepeatInterval').value = settings.repeatIntervalMinutes || 2;
+-    document.getElementById('inputSettingMaxRepeats').value = settings.maxRepeats || 5;
++    document.getElementById('inputSettingRepeatInterval').value = settings.repeatIntervalMinutes ?? 2;
++    document.getElementById('inputSettingMaxRepeats').value = settings.maxRepeats ?? 5;
+ 
+     const notifState = App.Notifications.getPermissionState();
+     const btnReq = document.getElementById('btnRequestNotifText');
+     if (btnReq) {
+       btnReq.textContent = notifState === 'concedida' ? 'Permissão Concedida' : (notifState === 'negada' ? 'Permissão Negada' : 'Solicitar Permissão');
+     }
++    } finally { this.applyVisualPreferences(); this.notifyPresentation('settings'); }
+   },
+ 
+   // --------------------------------------------------------------------------
+   // RENDERIZAÇÃO: CONFIGURAÇÕES DE FAIXAS DE CORES
+   // --------------------------------------------------------------------------
+   renderConfigColors: async function() {
++    await this.refreshPresentationCache();
++    try {
+     const ranges = await App.Service.getColorRanges();
+ 
+     const previewBar = document.getElementById('colorPreviewBar');
+@@ -3192,6 +3425,7 @@
+         `;
+       }).join('');
+     }
++    } finally { this.applyVisualPreferences(); this.notifyPresentation('ranges'); }
+   },
+ 
+   editRange: async function(id) {
+@@ -3233,6 +3467,8 @@
+   // RENDERIZAÇÃO: DIAGNÓSTICO TÉCNICO
+   // --------------------------------------------------------------------------
+   renderDiagnostic: async function() {
++    await this.refreshPresentationCache();
++    try {
+     const stores = [
+       { name: 'consoles', desc: 'Consoles Operacionais (C02-C16)' },
+       { name: 'pipelines', desc: 'Dutos de Transporte' },
+@@ -3267,11 +3503,13 @@
+       tbodyColls.innerHTML = rowsHtml;
+     }
+ 
+-    document.getElementById('diagDBStatus').textContent = 'Online (Ativo)';
++    document.getElementById('diagAppVersion').textContent = App.Config.APP_VERSION;
++    document.getElementById('diagDBStatus').textContent = App.DB.db ? 'Local (IndexedDB ativo)' : 'Indisponível';
+     document.getElementById('diagAudioStatus').textContent = App.Audio.isUnlocked ? 'Pronto (Ativo)' : 'Aguardando Interação';
+     document.getElementById('diagNotifStatus').textContent = App.Notifications.getPermissionState();
+ 
+     const errorLogs = await App.DB.getAll('errorLogs');
++    this._snapshot.errorLogs=errorLogs;
+     const tbodyLogs = document.getElementById('tbodyDiagLogs');
+     if (tbodyLogs) {
+       if (errorLogs.length === 0) {
+@@ -3288,12 +3526,14 @@
+         `).join('');
+       }
+     }
++    } finally { this.applyVisualPreferences(); this.notifyPresentation('diagnostic'); }
+   },
+ 
+   getDiagnosticReport: async function() {
+     const report = {
+       app: 'Caderno de Previsões Operacionais em Dutos',
+-      version: 'v1.0.0',
++      version: App.Config.APP_VERSION,
++      errors: await App.DB.getAll('errorLogs'),
+       generatedAt: new Date().toISOString(),
+       userAgent: navigator.userAgent,
+       audioState: App.Audio.ctx ? App.Audio.ctx.state : 'uninitialized',
+@@ -3318,109 +3558,43 @@
+   // MODAIS E DIÁLOGOS
+   // --------------------------------------------------------------------------
+   bindModalEvents: function() {
+-    document.addEventListener('keydown', (e) => {
+-      if (e.key === 'Escape') {
+-        document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+-          modal.classList.remove('active');
+-        });
+-      }
+-    });
+-
+-    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+-      overlay.addEventListener('click', (e) => {
+-        if (e.target === overlay) {
+-          overlay.classList.remove('active');
+-        }
++    document.addEventListener('keydown',event=>{
++      const top=this.modalStack.at(-1);if(!top)return;
++      if(event.key==='Escape'){event.preventDefault();event.stopPropagation();this.closeModal(top.element.id);return;}
++      if(event.key==='Tab'){
++        const list=this.focusable(top.element),first=list[0],last=list.at(-1);
++        if(!first){event.preventDefault();top.element.focus();}
++        else if(event.shiftKey && (document.activeElement===first || !top.element.contains(document.activeElement))){event.preventDefault();last.focus();}
++        else if(!event.shiftKey && (document.activeElement===last || !top.element.contains(document.activeElement))){event.preventDefault();first.focus();}
++      }
++    });
++    document.querySelectorAll('.modal-overlay').forEach(overlay=>overlay.addEventListener('click',event=>{if(event.target===overlay && this.modalStack.at(-1)?.element===overlay)this.closeModal(overlay.id);}));
++    for(const id of ['btnCloseAlarmModal','btnCloseSnoozeModal','btnCancelSnooze','btnCloseCompleteModal','btnCancelCompleteModal','btnCloseReopenModal','btnCancelReopenModal','btnCloseDetailsModal','btnCloseDetailsModalBtn','btnCloseConfirmModal','btnCancelConfirm','btnCloseDependencyModal','btnCloseDependencyModalBtn','btnCloseImportSummaryModal','btnCancelImportSummary','btnCloseActionSheet','btnCloseAppStatusModal','btnCloseAppStatusFooter']){
++      document.getElementById(id)?.addEventListener('click',event=>{const modal=event.currentTarget.closest('.modal-overlay');if(modal)this.closeModal(modal.id);});
++    }
++    document.querySelectorAll('.btn-quick-snooze').forEach(button=>button.addEventListener('click',()=>document.getElementById('inputSnoozeMinutes').value=button.dataset.min));
++    const bindCritical=(buttonId,modalId,callback)=>{
++      const button=document.getElementById(buttonId);if(!button)return;
++      button.addEventListener('click',async()=>{
++        if(this.modalBusy.has(modalId))return;
++        const selected=this.modalStack.find(x=>x.element.id===modalId)?.event || this.selectedEventForAction;if(!selected)return;
++        this.modalBusy.add(modalId);button.disabled=true;
++        try{await callback(selected);this.closeModal(modalId,true);await this.renderDashboard();if(this.currentView==='viewPendingEvents')await this.renderPendingEvents();if(this.currentView==='viewCompletedEvents')await this.renderCompletedEvents();}
++        catch(error){this.showToast(error.message,'danger');await App.DB.logError(error,'Interface: '+modalId);}
++        finally{button.disabled=false;this.modalBusy.delete(modalId);}
+       });
+-    });
+-
+-    ['btnCloseAlarmModal', 'btnCloseSnoozeModal', 'btnCancelSnooze', 'btnCloseCompleteModal',
+-     'btnCancelCompleteModal', 'btnCloseReopenModal', 'btnCancelReopenModal', 'btnCloseDetailsModal',
+-     'btnCloseDetailsModalBtn', 'btnCloseConfirmModal', 'btnCancelConfirm', 'btnCloseDependencyModal',
+-     'btnCloseDependencyModalBtn', 'btnCloseImportSummaryModal', 'btnCancelImportSummary',
+-     'btnCloseActionSheet', 'btnCloseAppStatusModal', 'btnCloseAppStatusFooter'].forEach(id => {
+-      document.getElementById(id)?.addEventListener('click', () => {
+-        const modal = document.getElementById(id).closest('.modal-overlay');
+-        if (modal) modal.classList.remove('active');
+-      });
+-    });
+-
+-    // Quick Snooze buttons
+-    document.querySelectorAll('.btn-quick-snooze').forEach(btn => {
+-      btn.addEventListener('click', () => {
+-        document.getElementById('inputSnoozeMinutes').value = btn.getAttribute('data-min');
+-      });
+-    });
+-
+-    // Confirmar Snooze
+-    document.getElementById('btnConfirmSnooze')?.addEventListener('click', async () => {
+-      const mins = parseInt(document.getElementById('inputSnoozeMinutes').value, 10) || 5;
+-      if (this.selectedEventForAction) {
+-        await App.Service.snoozeAlarm(this.selectedEventForAction.id, mins);
+-        document.getElementById('modalSnooze').classList.remove('active');
+-        document.getElementById('modalAlarmTrigger').classList.remove('active');
+-        this.showToast(`Alarme adiado por ${mins} minutos.`, 'info');
+-        await this.renderPendingEvents();
+-        await this.renderDashboard();
+-      }
+-    });
+-
+-    // Ações do Modal de Disparo de Alarme
+-    document.getElementById('btnAlarmAcknowledge')?.addEventListener('click', async () => {
+-      if (this.selectedEventForAction) {
+-        await App.Service.acknowledgeAlarm(this.selectedEventForAction.id);
+-        document.getElementById('modalAlarmTrigger').classList.remove('active');
+-        this.showToast('Alarme reconhecido com sucesso.', 'info');
+-        await this.renderPendingEvents();
+-        await this.renderDashboard();
+-      }
+-    });
+-
+-    document.getElementById('btnAlarmSnoozePrompt')?.addEventListener('click', () => {
+-      document.getElementById('modalSnooze').classList.add('active');
+-    });
+-
+-    document.getElementById('btnAlarmCompleteDirect')?.addEventListener('click', () => {
+-      document.getElementById('modalAlarmTrigger').classList.remove('active');
+-      if (this.selectedEventForAction) {
+-        this.showCompleteModal(this.selectedEventForAction.id);
+-      }
+-    });
+-
+-    document.getElementById('btnAlarmOpenDetails')?.addEventListener('click', () => {
+-      document.getElementById('modalAlarmTrigger').classList.remove('active');
+-      if (this.selectedEventForAction) {
+-        this.showDetailsModal(this.selectedEventForAction.id);
+-      }
+-    });
+-
+-    // Confirmar Conclusão
+-    document.getElementById('btnConfirmCompleteModal')?.addEventListener('click', async () => {
+-      if (this.selectedEventForAction) {
+-        const note = document.getElementById('inputCompleteNotes').value;
+-        await App.Service.completeEvent(this.selectedEventForAction.id, note);
+-        document.getElementById('modalCompleteEvent').classList.remove('active');
+-        this.showToast('Previsão operacional concluída com sucesso!', 'success');
+-        await this.renderPendingEvents();
+-        await this.renderDashboard();
+-        if (this.currentView === 'viewCompletedEvents') {
+-          await this.renderCompletedEvents();
+-        }
+-      }
+-    });
+-
+-    // Confirmar Reabertura
+-    document.getElementById('btnConfirmReopenModal')?.addEventListener('click', async () => {
+-      if (this.selectedEventForAction) {
+-        const newD = document.getElementById('inputReopenDate').value;
+-        const newT = document.getElementById('inputReopenTime').value;
+-        await App.Service.reopenEvent(this.selectedEventForAction.id, newD, newT);
+-        document.getElementById('modalReopenEvent').classList.remove('active');
+-        this.showToast('Evento reaberto com sucesso e devolvido aos pendentes.', 'info');
+-        await this.renderCompletedEvents();
+-        await this.renderDashboard();
+-      }
+-    });
++    };
++    bindCritical('btnConfirmSnooze','modalSnooze',async selected=>{
++      const mins=Number(document.getElementById('inputSnoozeMinutes').value);
++      if(!Number.isInteger(mins)||mins<1||mins>1440)throw new Error('Informe um adiamento de 1 a 1440 minutos.');
++      await App.Service.snoozeAlarm(selected.id,mins);this.closeModal('modalAlarmTrigger',true);this.showToast(`Alarme adiado por ${mins} minutos.`,'info');
++    });
++    bindCritical('btnAlarmAcknowledge','modalAlarmTrigger',async selected=>{await App.Service.acknowledgeAlarm(selected.id);this.showToast('Alarme reconhecido.','info');});
++    bindCritical('btnConfirmCompleteModal','modalCompleteEvent',async selected=>{await App.Service.completeEvent(selected.id,document.getElementById('inputCompleteNotes').value);this.showToast('Previsão operacional concluída.','success');});
++    bindCritical('btnConfirmReopenModal','modalReopenEvent',async selected=>{await App.Service.reopenEvent(selected.id,document.getElementById('inputReopenDate').value,document.getElementById('inputReopenTime').value);this.showToast('Previsão reaberta.','success');});
++    document.getElementById('btnAlarmSnoozePrompt')?.addEventListener('click',()=>this.openModal('modalSnooze'));
++    document.getElementById('btnAlarmCompleteDirect')?.addEventListener('click',()=>{const id=this.selectedEventForAction?.id;this.closeModal('modalAlarmTrigger');if(id)this.showCompleteModal(id);});
++    document.getElementById('btnAlarmOpenDetails')?.addEventListener('click',()=>{const id=this.selectedEventForAction?.id;this.closeModal('modalAlarmTrigger');if(id)this.showDetailsModal(id);});
+   },
+ 
+   showAlarmModal: async function(event, isTest = false) {
+@@ -3442,10 +3616,12 @@
+     document.getElementById('alarmModalNotes').textContent = event.notes ? `Observações: ${event.notes}` : '';
+     document.getElementById('alarmModalScheduledTime').textContent = App.Utils.formatDateTime(event.scheduledDate, event.scheduledTime);
+ 
+-    const timerInfo = App.Utils.formatTimeRemaining(new Date(event.scheduledAt).getTime());
++    const timerInfo = this.formatCountdown(new Date(event.scheduledAt).getTime());
+     document.getElementById('alarmModalCountdown').textContent = isTest ? 'Alarme de Teste' : timerInfo.text;
+-
+-    document.getElementById('modalAlarmTrigger').classList.add('active');
++    document.getElementById('alarmModalCountdown').dataset.timestamp = isTest ? '' : new Date(event.scheduledAt).getTime();
++    this.alarmEventId = event.id;
++
++    this.openModal('modalAlarmTrigger');
+   },
+ 
+   showSnoozeModal: function(eventId) {
+@@ -3453,7 +3629,7 @@
+       if (!ev) return;
+       this.selectedEventForAction = ev;
+       document.getElementById('inputSnoozeMinutes').value = 5;
+-      document.getElementById('modalSnooze').classList.add('active');
++      this.openModal('modalSnooze');
+     });
+   },
+ 
+@@ -3485,7 +3661,7 @@
+     document.getElementById('completeModalTimeDiff').textContent = App.Utils.formatDiffMinutes(diffMins);
+     document.getElementById('inputCompleteNotes').value = '';
+ 
+-    document.getElementById('modalCompleteEvent').classList.add('active');
++    this.openModal('modalCompleteEvent');
+   },
+ 
+   showReopenModal: async function(eventId) {
+@@ -3512,7 +3688,7 @@
+       document.getElementById('inputReopenTime').value = event.scheduledTime;
+     }
+ 
+-    document.getElementById('modalReopenEvent').classList.add('active');
++    this.openModal('modalReopenEvent');
+   },
+ 
+   showDetailsModal: async function(eventId) {
+@@ -3547,7 +3723,10 @@
+       document.getElementById('detailsModalNotes').parentNode.appendChild(drawingContainer);
+     }
+ 
+-    if (event.stylusDrawing) {
++    const safeDrawing = this.isSafeDrawing(event.stylusDrawing);
++    const outerDrawing = document.getElementById('detailsModalDrawingBox');
++    if (outerDrawing) outerDrawing.style.display = safeDrawing ? 'block' : 'none';
++    if (safeDrawing) {
+       const existingImg = document.getElementById('detailsModalDrawingImg');
+       if (existingImg) {
+         existingImg.src = event.stylusDrawing;
+@@ -3564,6 +3743,7 @@
+       drawingContainer.style.display = 'block';
+     } else {
+       drawingContainer.style.display = 'none';
++      document.getElementById('detailsModalDrawingImg')?.removeAttribute('src');
+     }
+ 
+     // Buscar histórico de auditoria
+@@ -3592,73 +3772,44 @@
+       }).join('');
+     }
+ 
+-    document.getElementById('modalEventDetails').classList.add('active');
++    this.openModal('modalEventDetails');
+   },
+ 
+   showConfirmModal: function(title, message, onConfirm) {
+-    document.getElementById('modalConfirmTitle').textContent = title;
+-    document.getElementById('modalConfirmMessage').textContent = message;
+-    const btnAccept = document.getElementById('btnAcceptConfirm');
+-
+-    const handler = () => {
+-      btnAccept.removeEventListener('click', handler);
+-      document.getElementById('modalConfirm').classList.remove('active');
+-      if (onConfirm) onConfirm();
+-    };
+-
+-    btnAccept.addEventListener('click', handler);
+-    document.getElementById('modalConfirm').classList.add('active');
++    if(this.modalBusy.has('modalConfirm'))return;
++    document.getElementById('modalConfirmTitle').textContent=title;
++    document.getElementById('modalConfirmMessage').textContent=message;
++    this.setModalAction('modalConfirm','btnAcceptConfirm',onConfirm || (()=>{}));this.openModal('modalConfirm');
+   },
+ 
+   showDependencyModal: function(title, reasons, onInactivate) {
+-    document.getElementById('modalDependencyTitle').textContent = title;
+-    const list = document.getElementById('modalDependencyList');
+-    list.innerHTML = reasons.map(r => `<li>${App.Utils.escapeHTML(r)}</li>`).join('');
+-
+-    const btnInact = document.getElementById('btnDependencyInactivate');
+-    const handler = () => {
+-      btnInact.removeEventListener('click', handler);
+-      document.getElementById('modalDependency').classList.remove('active');
+-      if (onInactivate) onInactivate();
+-    };
+-    btnInact.addEventListener('click', handler);
+-
+-    document.getElementById('modalDependency').classList.add('active');
++    if(this.modalBusy.has('modalDependency'))return;
++    document.getElementById('modalDependencyTitle').textContent=title;
++    document.getElementById('modalDependencyList').innerHTML=reasons.map(r=>`<li>${App.Utils.escapeHTML(r)}</li>`).join('');
++    this.setModalAction('modalDependency','btnDependencyInactivate',onInactivate || (()=>{}));this.openModal('modalDependency');
+   },
+ 
+   showImportSummaryModal: function(parsedBackup) {
+-    const data = parsedBackup.data;
+-    const summaryBox = document.getElementById('importSummaryCounts');
+-    summaryBox.innerHTML = `
+-      <div><strong>Versão do Esquema:</strong> ${parsedBackup.schemaVersion}</div>
+-      <div><strong>Data da Exportação:</strong> ${App.Utils.formatDateTime(parsedBackup.exportedAt)}</div>
+-      <div style="margin-top: 0.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem;">
+-        <div>Consoles: ${(data.consoles || []).length}</div>
+-        <div>Dutos: ${(data.pipelines || []).length}</div>
+-        <div>UOs: ${(data.operationalUnits || []).length}</div>
+-        <div>Tipos: ${(data.equipmentTypes || []).length}</div>
+-        <div>TAGs: ${(data.equipmentTags || []).length}</div>
+-        <div>Eventos: ${(data.events || []).length}</div>
+-      </div>
+-    `;
+-
+-    const btnConfirm = document.getElementById('btnConfirmImportSummary');
+-    const handler = async () => {
+-      btnConfirm.removeEventListener('click', handler);
+-      const mode = document.querySelector('input[name="importMode"]:checked').value;
+-      try {
+-        await App.Backup.importJSON(parsedBackup, mode);
+-        document.getElementById('modalImportSummary').classList.remove('active');
+-        this.showToast(`Backup importado com sucesso (Modo: ${mode === 'replace' ? 'Substituição' : 'Mesclagem'}).`, 'success');
+-        await this.initHeaderConsole();
+-        await this.renderDashboard();
+-      } catch (err) {
+-        this.showToast(err.message, 'danger');
+-      }
+-    };
+-
+-    btnConfirm.addEventListener('click', handler);
+-    document.getElementById('modalImportSummary').classList.add('active');
++    if(this.modalBusy.has('modalImportSummary'))return;
++    let validated;
++    try{validated=App.Backup.validateBackupData(parsedBackup);}catch(error){this.showToast(error.message,'danger');return;}
++    const box=document.getElementById('importSummaryCounts');box.replaceChildren();
++    const heading=document.createElement('p');heading.textContent=`Esquema ${validated.schemaVersion} • Exportado em ${App.Utils.formatDateTime(validated.exportedAt)}`;box.append(heading);
++    for(const [name,rows] of Object.entries(validated.data)){const line=document.createElement('div');line.textContent=`${name}: ${rows.length}`;box.append(line);}
++    this.setModalAction('modalImportSummary','btnConfirmImportSummary',async()=>{
++      const mode=document.querySelector('input[name="importMode"]:checked')?.value || 'merge';
++      const result=await App.Backup.importJSON(validated,mode);this.importResult=result;
++      const message=document.createElement('p');message.className='import-result';message.setAttribute('role','status');
++      message.textContent=`${result.applied?'Importação aplicada':'Importação não aplicada'}: ${result.inserted} inserido(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).`;
++      box.append(message);
++      for(const conflict of result.conflicts || []){const line=document.createElement('p');line.textContent=`${conflict.store} / ${conflict.id}: ${conflict.reason}`;box.append(line);}
++      if(!result.applied){this.showToast('A importação não foi aplicada. Revise os conflitos.','warning');this.notifyPresentation('import');return false;}
++      await this.reloadPreferences();await this.renderDashboard();
++      if(this.currentView==='viewPendingEvents')await this.renderPendingEvents();
++      if(this.currentView==='viewCompletedEvents')await this.renderCompletedEvents();
++      this.showToast(message.textContent,'success');
++    });
++    this.openModal('modalImportSummary');
+   },
+ 
+   showToast: function(message, type = 'info') {
+@@ -3667,9 +3818,10 @@
+ 
+     const toast = document.createElement('div');
+     toast.className = `toast toast-${type}`;
++    toast.setAttribute('role',type==='danger'?'alert':'status');
+     toast.innerHTML = `
+       <div style="flex: 1;">${App.Utils.escapeHTML(message)}</div>
+-      <button style="background: none; border: none; color: inherit; cursor: pointer; font-size: 1.1rem; line-height: 1;">&times;</button>
++      <button aria-label="Fechar mensagem" style="background: none; border: none; color: inherit; cursor: pointer; font-size: 1.1rem; line-height: 1;">&times;</button>
+     `;
+ 
+     const closeBtn = toast.querySelector('button');
+@@ -3697,7 +3849,7 @@
+   },
+ 
+   deleteEvent: function(eventId) {
+-    this.showConfirmModal('Excluir Previsão', 'Deseja realmente excluir esta previsão e seu histórico?', async () => {
++    this.showConfirmModal('Excluir Previsão', 'Excluir esta previsão da lista ativa? O histórico de auditoria será preservado.', async () => {
+       try {
+         await App.Service.deleteEvent(eventId);
+         this.showToast('Previsão excluída.', 'info');

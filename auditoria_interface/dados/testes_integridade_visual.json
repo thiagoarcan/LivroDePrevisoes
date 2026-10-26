@@ -1,0 +1,35 @@
+{
+  "zero_lead": {
+    "scheduledInMinutes": 10,
+    "configuredLead": 0,
+    "fired": [
+      "zero"
+    ]
+  },
+  "zero_volume": [
+    80
+  ],
+  "band_stale": {
+    "before": "⚡ Urgente",
+    "after": "⚡ Urgente",
+    "expected": "Crítico"
+  },
+  "backup_summary_script_execution": true,
+  "formats": {
+    "date": "25T15:30:00.000Z/10/2026",
+    "time": "2026-",
+    "csvFormula": "=1+1"
+  },
+  "merge_old": {
+    "id": "merge",
+    "name": "antigo",
+    "version": 2,
+    "updatedAt": "2020-01-01T12:00:00Z"
+  },
+  "replace_invalid": {
+    "before": 13,
+    "after": 0,
+    "error": "Failed to execute 'add' on 'IDBObjectStore': Evaluating the object store's key path did not yield a value.",
+    "preventiveDownloadStubbed": true
+  }
+}

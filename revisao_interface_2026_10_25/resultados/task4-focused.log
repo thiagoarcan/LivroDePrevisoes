@@ -1,0 +1,16 @@
+test_drawer_diagnostic_and_copied_report_use_central_version (test_final_findings_browser.FinalFindings.test_drawer_diagnostic_and_copied_report_use_central_version) ... ok
+test_drawer_displays_configured_user_after_reload (test_final_findings_browser.FinalFindings.test_drawer_displays_configured_user_after_reload) ... ok
+test_mobile_and_tablet_show_real_clock_and_conditional_audio_warning (test_final_findings_browser.FinalFindings.test_mobile_and_tablet_show_real_clock_and_conditional_audio_warning) ... ok
+test_mobile_card_secondary_actions_use_named_sheet_and_delete_cancel_is_safe (test_final_findings_browser.FinalFindings.test_mobile_card_secondary_actions_use_named_sheet_and_delete_cancel_is_safe) ... ok
+test_spotlight_mobile_secondary_actions_use_more (test_final_findings_browser.FinalFindings.test_spotlight_mobile_secondary_actions_use_more) ... ok
+test_tablet_landscape_drawing_is_parallel_and_survives_rotation (test_final_findings_browser.FinalFindings.test_tablet_landscape_drawing_is_parallel_and_survives_rotation) ... ok
+test_tablet_landscape_has_operable_rail_and_preserves_selection (test_final_findings_browser.FinalFindings.test_tablet_landscape_has_operable_rail_and_preserves_selection) ... ok
+test_audio_status_text_and_header_warning_contrast_in_three_themes (test_final_actions_browser.FinalActions.test_audio_status_text_and_header_warning_contrast_in_three_themes) ... ok
+test_firing_card_and_spotlight_keep_acknowledge_snooze_complete_direct (test_final_actions_browser.FinalActions.test_firing_card_and_spotlight_keep_acknowledge_snooze_complete_direct) ... ok
+test_sheet_secondary_routes_and_destructive_section_preserve_identity (test_final_actions_browser.FinalActions.test_sheet_secondary_routes_and_destructive_section_preserve_identity) ... ok
+test_tablet_list_detail_have_usable_width_and_selection (test_final_actions_browser.FinalActions.test_tablet_list_detail_have_usable_width_and_selection) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 12.153s
+
+OK

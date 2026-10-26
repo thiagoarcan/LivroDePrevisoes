@@ -1,0 +1,573 @@
+--- baseline/parts_css.py
++++ parts_css.py
+@@ -30,16 +30,17 @@
+ .header-left { flex:1; }
+ .header-brand { display:flex; align-items:center; gap:.6rem; }
+ .header-brand h1 { margin:0; font-size:1rem; white-space:nowrap; }
+ .header-brand .subtitle { font-size:.875rem; color:var(--text-muted); }
+ .header-console-box { display:flex; align-items:center; gap:.5rem; }
+ .header-console-box label { white-space:nowrap; }
+ .header-console-select { width:180px; }
+ .header-status-bar { gap:.35rem; }
++.header-status-bar #chipHeaderAudioWarning { min-height:44px; border-radius:7px; align-items:center; }
+ .header-status-bar .status-pill { display:none; }
+ .clock-display { font-variant-numeric:tabular-nums; font-weight:650; font-size:1rem; white-space:nowrap; }
+ .header-viewmode-box { display:flex; align-items:center; gap:.4rem; }
+ .header-viewmode-box label { display:none; }
+ .header-viewmode-select { width:165px; font-size:.875rem; }
+ .btn-hamburger { display:none; }
+ .btn-header-bell,.btn-hamburger { position:relative; background:var(--bg-surface); color:var(--text-main); border:1px solid var(--border-color); border-radius:8px; min-width:44px; min-height:44px; align-items:center; justify-content:center; }
+ .bell-badge,.badge-count,.cat-count,.bottom-nav-badge,.nav-badge { display:inline-flex; align-items:center; justify-content:center; font-size:.875rem; font-weight:700; border-radius:20px; min-width:1.5rem; padding:.1rem .4rem; background:var(--bg-surface-active); color:var(--text-main); }
+@@ -140,16 +141,17 @@
+ .status-badge.overdue,.status-badge.atrasado { background:var(--status-overdue-bg); color:var(--status-overdue-text); }
+ .status-badge.critico { background:var(--status-critico-bg); color:var(--status-critico-text); }
+ .status-badge.urgente { background:var(--status-urgente-bg); color:var(--status-urgente-text); }
+ .status-badge.atencao { background:var(--status-atencao-bg); color:var(--status-atencao-text); }
+ .status-badge.normal,.status-badge.concluido { background:var(--status-normal-bg); color:var(--status-normal-text); }
+ .status-pill { padding:.3rem .5rem; border:1px solid var(--border-color); border-radius:30px; font-size:.875rem; color:var(--text-main); background:var(--bg-surface); }
+ .status-pill.warning { color:var(--status-atencao-text); background:var(--status-atencao-bg); }
+ .status-pill.ok { color:var(--status-normal-text); background:var(--status-normal-bg); }
++#statusModalAudio>span { color:var(--text-main)!important; }
+ .events-toolbar { padding:1rem; border:1px solid var(--border-color); border-radius:10px; background:var(--bg-surface); margin-bottom:1rem; }
+ .toolbar-primary { display:flex; gap:.8rem; align-items:center; flex-wrap:wrap; }
+ .toolbar-primary>div { min-width:0; }
+ .toolbar-primary>div:not(.search-box) { flex-wrap:wrap; }
+ .search-box { flex:1 1 260px; min-width:0; position:relative; }
+ .search-box>svg { position:absolute; left:.7rem; bottom:.9rem; }
+ .search-box input { padding-left:2.3rem!important; }
+ .toolbar-filters { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr)); gap:.8rem; margin-top:.9rem; }
+@@ -245,32 +247,36 @@
+ .diagnostic-workspace>* { min-width:0; }
+ .diagnostic-workspace>.card-header { grid-column:1/-1; }
+ .diagnostic-status { grid-template-columns:1fr; }
+ .diagnostic-status .metric-value { font-size:1.1rem; }
+ .diagnostic-logs .data-table { table-layout:fixed; }
+ .diagnostic-logs pre { white-space:pre-wrap; overflow-wrap:anywhere; }
+ .stylus-canvas-container { background:var(--bg-app); padding:.75rem; border:1px solid var(--border-color); border-radius:7px; }
+ .canvas-toolbar { display:flex; justify-content:space-between; gap:.7rem; flex-wrap:wrap; margin-bottom:.7rem; }
++.canvas-toolbar label:is([for=stylusColor],[for=stylusWidth],:not([for])) { display:none; }
++.canvas-toolbar #selectStylusStrokeWidth { width:auto; }
+ .stylus-canvas { display:block; width:100%; height:auto; min-height:0; aspect-ratio:1200/440; background:#fff; border-radius:5px; touch-action:none; }
+ .fullscreen-lousa { position:fixed; inset:0; z-index:1500; margin:0; border-radius:0; overflow:auto; display:flex!important; flex-direction:column; padding:1rem; }
+ .fullscreen-lousa .stylus-canvas { flex:none; align-self:center; max-width:min(100%,calc((100dvh - 150px)*1200/440)); }
+ .fullscreen-lousa .canvas-toolbar { position:sticky; top:0; z-index:2; background:var(--bg-app); padding:.5rem 0; }
+ .modal-overlay { position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:center; padding:1rem; background:rgb(0 0 0/.72); }
+ .modal-overlay.active { display:flex; }
+ .modal-box { min-width:0; width:100%; max-width:560px; max-height:calc(100vh - 2rem); max-height:calc(100dvh - 2rem); border:1px solid var(--border-color); border-radius:12px; background:var(--bg-elevated); display:flex; flex-direction:column; box-shadow:0 12px 50px rgb(0 0 0/.35); }
+ .modal-box.modal-lg { max-width:880px; }
+ .modal-header { display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.85rem 1rem; border-bottom:1px solid var(--border-color); flex:0 0 auto; }
+ .modal-header h3 { font-size:1.1rem; margin:0; }
+ .modal-close { display:flex; align-items:center; justify-content:center; min-width:44px; min-height:44px; border:0; border-radius:6px; background:transparent; color:var(--text-main); font-size:1.6rem; }
+ .modal-body { padding:1rem; min-height:0; overflow:auto; overflow-wrap:anywhere; flex:1 1 auto; }
+ .modal-footer { display:flex; justify-content:flex-end; gap:.5rem; padding:.8rem 1rem; flex-wrap:wrap; border-top:1px solid var(--border-color); flex:0 0 auto; }
+ .alarm-modal-box { border:2px solid var(--status-overdue-border); }
+ .alarm-modal-header { color:var(--status-overdue-text); background:var(--status-overdue-bg); }
+ .action-sheet-list { display:flex; flex-direction:column; gap:.5rem; }
++.action-sheet-destructive { margin-top:.75rem; padding-top:1rem; border-top:1px solid var(--border-color); }
++.action-sheet-destructive h4 { font-size:.875rem; color:var(--text-secondary); }
+ .snooze-quick-btn.active { outline:2px solid var(--border-color-focus); }
+ .toast-container { position:fixed; right:1rem; bottom:1rem; z-index:1800; width:min(420px,calc(100vw - 2rem)); pointer-events:none; }
+ .toast { pointer-events:auto; margin-top:.5rem; border:1px solid var(--border-color); border-left:4px solid var(--color-info); border-radius:8px; background:var(--bg-surface); color:var(--text-main); padding:1rem; box-shadow:0 4px 22px #0004; }
+ .toast.error { border-left-color:var(--color-danger); }
+ .toast-close { float:right; background:none; border:none; color:var(--text-main); }
+ .timeline-item { padding:.8rem 0 .8rem 1rem; border-left:2px solid var(--border-color); position:relative; }
+ .timeline-meta { display:flex; gap:.5rem; justify-content:space-between; font-size:.875rem; color:var(--text-secondary); }
+ .timeline-title { font-weight:650; }
+@@ -343,17 +349,21 @@
+ body:is([data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #viewCadastros.active { display:grid; grid-template-columns:minmax(0,2.7fr) minmax(0,1fr); gap:1rem; }
+ body:is([data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #viewCadastros>.card { grid-column:1/-1; }
+ body[data-layout-mode=ultrawide] .color-workspace { grid-template-columns:minmax(0,1.7fr) minmax(0,1fr) minmax(0,1fr); }
+ body[data-layout-mode=ultrawide] #rangeLivePreview { grid-column:3; grid-row:4; }
+ body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) .app-nav { display:none; }
+ body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) .btn-hamburger { display:inline-flex; }
+ body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) .app-main { margin-left:0; width:100%; }
+ body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) .persistent-banner { margin-left:0; }
+-body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) .header-status-bar,body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) #btnQuickAddEvent,body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) #btnControllerBadge { display:none; }
++body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) #btnQuickAddEvent,body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) #btnControllerBadge { display:none; }
++body[data-layout-mode=tablet] .app-header { display:grid; grid-template-columns:minmax(0,1fr) auto; }
++body[data-layout-mode=tablet] .header-left { grid-column:1; grid-row:1; }
++body[data-layout-mode=tablet] .header-actions { grid-column:2; grid-row:1; }
++body[data-layout-mode=tablet] .header-status-bar { grid-column:1/-1; grid-row:2; }
+ body[data-layout-mode=tablet] .dashboard-metrics { grid-template-columns:repeat(4,minmax(0,1fr)); }
+ body[data-layout-mode=tablet] #viewDashboard.active { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1rem; }
+ body[data-layout-mode=tablet] #viewDashboard .dashboard-metrics { grid-row:2; grid-column:1/-1; margin:0; }
+ body[data-layout-mode=tablet] #viewDashboard .dashboard-highlight-grid { grid-row:3; grid-column:1/-1; }
+ body[data-layout-mode=tablet] #cardDashboardUrgent { grid-row:4; grid-column:1/-1; }
+ body[data-layout-mode=tablet] .dashboard-highlight-grid { grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); }
+ body[data-layout-mode=tablet] .app-main { padding:1rem; }
+ body[data-layout-mode=tablet] .form-sticky-submit-bar { position:sticky; }
+@@ -362,17 +372,35 @@
+ body[data-layout-mode=tablet] .diagnostic-workspace { grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+ body[data-layout-mode=tablet] .diagnostic-logs { grid-column:1/-1; }
+ body[data-layout-mode=tablet] .backup-workspace { grid-template-columns:1fr; }
+ body[data-layout-mode=tablet] #backupContextPanel { grid-column:1; grid-row:auto; }
+ body[data-layout-mode=tablet] .pending-master-detail-grid { grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); }
+ body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) input:not([type=checkbox]):not([type=radio]),body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) select,body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) textarea { min-height:48px; }
+ body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) .btn-primary,body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) .btn-success { min-height:48px; }
+ body:is([data-layout-mode=mobile],[data-layout-mode=tablet]) .cadastro-hub-card[data-cad-hidden=true] { display:none; }
+-@media (max-width:1199px) { .header-viewmode-box { display:none; } .header-status-bar { display:none; } .header-brand .subtitle { display:none; } }
++@media (max-width:1199px) {
++ .header-viewmode-box { display:none; } .header-brand .subtitle { display:none; }
++ .app-header { flex-wrap:wrap; }
++ .header-status-bar { flex-basis:100%; order:3; }
++}
++/* Landscape tablet has enough usable width for an 80px rail and two working regions. */
++@media (min-width:1000px) and (orientation:landscape) {
++ body[data-layout-mode=tablet] { --sidebar-width:80px; }
++ body[data-layout-mode=tablet] .app-nav { display:flex; padding:.6rem .5rem; }
++ body[data-layout-mode=tablet] .app-nav .nav-item { position:relative; min-height:52px; justify-content:center; padding:.6rem; }
++ body[data-layout-mode=tablet] .app-nav .nav-item>svg { width:22px; height:22px; }
++ body[data-layout-mode=tablet] .app-nav .nav-item>span:not(.badge-count) { position:absolute; width:1px; height:1px; padding:0; margin:-1px; clip-path:inset(50%); overflow:hidden; white-space:nowrap; }
++ body[data-layout-mode=tablet] .app-nav .badge-count { position:absolute; top:0; right:0; min-width:18px; padding:0 .25rem; font-size:.75rem; }
++ body[data-layout-mode=tablet] .app-main { margin-left:var(--sidebar-width); width:calc(100% - var(--sidebar-width)); }
++ body[data-layout-mode=tablet] .persistent-banner { margin-left:var(--sidebar-width); }
++ body[data-layout-mode=tablet] #formEvent .event-form-sections { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
++ body[data-layout-mode=tablet] #formEvent .fieldset-atividade { grid-column:1; grid-row:2; }
++ body[data-layout-mode=tablet] #formEvent .fieldset-lousa { grid-column:2; grid-row:2; }
++}
+ @media (min-width:768px) and (max-width:1199px) {
+  body:is([data-layout-mode=conventional],[data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #viewDashboard.active { display:block; }
+  body:is([data-layout-mode=conventional],[data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #viewDashboard>* { margin-bottom:1rem; }
+  body:is([data-layout-mode=conventional],[data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #dashboardOverview { display:contents; }
+  body:is([data-layout-mode=conventional],[data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #dashboardContextStack { display:contents; }
+  body:is([data-layout-mode=conventional],[data-layout-mode=widescreen],[data-layout-mode=ultrawide]) #dashboardOverview .dashboard-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ }
+ @media (min-width:768px) and (max-width:1000px) { .header-brand h1 { font-size:.9rem; } .event-form-sections { grid-template-columns:1fr; } }
+@@ -383,17 +411,22 @@
+ body:is([data-layout-mode=mobile],.layout-narrow) .app-header { padding-left:max(.65rem,env(safe-area-inset-left)); padding-right:max(.65rem,env(safe-area-inset-right)); }
+ body:is([data-layout-mode=mobile],.layout-narrow) .header-left { display:grid; grid-template-columns:44px minmax(0,1fr); gap:.35rem .6rem; }
+ body:is([data-layout-mode=mobile],.layout-narrow) .header-brand h1 { font-size:.9rem; white-space:normal; }
+ body:is([data-layout-mode=mobile],.layout-narrow) .header-brand>svg,body:is([data-layout-mode=mobile],.layout-narrow) .subtitle { display:none; }
+ body:is([data-layout-mode=mobile],.layout-narrow) .header-console-box { grid-column:1/-1; display:flex; }
+ body:is([data-layout-mode=mobile],.layout-narrow) .header-console-box label { font-size:.875rem; }
+ body:is([data-layout-mode=mobile],.layout-narrow) #headerActiveConsole { width:100%; flex:1; min-height:44px; }
+ body:is([data-layout-mode=mobile],.layout-narrow) .header-actions { gap:.3rem; flex-direction:column; }
+-body:is([data-layout-mode=mobile],.layout-narrow) .header-status-bar,body:is([data-layout-mode=mobile],.layout-narrow) .header-viewmode-box,body:is([data-layout-mode=mobile],.layout-narrow) #btnControllerBadge,body:is([data-layout-mode=mobile],.layout-narrow) #btnQuickAddEvent,body:is([data-layout-mode=mobile],.layout-narrow) #btnToggleTheme,body:is([data-layout-mode=mobile],.layout-narrow) .app-nav { display:none; }
++body:is([data-layout-mode=mobile],.layout-narrow) .header-left { grid-column:1; grid-row:1; }
++body:is([data-layout-mode=mobile],.layout-narrow) .header-actions { grid-column:2; grid-row:1; }
++body:is([data-layout-mode=mobile],.layout-narrow) .header-status-bar { display:flex; grid-column:1/-1; grid-row:2; gap:.35rem; }
++body:is([data-layout-mode=mobile],.layout-narrow) .clock-display { font-size:.875rem; }
++body:is([data-layout-mode=mobile],.layout-narrow) .header-viewmode-box,body:is([data-layout-mode=mobile],.layout-narrow) #btnControllerBadge,body:is([data-layout-mode=mobile],.layout-narrow) #btnQuickAddEvent,body:is([data-layout-mode=mobile],.layout-narrow) #btnToggleTheme,body:is([data-layout-mode=mobile],.layout-narrow) .app-nav { display:none; }
++body:is([data-layout-mode=mobile],.layout-narrow) .event-action-secondary { display:none; }
+ body:is([data-layout-mode=mobile],.layout-narrow) .btn-hamburger { display:inline-flex; }
+ body:is([data-layout-mode=mobile],.layout-narrow) .app-main { margin:0; width:100%; padding:1rem .65rem calc(90px + env(safe-area-inset-bottom)); }
+ body:is([data-layout-mode=mobile],.layout-narrow) .view-section.active { display:flex!important; flex-direction:column; gap:.85rem; }
+ body:is([data-layout-mode=mobile],.layout-narrow) .view-section>* { width:100%; }
+ body:is([data-layout-mode=mobile],.layout-narrow) .dashboard-highlight-grid { display:flex; flex-direction:column; gap:.85rem; order:1; }
+ body:is([data-layout-mode=mobile],.layout-narrow) .view-heading { order:-1; }
+ body:is([data-layout-mode=mobile],.layout-narrow) .dashboard-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem; order:3; margin:0; }
+ body:is([data-layout-mode=mobile],.layout-narrow) #dashboardOverview { display:contents; }
+--- baseline/parts_html.py
++++ parts_html.py
+@@ -261,17 +261,17 @@
+     <polyline points="12 6 12 12 16 14">
+     </polyline>
+    </svg>
+    <div>
+     <div>
+      Previsões em Dutos
+     </div>
+     <div style="color: var(--text-muted); font-weight: 600">
+-     v1.1.0 • Operação Offline
++     <span data-app-version></span> • Operação Offline
+     </div>
+    </div>
+   </div>
+   <button aria-label="Fechar Menu" class="modal-close" id="btnCloseMobileDrawer" type="button">
+    ×
+   </button>
+  </div>
+  <div class="drawer-nav-items">
+@@ -2980,17 +2980,17 @@
+       Copiar Diagnóstico
+      </span>
+     </button>
+    </div>
+    <div class="form-grid diagnostic-status" style="margin-bottom: 1.25rem">
+     <div class="metric-card">
+      <div class="metric-data">
+       <div class="metric-value" id="diagAppVersion">
+-       v1.1.0
++       —
+       </div>
+       <div class="metric-label">
+        Versão da Aplicação
+       </div>
+      </div>
+     </div>
+     <div class="metric-card">
+      <div class="metric-data">
+--- baseline/parts_js_ui.py
++++ parts_js_ui.py
+@@ -292,16 +292,17 @@
+     );
+     this.applyResponsiveLayoutMode(this.responsiveLayoutMode, false);
+ 
+     window.addEventListener('resize', () => {
+       this.handleViewportResize();
+     });
+ 
+     document.getElementById('headerUserName').textContent = settings.localUserName || 'Usuário local';
++    document.getElementById('labelDrawerUser').textContent = 'Usuário: ' + (settings.localUserName || 'Usuário local');
+     const inputUser = document.getElementById('inputSettingsUserName');
+     if (inputUser) inputUser.value = settings.localUserName || 'Usuário local';
+ 
+     this.updateBackupPill(settings.lastBackupAt);
+     App.Notifications.updateStatusPill();
+     App.Audio.init();
+ 
+     // Inicializar Console Global no Cabeçalho
+@@ -2017,21 +2018,21 @@
+ 
+       spTimeLeft.dataset.timestamp = new Date(spotlightTarget.scheduledAt).getTime();
+       spTimeLeft.textContent = timerInfo.text;
+       spTimeLeft.style.setProperty('--event-color',classification.color);
+       spTimeLeft.style.removeProperty('color');
+       spSched.textContent = `Previsto: ${App.Utils.formatDateTime(spotlightTarget.scheduledDate, spotlightTarget.scheduledTime)}`;
+ 
+       spActions.innerHTML = `
+-        ${spotlightTarget.alarmState === 'triggered' ? `<button class="btn btn-warning btn-sm" onclick="App.UI.acknowledgeAlarm('${spotlightTarget.id}')">Reconhecer Alarme</button>` : ''}
++        ${spotlightTarget.alarmState === 'triggered' ? `<button class="btn btn-warning btn-sm" onclick="App.UI.acknowledgeAlarm('${spotlightTarget.id}')">Reconhecer Alarme</button><button class="btn btn-secondary btn-sm" onclick="App.UI.showSnoozeModal('${spotlightTarget.id}')">Adiar</button>` : ''}
+         <button class="btn btn-success btn-sm" onclick="App.UI.showCompleteModal('${spotlightTarget.id}')">Concluir</button>
+-        <button class="btn btn-secondary btn-sm" onclick="App.UI.editEvent('${spotlightTarget.id}')">Editar</button>
+-        <button class="btn btn-outline btn-sm" onclick="App.UI.duplicateEvent('${spotlightTarget.id}')">+ Duplicar</button>
+-        <button class="btn btn-outline btn-sm" onclick="App.UI.showDetailsModal('${spotlightTarget.id}')">Detalhes</button>
++        <button class="btn btn-secondary btn-sm event-action-secondary" onclick="App.UI.editEvent('${spotlightTarget.id}')">Editar</button>
++        <button class="btn btn-outline btn-sm event-action-secondary" onclick="App.UI.duplicateEvent('${spotlightTarget.id}')">+ Duplicar</button>
++        <button class="btn btn-outline btn-sm event-action-secondary" onclick="App.UI.showDetailsModal('${spotlightTarget.id}')">Detalhes</button>
+         <button class="btn btn-outline btn-sm" onclick="App.UI.openEventActionSheet('${spotlightTarget.id}')" title="Mais ações">&#x22EF; Mais</button>
+       `;
+     } else {
+       spDesc.textContent = 'Nenhuma previsão operacional pendente no momento.';
+       spNotes.textContent = '';
+       spPath.textContent = 'Console • Duto • UO';
+       spBadge.className = 'status-badge normal';
+       spBadge.textContent = '● Sem Pendências';
+@@ -2273,17 +2274,17 @@
+               <span class="status-badge ${cl.key} ${cl.blink ? 'pulsing-badge' : ''}">${cl.icon || ''} ${cl.name}</span>
+             </div>
+ 
+             <div class="event-card-body" style="margin-top: 0.5rem;">
+               <div class="event-desc">${App.Utils.escapeHTML(ev.description)}</div>
+               ${ev.notes ? `<div class="event-notes">${App.Utils.escapeHTML(ev.notes)}</div>` : ''}
+               ${ev.stylusDrawing ? `
+                 <div style="margin-top: 0.4rem;">
+-                  <button class="btn btn-outline btn-sm" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;" onclick="App.UI.showDetailsModal('${ev.id}')">
++                  <button class="btn btn-outline btn-sm event-action-secondary" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;" onclick="App.UI.showDetailsModal('${ev.id}')">
+                     &#x270E; Possui Anotação / Esboço
+                   </button>
+                 </div>
+               ` : ''}
+             </div>
+           </div>
+ 
+           <div>
+@@ -2301,20 +2302,20 @@
+               ${isFiring ? `
+                 <button class="btn btn-warning btn-sm" onclick="App.UI.acknowledgeAlarm('${ev.id}')">Reconhecer</button>
+                 <button class="btn btn-secondary btn-sm" onclick="App.UI.showSnoozeModal('${ev.id}')">Adiar</button>
+               ` : ''}
+               ${isAck ? `<span style="font-size: 0.72rem; color: #4ade80; margin-right: auto;">Alarme reconhecido</span>` : ''}
+               ${isSnoozed ? `<span style="font-size: 0.72rem; color: #fbbf24; margin-right: auto;">Adiado</span>` : ''}
+ 
+               <button class="btn btn-success btn-sm" onclick="App.UI.showCompleteModal('${ev.id}')" title="Concluir evento">Concluir</button>
+-              <button class="btn btn-secondary btn-sm" onclick="App.UI.editEvent('${ev.id}')" title="Editar evento">Editar</button>
+-              <button class="btn btn-outline btn-sm" onclick="App.UI.duplicateEvent('${ev.id}')" title="Duplicar evento para outro horário">+ Duplicar</button>
+-              <button class="btn btn-outline btn-sm" onclick="App.UI.showDetailsModal('${ev.id}')" title="Ver detalhes e histórico">Detalhes</button>
+-              <button class="btn btn-outline btn-sm" onclick="App.UI.deleteEvent('${ev.id}')" title="Excluir evento">&times;</button>
++              <button class="btn btn-secondary btn-sm event-action-secondary" onclick="App.UI.editEvent('${ev.id}')" title="Editar evento">Editar</button>
++              <button class="btn btn-outline btn-sm event-action-secondary" onclick="App.UI.duplicateEvent('${ev.id}')" title="Duplicar evento para outro horário">+ Duplicar</button>
++              <button class="btn btn-outline btn-sm event-action-secondary" onclick="App.UI.showDetailsModal('${ev.id}')" title="Ver detalhes e histórico">Detalhes</button>
++              <button class="btn btn-outline btn-sm event-action-secondary" onclick="App.UI.deleteEvent('${ev.id}')" title="Excluir evento">&times;</button>
+               <button class="btn btn-outline btn-sm btn-card-more-actions" onclick="App.UI.openEventActionSheet('${ev.id}')" title="Mais ações">&#x22EF;</button>
+             </div>
+           </div>
+         </div>
+       `;
+     }).join('');
+ 
+     // Renderizar Tabela Compacta
+@@ -2499,17 +2500,20 @@
+         ${ev.alarmState === 'triggered' ? `<button class="btn btn-warning" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.acknowledgeAlarm('${ev.id}')">&#x1F514; Reconhecer Alarme</button>` : ''}
+         <button class="btn btn-secondary" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.showSnoozeModal('${ev.id}')">&#x23F1; Adiar Alarme (5 / 10 / 15 min)</button>
+         <button class="btn btn-secondary" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.editEvent('${ev.id}')">&#x270E; Editar Previsão</button>
+       ` : `
+         <button class="btn btn-secondary" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.showReopenModal('${ev.id}')">&#x21BA; Reabrir Previsão</button>
+       `}
+       <button class="btn btn-outline" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.duplicateEvent('${ev.id}')">+ Duplicar para Novo Horário</button>
+       <button class="btn btn-outline" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.showDetailsModal('${ev.id}')">&#x1F4CB; Ver Detalhes e Auditoria</button>
+-      <button class="btn btn-danger" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.deleteEvent('${ev.id}')">&times; Excluir Previsão</button>
++      <section class="action-sheet-destructive" aria-labelledby="actionSheetDestructiveTitle">
++        <h4 id="actionSheetDestructiveTitle">Ação destrutiva</h4>
++        <button class="btn btn-danger" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.deleteEvent('${ev.id}')">&times; Excluir Previsão</button>
++      </section>
+     `;
+ 
+     this.openModal(modal.id,ev,request);
+   },
+ 
+   updateLiveTimers: async function() {
+     for(const element of document.querySelectorAll('.event-countdown[data-timestamp],#spotlightTimeLeft[data-timestamp],#alarmModalCountdown[data-timestamp]')){
+       const timestamp=Number(element.dataset.timestamp);if(timestamp)element.textContent=this.formatCountdown(timestamp).text;
+--- baseline/parts_js_presentation.py
++++ parts_js_presentation.py
+@@ -1,16 +1,18 @@
+ # -*- coding: utf-8 -*-
+ JS_PRESENTATION = r"""
+ /* Read-only operational composition. No storage writes, timers or UI method replacement. */
+ App.Presentation = {
+   dashboardSelection: null,
+   init() {
+     if(this.initialized)return;
+     this.initialized=true;
++    for(const version of document.querySelectorAll('[data-app-version]'))version.textContent='v'+App.Config.APP_VERSION;
++    for(const button of document.querySelectorAll('.app-nav .nav-item'))button.title=button.querySelector('span:not(.badge-count)')?.textContent.trim()||'';
+     window.addEventListener('app-ui-update',e=>this.refresh(e.detail?.reason));
+     document.addEventListener('input',e=>this.editing(e));
+     document.addEventListener('change',e=>this.editing(e));
+     document.addEventListener('click',e=>this.click(e));
+     this.editorObserver=new MutationObserver(()=>{
+       if(['viewCadastros','viewConfigColors'].includes(App.UI.currentView))this.refresh('editor');
+     });
+     for(const form of document.querySelectorAll('.catalog-editor,#formColorRange'))this.editorObserver.observe(form,{attributes:true,attributeFilter:['style'],subtree:true,childList:true});
+--- baseline/tests/test_final_findings_browser.py
++++ tests/test_final_findings_browser.py
+@@ -0,0 +1,125 @@
++"""Regressions from the independent whole-delivery review."""
++import json,re,sys,unittest
++from playwright.sync_api import sync_playwright
++from browser_support import build_temporary_html,open_app
++
++
++class FinalFindings(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.temp,cls.path=build_temporary_html();cls.pw=sync_playwright().start()
++        cls.browser=cls.pw.chromium.launch(channel='msedge',headless=True)
++    @classmethod
++    def tearDownClass(cls):cls.browser.close();cls.pw.stop();cls.temp.cleanup()
++    def setUp(self):self.context,self.page,self.errors=open_app(self.browser,self.path,width=1024,height=768,touch=True)
++    def tearDown(self):self.context.close()
++    def size(self,width,height):
++        self.page.set_viewport_size({'width':width,'height':height})
++        self.page.evaluate('App.UI.applyResponsiveLayoutMode("auto",false)')
++    def view(self,view):self.page.evaluate('(v)=>App.UI.navigateTo(v)',view)
++
++    def test_tablet_landscape_has_operable_rail_and_preserves_selection(self):
++        self.view('viewPendingEvents')
++        selected=self.page.evaluate('App.UI.selectedDetailEventId')
++        self.assertTrue(selected)
++        for width,height in [(1024,768),(1199,800)]:
++            self.size(width,height)
++            nav=self.page.locator('.app-nav');self.assertTrue(nav.is_visible())
++            r=nav.bounding_box();self.assertGreaterEqual(r['height'],400,r);self.assertGreater(r['width'],40,r);self.assertLessEqual(r['width'],120,r)
++            self.assertGreaterEqual(r['x'],0,r);self.assertLessEqual(r['x']+r['width'],width,r)
++            nav.get_by_role('button',name=re.compile('Painel')).focus();self.page.keyboard.press('Enter')
++            self.page.wait_for_function('App.UI.currentView==="viewDashboard"')
++            nav.get_by_role('button',name=re.compile('Pendentes')).tap()
++            self.page.wait_for_function('App.UI.currentView==="viewPendingEvents"')
++            self.assertEqual(self.page.evaluate('App.UI.selectedDetailEventId'),selected)
++            self.size(768,1024)
++            self.assertEqual(self.page.evaluate('App.UI.selectedDetailEventId'),selected)
++        self.assertEqual(self.errors,[])
++
++    def test_tablet_landscape_drawing_is_parallel_and_survives_rotation(self):
++        self.view('viewNewEvent');self.page.locator('#inputEventDescription').fill('Rascunho tablet preservado')
++        self.page.locator('#btnToggleStylusCanvas').click()
++        for width,height in [(1024,768),(1199,800)]:
++            self.size(width,height)
++            d=self.page.evaluate('''()=>{let r=s=>document.querySelector(s).getBoundingClientRect().toJSON();
++                return {editor:r('.fieldset-atividade'),drawing:r('.fieldset-lousa'),canvas:r('#stylusDrawingCanvas')}}''')
++            self.assertGreaterEqual(d['drawing']['left'],d['editor']['right']-2,d)
++            self.assertLessEqual(d['drawing']['top'],d['editor']['top']+100,d)
++            self.assertGreater(d['editor']['width'],250,d)
++            self.assertAlmostEqual(d['canvas']['width']/d['canvas']['height'],1200/440,delta=.03)
++        canvas=self.page.locator('#stylusDrawingCanvas');canvas.scroll_into_view_if_needed();r=canvas.bounding_box()
++        self.page.mouse.move(r['x']+20,r['y']+20);self.page.mouse.down();self.page.mouse.move(r['x']+90,r['y']+50,steps=5);self.page.mouse.up()
++        before=self.page.evaluate('App.UI.getStylusData()');self.assertTrue(before)
++        self.page.locator('#inputEventDescription').focus()
++        self.size(768,1024);self.size(1024,768)
++        self.assertEqual(self.page.locator('#inputEventDescription').input_value(),'Rascunho tablet preservado')
++        self.assertEqual(self.page.evaluate('App.UI.getStylusData()'),before)
++        self.assertEqual(self.page.evaluate('document.activeElement.id'),'inputEventDescription')
++        self.assertEqual(self.errors,[])
++
++    def test_mobile_and_tablet_show_real_clock_and_conditional_audio_warning(self):
++        for width,height in [(320,640),(390,844),(600,900),(768,1024),(820,1180),(1024,768),(1199,800)]:
++            self.size(width,height)
++            self.page.evaluate('App.Audio.isUnlocked=false;App.Audio.updateStatusPill()')
++            for selector in ['#liveClock','#chipHeaderAudioWarning']:
++                node=self.page.locator(selector);self.assertTrue(node.is_visible(),(width,selector))
++                r=node.bounding_box();self.assertGreater(r['width'],16,(width,selector,r));self.assertGreaterEqual(r['height'],16,(width,selector,r))
++                self.assertGreaterEqual(r['x'],-1,(width,selector,r));self.assertLessEqual(r['x']+r['width'],width+2,(width,selector,r))
++            self.assertRegex(self.page.locator('#liveClock').inner_text(),r'\d{2}:\d{2}:\d{2}')
++            self.page.evaluate('''()=>{let actual=App.Audio.ctx;App.Audio.ctx={state:'running'};App.Audio.isUnlocked=true;
++                App.Audio.updateStatusPill();App.Audio.ctx=actual}''')
++            self.assertFalse(self.page.locator('#chipHeaderAudioWarning').is_visible())
++            self.assertTrue(self.page.locator('#liveClock').is_visible())
++        self.assertEqual(self.errors,[])
++
++    def test_mobile_card_secondary_actions_use_named_sheet_and_delete_cancel_is_safe(self):
++        self.size(390,844);self.view('viewPendingEvents')
++        card=self.page.locator('#containerPendingCards .event-card').first
++        event_id=card.get_attribute('data-event-id')
++        for method in ['editEvent','duplicateEvent','showDetailsModal','deleteEvent']:
++            self.assertEqual(card.locator('button[onclick*="'+method+'"]:visible').count(),0,method)
++        self.assertTrue(card.get_by_role('button',name=re.compile('Concluir')).is_visible())
++        card.get_by_role('button',name=re.compile('Mais')).tap()
++        sheet=self.page.locator('#modalEventActionSheet.active')
++        sheet.wait_for(state='visible')
++        for label in ['Editar','Duplicar','Detalhes','Excluir']:
++            self.assertTrue(sheet.get_by_role('button',name=re.compile(label)).is_visible(),label)
++        sheet.get_by_role('button',name=re.compile('Excluir')).tap()
++        self.page.wait_for_selector('#modalConfirm.active')
++        self.page.locator('#btnCancelConfirm').tap()
++        self.assertTrue(self.page.evaluate('async(id)=>(await App.DB.get("events",id)).active!==false',event_id))
++        self.assertEqual(self.errors,[])
++
++    def test_spotlight_mobile_secondary_actions_use_more(self):
++        self.size(390,844);self.view('viewDashboard')
++        actions=self.page.locator('#spotlightActions')
++        for method in ['editEvent','duplicateEvent','showDetailsModal']:
++            self.assertEqual(actions.locator('button[onclick*="'+method+'"]:visible').count(),0,method)
++        self.assertTrue(actions.get_by_role('button',name=re.compile('Concluir')).is_visible())
++        self.assertTrue(actions.get_by_role('button',name=re.compile('Mais')).is_visible())
++
++    def test_drawer_diagnostic_and_copied_report_use_central_version(self):
++        self.size(390,844);version=self.page.evaluate('App.Config.APP_VERSION')
++        self.page.locator('#btnToggleMobileMenu').tap()
++        self.assertIn(version,self.page.locator('#appMobileDrawer').inner_text())
++        self.assertNotIn('v1.1.0',self.page.locator('#appMobileDrawer').inner_text())
++        self.page.keyboard.press('Escape');self.view('viewDiagnostic')
++        self.assertIn(version,self.page.locator('#diagAppVersion').inner_text())
++        self.page.evaluate('Object.defineProperty(navigator,"clipboard",{configurable:true,value:{writeText:async(t)=>{window.copiedDiagnostic=t}}})')
++        self.page.locator('#btnCopyDiagnostic').click()
++        self.page.wait_for_function('!!window.copiedDiagnostic')
++        self.assertEqual(json.loads(self.page.evaluate('window.copiedDiagnostic'))['version'],version)
++        self.assertEqual(self.errors,[])
++
++    def test_drawer_displays_configured_user_after_reload(self):
++        self.size(390,844)
++        self.page.evaluate('''async()=>{let s=await App.Service.getSettings();s.localUserName='Controladora Maria';await App.Service.saveSettings(s)}''')
++        self.page.reload();self.page.wait_for_function('App.AlarmEngine.intervalId!==null');self.page.evaluate('App.AlarmEngine.stop()')
++        self.page.locator('#btnToggleMobileMenu').tap()
++        self.assertIn('Controladora Maria',self.page.locator('#labelDrawerUser').inner_text())
++        self.assertEqual(self.errors,[])
++
++
++if __name__=='__main__':
++    result=unittest.TextTestRunner(verbosity=2,stream=sys.stdout).run(unittest.defaultTestLoader.loadTestsFromTestCase(FinalFindings))
++    sys.exit(0 if result.wasSuccessful() else 1)
+--- baseline/tests/test_final_actions_browser.py
++++ tests/test_final_actions_browser.py
+@@ -0,0 +1,83 @@
++"""Useful tablet regions and operational actions affected by the final review."""
++import re,unittest
++from playwright.sync_api import sync_playwright
++from browser_support import build_temporary_html,open_app
++
++CONTRAST=r'''e=>{const rgb=s=>(s.match(/[\d.]+/g)||[]).map(Number),lum=c=>c.slice(0,3).map(x=>{x/=255;return x<=.04045?x/12.92:((x+.055)/1.055)**2.4}).reduce((a,x,i)=>a+x*[.2126,.7152,.0722][i],0);let n=e,bg;while(n){const c=rgb(getComputedStyle(n).backgroundColor);if(c.length===3||c[3]===1){bg=c;break}n=n.parentElement}const a=lum(rgb(getComputedStyle(e).color)),b=lum(bg);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)}'''
++
++class FinalActions(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.temp,cls.path=build_temporary_html();cls.pw=sync_playwright().start();cls.browser=cls.pw.chromium.launch(channel='msedge',headless=True)
++    @classmethod
++    def tearDownClass(cls):cls.browser.close();cls.pw.stop();cls.temp.cleanup()
++    def setUp(self):self.context,self.page,self.errors=open_app(self.browser,self.path,width=390,height=844,touch=True)
++    def tearDown(self):self.assertEqual(self.errors,[]);self.context.close()
++    def test_tablet_list_detail_have_usable_width_and_selection(self):
++        for width,height in [(1024,768),(1199,800)]:
++            self.page.set_viewport_size({'width':width,'height':height})
++            self.page.evaluate('App.UI.applyResponsiveLayoutMode("auto",false);App.UI.navigateTo("viewPendingEvents")')
++            boxes=self.page.evaluate('''()=>Object.fromEntries(['.app-nav','.pending-master','.pending-detail-pane'].map(s=>[s,document.querySelector(s).getBoundingClientRect().toJSON()]))''')
++            rail,master,detail=[boxes[k] for k in ['.app-nav','.pending-master','.pending-detail-pane']]
++            self.assertGreater(rail['width'],40);self.assertGreaterEqual(master['left'],rail['right'])
++            self.assertGreater(master['width'],320);self.assertGreater(detail['width'],280)
++            self.assertGreaterEqual(detail['left'],master['right']);self.assertLessEqual(detail['right'],width)
++            cards=self.page.locator('#containerPendingCards .event-card');self.assertGreaterEqual(cards.count(),2)
++            card=cards.nth(1);identity=card.get_attribute('data-event-id');card.locator('.event-desc').tap()
++            self.page.wait_for_function('(id)=>App.UI.selectedDetailEventId===id',arg=identity)
++            description=card.locator('.event-desc').inner_text()
++            self.page.wait_for_function('(description)=>document.querySelector(".pending-detail-pane").textContent.includes(description)',arg=description)
++            self.assertIn(description,self.page.locator('.pending-detail-pane').inner_text())
++    def test_firing_card_and_spotlight_keep_acknowledge_snooze_complete_direct(self):
++        event_id=self.page.evaluate('''async()=>{let e=App.UI.getPresentationState().snapshot.events.find(e=>e.status==='pendente'&&e.consoleId===App.UI.activeConsoleId);e.alarmState='triggered';e.scheduledAt=new Date(Date.now()-3600000).toISOString();await App.DB.update('events',e);await App.UI.renderDashboard();return e.id}''')
++        actions=self.page.locator('#spotlightActions')
++        for label in ['Reconhecer','Adiar','Concluir','Mais']:self.assertTrue(actions.get_by_role('button',name=re.compile(label)).is_visible())
++        self.page.evaluate('App.UI.navigateTo("viewPendingEvents")')
++        card=self.page.locator(f'#containerPendingCards .event-card[data-event-id="{event_id}"]')
++        for label in ['Reconhecer','Adiar','Concluir','Mais']:self.assertTrue(card.get_by_role('button',name=re.compile(label)).is_visible())
++        card.get_by_role('button',name='Adiar',exact=True).tap();self.page.wait_for_selector('#modalSnooze.active')
++        self.page.locator('#btnCancelSnooze').tap()
++        self.assertEqual(self.page.evaluate('(id)=>App.DB.get("events",id)',event_id)['alarmState'],'triggered')
++        card.get_by_role('button',name='Reconhecer',exact=True).tap()
++        self.page.wait_for_function('async(id)=>(await App.DB.get("events",id)).alarmState==="acknowledged"',arg=event_id)
++        event=self.page.evaluate('(id)=>App.DB.get("events",id)',event_id)
++        self.assertEqual(event['status'],'pendente');self.assertTrue(event['active'])
++    def test_sheet_secondary_routes_and_destructive_section_preserve_identity(self):
++        self.page.evaluate('App.UI.navigateTo("viewPendingEvents")')
++        card=self.page.locator('#containerPendingCards .event-card').first;event_id=card.get_attribute('data-event-id')
++        before=self.page.evaluate('async()=>(await App.DB.getAll("events")).length')
++        def sheet():
++            self.page.evaluate('App.UI.navigateTo("viewPendingEvents")')
++            self.page.locator(f'.event-card[data-event-id="{event_id}"]').get_by_role('button',name=re.compile('Mais')).tap()
++            result=self.page.locator('#modalEventActionSheet.active');result.wait_for(state='visible');return result
++        menu=sheet();destructive=menu.get_by_role('region',name='Ação destrutiva')
++        self.assertTrue(destructive.is_visible());self.assertEqual(destructive.get_by_role('button').count(),1)
++        menu.get_by_role('button',name=re.compile('Detalhes')).tap();self.page.wait_for_selector('#modalEventDetails.active')
++        self.assertEqual(self.page.evaluate('App.UI.selectedEventForAction.id'),event_id)
++        self.page.keyboard.press('Escape')
++        sheet().get_by_role('button',name=re.compile('Editar')).tap()
++        self.page.wait_for_function('(id)=>document.getElementById("eventEditId").value===id',arg=event_id)
++        self.assertEqual(self.page.locator('#eventEditId').input_value(),event_id)
++        self.page.locator('#btnCancelEditEvent').click()
++        sheet().get_by_role('button',name=re.compile('Duplicar')).tap()
++        self.page.wait_for_function('App.UI.currentView==="viewNewEvent"')
++        self.assertEqual(self.page.locator('#eventEditId').input_value(),'')
++        self.assertEqual(self.page.evaluate('async()=>(await App.DB.getAll("events")).length'),before)
++    def test_audio_status_text_and_header_warning_contrast_in_three_themes(self):
++        self.page.set_viewport_size({'width':320,'height':640})
++        self.page.evaluate('App.UI.applyResponsiveLayoutMode("auto",false)')
++        for theme in ['dark','light','industrial']:
++            self.page.evaluate('(t)=>App.UI.applyTheme(t)',theme)
++            self.page.locator('#btnHeaderAppStatus').tap();self.page.wait_for_selector('#modalAppStatus.active')
++            for ready in [False,True]:
++                self.page.evaluate('''ready=>{let ctx=App.Audio.ctx;App.Audio.ctx={state:ready?'running':'suspended'};App.Audio.isUnlocked=ready;App.Audio.updateStatusPill();App.Audio.ctx=ctx}''',ready)
++                text=self.page.locator('#statusModalAudio>span')
++                self.assertGreaterEqual(text.evaluate(CONTRAST),4.5,(theme,ready,text.inner_text()))
++            self.page.keyboard.press('Escape')
++            self.page.evaluate('App.Audio.isUnlocked=false;App.Audio.updateStatusPill()')
++            warning=self.page.locator('#chipHeaderAudioWarning');self.assertTrue(warning.is_visible())
++            self.assertGreaterEqual(warning.evaluate(CONTRAST),4.5,theme)
++            clock_box=self.page.locator('#liveClock').bounding_box();warning_box=warning.bounding_box()
++            self.assertLess(abs(clock_box['y']+clock_box['height']/2-warning_box['y']-warning_box['height']/2),2,(theme,clock_box,warning_box))
++
++if __name__=='__main__':unittest.main()
+--- baseline/revisao_interface_2026_10_25/verify_task3_header.py
++++ revisao_interface_2026_10_25/verify_task3_header.py
+@@ -0,0 +1,24 @@
++import sys,json
++from pathlib import Path
++sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tests'))
++from browser_support import *
++from playwright.sync_api import sync_playwright
++temp,path=build_temporary_html();rows=[]
++with sync_playwright() as p:
++ b=p.chromium.launch(channel='msedge',headless=True);c,page,errors=open_app(b,path)
++ for width in [320,768,1200,3440]:
++  page.set_viewport_size({'width':width,'height':844 if width<768 else 1000})
++  page.evaluate('App.UI.applyResponsiveLayoutMode("auto",false);App.UI.navigateTo("viewDashboard")')
++  page.evaluate('()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))')
++  row=page.evaluate('''()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,clock:document.getElementById('liveClock').textContent,clockBox:document.getElementById('liveClock').getBoundingClientRect().toJSON(),header:document.querySelector('.app-header').getBoundingClientRect().toJSON(),bell:document.getElementById('btnHeaderAlarmBell').getBoundingClientRect().toJSON(),console:document.getElementById('headerActiveConsole').getBoundingClientRect().toJSON()})''')
++  assert row['clock']!='--:--:--',row
++  assert row['scroll']<=width+2 and row['bell']['right']<=width+2 and row['console']['right']<=width+2,row
++  assert row['clockBox']['width']>16 and row['clockBox']['height']>=16 and row['clockBox']['left']>=0 and row['clockBox']['right']<=width+2,row
++  assert row['clockBox']['top']>=row['header']['top'] and row['clockBox']['bottom']<=row['header']['bottom'],row
++  page.screenshot(path=str(ROOT/f'revisao_interface_2026_10_25/resultados/final_header_real_{width}.png'),animations='disabled',timeout=15000)
++  rows.append(row)
++ assert not errors,errors
++ c.close();b.close()
++temp.cleanup()
++(ROOT/'revisao_interface_2026_10_25/resultados/task3-header-real.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')
++print('GREEN header real 320/768/1200/3440: clock, console and bell within viewport.')

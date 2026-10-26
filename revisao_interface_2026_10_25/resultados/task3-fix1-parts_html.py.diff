@@ -1,0 +1,597 @@
+--- task3_r1_base/parts_html.py
++++ parts_html.py
+@@ -604,7 +604,10 @@
+    <div class="dashboard-urgent-cards" id="dashboardUrgentCards">
+    </div>
+    <!-- Tablet / Desktop Table -->
+-   <div class="table-responsive">
++   <p class="table-scroll-hint" hidden="">
++    Deslize a tabela ou use as setas do teclado para consultar as demais colunas.
++   </p>
++   <div aria-label="Eventos urgentes — tabela com rolagem horizontal" class="table-responsive" data-scroll-table="" role="region" tabindex="0">
+     <table class="data-table" id="tableDashboardUrgent">
+      <thead>
+       <tr>
+@@ -638,143 +641,145 @@
+     </table>
+    </div>
+   </div>
+-  <aside aria-label="Evento em foco" class="context-panel" id="dashboardSelectedDetail">
+-   <h2>
+-    Evento em foco
+-   </h2>
+-  </aside>
+-  <div class="dashboard-overview" id="dashboardOverview">
+-   <div class="dashboard-metrics">
+-    <button class="metric-card" data-filter="all" type="button">
+-     <div class="metric-icon" style="background: rgba(2, 132, 199, 0.15)">
+-      <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
+-       <circle cx="12" cy="12" r="10">
+-       </circle>
+-       <polyline points="12 6 12 12 16 14">
+-       </polyline>
+-      </svg>
+-     </div>
+-     <div class="metric-data">
+-      <div class="metric-value" id="metricTotalPending">
+-       0
+-      </div>
+-      <div class="metric-label">
+-       Pendentes
+-      </div>
+-     </div>
+-    </button>
+-    <button class="metric-card" data-filter="overdue" type="button">
+-     <div class="metric-icon" style="background: rgba(153, 27, 27, 0.2)">
+-      <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
+-       <circle cx="12" cy="12" r="10">
+-       </circle>
+-       <line x1="12" x2="12" y1="8" y2="12">
+-       </line>
+-       <line x1="12" x2="12.01" y1="16" y2="16">
+-       </line>
+-      </svg>
+-     </div>
+-     <div class="metric-data">
+-      <div class="metric-value" id="metricOverdue">
+-       0
+-      </div>
+-      <div class="metric-label">
+-       Atrasados
+-      </div>
+-     </div>
+-    </button>
+-    <button class="metric-card" data-filter="15min" type="button">
+-     <div class="metric-icon" style="background: rgba(220, 38, 38, 0.15)">
+-      <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
+-       <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2">
+-       </polygon>
+-      </svg>
+-     </div>
+-     <div class="metric-data">
+-      <div class="metric-value" id="metricNext15">
+-       0
+-      </div>
+-      <div class="metric-label">
+-       Próx. 15 min
+-      </div>
+-     </div>
+-    </button>
+-    <button class="metric-card" data-filter="30min" type="button">
+-     <div class="metric-icon" style="background: rgba(234, 88, 12, 0.15)">
+-      <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
+-       <circle cx="12" cy="12" r="10">
+-       </circle>
+-       <polyline points="12 6 12 12 14 14">
+-       </polyline>
+-      </svg>
+-     </div>
+-     <div class="metric-data">
+-      <div class="metric-value" id="metricNext30">
+-       0
+-      </div>
+-      <div class="metric-label">
+-       Próx. 30 min
+-      </div>
+-     </div>
+-    </button>
+-    <button class="metric-card" data-filter="60min" type="button">
+-     <div class="metric-icon" style="background: rgba(37, 99, 235, 0.15)">
+-      <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
+-       <circle cx="12" cy="12" r="10">
+-       </circle>
+-       <polyline points="12 6 12 12 16 14">
+-       </polyline>
+-      </svg>
+-     </div>
+-     <div class="metric-data">
+-      <div class="metric-value" id="metricNext60">
+-       0
+-      </div>
+-      <div class="metric-label">
+-       Próx. 60 min
+-      </div>
+-     </div>
+-    </button>
+-    <button class="metric-card" data-filter="completed" type="button">
+-     <div class="metric-icon" style="background: rgba(22, 163, 74, 0.15)">
+-      <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
+-       <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14">
+-       </path>
+-       <polyline points="22 4 12 14.01 9 11.01">
+-       </polyline>
+-      </svg>
+-     </div>
+-     <div class="metric-data">
+-      <div class="metric-value" id="metricCompletedToday">
+-       0
+-      </div>
+-      <div class="metric-label">
+-       Concluídos Hoje
+-      </div>
+-     </div>
+-    </button>
+-    <button class="metric-card" data-filter="unacknowledged" type="button">
+-     <div class="metric-icon" style="background: rgba(217, 119, 6, 0.15)">
+-      <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
+-       <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9">
+-       </path>
+-       <path d="M13.73 21a2 2 0 0 1-3.46 0">
+-       </path>
+-      </svg>
+-     </div>
+-     <div class="metric-data">
+-      <div class="metric-value" id="metricUnacknowledged">
+-       0
+-      </div>
+-      <div class="metric-label">
+-       Alarmes Ativos
+-      </div>
+-     </div>
+-    </button>
+-   </div>
+-   <aside aria-label="Panorama do console" class="context-panel" id="dashboardContextPanel">
++  <div class="dashboard-context-stack" id="dashboardContextStack">
++   <div class="dashboard-overview" id="dashboardOverview">
++    <aside aria-label="Panorama do console" class="context-panel" id="dashboardContextPanel">
++     <h2>
++      Panorama do console
++     </h2>
++    </aside>
++    <div class="dashboard-metrics">
++     <button class="metric-card" data-filter="all" type="button">
++      <div class="metric-icon" style="background: rgba(2, 132, 199, 0.15)">
++       <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
++        <circle cx="12" cy="12" r="10">
++        </circle>
++        <polyline points="12 6 12 12 16 14">
++        </polyline>
++       </svg>
++      </div>
++      <div class="metric-data">
++       <div class="metric-value" id="metricTotalPending">
++        0
++       </div>
++       <div class="metric-label">
++        Pendentes
++       </div>
++      </div>
++     </button>
++     <button class="metric-card" data-filter="overdue" type="button">
++      <div class="metric-icon" style="background: rgba(153, 27, 27, 0.2)">
++       <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
++        <circle cx="12" cy="12" r="10">
++        </circle>
++        <line x1="12" x2="12" y1="8" y2="12">
++        </line>
++        <line x1="12" x2="12.01" y1="16" y2="16">
++        </line>
++       </svg>
++      </div>
++      <div class="metric-data">
++       <div class="metric-value" id="metricOverdue">
++        0
++       </div>
++       <div class="metric-label">
++        Atrasados
++       </div>
++      </div>
++     </button>
++     <button class="metric-card" data-filter="15min" type="button">
++      <div class="metric-icon" style="background: rgba(220, 38, 38, 0.15)">
++       <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
++        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2">
++        </polygon>
++       </svg>
++      </div>
++      <div class="metric-data">
++       <div class="metric-value" id="metricNext15">
++        0
++       </div>
++       <div class="metric-label">
++        Próx. 15 min
++       </div>
++      </div>
++     </button>
++     <button class="metric-card" data-filter="30min" type="button">
++      <div class="metric-icon" style="background: rgba(234, 88, 12, 0.15)">
++       <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
++        <circle cx="12" cy="12" r="10">
++        </circle>
++        <polyline points="12 6 12 12 14 14">
++        </polyline>
++       </svg>
++      </div>
++      <div class="metric-data">
++       <div class="metric-value" id="metricNext30">
++        0
++       </div>
++       <div class="metric-label">
++        Próx. 30 min
++       </div>
++      </div>
++     </button>
++     <button class="metric-card" data-filter="60min" type="button">
++      <div class="metric-icon" style="background: rgba(37, 99, 235, 0.15)">
++       <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
++        <circle cx="12" cy="12" r="10">
++        </circle>
++        <polyline points="12 6 12 12 16 14">
++        </polyline>
++       </svg>
++      </div>
++      <div class="metric-data">
++       <div class="metric-value" id="metricNext60">
++        0
++       </div>
++       <div class="metric-label">
++        Próx. 60 min
++       </div>
++      </div>
++     </button>
++     <button class="metric-card" data-filter="completed" type="button">
++      <div class="metric-icon" style="background: rgba(22, 163, 74, 0.15)">
++       <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
++        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14">
++        </path>
++        <polyline points="22 4 12 14.01 9 11.01">
++        </polyline>
++       </svg>
++      </div>
++      <div class="metric-data">
++       <div class="metric-value" id="metricCompletedToday">
++        0
++       </div>
++       <div class="metric-label">
++        Concluídos Hoje
++       </div>
++      </div>
++     </button>
++     <button class="metric-card" data-filter="unacknowledged" type="button">
++      <div class="metric-icon" style="background: rgba(217, 119, 6, 0.15)">
++       <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
++        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9">
++        </path>
++        <path d="M13.73 21a2 2 0 0 1-3.46 0">
++        </path>
++       </svg>
++      </div>
++      <div class="metric-data">
++       <div class="metric-value" id="metricUnacknowledged">
++        0
++       </div>
++       <div class="metric-label">
++        Alarmes Ativos
++       </div>
++      </div>
++     </button>
++    </div>
++   </div>
++   <aside aria-label="Evento em foco" class="context-panel" id="dashboardSelectedDetail">
+     <h2>
+-     Panorama do console
++     Evento em foco
+     </h2>
+    </aside>
+   </div>
+@@ -1416,7 +1421,10 @@
+     <div class="events-container-cards" id="containerPendingCards">
+      <!-- Rendered dynamically -->
+     </div>
+-    <div class="table-responsive" id="containerPendingTable" style="display: none">
++    <p class="table-scroll-hint" hidden="">
++     Deslize a tabela ou use as setas do teclado para consultar as demais colunas.
++    </p>
++    <div aria-label="Eventos pendentes — tabela com rolagem horizontal" class="table-responsive" data-scroll-table="" id="containerPendingTable" role="region" style="display: none" tabindex="0">
+      <table class="data-table" id="tablePendingEvents">
+       <thead>
+        <tr>
+@@ -1513,75 +1521,86 @@
+      </button>
+     </div>
+    </div>
+-   <div class="toolbar-filters">
+-    <div class="form-group">
+-     <label for="filterCompletedConsole">
+-      Console
+-     </label>
+-     <select id="filterCompletedConsole" style="padding: 0.35rem">
+-      <option value="">
+-       Todos os Consoles
+-      </option>
+-     </select>
+-    </div>
+-    <div class="form-group">
+-     <label for="filterCompletedPipeline">
+-      Duto
+-     </label>
+-     <select id="filterCompletedPipeline" style="padding: 0.35rem">
+-      <option value="">
+-       Todos os Dutos
+-      </option>
+-     </select>
+-    </div>
+-    <div class="form-group">
+-     <label for="filterCompletedUO">
+-      UO
+-     </label>
+-     <select id="filterCompletedUO" style="padding: 0.35rem">
+-      <option value="">
+-       Todas as UOs
+-      </option>
+-     </select>
+-    </div>
+-    <div class="form-group">
+-     <label for="filterCompletedTiming">
+-      Situação Conclusão
+-     </label>
+-     <select id="filterCompletedTiming" style="padding: 0.35rem">
+-      <option value="">
+-       Todas
+-      </option>
+-      <option value="antecedencia">
+-       Com Antecedência
+-      </option>
+-      <option value="atraso">
+-       Com Atraso
+-      </option>
+-      <option value="noprazo">
+-       Exato no Horário
+-      </option>
+-     </select>
+-    </div>
+-    <div class="form-group">
+-     <label for="filterCompletedDateFrom">
+-      Data Prevista De
+-     </label>
+-     <input id="filterCompletedDateFrom" style="padding: 0.2rem 0.4rem" type="date"/>
+-    </div>
+-    <div class="form-group">
+-     <label for="filterCompletedDateTo">
+-      Data Prevista Até
+-     </label>
+-     <input id="filterCompletedDateTo" style="padding: 0.2rem 0.4rem" type="date"/>
+-    </div>
+-   </div>
++   <details class="completed-filters" id="completedFilters">
++    <summary>
++     Filtros
++     <span class="filter-scope" id="completedFiltersSummary">
++      Todos os concluídos
++     </span>
++    </summary>
++    <div class="toolbar-filters">
++     <div class="form-group">
++      <label for="filterCompletedConsole">
++       Console
++      </label>
++      <select id="filterCompletedConsole" style="padding: 0.35rem">
++       <option value="">
++        Todos os Consoles
++       </option>
++      </select>
++     </div>
++     <div class="form-group">
++      <label for="filterCompletedPipeline">
++       Duto
++      </label>
++      <select id="filterCompletedPipeline" style="padding: 0.35rem">
++       <option value="">
++        Todos os Dutos
++       </option>
++      </select>
++     </div>
++     <div class="form-group">
++      <label for="filterCompletedUO">
++       UO
++      </label>
++      <select id="filterCompletedUO" style="padding: 0.35rem">
++       <option value="">
++        Todas as UOs
++       </option>
++      </select>
++     </div>
++     <div class="form-group">
++      <label for="filterCompletedTiming">
++       Situação Conclusão
++      </label>
++      <select id="filterCompletedTiming" style="padding: 0.35rem">
++       <option value="">
++        Todas
++       </option>
++       <option value="antecedencia">
++        Com Antecedência
++       </option>
++       <option value="atraso">
++        Com Atraso
++       </option>
++       <option value="noprazo">
++        Exato no Horário
++       </option>
++      </select>
++     </div>
++     <div class="form-group">
++      <label for="filterCompletedDateFrom">
++       Data Prevista De
++      </label>
++      <input id="filterCompletedDateFrom" style="padding: 0.2rem 0.4rem" type="date"/>
++     </div>
++     <div class="form-group">
++      <label for="filterCompletedDateTo">
++       Data Prevista Até
++      </label>
++      <input id="filterCompletedDateTo" style="padding: 0.2rem 0.4rem" type="date"/>
++     </div>
++    </div>
++   </details>
+   </div>
+   <!-- Mobile Expandable Completed Cards Container (Section 12) -->
+   <div class="completed-workspace">
+    <div class="completed-cards-container" id="containerCompletedCards">
+    </div>
+-   <div class="table-responsive" id="tableCompletedWrapper">
++   <p class="table-scroll-hint" hidden="">
++    Deslize a tabela ou use as setas do teclado para consultar as demais colunas.
++   </p>
++   <div aria-label="Eventos concluídos — tabela com rolagem horizontal" class="table-responsive" data-scroll-table="" id="tableCompletedWrapper" role="region" tabindex="0">
+     <table class="data-table" id="tableCompletedEvents">
+      <thead>
+       <tr>
+@@ -1785,7 +1804,10 @@
+         <input id="searchConsoles" placeholder="Buscar console..." style="padding: 0.2rem 0.4rem" type="text"/>
+        </div>
+       </div>
+-      <div class="hub-list-container">
++      <p class="table-scroll-hint" hidden="">
++       Deslize a tabela ou use as setas do teclado para consultar as demais colunas.
++      </p>
++      <div aria-label="Consoles — tabela com rolagem horizontal" class="hub-list-container" data-scroll-table="" role="region" tabindex="0">
+        <table class="data-table" id="tableConsoles">
+         <thead>
+          <tr>
+@@ -1908,7 +1930,10 @@
+         <input id="searchPipelines" placeholder="Buscar duto..." style="padding: 0.2rem 0.4rem" type="text"/>
+        </div>
+       </div>
+-      <div class="hub-list-container">
++      <p class="table-scroll-hint" hidden="">
++       Deslize a tabela ou use as setas do teclado para consultar as demais colunas.
++      </p>
++      <div aria-label="Dutos — tabela com rolagem horizontal" class="hub-list-container" data-scroll-table="" role="region" tabindex="0">
+        <table class="data-table" id="tablePipelines">
+         <thead>
+          <tr>
+@@ -2005,7 +2030,10 @@
+         <input id="searchUOs" placeholder="Buscar UO..." style="padding: 0.2rem 0.4rem" type="text"/>
+        </div>
+       </div>
+-      <div class="hub-list-container">
++      <p class="table-scroll-hint" hidden="">
++       Deslize a tabela ou use as setas do teclado para consultar as demais colunas.
++      </p>
++      <div aria-label="Unidades operacionais — tabela com rolagem horizontal" class="hub-list-container" data-scroll-table="" role="region" tabindex="0">
+        <table class="data-table" id="tableUOs">
+         <thead>
+          <tr>
+@@ -2106,7 +2134,10 @@
+         <input id="searchEquipmentTypes" placeholder="Buscar tipo..." style="padding: 0.2rem 0.4rem" type="text"/>
+        </div>
+       </div>
+-      <div class="hub-list-container">
++      <p class="table-scroll-hint" hidden="">
++       Deslize a tabela ou use as setas do teclado para consultar as demais colunas.
++      </p>
++      <div aria-label="Tipos de equipamentos — tabela com rolagem horizontal" class="hub-list-container" data-scroll-table="" role="region" tabindex="0">
+        <table class="data-table" id="tableEquipmentTypes">
+         <thead>
+          <tr>
+@@ -2235,7 +2266,10 @@
+        <input data-alias="searchEquipmentTags" id="searchTags" placeholder="Buscar TAG..." style="padding: 0.2rem 0.4rem" type="text"/>
+       </div>
+      </div>
+-     <div class="hub-list-container">
++     <p class="table-scroll-hint" hidden="">
++      Deslize a tabela ou use as setas do teclado para consultar as demais colunas.
++     </p>
++     <div aria-label="TAGs de equipamentos — tabela com rolagem horizontal" class="hub-list-container" data-scroll-table="" role="region" tabindex="0">
+       <table class="data-table" id="tableEquipmentTags">
+        <thead>
+         <tr>
+@@ -2635,7 +2669,10 @@
+    <div class="color-range-cards" id="containerColorRangeCards">
+    </div>
+    <!-- Table of Ranges -->
+-   <div class="table-responsive" id="tableColorRangesWrapper" style="margin-top: 1rem">
++   <p class="table-scroll-hint" hidden="">
++    Deslize a tabela ou use as setas do teclado para consultar as demais colunas.
++   </p>
++   <div aria-label="Faixas de tempo — tabela com rolagem horizontal" class="table-responsive" data-scroll-table="" id="tableColorRangesWrapper" role="region" style="margin-top: 1rem" tabindex="0">
+     <table class="data-table" id="tableColorRanges">
+      <thead>
+       <tr>
+@@ -2777,7 +2814,7 @@
+      Último backup: Nunca
+     </span>
+    </div>
+-   <div class="backup-operations" style="display: grid; gap: 1.25rem">
++   <div class="backup-operations">
+     <!-- Export Section -->
+     <div style="background: var(--bg-app); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem">
+      <h4 style="font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem">
+@@ -2824,6 +2861,9 @@
+       Arquivo de backup JSON
+      </label>
+      <input accept=".json" id="inputImportBackupFile" style="margin-bottom: 0.75rem" type="file"/>
++     <p aria-live="polite" class="form-help" id="backupSelectedFileName">
++      Nenhum arquivo selecionado.
++     </p>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap">
+       <button class="btn btn-secondary" disabled="" id="btnTriggerImportValidate" style="flex: 1" type="button">
+        <span>
+@@ -2987,8 +3027,11 @@
+     <h4 style="font-weight: 700; margin-bottom: 0.5rem">
+      Contagem de Registros por Coleção
+     </h4>
+-    <div class="table-responsive" style="margin-bottom: 1.5rem">
+-     <table class="data-table">
++    <p class="table-scroll-hint" hidden="">
++     Deslize a tabela ou use as setas do teclado para consultar as demais colunas.
++    </p>
++    <div aria-label="Coleções locais — tabela com rolagem horizontal" class="table-responsive" data-scroll-table="" role="region" style="margin-bottom: 1.5rem" tabindex="0">
++     <table class="data-table" id="tableDiagCollections">
+       <thead>
+        <tr>
+         <th>
+@@ -3023,8 +3066,11 @@
+       Limpar Logs
+      </button>
+     </div>
+-    <div class="table-responsive">
+-     <table class="data-table">
++    <p class="table-scroll-hint" hidden="">
++     Deslize a tabela ou use as setas do teclado para consultar as demais colunas.
++    </p>
++    <div aria-label="Logs de diagnóstico — tabela com rolagem horizontal" class="table-responsive" data-scroll-table="" role="region" tabindex="0">
++     <table class="data-table" id="tableDiagLogs">
+       <thead>
+        <tr>
+         <th>
+@@ -3516,11 +3562,13 @@
+    <ul id="modalDependencyList" style="margin-left: 1.25rem; color: var(--text-secondary); margin-bottom: 1rem">
+    </ul>
+    <div class="notice-banner warning">
+-    Recomendação: Utilize a
+-    <strong>
+-     Inativação
+-    </strong>
+-    do registro. Registros inativos não aparecem para seleção em novos eventos, mas preservam o histórico de eventos passados e a integridade do sistema.
++    <p>
++     Recomendação: Utilize a
++     <strong>
++      Inativação
++     </strong>
++     do registro. Registros inativos não aparecem para seleção em novos eventos, mas preservam o histórico de eventos passados e a integridade do sistema.
++    </p>
+    </div>
+   </div>
+   <div class="modal-footer">

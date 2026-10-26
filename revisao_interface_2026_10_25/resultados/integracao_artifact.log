@@ -1,0 +1,16 @@
+{
+  "checks": {
+    "css": true,
+    "html": true,
+    "core": true,
+    "service": true,
+    "ui_with_presentation": true,
+    "presentation_module_included": true,
+    "single_inline_script": true,
+    "single_inline_stylesheet": true,
+    "no_external_embedded_resources": true
+  },
+  "passed": 9,
+  "failed": 0,
+  "index_sha256": "f6ae6e81325747394ff2b06147fbc79ed5426989cf74b02818d5f030edd9c12b"
+}

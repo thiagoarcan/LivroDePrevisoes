@@ -1,0 +1,731 @@
+P0000 [Heading 1] Adaptação da aplicação para tablets e celulares
+P0001 [Normal] A versão para tablets e celulares deve preservar integralmente as regras operacionais, alarmes, auditoria, funcionamento offline e integridade cadastral da aplicação desktop. A adaptação deve ocorrer principalmente na apresentação, navegação e distribuição dos componentes, evitando transformar a interface móvel em uma simples redução proporcional da versão para monitores.
+P0002 [Normal] O princípio geral será:
+P0003 [Quote] No celular, a aplicação prioriza consulta, reconhecimento de alarmes e execução rápida de atividades. No tablet, além dessas funções, oferece condições ergonômicas para cadastro, acompanhamento simultâneo e anotação com caneta stylus.
+P0005 [Heading 2] 1. Estratégia responsiva geral
+P0006 [Normal] A aplicação utilizará uma arquitetura de interface mobile-first, com componentes capazes de se reorganizar conforme a largura efetivamente disponível.
+P0007 [Normal] Não serão mantidos três sistemas separados. A aplicação continuará utilizando o mesmo arquivo index.html, a mesma base IndexedDB, as mesmas regras de negócio e o mesmo motor de alarmes. Apenas a composição visual será alterada por CSS responsivo e, quando necessário, pelo comportamento da camada App.UI.
+P0008 [Heading 3] Faixas recomendadas
+P0009 [Normal] Os breakpoints não devem ser tratados como fronteiras rígidas entre dispositivos. A interface também deverá funcionar corretamente em larguras intermediárias, durante rotação da tela, uso em janela dividida e ampliação por recursos de acessibilidade.
+P0010 [Heading 2] 1.1 Adaptação universal conforme o espaço disponível
+P0011 [Normal] Independentemente do tamanho, resolução, proporção ou categoria nominal do dispositivo, a interface deverá se adaptar ao espaço efetivamente disponível, seguindo os padrões definidos nos wireframes para celular, tablet, monitor convencional, widescreen e ultrawide. A aplicação não deverá decidir o layout apenas pelo tipo informado pelo navegador, mas principalmente pela largura e altura úteis do viewport, densidade configurada, orientação, zoom e espaço ocupado pelos painéis visíveis.
+P0012 [Normal] Os wireframes representam comportamentos de referência, e não telas fixas. Os mesmos componentes deverão reorganizar-se progressivamente: empilhamento e navegação inferior em espaços estreitos; lista e detalhe em tablets; painel operacional com navegação lateral em monitores convencionais; painéis simultâneos em widescreen; e múltiplas regiões coordenadas em ultrawide. Nenhuma largura deverá produzir conteúdo cortado, sobreposto ou dependente de rolagem horizontal da página inteira.
+P0013 [Normal] A prioridade visual deverá permanecer constante em todas as dimensões: eventos pendentes, evento mais próximo, tempo restante ou tempo de atraso, alarmes ativos e criação rápida de uma nova previsão. O aumento de área disponível deverá acrescentar contexto e painéis complementares, sem reduzir o destaque dos elementos operacionais críticos.
+P0014 [Heading 2] 1.2 Modo automático e escolha manual da visualização
+P0015 [Normal] A aplicação deverá oferecer duas formas de definição da visualização: adaptação automática e escolha manual pelo usuário. O modo Automático será o padrão para novas instalações e será utilizado sempre que o usuário não tiver selecionado uma preferência.
+P0016 [Normal] No modo Automático, a camada App.UI deverá identificar o espaço útil e aplicar a composição mais adequada entre os padrões Celular, Tablet, Monitor convencional, Widescreen e Ultrawide. A mudança deverá ocorrer também durante redimensionamento da janela, rotação do dispositivo, uso de tela dividida ou alteração do zoom, sem perda de dados digitados, filtros, seleção atual, desenho da lousa ou posição lógica de navegação.
+P0017 [Normal] O usuário poderá substituir a decisão automática e escolher manualmente o tipo de visualização, mesmo que isso resulte em cartões, fontes, campos ou demais objetos exibidos em tamanho menor. Essa escolha deverá ser respeitada enquanto for tecnicamente viável e não poderá remover conteúdo, esconder alarmes críticos nem tornar ações essenciais inacessíveis. Quando o espaço for insuficiente, a aplicação poderá usar rolagem interna nos painéis, menus retráteis e barras compactas, preservando a estrutura visual escolhida.
+P0018 [Heading 3] Opções de visualização
+P0019 [List Paragraph] Automática: seleciona e atualiza o layout conforme o espaço útil disponível.
+P0020 [List Paragraph] Compacta: reduz espaçamentos, altura dos cartões e textos auxiliares, mantendo todas as informações essenciais.
+P0021 [List Paragraph] Celular: força a composição em uma coluna, navegação inferior, cartões e painéis deslizantes.
+P0022 [List Paragraph] Tablet: força a composição touch com navegação lateral retrátil e estruturas de lista e detalhe.
+P0023 [List Paragraph] Monitor convencional: utiliza navegação lateral fixa, métricas, evento em destaque e lista operacional principal.
+P0024 [List Paragraph] Widescreen: amplia a lista de eventos e mantém filtros, métricas e painéis auxiliares simultaneamente visíveis.
+P0025 [List Paragraph] Ultrawide: distribui lista, detalhe do evento, métricas, gráficos e ações rápidas em regiões paralelas.
+P0026 [Normal] A opção deverá estar disponível em Configurações de interface e também por um comando rápido no cabeçalho ou menu de usuário. O seletor poderá utilizar um ícone de layout acompanhado do rótulo acessível “Visualização”.
+P0027 [Heading 2] 1.3 Regras de persistência e segurança da preferência
+P0028 [Normal] A preferência deverá ser gravada em settings.viewMode ou em uma chave específica, como settings.responsiveLayoutMode, permitindo os valores auto, compact, mobile, tablet, conventional, widescreen e ultrawide. A escolha será local ao dispositivo e ao navegador, de forma coerente com o armazenamento atual em IndexedDB.
+P0029 [Normal] Deverá existir uma ação clara “Voltar para Automático”. Caso o modo forçado provoque limitações graves de usabilidade, a aplicação deverá exibir um aviso não bloqueante e oferecer o retorno ao modo Automático, sem alterar a preferência de forma silenciosa.
+P0030 [Normal] Alarmes, modais críticos e ações de reconhecimento deverão sempre utilizar uma composição segura e legível. Portanto, esses elementos poderão ignorar parcialmente a densidade escolhida quando necessário para manter contraste, área de toque, leitura do tempo restante e acesso às ações Reconhecer, Adiar, Concluir e Detalhes.
+P0031 [Heading 2] 1.4 Referências de composição por faixa
+P0032 [Normal] Como referência inicial, o modo Automático poderá utilizar até 767 px para composição de celular; de 768 a 1.199 px para tablet; de 1.200 a 1.919 px para monitor convencional; de 1.920 a 2.559 px para widescreen; e 2.560 px ou mais para composição ultrawide. Esses valores deverão ser refinados pelo comportamento real do conteúdo e não tratados como limites absolutos. A altura útil também deverá ser considerada para evitar barras, modais ou painéis comprimidos.
+P0034 [Heading 1] 2. Estrutura da aplicação em celulares
+P0035 [Heading 2] 2.1 Finalidade predominante
+P0036 [Normal] A experiência para celular será orientada às atividades que podem precisar ser realizadas rapidamente e com uma única mão:
+P0037 [List Paragraph] consultar o próximo evento;
+P0038 [List Paragraph] verificar eventos atrasados ou críticos;
+P0039 [List Paragraph] reconhecer um alarme;
+P0040 [List Paragraph] adiar um alarme;
+P0041 [List Paragraph] concluir uma atividade;
+P0042 [List Paragraph] registrar uma nova previsão;
+P0043 [List Paragraph] editar uma previsão existente;
+P0044 [List Paragraph] consultar o histórico e os detalhes de um evento;
+P0045 [List Paragraph] receber indicação visual e sonora de criticidade.
+P0046 [Normal] Cadastros complexos, configuração detalhada das faixas de cores, importação de backup e diagnóstico continuarão disponíveis, mas não ocuparão a navegação principal.
+P0048 [Heading 2] 2.2 Cabeçalho compacto
+P0049 [Normal] No celular, o cabeçalho original será convertido em uma barra superior compacta e fixa.
+P0050 [Heading 3] Primeira linha
+P0051 [Normal] A primeira linha apresentará:
+P0052 [List Paragraph] botão do menu lateral;
+P0053 [List Paragraph] nome abreviado da aplicação;
+P0054 [List Paragraph] relógio no formato HH:mm:ss;
+P0055 [List Paragraph] botão de alertas, com badge de quantidade;
+P0056 [List Paragraph] botão de ações adicionais.
+P0057 [Normal] Exemplo:
+P0058 [Normal] ┌─────────────────────────────────┐
+│ ☰  Previsões        14:35:22  🔔3│
+└─────────────────────────────────┘
+P0059 [Heading 3] Segunda linha operacional
+P0060 [Normal] Abaixo do cabeçalho será exibido o seletor do console ativo:
+P0061 [Normal] ┌─────────────────────────────────┐
+│ Console ativo        [ C04  ▼ ] │
+└─────────────────────────────────┘
+P0062 [Normal] A seleção do console deverá permanecer sempre visível nas telas operacionais, pois modifica:
+P0063 [List Paragraph] os dutos disponíveis;
+P0064 [List Paragraph] as UOs disponíveis;
+P0065 [List Paragraph] o evento em destaque;
+P0066 [List Paragraph] o filtro inicial de pendências;
+P0067 [List Paragraph] o preenchimento do formulário de nova previsão.
+P0068 [Normal] A troca de console deverá produzir uma mensagem clara:
+P0069 [Normal] Console ativo alterado para C08.
+O painel e os filtros foram atualizados.
+P0070 [Heading 3] Indicadores técnicos
+P0071 [Normal] As pílulas de banco, áudio, notificação e backup não permanecerão simultaneamente abertas no cabeçalho. Serão agrupadas em um painel denominado Status da aplicação, acessível pelo menu ou por um indicador compacto.
+P0072 [Normal] Status da aplicação
+● Banco local: pronto
+● Áudio: ativo
+● Notificações: concedidas
+● Último backup: 24/10/2026 22:15
+P0073 [Normal] Se houver falha ou ação necessária, o indicador correspondente deverá aparecer diretamente no cabeçalho. Por exemplo:
+P0074 [Normal] ⚠ Áudio não iniciado
+P0076 [Heading 2] 2.3 Navegação inferior
+P0077 [Normal] As funções mais frequentes serão posicionadas em uma barra de navegação inferior fixa, respeitando a área segura do sistema operacional:
+P0078 [Normal] ┌─────────────────────────────────┐
+│  Painel  │ Pendentes │  Novo  │ Mais │
+│    ◉     │     ◷     │   ＋   │  ⋯   │
+└─────────────────────────────────┘
+P0079 [Heading 3] Destinos principais
+P0080 [List Paragraph] Painel
+P0081 [List Paragraph] Pendentes
+P0082 [List Paragraph] Nova previsão
+P0083 [List Paragraph] Mais
+P0084 [Normal] O item Mais abrirá um menu contendo:
+P0085 [List Paragraph] Eventos concluídos;
+P0086 [List Paragraph] Cadastros operacionais;
+P0087 [List Paragraph] Configurações de alertas;
+P0088 [List Paragraph] Configurações de cores;
+P0089 [List Paragraph] Backup e dados;
+P0090 [List Paragraph] Diagnóstico;
+P0091 [List Paragraph] Tema claro ou escuro;
+P0092 [List Paragraph] Identificação do controlador.
+P0093 [Normal] Essa solução reduz a dependência exclusiva do menu hambúrguer e mantém as funções críticas acessíveis com um único toque.
+P0095 [Heading 2] 2.4 Botão de nova previsão
+P0096 [Normal] Não devem existir dois botões flutuantes concorrentes para a mesma função.
+P0097 [Normal] A versão para celular deverá utilizar apenas uma destas estratégias:
+P0098 [List Paragraph] botão central Novo na barra inferior; ou
+P0099 [List Paragraph] um único FAB +, acima da barra inferior.
+P0100 [Normal] Recomenda-se o botão central na navegação inferior, pois ele permanece em posição previsível e reduz a possibilidade de o FAB encobrir ações dos cartões.
+P0102 [Heading 1] 3. Painel principal no celular
+P0103 [Heading 2] 3.1 Ordem de prioridade
+P0104 [Normal] O Painel Principal será reorganizado na seguinte ordem:
+P0105 [List Paragraph] alarmes ativos ainda não reconhecidos;
+P0106 [List Paragraph] evento operacional mais próximo;
+P0107 [List Paragraph] eventos atrasados e críticos;
+P0108 [List Paragraph] resumo numérico;
+P0109 [List Paragraph] próximos eventos;
+P0110 [List Paragraph] atalhos secundários.
+P0111 [Normal] Essa ordem substitui a lógica visual do desktop, na qual há espaço para apresentar simultaneamente métricas, destaque e tabela.
+P0113 [Heading 2] 3.2 Faixa de alarmes ativos
+P0114 [Normal] Quando houver alarme não reconhecido, deverá aparecer uma faixa persistente logo abaixo do cabeçalho:
+P0115 [Normal] ┌─────────────────────────────────┐
+│ ⚠ 2 alarmes aguardando ação     │
+│ [Ver alarmes]      [Reconhecer] │
+└─────────────────────────────────┘
+P0116 [Normal] Essa faixa não deverá desaparecer por rolagem enquanto houver alarmes em estado triggered.
+P0118 [Heading 2] 3.3 Próximo evento operacional
+P0119 [Normal] O card Spotlight ocupará toda a largura disponível e mostrará somente os dados essenciais inicialmente:
+P0120 [Normal] ┌─────────────────────────────────┐
+│ CRÍTICO               08min 34s │
+│                                │
+│ C04 • OSCAN • REFAP            │
+│ TQ-804                          │
+│                                │
+│ Verificar término do            │
+│ recebimento de MGO              │
+│                                │
+│ Previsto: 25/10/2026 14:45      │
+│                                │
+│ [Concluir]    [Mais ações ⋯]    │
+└─────────────────────────────────┘
+P0121 [Normal] O botão Mais ações abrirá um painel inferior com:
+P0122 [List Paragraph] reconhecer alarme;
+P0123 [List Paragraph] adiar;
+P0124 [List Paragraph] editar;
+P0125 [List Paragraph] duplicar;
+P0126 [List Paragraph] abrir detalhes;
+P0127 [List Paragraph] excluir.
+P0128 [Normal] Se o alarme estiver disparado, Reconhecer deverá ocupar a posição da ação principal.
+P0130 [Heading 2] 3.4 Métricas
+P0131 [Normal] As sete métricas do painel não devem ser exibidas em uma longa coluna de cartões grandes. No celular, elas deverão ser apresentadas como cartões compactos em uma grade de duas colunas:
+P0132 [Normal] ┌───────────────┬───────────────┐
+│ Pendentes     │ Atrasados     │
+│      12       │       3       │
+├───────────────┼───────────────┤
+│ Próx. 15 min  │ Próx. 30 min  │
+│       2       │       4       │
+├───────────────┼───────────────┤
+│ Próx. 60 min  │ Alarmes       │
+│       6       │       1       │
+└───────────────┴───────────────┘
+P0133 [Normal] Em larguras inferiores a aproximadamente 360px, a grade poderá continuar em duas colunas desde que cada card mantenha legibilidade. Somente deverá migrar para uma coluna se os textos ou valores deixarem de caber adequadamente.
+P0134 [Normal] Cada métrica continuará funcionando como filtro ou atalho.
+P0136 [Heading 2] 3.5 Atenção imediata
+P0137 [Normal] A tabela #tableDashboardUrgent será substituída, no celular, por uma lista de cartões resumidos:
+P0138 [Normal] ┌─────────────────────────────────┐
+│ ATRASADO HÁ 12 MIN              │
+│ 14:10 • C04 • OSCAN             │
+│ REFAP • TQ-804                  │
+│                                │
+│ Confirmar término do            │
+│ recebimento                     │
+│                                │
+│ [Concluir]             [⋯]      │
+└─────────────────────────────────┘
+P0139 [Normal] A lista deverá exibir inicialmente de três a cinco eventos, seguida do botão:
+P0140 [Normal] [ Ver todos os eventos pendentes ]
+P0142 [Heading 1] 4. Eventos pendentes no celular
+P0143 [Heading 2] 4.1 Barra de pesquisa e filtros
+P0144 [Normal] A parte superior apresentará:
+P0145 [Normal] ┌─────────────────────────────────┐
+│ Pesquisar evento, duto, UO... 🔍│
+├─────────────────────────────────┤
+│ [Filtros 2]  [Cronológica ▼]    │
+└─────────────────────────────────┘
+P0146 [Normal] Os filtros avançados não ocuparão permanentemente a tela. O botão Filtros abrirá um painel inferior de altura variável, com:
+P0147 [List Paragraph] apenas console ativo;
+P0148 [List Paragraph] console;
+P0149 [List Paragraph] duto;
+P0150 [List Paragraph] UO;
+P0151 [List Paragraph] situação;
+P0152 [List Paragraph] alarme;
+P0153 [List Paragraph] prioridade;
+P0154 [List Paragraph] período inicial e final.
+P0155 [Normal] No rodapé do painel:
+P0156 [Normal] [ Limpar filtros ]  [ Aplicar filtros ]
+P0157 [Normal] O número de filtros ativos deverá aparecer no próprio botão, por exemplo, Filtros 2.
+P0159 [Heading 2] 4.2 Visualização padrão
+P0160 [Normal] No celular, a visualização padrão será exclusivamente em cartões. A opção de tabela poderá:
+P0161 [List Paragraph] ser ocultada; ou
+P0162 [List Paragraph] ser disponibilizada como modo avançado, com rolagem horizontal.
+P0163 [Normal] Os cartões deverão destacar, nesta ordem:
+P0164 [List Paragraph] classificação temporal;
+P0165 [List Paragraph] contador;
+P0166 [List Paragraph] descrição;
+P0167 [List Paragraph] hierarquia operacional;
+P0168 [List Paragraph] data e hora;
+P0169 [List Paragraph] estado do alarme;
+P0170 [List Paragraph] ações.
+P0171 [Heading 3] Cartão recomendado
+P0172 [Normal] ┌─────────────────────────────────┐
+│ URGENTE             Faltam 22min│
+│                                │
+│ Verificar chegada do PIG        │
+│ raspador                        │
+│                                │
+│ C04 • OSCAN • TEDEP             │
+│ Geral da UO                     │
+│ 25/10/2026 às 15:05             │
+│                                │
+│ 🔔 Alarme programado para 14:50 │
+│                                │
+│ [Concluir] [Editar]       [⋯]   │
+└─────────────────────────────────┘
+P0173 [Normal] As ações menos frequentes, como duplicar, detalhes e excluir, serão agrupadas em um menu contextual.
+P0175 [Heading 1] 5. Formulário de nova previsão no celular
+P0176 [Heading 2] 5.1 Fluxo vertical
+P0177 [Normal] O formulário será apresentado em uma única coluna e dividido em blocos de preenchimento:
+P0178 [List Paragraph] localização operacional;
+P0179 [List Paragraph] programação;
+P0180 [List Paragraph] atividade;
+P0181 [List Paragraph] alarme;
+P0182 [List Paragraph] anotação manuscrita;
+P0183 [List Paragraph] confirmação.
+P0184 [Heading 3] Bloco 1: localização operacional
+P0185 [Normal] Console ativo
+C04
+
+Duto *
+[ Selecionar duto             ▼ ]
+
+Unidade Operacional *
+[ Selecionar UO               ▼ ]
+
+Tipo de equipamento
+[ Geral da UO                 ▼ ]
+
+TAG
+[ Selecionar TAG              ▼ ]
+P0186 [Normal] A cada escolha, o próximo campo será habilitado. O carregamento dos seletores encadeados deverá ser comunicado não apenas pela mudança visual, mas também por texto acessível.
+P0188 [Heading 2] 5.2 Data, hora e prioridade
+P0189 [Normal] A data e a hora poderão ser apresentadas lado a lado em celulares com largura suficiente:
+P0190 [Normal] Data *               Hora *
+[25/10/2026]         [14:45]
+P0191 [Normal] Em celulares compactos, os campos serão empilhados.
+P0192 [Normal] A prioridade deverá aparecer logo abaixo, mas não substituirá a classificação temporal automática.
+P0194 [Heading 2] 5.3 Descrição e observações
+P0195 [Normal] A descrição será um campo de múltiplas linhas, e não um campo simples de uma linha. Isso facilita a revisão do conteúdo em telas estreitas.
+P0196 [Normal] Descrição da atividade *
+┌─────────────────────────────────┐
+│ Verificar término do             │
+│ recebimento de MGO               │
+└─────────────────────────────────┘
+P0197 [Normal] As observações permanecerão opcionais e poderão ser recolhidas quando vazias.
+P0199 [Heading 2] 5.4 Configurações de alarme
+P0200 [Normal] O formulário não deverá exibir todos os parâmetros de alarme por padrão.
+P0201 [Normal] Inicialmente:
+P0202 [Normal] Alarme
+☑ Ativar alarme
+
+☑ Usar configurações padrão
+Disparo: 15 min antes
+Som + alerta visual
+P0203 [Normal] Ao desmarcar Usar configurações padrão, será aberta uma seção expansível com:
+P0204 [List Paragraph] antecedência;
+P0205 [List Paragraph] som;
+P0206 [List Paragraph] alerta visual;
+P0207 [List Paragraph] notificação;
+P0208 [List Paragraph] repetição;
+P0209 [List Paragraph] intervalo;
+P0210 [List Paragraph] número máximo de repetições.
+P0211 [Normal] Isso reduz consideravelmente o comprimento do formulário em situações normais.
+P0213 [Heading 2] 5.5 Barra fixa de submissão
+P0214 [Normal] Os botões de salvamento deverão permanecer em uma barra inferior fixa, acima da navegação:
+P0215 [Normal] ┌─────────────────────────────────┐
+│ [Salvar e + outra]   [Salvar]   │
+└─────────────────────────────────┘
+P0216 [Normal] Durante a edição:
+P0217 [Normal] ┌─────────────────────────────────┐
+│ [Cancelar]          [Atualizar] │
+└─────────────────────────────────┘
+P0218 [Normal] A barra deverá respeitar env(safe-area-inset-bottom) para não ficar encoberta pelos controles do sistema operacional.
+P0220 [Heading 1] 6. Lousa digital no celular
+P0221 [Normal] A lousa permanecerá disponível, mas será tratada como função secundária.
+P0222 [Normal] Ao tocar em Adicionar anotação manuscrita, a lousa deverá ser aberta preferencialmente em modo de tela cheia:
+P0223 [Normal] ┌─────────────────────────────────┐
+│ Anotação             [Concluir] │
+├─────────────────────────────────┤
+│ Cor  Espessura  Borracha  Limpar│
+├─────────────────────────────────┤
+│                                 │
+│                                 │
+│          ÁREA DE DESENHO        │
+│                                 │
+│                                 │
+└─────────────────────────────────┘
+P0224 [Normal] Em celulares:
+P0225 [List Paragraph] a orientação paisagem poderá ser recomendada;
+P0226 [List Paragraph] a barra de ferramentas deverá permanecer fixa;
+P0227 [List Paragraph] touch-action: none deve ser aplicado somente à área do canvas;
+P0228 [List Paragraph] a rolagem da página deverá ser bloqueada enquanto o desenho estiver ativo;
+P0229 [List Paragraph] o desenho deverá preservar proporção ao retornar ao formulário;
+P0230 [List Paragraph] o botão Limpar deverá exigir confirmação se houver traços;
+P0231 [List Paragraph] o usuário deverá poder desfazer a última ação, preferencialmente.
+P0232 [Normal] O funcionamento básico por toque será mantido, mas a precisão será inferior à experiência em tablet com caneta stylus.
+P0234 [Heading 1] 7. Alarmes no celular
+P0235 [Heading 2] 7.1 Modal em tela cheia
+P0236 [Normal] O alarme operacional não deve ser apresentado como uma pequena janela central. No celular, deve ocupar praticamente toda a tela:
+P0237 [Normal] ┌─────────────────────────────────┐
+│ ⚠ ALARME OPERACIONAL            │
+│                                 │
+│ C04 • OSCAN • REFAP             │
+│ TQ-804                          │
+│                                 │
+│ Verificar término do            │
+│ recebimento de MGO              │
+│                                 │
+│ Previsto: 14:45                 │
+│ ATRASADO HÁ 03min 12s           │
+│                                 │
+│ [ RECONHECER ALARME ]           │
+│                                 │
+│ [Adiar] [Concluir] [Detalhes]   │
+└─────────────────────────────────┘
+P0238 [Heading 3] Hierarquia das ações
+P0239 [List Paragraph] Reconhecer alarme, quando estiver disparado;
+P0240 [List Paragraph] Concluir evento;
+P0241 [List Paragraph] Adiar;
+P0242 [List Paragraph] Abrir detalhes.
+P0243 [Normal] O botão de fechar não poderá ser confundido com reconhecimento. Fechar o modal deverá apenas ocultar temporariamente a janela, mantendo o estado do alarme como triggered.
+P0245 [Heading 2] 7.2 Adiamento
+P0246 [Normal] O modal de adiamento será convertido em painel inferior:
+P0247 [Normal] Adiar alarme
+
+[ 5 min ] [ 10 min ]
+[15 min ] [ 30 min ]
+
+Outro período
+[ 45 ] minutos
+
+[Cancelar]       [Confirmar]
+P0248 [Normal] Os botões terão área mínima de toque confortável e não dependerão apenas da cor para indicar a seleção.
+P0250 [Heading 2] 7.3 Comportamento em segundo plano
+P0251 [Normal] A interface deverá informar claramente que, por ser uma aplicação web local:
+P0252 [List Paragraph] o arquivo precisa permanecer aberto;
+P0253 [List Paragraph] o navegador pode limitar temporizadores em segundo plano;
+P0254 [List Paragraph] o áudio precisa ter sido desbloqueado por uma interação;
+P0255 [List Paragraph] notificações dependem de suporte e permissão do navegador;
+P0256 [List Paragraph] o bloqueio de tela ou encerramento do navegador pode impedir o alerta.
+P0257 [Normal] Esse aviso deverá aparecer na primeira utilização do dispositivo e continuar acessível em Status da aplicação.
+P0259 [Heading 1] 8. Eventos concluídos no celular
+P0260 [Normal] A tabela de eventos concluídos será substituída por cartões expansíveis.
+P0261 [Normal] ┌─────────────────────────────────┐
+│ CONCLUÍDO                       │
+│ Verificar chegada do PIG        │
+│                                │
+│ C04 • OSCAN • TEDEP             │
+│ Previsto: 14:00                 │
+│ Concluído: 14:07                │
+│ Com atraso de 7 min             │
+│                                │
+│ [Detalhes] [Reabrir]      [⋯]   │
+└─────────────────────────────────┘
+P0262 [Normal] A observação de conclusão, controlador responsável e informações dos alarmes poderão ser exibidas ao expandir o cartão.
+P0263 [Normal] A apresentação em cartão também elimina o problema atual de divergência entre as nove colunas declaradas no cabeçalho e as sete células renderizadas pelo JavaScript.
+P0265 [Heading 1] 9. Cadastros operacionais no celular
+P0266 [Normal] O Hub Unificado de três colunas não será mantido no celular. A tela será transformada em uma lista de categorias:
+P0267 [Normal] Cadastros operacionais
+
+[ Consoles                 12  > ]
+[ Dutos                     8  > ]
+[ Unidades Operacionais    15  > ]
+[ Tipos de Equipamento     21  > ]
+[ TAGs                     84  > ]
+P0268 [Normal] Ao abrir uma categoria, a tela apresentará:
+P0269 [List Paragraph] busca;
+P0270 [List Paragraph] filtro de ativos, inativos ou todos;
+P0271 [List Paragraph] lista dos registros;
+P0272 [List Paragraph] botão de inclusão;
+P0273 [List Paragraph] formulário em tela própria ou painel inferior.
+P0274 [Normal] Exemplo:
+P0275 [Normal] TAGs de equipamentos
+
+[ Pesquisar TAG...             ]
+
+[Ativos] [Inativos] [Todos]
+
+TQ-804
+REFAP • Tanque
+Ativo
+[Editar] [⋯]
+P0276 [Normal] Essa adaptação também deve incluir os filtros de ativos e inativos atualmente referenciados no JavaScript, mas ausentes no HTML.
+P0278 [Heading 1] 10. Configurações no celular
+P0279 [Normal] As configurações serão organizadas em seções expansíveis:
+P0280 [Normal] Configurações de alertas
+
+▾ Identificação do controlador
+▾ Antecedência padrão
+▾ Sinal sonoro
+▾ Alerta visual
+▾ Notificações do sistema
+▾ Repetição de alarmes
+▾ Testes e permissões
+P0281 [Normal] Os controles deslizantes, checkboxes e campos numéricos ocuparão toda a largura disponível.
+P0282 [Normal] A opção Testar som deverá ficar próxima ao tipo de timbre e ao volume. A opção Testar notificação deverá ficar próxima ao estado atual da permissão.
+P0284 [Heading 1] 11. Configurações de cores no celular
+P0285 [Normal] A barra proporcional de cores poderá continuar horizontal, com rolagem controlada ou escala reduzida. A tabela será convertida em cartões:
+P0286 [Normal] ┌─────────────────────────────────┐
+│ ● Crítico                       │
+│ 0 até 15 minutos                │
+│ Cor: #dc2626                    │
+│ Prioridade: 1                   │
+│ Pulsar: Sim • Som: Sim          │
+│                     [Editar]     │
+└─────────────────────────────────┘
+P0287 [Normal] A inclusão ou edição da faixa será realizada em tela separada. Antes de salvar, a aplicação deverá mostrar a cadeia resultante:
+P0288 [Normal] 0 ─ 15 ─ 30 ─ 45 ─ 60 ─ Normal
+P0289 [Normal] Em caso de lacuna ou sobreposição, o erro deverá identificar claramente as faixas envolvidas.
+P0291 [Heading 1] 12. Backup e diagnóstico no celular
+P0292 [Heading 2] 12.1 Backup
+P0293 [Normal] A tela deverá apresentar ações grandes e separadas:
+P0294 [Normal] Backup e dados
+
+Último backup
+24/10/2026 22:15
+
+[ Baixar backup completo JSON ]
+
+Importar backup
+[ Selecionar arquivo JSON ]
+[ Validar arquivo ]
+
+Exportar CSV
+[ Pendentes ] [ Concluídos ]
+[ Estrutura cadastral ]
+
+Área de risco
+[ Apagar todos os dados ]
+P0295 [Normal] A importação em modo Substituir tudo deverá exigir confirmação reforçada e informar explicitamente que um backup preventivo será gerado antes da substituição.
+P0297 [Heading 2] 12.2 Diagnóstico
+P0298 [Normal] O diagnóstico poderá ser apresentado em cartões:
+P0299 [Normal] Versão
+v1.1.0
+
+Banco local
+Online • Esquema v1
+
+Áudio
+Ativo
+
+Notificações
+Concedidas
+P0300 [Normal] As 11 Object Stores serão exibidas em uma lista expansível. Logs técnicos poderão abrir em um painel específico, com opção de copiar o diagnóstico completo.
+P0302 [Heading 1] 13. Estrutura da aplicação em tablets
+P0303 [Heading 2] 13.1 Conceito geral
+P0304 [Normal] O tablet não deverá ser tratado como um celular ampliado. A adaptação aproveitará a largura adicional para manter contexto, reduzir navegação repetitiva e permitir trabalho com caneta.
+P0305 [Normal] A experiência continuará orientada ao toque, portanto:
+P0306 [List Paragraph] controles não serão reduzidos às dimensões do desktop;
+P0307 [List Paragraph] ações não dependerão de hover;
+P0308 [List Paragraph] tabelas não utilizarão densidade excessiva;
+P0309 [List Paragraph] campos e botões manterão áreas de toque amplas;
+P0310 [List Paragraph] painéis poderão ser apresentados lado a lado.
+P0312 [Heading 2] 13.2 Navegação lateral
+P0313 [Normal] No tablet em paisagem, será utilizada uma barra lateral compacta:
+P0314 [Normal] ┌───────────────┬──────────────────────────────────────┐
+│ Previsões     │ Conteúdo da visão ativa             │
+│               │                                      │
+│ Painel        │                                      │
+│ Novo evento   │                                      │
+│ Pendentes  12 │                                      │
+│ Concluídos    │                                      │
+│ Cadastros     │                                      │
+│ Configurações │                                      │
+│ Backup        │                                      │
+│ Diagnóstico   │                                      │
+└───────────────┴──────────────────────────────────────┘
+P0315 [Normal] A barra poderá ser recolhida para o modo somente ícones.
+P0316 [Normal] No tablet em retrato, poderá ser usado:
+P0317 [List Paragraph] drawer lateral retrátil; ou
+P0318 [List Paragraph] barra lateral estreita, se a largura útil permitir.
+P0319 [Normal] O cabeçalho continuará exibindo:
+P0320 [List Paragraph] console ativo;
+P0321 [List Paragraph] relógio;
+P0322 [List Paragraph] estado do áudio;
+P0323 [List Paragraph] quantidade de alarmes;
+P0324 [List Paragraph] usuário;
+P0325 [List Paragraph] tema;
+P0326 [List Paragraph] ação de nova previsão.
+P0328 [Heading 1] 14. Painel principal no tablet
+P0329 [Normal] O Dashboard será organizado em regiões:
+P0330 [Normal] ┌──────────────────────────────────────────────────────┐
+│ Métricas operacionais em 3 ou 4 colunas             │
+├───────────────────────────────┬──────────────────────┤
+│ Próximo evento operacional   │ Alarmes ativos       │
+│ Spotlight                    │ e atrasados          │
+├───────────────────────────────┴──────────────────────┤
+│ Próximos eventos em cartões compactos ou tabela     │
+└──────────────────────────────────────────────────────┘
+P0331 [Normal] A prioridade continuará sendo o próximo evento do console ativo.
+P0332 [Normal] Em paisagem, o Spotlight poderá ocupar aproximadamente dois terços da largura, enquanto a coluna lateral mostrará:
+P0333 [List Paragraph] alarmes não reconhecidos;
+P0334 [List Paragraph] eventos atrasados;
+P0335 [List Paragraph] ações rápidas.
+P0336 [Normal] Em retrato, essas áreas serão empilhadas.
+P0338 [Heading 1] 15. Eventos pendentes no tablet
+P0339 [Normal] A tela poderá utilizar o padrão lista e detalhe:
+P0340 [Normal] ┌──────────────────────────┬───────────────────────────┐
+│ Eventos pendentes        │ Detalhes do selecionado  │
+│                          │                           │
+│ Evento 1                 │ Descrição                 │
+│ Evento 2                 │ Hierarquia                │
+│ Evento 3                 │ Horário e contador        │
+│ Evento 4                 │ Histórico resumido       │
+│                          │                           │
+│                          │ [Concluir] [Editar] [⋯]   │
+└──────────────────────────┴───────────────────────────┘
+P0341 [Heading 3] Benefícios
+P0342 [List Paragraph] o controlador mantém a visão da fila;
+P0343 [List Paragraph] a seleção de um evento não exige mudança de tela;
+P0344 [List Paragraph] detalhes e desenho podem ser consultados rapidamente;
+P0345 [List Paragraph] ações permanecem disponíveis no painel direito.
+P0346 [Normal] Em tablet retrato, o detalhe poderá abrir como painel deslizante sobre a lista.
+P0348 [Heading 1] 16. Nova previsão no tablet
+P0349 [Normal] O formulário poderá ser distribuído em duas colunas:
+P0350 [Normal] ┌──────────────────────────┬───────────────────────────┐
+│ Localização operacional  │ Programação              │
+│ Console                  │ Data e hora              │
+│ Duto                     │ Prioridade               │
+│ UO                       │ Descrição                │
+│ Tipo                     │ Observações              │
+│ TAG                      │ Configuração de alarme   │
+├──────────────────────────┴───────────────────────────┤
+│ Lousa digital com caneta stylus                     │
+├──────────────────────────────────────────────────────┤
+│ [Limpar] [Salvar e + outra] [Salvar previsão]       │
+└──────────────────────────────────────────────────────┘
+P0351 [Normal] Os campos encadeados deverão permanecer juntos na mesma região para deixar clara a relação:
+P0352 [Normal] Console → Duto → UO → Tipo → TAG
+P0353 [Normal] O botão Salvar e + Outra no Duto deverá permanecer em evidência, pois o tablet favorece o registro consecutivo de diversas previsões durante o planejamento operacional.
+P0355 [Heading 1] 17. Lousa digital no tablet
+P0356 [Normal] O tablet será o dispositivo prioritário para uso da lousa.
+P0357 [Heading 2] 17.1 Comportamento recomendado
+P0358 [List Paragraph] canvas com largura total do painel;
+P0359 [List Paragraph] altura mínima entre 280px e 400px, conforme orientação;
+P0360 [List Paragraph] barra de ferramentas fixa;
+P0361 [List Paragraph] suporte a toque, mouse e caneta;
+P0362 [List Paragraph] prioridade de entrada para caneta quando pointerType === 'pen';
+P0363 [List Paragraph] prevenção de rolagem acidental somente durante o traço;
+P0364 [List Paragraph] desenho preservado durante rotação;
+P0365 [List Paragraph] visualização em tela cheia;
+P0366 [List Paragraph] botão de desfazer;
+P0367 [List Paragraph] indicação explícita do modo ativo: Caneta ou Borracha.
+P0368 [Normal] Exemplo:
+P0369 [Normal] ┌──────────────────────────────────────────────────────┐
+│ ● Cor  [Fina|Normal|Grossa] [Caneta] [Borracha]     │
+│                                  [Desfazer] [Limpar] │
+├──────────────────────────────────────────────────────┤
+│                                                      │
+│                   ÁREA DE DESENHO                    │
+│                                                      │
+└──────────────────────────────────────────────────────┘
+P0370 [Normal] Se o navegador fornecer pressão da caneta em PointerEvent.pressure, a aplicação poderá futuramente variar a espessura do traço, mantendo como fallback a espessura selecionada manualmente.
+P0372 [Heading 1] 18. Cadastros operacionais no tablet
+P0373 [Normal] O Hub de três colunas do desktop deverá ser convertido em um fluxo hierárquico de duas regiões.
+P0374 [Heading 3] Coluna esquerda
+P0375 [Normal] Categorias e registros:
+P0376 [Normal] Consoles
+Dutos
+UOs
+Tipos
+TAGs
+P0377 [Heading 3] Região principal
+P0378 [Normal] Lista e formulário da categoria selecionada.
+P0379 [Normal] Exemplo para dutos:
+P0380 [Normal] ┌──────────────────────┬───────────────────────────────┐
+│ Dutos cadastrados    │ Cadastro ou edição de duto   │
+│                      │                               │
+│ OSCAN                │ Console responsável          │
+│ OSBRA                │ Nome                         │
+│ DTCS                 │ UOs associadas               │
+│                      │ Criador inline de UO          │
+│                      │                               │
+│                      │ [Cancelar] [Salvar duto]      │
+└──────────────────────┴───────────────────────────────┘
+P0381 [Normal] Essa distribuição preserva produtividade sem reproduzir o excesso de densidade do desktop.
+P0383 [Heading 1] 19. Modais em dispositivos móveis
+P0384 [Heading 2] 19.1 Celular
+P0385 [Normal] Os modais serão convertidos em:
+P0386 [List Paragraph] tela cheia para alarme, detalhes e formulário complexo;
+P0387 [List Paragraph] painel inferior para adiamento e ações contextuais;
+P0388 [List Paragraph] diálogo central para confirmações simples;
+P0389 [List Paragraph] tela própria para importação de backup.
+P0390 [Heading 2] 19.2 Tablet
+P0391 [Normal] Os modais poderão permanecer centralizados, com largura máxima adequada:
+P0392 [List Paragraph] confirmação: aproximadamente 420px;
+P0393 [List Paragraph] conclusão e adiamento: 480px a 560px;
+P0394 [List Paragraph] detalhes e histórico: 720px a 900px;
+P0395 [List Paragraph] alerta operacional: largura ampla e alto contraste.
+P0396 [Normal] Todos deverão:
+P0397 [List Paragraph] manter título e ação principal visíveis;
+P0398 [List Paragraph] impedir que o teclado virtual cubra o campo ativo;
+P0399 [List Paragraph] permitir fechamento por Escape quando houver teclado físico;
+P0400 [List Paragraph] devolver o foco ao elemento que abriu o modal;
+P0401 [List Paragraph] evitar fechamento acidental durante ações críticas.
+P0403 [Heading 1] 20. Tamanhos e ergonomia de toque
+P0404 [Normal] Para celulares e tablets, recomenda-se:
+P0405 [List Paragraph] área de toque mínima próxima de 44 × 44px;
+P0406 [List Paragraph] botões principais com altura entre 48px e 56px;
+P0407 [List Paragraph] campos com altura mínima de 48px;
+P0408 [List Paragraph] distância mínima visual de aproximadamente 8px entre ações;
+P0409 [List Paragraph] margens laterais de 16px no celular;
+P0410 [List Paragraph] margens de 24px a 32px no tablet;
+P0411 [List Paragraph] texto principal com pelo menos 16px;
+P0412 [List Paragraph] texto auxiliar com pelo menos 14px;
+P0413 [List Paragraph] contador regressivo crítico com destaque entre 24px e 36px;
+P0414 [List Paragraph] ações destrutivas separadas das ações frequentes.
+P0415 [Normal] Ícones isolados deverão possuir:
+P0416 [List Paragraph] aria-label;
+P0417 [List Paragraph] título acessível;
+P0418 [List Paragraph] área clicável ampliada;
+P0419 [List Paragraph] significado inequívoco.
+P0421 [Heading 1] 21. Cores, criticidade e acessibilidade
+P0422 [Normal] A classificação não poderá depender exclusivamente das cores.
+P0423 [Normal] Cada evento deverá apresentar simultaneamente:
+P0424 [List Paragraph] nome da faixa;
+P0425 [List Paragraph] cor;
+P0426 [List Paragraph] ícone ou marcador;
+P0427 [List Paragraph] contador;
+P0428 [List Paragraph] texto temporal.
+P0429 [Normal] Exemplo:
+P0430 [Normal] ⚠ CRÍTICO • Faltam 08 minutos
+P0431 [Normal] Para eventos atrasados:
+P0432 [Normal] ⏱ ATRASADO • Há 12 minutos
+P0433 [Normal] As animações pulsantes deverão respeitar a preferência prefers-reduced-motion. Quando o sistema solicitar redução de movimento, a pulsação deverá ser substituída por:
+P0434 [List Paragraph] borda de alto contraste;
+P0435 [List Paragraph] ícone persistente;
+P0436 [List Paragraph] texto destacado;
+P0437 [List Paragraph] sinal sonoro, quando habilitado.
+P0439 [Heading 1] 22. Teclado virtual e orientação
+P0440 [Normal] A aplicação deverá tratar explicitamente o teclado virtual:
+P0441 [List Paragraph] barras fixas não podem cobrir campos;
+P0442 [List Paragraph] o campo ativo deve ser rolado para a área visível;
+P0443 [List Paragraph] campos numéricos devem solicitar teclado numérico;
+P0444 [List Paragraph] data e hora devem utilizar controles nativos quando adequados;
+P0445 [List Paragraph] a busca deve permitir ação direta pelo teclado;
+P0446 [List Paragraph] o formulário não poderá ser submetido acidentalmente ao avançar entre campos.
+P0447 [Normal] Na mudança entre retrato e paisagem:
+P0448 [List Paragraph] o formulário não deve perder valores;
+P0449 [List Paragraph] a lousa não deve perder o desenho;
+P0450 [List Paragraph] o evento selecionado deve permanecer selecionado;
+P0451 [List Paragraph] filtros e posição de rolagem devem ser preservados;
+P0452 [List Paragraph] modais devem recalcular altura e largura.
+P0454 [Heading 1] 23. Funcionamento offline em dispositivos móveis
+P0455 [Normal] A base continuará armazenada no IndexedDB do navegador utilizado no dispositivo. A interface deverá deixar explícito que os dados pertencem à combinação:
+P0456 [Normal] Dispositivo + navegador + perfil do navegador
+P0457 [Normal] Como consequência:
+P0458 [List Paragraph] abrir o mesmo index.html em outro navegador não garante acesso aos mesmos registros;
+P0459 [List Paragraph] limpar dados do navegador pode eliminar a base local;
+P0460 [List Paragraph] a aplicação não sincroniza automaticamente celular, tablet e desktop;
+P0461 [List Paragraph] o backup JSON permanece essencial;
+P0462 [List Paragraph] o usuário deve visualizar a data do último backup;
+P0463 [List Paragraph] importação e exportação precisam ser testadas no navegador-alvo.
+P0464 [Normal] Recomenda-se exibir um aviso persistente quando o último backup ultrapassar um período configurável, por exemplo:
+P0465 [Normal] ⚠ Último backup realizado há 7 dias.
+[Realizar backup agora]
+P0467 [Heading 1] 24. Correções necessárias antes da versão móvel
+P0468 [Normal] A adaptação móvel dependerá da correção das divergências já identificadas, principalmente porque algumas delas atingem diretamente celulares e tablets.
+P0469 [Heading 2] Prioridade crítica
+P0470 [List Paragraph] Unificar .open e .active no drawer e no overlay.
+P0471 [List Paragraph] Manter somente um FAB ou usar a navegação inferior.
+P0472 [List Paragraph] Corrigir a variável --bg-surface-elevated para --bg-elevated.
+P0473 [List Paragraph] Atualizar os badges do drawer mobile.
+P0474 [List Paragraph] Vincular corretamente os botões de backup e exportação.
+P0475 [List Paragraph] Corrigir exportCSV('concluido') para exportCSV('completed').
+P0476 [List Paragraph] Harmonizar os valores do filtro de pontualidade.
+P0477 [List Paragraph] Adicionar ao HTML os filtros de registros ativos e inativos.
+P0478 [List Paragraph] Normalizar as classes das faixas, por exemplo, range_critico para critico.
+P0479 [List Paragraph] Unificar o container de desenho do modal de detalhes.
+P0480 [List Paragraph] Corrigir a quantidade de colunas do histórico de concluídos.
+P0481 [List Paragraph] Remover referências a elementos inexistentes, como #labelActiveConsoleFilter, ou criar os elementos necessários.
+P0482 [Normal] Sem essas correções, a versão responsiva poderá aparentar estar completa visualmente, mas terá navegação, filtros, badges e ações sem funcionamento.
+P0484 [Heading 1] 25. Resumo da experiência por dispositivo
+P0485 [Heading 2] Celular
+P0486 [Normal] A versão para celular será otimizada para:
+P0487 [List Paragraph] consulta rápida;
+P0488 [List Paragraph] alarmes e reconhecimento;
+P0489 [List Paragraph] conclusão de eventos;
+P0490 [List Paragraph] criação simples;
+P0491 [List Paragraph] pesquisa e filtros;
+P0492 [List Paragraph] cartões operacionais;
+P0493 [List Paragraph] navegação inferior;
+P0494 [List Paragraph] formulários em uma coluna;
+P0495 [List Paragraph] ações secundárias em painéis inferiores.
+P0496 [Heading 2] Tablet
+P0497 [Normal] A versão para tablet será otimizada para:
+P0498 [List Paragraph] acompanhamento contínuo;
+P0499 [List Paragraph] lista e detalhe;
+P0500 [List Paragraph] multitarefa visual;
+P0501 [List Paragraph] formulários em duas colunas;
+P0502 [List Paragraph] cadastro operacional;
+P0503 [List Paragraph] anotação manuscrita;
+P0504 [List Paragraph] menus laterais;
+P0505 [List Paragraph] maior densidade sem perder ergonomia de toque.
+P0506 [Heading 2] Desktop
+P0507 [Normal] A versão desktop continuará destinada a:
+P0508 [List Paragraph] visão ampla multi-console;
+P0509 [List Paragraph] tabelas densas;
+P0510 [List Paragraph] configuração completa;
+P0511 [List Paragraph] administração da estrutura operacional;
+P0512 [List Paragraph] diagnóstico técnico;
+P0513 [List Paragraph] backup e tratamento de dados;
+P0514 [List Paragraph] atividades prolongadas em sala de controle.
+P0516 [Heading 2] Definição final recomendada
+P0517 [Quote] A adaptação responsiva do Caderno de Previsões Operacionais em Dutos deverá preservar integralmente o motor de monitoramento, os alarmes, as regras de negócio, a trilha de auditoria e o armazenamento offline. Em celulares, a interface será reorganizada para uma experiência operacional focada, de uma coluna, baseada em cartões, navegação inferior e ações rápidas. Em tablets, a aplicação utilizará o espaço adicional para apresentar estruturas de lista e detalhe, formulários em duas colunas, navegação lateral e uma lousa digital otimizada para caneta stylus. Tabelas densas serão convertidas em cartões ou listas expansíveis, filtros serão apresentados em painéis deslizantes e ações críticas terão prioridade visual e áreas de toque adequadas. A responsividade será orientada pelo conteúdo e pela forma de interação, e não apenas pela redução proporcional dos componentes da versão desktop. A composição deverá adaptar-se automaticamente a qualquer tamanho e proporção de tela conforme os wireframes de celular, tablet, monitor convencional, widescreen e ultrawide. O usuário também poderá escolher manualmente a visualização e a densidade dos objetos, inclusive optando por elementos menores; na ausência de escolha, prevalecerá o modo Automático.
+P0518 [Heading 3] Principais mudanças realizadas na descrição
+P0519 [Normal] A proposta transforma os breakpoints já existentes em comportamentos concretos para cada tela da aplicação. Também define a hierarquia móvel dos alarmes, a reorganização das nove visões, o tratamento de tabelas, formulários, modais, lousa stylus, navegação e limitações do armazenamento offline. O objetivo é preservar a complexidade operacional do sistema sem transportar para celulares e tablets a densidade visual própria de uma estação desktop.
+TABELA 0
+T0R0: Faixa de largura | Perfil predominante | Organização
+T0R1: Até 479px | Celular compacto | Uma coluna, conteúdo fortemente priorizado
+T0R2: 480px a 767px | Celular convencional ou grande | Uma coluna, métricas em duas colunas quando houver espaço
+T0R3: 768px a 1024px | Tablet em retrato ou paisagem compacta | Duas colunas em telas operacionais e painel lateral
+T0R4: Acima de 1024px | Notebook ou desktop | Navegação horizontal e maior densidade de informações

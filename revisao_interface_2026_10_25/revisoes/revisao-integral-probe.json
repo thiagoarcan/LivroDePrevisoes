@@ -1,0 +1,482 @@
+{
+  "distributed_html": true,
+  "rows": [
+    {
+      "width": 390,
+      "height": 844,
+      "tier": "mobile",
+      "scroll": 390,
+      "nav": {
+        "display": "none",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "Painel\n  \n  5\n \n \n  \n   \n   \n   \n   \n   \n   \n  \n  \n   Novo Evento\n  \n \n \n  \n   \n"
+      },
+      "drawer": {
+        "display": "block",
+        "visible": true,
+        "x": -357,
+        "y": 0,
+        "w": 340,
+        "h": 844,
+        "text": "Previsões em Dutos\n    \n    \n     v1.1.0 • Operação Offline\n    \n   \n  \n  \n   ×\n"
+      },
+      "clock": {
+        "display": "block",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "25/10/2026, 10:14:09"
+      },
+      "audio": {
+        "display": "inline-flex",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "⚠ Áudio não iniciado"
+      },
+      "statusParent": {
+        "display": "none",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "25/10/2026, 10:14:09\n  \n   ⚠ Áudio não iniciado\n  \n  \n   \n    •\n   \n   DB: Pront"
+      },
+      "audioReady": false,
+      "main": {
+        "display": "block",
+        "visible": true,
+        "x": 0,
+        "y": 252.671875,
+        "w": 390,
+        "h": 2077.40625,
+        "text": "Painel operacional · todos os consoles\n  \n  \n  \n   \n   \n    \n     \n      ★ Próxi"
+      },
+      "card_actions": [
+        {
+          "text": "Concluir",
+          "label": null,
+          "visible": true,
+          "rect": {
+            "x": 30.390625,
+            "y": 815.734375,
+            "width": 77.265625,
+            "height": 48,
+            "top": 815.734375,
+            "right": 107.65625,
+            "bottom": 863.734375,
+            "left": 30.390625
+          },
+          "handler": "App.UI.showCompleteModal('feb82a8f-5ab2-4d9b-bf5e-6bdab4ddf119')"
+        },
+        {
+          "text": "Editar",
+          "label": null,
+          "visible": true,
+          "rect": {
+            "x": 112.046875,
+            "y": 817.734375,
+            "width": 61.4375,
+            "height": 44,
+            "top": 817.734375,
+            "right": 173.484375,
+            "bottom": 861.734375,
+            "left": 112.046875
+          },
+          "handler": "App.UI.editEvent('feb82a8f-5ab2-4d9b-bf5e-6bdab4ddf119')"
+        },
+        {
+          "text": "+ Duplicar",
+          "label": null,
+          "visible": true,
+          "rect": {
+            "x": 177.875,
+            "y": 817.734375,
+            "width": 91.796875,
+            "height": 44,
+            "top": 817.734375,
+            "right": 269.671875,
+            "bottom": 861.734375,
+            "left": 177.875
+          },
+          "handler": "App.UI.duplicateEvent('feb82a8f-5ab2-4d9b-bf5e-6bdab4ddf119')"
+        },
+        {
+          "text": "Detalhes",
+          "label": null,
+          "visible": true,
+          "rect": {
+            "x": 274.0625,
+            "y": 817.734375,
+            "width": 79.8125,
+            "height": 44,
+            "top": 817.734375,
+            "right": 353.875,
+            "bottom": 861.734375,
+            "left": 274.0625
+          },
+          "handler": "App.UI.showDetailsModal('feb82a8f-5ab2-4d9b-bf5e-6bdab4ddf119')"
+        },
+        {
+          "text": "×",
+          "label": "Excluir registro",
+          "visible": true,
+          "rect": {
+            "x": 30.390625,
+            "y": 863.734375,
+            "width": 32.6875,
+            "height": 44,
+            "top": 863.734375,
+            "right": 63.078125,
+            "bottom": 907.734375,
+            "left": 30.390625
+          },
+          "handler": "App.UI.deleteEvent('feb82a8f-5ab2-4d9b-bf5e-6bdab4ddf119')"
+        },
+        {
+          "text": "⋯",
+          "label": "Mais ações da previsão",
+          "visible": true,
+          "rect": {
+            "x": 67.46875,
+            "y": 863.734375,
+            "width": 35.0625,
+            "height": 44,
+            "top": 863.734375,
+            "right": 102.53125,
+            "bottom": 907.734375,
+            "left": 67.46875
+          },
+          "handler": "App.UI.openEventActionSheet('feb82a8f-5ab2-4d9b-bf5e-6bdab4ddf119')"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "tier": "tablet",
+      "scroll": 768,
+      "nav": {
+        "display": "none",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "Painel\n  \n  5\n \n \n  \n   \n   \n   \n   \n   \n   \n  \n  \n   Novo Evento\n  \n \n \n  \n   \n"
+      },
+      "drawer": {
+        "display": "block",
+        "visible": true,
+        "x": -357,
+        "y": 0,
+        "w": 340,
+        "h": 1024,
+        "text": "Previsões em Dutos\n    \n    \n     v1.1.0 • Operação Offline\n    \n   \n  \n  \n   ×\n"
+      },
+      "clock": {
+        "display": "block",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "25/10/2026, 10:14:09"
+      },
+      "audio": {
+        "display": "inline-flex",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "⚠ Áudio não iniciado"
+      },
+      "statusParent": {
+        "display": "none",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "25/10/2026, 10:14:09\n  \n   ⚠ Áudio não iniciado\n  \n  \n   \n    •\n   \n   DB: Pront"
+      },
+      "audioReady": false,
+      "main": {
+        "display": "block",
+        "visible": true,
+        "x": 0,
+        "y": 158.859375,
+        "w": 768,
+        "h": 2066.140625,
+        "text": "Painel operacional · todos os consoles\n  \n  \n  \n   \n   \n    \n     \n      ★ Próxi"
+      }
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "tier": "tablet",
+      "scroll": 1024,
+      "nav": {
+        "display": "none",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "Painel\n  \n  5\n \n \n  \n   \n   \n   \n   \n   \n   \n  \n  \n   Novo Evento\n  \n \n \n  \n   \n"
+      },
+      "drawer": {
+        "display": "block",
+        "visible": true,
+        "x": -357,
+        "y": 0,
+        "w": 340,
+        "h": 768,
+        "text": "Previsões em Dutos\n    \n    \n     v1.1.0 • Operação Offline\n    \n   \n  \n  \n   ×\n"
+      },
+      "clock": {
+        "display": "block",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "25/10/2026, 10:14:09"
+      },
+      "audio": {
+        "display": "inline-flex",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "⚠ Áudio não iniciado"
+      },
+      "statusParent": {
+        "display": "none",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "25/10/2026, 10:14:09\n  \n   ⚠ Áudio não iniciado\n  \n  \n   \n    •\n   \n   DB: Pront"
+      },
+      "audioReady": false,
+      "main": {
+        "display": "block",
+        "visible": true,
+        "x": 0,
+        "y": 133.96875,
+        "w": 1024,
+        "h": 1922.359375,
+        "text": "Painel operacional · todos os consoles\n  \n  \n  \n   \n   \n    \n     \n      ★ Próxi"
+      },
+      "form": {
+        ".fieldset-localizacao": {
+          "x": 34.59375,
+          "y": 282.59375,
+          "width": 469.40625,
+          "height": 280.984375,
+          "top": 282.59375,
+          "right": 504,
+          "bottom": 563.578125,
+          "left": 34.59375
+        },
+        ".fieldset-programacao": {
+          "x": 520,
+          "y": 282.59375,
+          "width": 469.40625,
+          "height": 280.984375,
+          "top": 282.59375,
+          "right": 989.40625,
+          "bottom": 563.578125,
+          "left": 520
+        },
+        ".fieldset-atividade": {
+          "x": 34.59375,
+          "y": 579.578125,
+          "width": 954.8125,
+          "height": 261.515625,
+          "top": 579.578125,
+          "right": 989.40625,
+          "bottom": 841.09375,
+          "left": 34.59375
+        },
+        ".fieldset-lousa": {
+          "x": 34.59375,
+          "y": 857.09375,
+          "width": 954.8125,
+          "height": 732.078125,
+          "top": 857.09375,
+          "right": 989.40625,
+          "bottom": 1589.171875,
+          "left": 34.59375
+        },
+        "#stylusDrawingCanvas": {
+          "x": 64.59375,
+          "y": 1180.09375,
+          "width": 894.8125,
+          "height": 328.09375,
+          "top": 1180.09375,
+          "right": 959.40625,
+          "bottom": 1508.1875,
+          "left": 64.59375
+        },
+        "#eventDraftSummary": {
+          "x": 16,
+          "y": 1922.390625,
+          "width": 992,
+          "height": 411.15625,
+          "top": 1922.390625,
+          "right": 1008,
+          "bottom": 2333.546875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "width": 1199,
+      "height": 800,
+      "tier": "tablet",
+      "scroll": 1199,
+      "nav": {
+        "display": "none",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "Painel\n  \n  5\n \n \n  \n   \n   \n   \n   \n   \n   \n  \n  \n   Novo Evento\n  \n \n \n  \n   \n"
+      },
+      "drawer": {
+        "display": "block",
+        "visible": true,
+        "x": -357,
+        "y": 0,
+        "w": 340,
+        "h": 800,
+        "text": "Previsões em Dutos\n    \n    \n     v1.1.0 • Operação Offline\n    \n   \n  \n  \n   ×\n"
+      },
+      "clock": {
+        "display": "block",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "25/10/2026, 10:14:09"
+      },
+      "audio": {
+        "display": "inline-flex",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "⚠ Áudio não iniciado"
+      },
+      "statusParent": {
+        "display": "none",
+        "visible": false,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "text": "25/10/2026, 10:14:09\n  \n   ⚠ Áudio não iniciado\n  \n  \n   \n    •\n   \n   DB: Pront"
+      },
+      "audioReady": false,
+      "main": {
+        "display": "block",
+        "visible": true,
+        "x": 0,
+        "y": 133.96875,
+        "w": 1199,
+        "h": 1876.5625,
+        "text": "Painel operacional · todos os consoles\n  \n  \n  \n   \n   \n    \n     \n      ★ Próxi"
+      }
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "tier": "conventional",
+      "scroll": 1440,
+      "nav": {
+        "display": "flex",
+        "visible": true,
+        "x": 0,
+        "y": 120.640625,
+        "w": 224,
+        "h": 779.359375,
+        "text": "Painel\n  \n  5\n \n \n  \n   \n   \n   \n   \n   \n   \n  \n  \n   Novo Evento\n  \n \n \n  \n   \n"
+      },
+      "drawer": {
+        "display": "block",
+        "visible": true,
+        "x": -357,
+        "y": 0,
+        "w": 340,
+        "h": 900,
+        "text": "Previsões em Dutos\n    \n    \n     v1.1.0 • Operação Offline\n    \n   \n  \n  \n   ×\n"
+      },
+      "clock": {
+        "display": "block",
+        "visible": true,
+        "x": 454.90625,
+        "y": 48.21875,
+        "w": 160.453125,
+        "h": 23.1875,
+        "text": "25/10/2026, 10:14:09"
+      },
+      "audio": {
+        "display": "flex",
+        "visible": true,
+        "x": 620.953125,
+        "y": 43.875,
+        "w": 149.75,
+        "h": 31.890625,
+        "text": "⚠ Áudio não iniciado"
+      },
+      "statusParent": {
+        "display": "flex",
+        "visible": true,
+        "x": 454.90625,
+        "y": 43.875,
+        "w": 315.796875,
+        "h": 31.890625,
+        "text": "25/10/2026, 10:14:09\n  \n   ⚠ Áudio não iniciado\n  \n  \n   \n    •\n   \n   DB: Pront"
+      },
+      "audioReady": false,
+      "main": {
+        "display": "block",
+        "visible": true,
+        "x": 224,
+        "y": 183.234375,
+        "w": 1216,
+        "h": 1661.359375,
+        "text": "Painel operacional · todos os consoles\n  \n  \n  \n   \n   \n    \n     \n      ★ Próxi"
+      }
+    }
+  ],
+  "page_errors": [],
+  "sources_stable": true,
+  "source_hashes": {
+    "index.html": "fed01e3dd5d7ab61a6a2cf12cad974b7d2670c55ef326c112add9ff8c4d04768",
+    "build_all.py": "e1b177f3bb822bf508eea6c87a90442d4ef3feddd49225afea6a8d459b6967d0",
+    "parts_css.py": "81a9b5f437dddf4f0ba1ede38576ba48c4322dc7d35691e0fa88e5931c373e9c",
+    "parts_html.py": "55871f17e5ffbb33e4060de7ef146852d9aad985a0f0dfd8230de5fe7e45fe9e",
+    "parts_js_core.py": "f92897a9a3b775cc267e772780e1b1dfe55f3692f6c66f42008b4ce21ab21236",
+    "parts_js_presentation.py": "23877feadb1e3ace5c1955a70ddae0337e391570dc102087f7cf1edf02b7b5bc",
+    "parts_js_service.py": "0adeccdd8d58d5dad88b7da6669ca97d438e98c58066d97d925c6535bfa43db0",
+    "parts_js_ui.py": "231fd004d87a8407be499e7b7ad22ed1ae1f521d66d985b7a90880ccb841d119"
+  }
+}

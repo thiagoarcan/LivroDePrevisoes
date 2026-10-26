@@ -1,0 +1,8 @@
+test_no_audio_nodes_for_zero_or_invalid_volume (test_compatibility_browser.Compatibility.test_no_audio_nodes_for_zero_or_invalid_volume) ... ok
+test_permission_denied_and_unavailable_notification_are_safe (test_compatibility_browser.Compatibility.test_permission_denied_and_unavailable_notification_are_safe) ... ok
+test_two_tabs_lease_fallback_without_navigator_locks (test_compatibility_browser.Compatibility.test_two_tabs_lease_fallback_without_navigator_locks) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 9.911s
+
+OK

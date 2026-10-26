@@ -1,0 +1,62 @@
+--- final_fix_base/parts_js_ui.py
++++ parts_js_ui.py
+@@ -297,6 +297,7 @@
+     });
+ 
+     document.getElementById('headerUserName').textContent = settings.localUserName || 'Usuário local';
++    document.getElementById('labelDrawerUser').textContent = 'Usuário: ' + (settings.localUserName || 'Usuário local');
+     const inputUser = document.getElementById('inputSettingsUserName');
+     if (inputUser) inputUser.value = settings.localUserName || 'Usuário local';
+ 
+@@ -2022,11 +2023,11 @@
+       spSched.textContent = `Previsto: ${App.Utils.formatDateTime(spotlightTarget.scheduledDate, spotlightTarget.scheduledTime)}`;
+ 
+       spActions.innerHTML = `
+-        ${spotlightTarget.alarmState === 'triggered' ? `<button class="btn btn-warning btn-sm" onclick="App.UI.acknowledgeAlarm('${spotlightTarget.id}')">Reconhecer Alarme</button>` : ''}
++        ${spotlightTarget.alarmState === 'triggered' ? `<button class="btn btn-warning btn-sm" onclick="App.UI.acknowledgeAlarm('${spotlightTarget.id}')">Reconhecer Alarme</button><button class="btn btn-secondary btn-sm" onclick="App.UI.showSnoozeModal('${spotlightTarget.id}')">Adiar</button>` : ''}
+         <button class="btn btn-success btn-sm" onclick="App.UI.showCompleteModal('${spotlightTarget.id}')">Concluir</button>
+-        <button class="btn btn-secondary btn-sm" onclick="App.UI.editEvent('${spotlightTarget.id}')">Editar</button>
+-        <button class="btn btn-outline btn-sm" onclick="App.UI.duplicateEvent('${spotlightTarget.id}')">+ Duplicar</button>
+-        <button class="btn btn-outline btn-sm" onclick="App.UI.showDetailsModal('${spotlightTarget.id}')">Detalhes</button>
++        <button class="btn btn-secondary btn-sm event-action-secondary" onclick="App.UI.editEvent('${spotlightTarget.id}')">Editar</button>
++        <button class="btn btn-outline btn-sm event-action-secondary" onclick="App.UI.duplicateEvent('${spotlightTarget.id}')">+ Duplicar</button>
++        <button class="btn btn-outline btn-sm event-action-secondary" onclick="App.UI.showDetailsModal('${spotlightTarget.id}')">Detalhes</button>
+         <button class="btn btn-outline btn-sm" onclick="App.UI.openEventActionSheet('${spotlightTarget.id}')" title="Mais ações">&#x22EF; Mais</button>
+       `;
+     } else {
+@@ -2278,7 +2279,7 @@
+               ${ev.notes ? `<div class="event-notes">${App.Utils.escapeHTML(ev.notes)}</div>` : ''}
+               ${ev.stylusDrawing ? `
+                 <div style="margin-top: 0.4rem;">
+-                  <button class="btn btn-outline btn-sm" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;" onclick="App.UI.showDetailsModal('${ev.id}')">
++                  <button class="btn btn-outline btn-sm event-action-secondary" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;" onclick="App.UI.showDetailsModal('${ev.id}')">
+                     &#x270E; Possui Anotação / Esboço
+                   </button>
+                 </div>
+@@ -2306,10 +2307,10 @@
+               ${isSnoozed ? `<span style="font-size: 0.72rem; color: #fbbf24; margin-right: auto;">Adiado</span>` : ''}
+ 
+               <button class="btn btn-success btn-sm" onclick="App.UI.showCompleteModal('${ev.id}')" title="Concluir evento">Concluir</button>
+-              <button class="btn btn-secondary btn-sm" onclick="App.UI.editEvent('${ev.id}')" title="Editar evento">Editar</button>
+-              <button class="btn btn-outline btn-sm" onclick="App.UI.duplicateEvent('${ev.id}')" title="Duplicar evento para outro horário">+ Duplicar</button>
+-              <button class="btn btn-outline btn-sm" onclick="App.UI.showDetailsModal('${ev.id}')" title="Ver detalhes e histórico">Detalhes</button>
+-              <button class="btn btn-outline btn-sm" onclick="App.UI.deleteEvent('${ev.id}')" title="Excluir evento">&times;</button>
++              <button class="btn btn-secondary btn-sm event-action-secondary" onclick="App.UI.editEvent('${ev.id}')" title="Editar evento">Editar</button>
++              <button class="btn btn-outline btn-sm event-action-secondary" onclick="App.UI.duplicateEvent('${ev.id}')" title="Duplicar evento para outro horário">+ Duplicar</button>
++              <button class="btn btn-outline btn-sm event-action-secondary" onclick="App.UI.showDetailsModal('${ev.id}')" title="Ver detalhes e histórico">Detalhes</button>
++              <button class="btn btn-outline btn-sm event-action-secondary" onclick="App.UI.deleteEvent('${ev.id}')" title="Excluir evento">&times;</button>
+               <button class="btn btn-outline btn-sm btn-card-more-actions" onclick="App.UI.openEventActionSheet('${ev.id}')" title="Mais ações">&#x22EF;</button>
+             </div>
+           </div>
+@@ -2504,7 +2505,10 @@
+       `}
+       <button class="btn btn-outline" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.duplicateEvent('${ev.id}')">+ Duplicar para Novo Horário</button>
+       <button class="btn btn-outline" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.showDetailsModal('${ev.id}')">&#x1F4CB; Ver Detalhes e Auditoria</button>
+-      <button class="btn btn-danger" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.deleteEvent('${ev.id}')">&times; Excluir Previsão</button>
++      <section class="action-sheet-destructive" aria-labelledby="actionSheetDestructiveTitle">
++        <h4 id="actionSheetDestructiveTitle">Ação destrutiva</h4>
++        <button class="btn btn-danger" style="width: 100%; justify-content: flex-start;" onclick="${closeSheet} App.UI.deleteEvent('${ev.id}')">&times; Excluir Previsão</button>
++      </section>
+     `;
+ 
+     this.openModal(modal.id,ev,request);

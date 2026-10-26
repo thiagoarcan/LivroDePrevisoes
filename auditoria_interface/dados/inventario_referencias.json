@@ -1,0 +1,148 @@
+[
+  {
+    "arquivo": "Designer (1).pdf",
+    "bytes": 18877624,
+    "sha256": "b8094f0d6710f563899cb8471e9688f62fe61e7b1e90f659980e7df33c3cb932"
+  },
+  {
+    "arquivo": "Designer (1).png",
+    "bytes": 6109951,
+    "sha256": "458f8629f344112357094e8c2e9420e0ddc1b253392bd3e33ce15fa6e9906703",
+    "largura": 3072,
+    "altura": 2048,
+    "sha256_pixels": "b399e78b9ff99bf987dbd19457d181c2b00b3c435c030cc3563a43ad1553a9c2",
+    "extremos": [
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  {
+    "arquivo": "Designer (2).pdf",
+    "bytes": 18877624,
+    "sha256": "38c4de8ad76e7e49edca9402ee6c8b8a587ec84f18a40865826f037487ea8ef9"
+  },
+  {
+    "arquivo": "Designer (2).png",
+    "bytes": 6109951,
+    "sha256": "458f8629f344112357094e8c2e9420e0ddc1b253392bd3e33ce15fa6e9906703",
+    "largura": 3072,
+    "altura": 2048,
+    "sha256_pixels": "b399e78b9ff99bf987dbd19457d181c2b00b3c435c030cc3563a43ad1553a9c2",
+    "extremos": [
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  {
+    "arquivo": "Designer (3).png",
+    "bytes": 7048618,
+    "sha256": "4a148b24322bcf0f440fb5eda0d324c48f65e82cf023185c4eaf86aea393430e",
+    "largura": 3072,
+    "altura": 2048,
+    "sha256_pixels": "df329b8b77398cf79aac213509343abe4c240b7c7c3978013b4b12504aa4430f",
+    "extremos": [
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  {
+    "arquivo": "Designer.jpeg",
+    "bytes": 1584,
+    "sha256": "2925fc5e22b300e9dd6426a87717d41ba00eccbedfe8dfb8031246de8d3a86a8",
+    "largura": 452,
+    "altura": 301,
+    "sha256_pixels": "bb6608212dfac77f0df6d15f7864543a2bcaf596f4fb8de62d42ab38dd09c055",
+    "extremos": [
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ]
+    ]
+  },
+  {
+    "arquivo": "Designer.jpg",
+    "bytes": 1933525,
+    "sha256": "8301307bba87bbd8a4f3b1f7b3d80ba012a66bf7688316d60142946754104dcc",
+    "largura": 3072,
+    "altura": 2048,
+    "sha256_pixels": "0883c159b750c0bfef608485fd68a9d7117b9e5fbd777db29f5f0dd92d5787ba",
+    "extremos": [
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  {
+    "arquivo": "Designer.pdf",
+    "bytes": 18877624,
+    "sha256": "c619c1ac6ea23c6696488303bd79077b0c99d245a4bbbb8bdf3f986f0f56b13d"
+  },
+  {
+    "arquivo": "auditoria_interface\\referencias\\Designer (1)_pagina_01.png",
+    "sha256": "fe9893e12881ce7791a40a169f832ed0c1443654958e2efd25bf424187345003",
+    "largura": 1600,
+    "altura": 1067,
+    "sha256_pixels": "3cb4e88066523dcf5427d46799b23fe096affcbf26097cbb954e016e89edc269"
+  },
+  {
+    "arquivo": "auditoria_interface\\referencias\\Designer (2)_pagina_01.png",
+    "sha256": "e7726fb5c7a13d51c39d619a0880265e0e635cb73d3d8281601c3f6be849e180",
+    "largura": 1600,
+    "altura": 1067,
+    "sha256_pixels": "e536e87ce934dd23b74ecd7c7b8ca570280a088aa7158cb2991d0a989acfd47c"
+  },
+  {
+    "arquivo": "auditoria_interface\\referencias\\Designer_pagina_01.png",
+    "sha256": "8d95684202e62933a5c5151bb988d42128c149ec657a0e02487bdb3d1b1fe478",
+    "largura": 1600,
+    "altura": 1067,
+    "sha256_pixels": "c64dc262e84478ecc5f5fc1b010e8fef4b45946455a75c8b0c6a2ce67e6d56b6"
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "file": "Designer (1).pdf",
+    "sha256": "b8094f0d6710f563899cb8471e9688f62fe61e7b1e90f659980e7df33c3cb932",
+    "pages": 1,
+    "page_sizes": [
+      [
+        2304.0,
+        1536.0
+      ]
+    ]
+  },
+  {
+    "file": "Designer (2).pdf",
+    "sha256": "38c4de8ad76e7e49edca9402ee6c8b8a587ec84f18a40865826f037487ea8ef9",
+    "pages": 1,
+    "page_sizes": [
+      [
+        2304.0,
+        1536.0
+      ]
+    ]
+  },
+  {
+    "file": "Designer.pdf",
+    "sha256": "c619c1ac6ea23c6696488303bd79077b0c99d245a4bbbb8bdf3f986f0f56b13d",
+    "pages": 1,
+    "page_sizes": [
+      [
+        2304.0,
+        1536.0
+      ]
+    ]
+  }
+]

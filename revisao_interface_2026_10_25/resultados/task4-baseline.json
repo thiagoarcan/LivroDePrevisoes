@@ -1,0 +1,52 @@
+{
+  "tests": 11,
+  "failures": 11,
+  "errors": 0,
+  "skipped": 0,
+  "details": [
+    {
+      "test": "test_drawer_diagnostic_and_copied_report_use_central_version (test_final_findings_browser.FinalFindings.test_drawer_diagnostic_and_copied_report_use_central_version)",
+      "trace": "Traceback (most recent call last):\n  File \"C:\\Users\\tdyb\\OneDrive - TRANSPETRO\\Área de Trabalho\\Livro de Previsões\\tests\\test_final_findings_browser.py\", line 104, in test_drawer_diagnostic_and_copied_report_use_central_version\n    self.assertIn(version,self.page.locator('#appMobileDrawer').inner_text())\nAssertionError: '1.2.0' not found in 'Previsões em Dutos\\nv1.1.0 • Operação Offline\\n×\\n🏠 Painel Principal\\n5\\n🕒 Eventos Pendentes\\n5\\n➕ Nova Previsão\\n✅ Eventos Concluídos\\n🗂 Cadastros Operacionais\\n🔔 Configurações de Alertas\\n🎨 Configurações de Cores\\n💾 Backup e Dados\\n📊 Diagnóstico Técnico\\nⓘ Status da Aplicação\\nAlternar Tema (Controle Escuro)\\n👤 Usuário: Operador\\nModo de Visualização:\\nAutomática\\nCompacta\\nCelular\\nTablet\\nMonitor Convencional\\nWidescreen\\nUltrawide\\n← Sair / Fechar Menu'\n"
+    },
+    {
+      "test": "test_drawer_displays_configured_user_after_reload (test_final_findings_browser.FinalFindings.test_drawer_displays_configured_user_after_reload)",
+      "trace": "Traceback (most recent call last):\n  File \"C:\\Users\\tdyb\\OneDrive - TRANSPETRO\\Área de Trabalho\\Livro de Previsões\\tests\\test_final_findings_browser.py\", line 119, in test_drawer_displays_configured_user_after_reload\n    self.assertIn('Controladora Maria',self.page.locator('#labelDrawerUser').inner_text())\nAssertionError: 'Controladora Maria' not found in '👤 Usuário: Operador'\n"
+    },
+    {
+      "test": "test_mobile_and_tablet_show_real_clock_and_conditional_audio_warning (test_final_findings_browser.FinalFindings.test_mobile_and_tablet_show_real_clock_and_conditional_audio_warning)",
+      "trace": "Traceback (most recent call last):\n  File \"C:\\Users\\tdyb\\OneDrive - TRANSPETRO\\Área de Trabalho\\Livro de Previsões\\tests\\test_final_findings_browser.py\", line 65, in test_mobile_and_tablet_show_real_clock_and_conditional_audio_warning\n    node=self.page.locator(selector);self.assertTrue(node.is_visible(),(width,selector))\n                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : (320, '#liveClock')\n"
+    },
+    {
+      "test": "test_mobile_card_secondary_actions_use_named_sheet_and_delete_cancel_is_safe (test_final_findings_browser.FinalFindings.test_mobile_card_secondary_actions_use_named_sheet_and_delete_cancel_is_safe)",
+      "trace": "Traceback (most recent call last):\n  File \"C:\\Users\\tdyb\\OneDrive - TRANSPETRO\\Área de Trabalho\\Livro de Previsões\\tests\\test_final_findings_browser.py\", line 80, in test_mobile_card_secondary_actions_use_named_sheet_and_delete_cancel_is_safe\n    self.assertEqual(card.locator('button[onclick*=\"'+method+'\"]:visible').count(),0,method)\nAssertionError: 1 != 0 : editEvent\n"
+    },
+    {
+      "test": "test_spotlight_mobile_secondary_actions_use_more (test_final_findings_browser.FinalFindings.test_spotlight_mobile_secondary_actions_use_more)",
+      "trace": "Traceback (most recent call last):\n  File \"C:\\Users\\tdyb\\OneDrive - TRANSPETRO\\Área de Trabalho\\Livro de Previsões\\tests\\test_final_findings_browser.py\", line 97, in test_spotlight_mobile_secondary_actions_use_more\n    self.assertEqual(actions.locator('button[onclick*=\"'+method+'\"]:visible').count(),0,method)\nAssertionError: 1 != 0 : editEvent\n"
+    },
+    {
+      "test": "test_tablet_landscape_drawing_is_parallel_and_survives_rotation (test_final_findings_browser.FinalFindings.test_tablet_landscape_drawing_is_parallel_and_survives_rotation)",
+      "trace": "Traceback (most recent call last):\n  File \"C:\\Users\\tdyb\\OneDrive - TRANSPETRO\\Área de Trabalho\\Livro de Previsões\\tests\\test_final_findings_browser.py\", line 46, in test_tablet_landscape_drawing_is_parallel_and_survives_rotation\n    self.assertGreaterEqual(d['drawing']['left'],d['editor']['right']-2,d)\nAssertionError: 34.59375 not greater than or equal to 987.40625 : {'editor': {'x': 34.59375, 'y': 112.578125, 'width': 954.8125, 'height': 261.515625, 'top': 112.578125, 'right': 989.40625, 'bottom': 374.09375, 'left': 34.59375}, 'drawing': {'x': 34.59375, 'y': 390.09375, 'width': 954.8125, 'height': 732.078125, 'top': 390.09375, 'right': 989.40625, 'bottom': 1122.171875, 'left': 34.59375}, 'canvas': {'x': 64.59375, 'y': 713.09375, 'width': 894.8125, 'height': 328.09375, 'top': 713.09375, 'right': 959.40625, 'bottom': 1041.1875, 'left': 64.59375}}\n"
+    },
+    {
+      "test": "test_tablet_landscape_has_operable_rail_and_preserves_selection (test_final_findings_browser.FinalFindings.test_tablet_landscape_has_operable_rail_and_preserves_selection)",
+      "trace": "Traceback (most recent call last):\n  File \"C:\\Users\\tdyb\\OneDrive - TRANSPETRO\\Área de Trabalho\\Livro de Previsões\\tests\\test_final_findings_browser.py\", line 27, in test_tablet_landscape_has_operable_rail_and_preserves_selection\n    nav=self.page.locator('.app-nav');self.assertTrue(nav.is_visible())\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true\n"
+    },
+    {
+      "test": "test_audio_status_text_and_header_warning_contrast_in_three_themes (test_final_actions_browser.FinalActions.test_audio_status_text_and_header_warning_contrast_in_three_themes)",
+      "trace": "Traceback (most recent call last):\n  File \"C:\\Users\\tdyb\\OneDrive - TRANSPETRO\\Área de Trabalho\\Livro de Previsões\\tests\\test_final_actions_browser.py\", line 76, in test_audio_status_text_and_header_warning_contrast_in_three_themes\n    warning=self.page.locator('#chipHeaderAudioWarning');self.assertTrue(warning.is_visible())\n                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true\n"
+    },
+    {
+      "test": "test_firing_card_and_spotlight_keep_acknowledge_snooze_complete_direct (test_final_actions_browser.FinalActions.test_firing_card_and_spotlight_keep_acknowledge_snooze_complete_direct)",
+      "trace": "Traceback (most recent call last):\n  File \"C:\\Users\\tdyb\\OneDrive - TRANSPETRO\\Área de Trabalho\\Livro de Previsões\\tests\\test_final_actions_browser.py\", line 34, in test_firing_card_and_spotlight_keep_acknowledge_snooze_complete_direct\n    for label in ['Reconhecer','Adiar','Concluir','Mais']:self.assertTrue(actions.get_by_role('button',name=re.compile(label)).is_visible())\n                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true\n"
+    },
+    {
+      "test": "test_sheet_secondary_routes_and_destructive_section_preserve_identity (test_final_actions_browser.FinalActions.test_sheet_secondary_routes_and_destructive_section_preserve_identity)",
+      "trace": "Traceback (most recent call last):\n  File \"C:\\Users\\tdyb\\OneDrive - TRANSPETRO\\Área de Trabalho\\Livro de Previsões\\tests\\test_final_actions_browser.py\", line 54, in test_sheet_secondary_routes_and_destructive_section_preserve_identity\n    self.assertTrue(destructive.is_visible());self.assertEqual(destructive.get_by_role('button').count(),1)\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true\n"
+    },
+    {
+      "test": "test_tablet_list_detail_have_usable_width_and_selection (test_final_actions_browser.FinalActions.test_tablet_list_detail_have_usable_width_and_selection)",
+      "trace": "Traceback (most recent call last):\n  File \"C:\\Users\\tdyb\\OneDrive - TRANSPETRO\\Área de Trabalho\\Livro de Previsões\\tests\\test_final_actions_browser.py\", line 22, in test_tablet_list_detail_have_usable_width_and_selection\n    self.assertGreater(rail['width'],40);self.assertGreaterEqual(master['left'],rail['right'])\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 0 not greater than 40\n"
+    }
+  ]
+}

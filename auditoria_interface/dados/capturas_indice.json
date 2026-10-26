@@ -1,0 +1,658 @@
+[
+  {
+    "file": "celular_auto_viewDashboard.png",
+    "profile": "celular_auto",
+    "view": "viewDashboard",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_auto_viewNewEvent.png",
+    "profile": "celular_auto",
+    "view": "viewNewEvent",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_auto_viewPendingEvents.png",
+    "profile": "celular_auto",
+    "view": "viewPendingEvents",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_auto_viewCompletedEvents.png",
+    "profile": "celular_auto",
+    "view": "viewCompletedEvents",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_auto_viewCadastros.png",
+    "profile": "celular_auto",
+    "view": "viewCadastros",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_auto_viewConfigAlerts.png",
+    "profile": "celular_auto",
+    "view": "viewConfigAlerts",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_auto_viewConfigColors.png",
+    "profile": "celular_auto",
+    "view": "viewConfigColors",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_auto_viewBackup.png",
+    "profile": "celular_auto",
+    "view": "viewBackup",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_auto_viewDiagnostic.png",
+    "profile": "celular_auto",
+    "view": "viewDiagnostic",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_viewDashboard.png",
+    "profile": "celular_manual",
+    "view": "viewDashboard",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_viewNewEvent.png",
+    "profile": "celular_manual",
+    "view": "viewNewEvent",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_viewPendingEvents.png",
+    "profile": "celular_manual",
+    "view": "viewPendingEvents",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_viewCompletedEvents.png",
+    "profile": "celular_manual",
+    "view": "viewCompletedEvents",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_viewCadastros.png",
+    "profile": "celular_manual",
+    "view": "viewCadastros",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_viewConfigAlerts.png",
+    "profile": "celular_manual",
+    "view": "viewConfigAlerts",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_viewConfigColors.png",
+    "profile": "celular_manual",
+    "view": "viewConfigColors",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_viewBackup.png",
+    "profile": "celular_manual",
+    "view": "viewBackup",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_viewDiagnostic.png",
+    "profile": "celular_manual",
+    "view": "viewDiagnostic",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "tablet_auto_viewDashboard.png",
+    "profile": "tablet_auto",
+    "view": "viewDashboard",
+    "width": 820,
+    "height": 1180
+  },
+  {
+    "file": "tablet_auto_viewNewEvent.png",
+    "profile": "tablet_auto",
+    "view": "viewNewEvent",
+    "width": 820,
+    "height": 1180
+  },
+  {
+    "file": "tablet_auto_viewPendingEvents.png",
+    "profile": "tablet_auto",
+    "view": "viewPendingEvents",
+    "width": 820,
+    "height": 1180
+  },
+  {
+    "file": "tablet_auto_viewCompletedEvents.png",
+    "profile": "tablet_auto",
+    "view": "viewCompletedEvents",
+    "width": 820,
+    "height": 1180
+  },
+  {
+    "file": "tablet_auto_viewCadastros.png",
+    "profile": "tablet_auto",
+    "view": "viewCadastros",
+    "width": 820,
+    "height": 1180
+  },
+  {
+    "file": "tablet_auto_viewConfigAlerts.png",
+    "profile": "tablet_auto",
+    "view": "viewConfigAlerts",
+    "width": 820,
+    "height": 1180
+  },
+  {
+    "file": "tablet_auto_viewConfigColors.png",
+    "profile": "tablet_auto",
+    "view": "viewConfigColors",
+    "width": 820,
+    "height": 1180
+  },
+  {
+    "file": "tablet_auto_viewBackup.png",
+    "profile": "tablet_auto",
+    "view": "viewBackup",
+    "width": 820,
+    "height": 1180
+  },
+  {
+    "file": "tablet_auto_viewDiagnostic.png",
+    "profile": "tablet_auto",
+    "view": "viewDiagnostic",
+    "width": 820,
+    "height": 1180
+  },
+  {
+    "file": "tablet_manual_viewDashboard.png",
+    "profile": "tablet_manual",
+    "view": "viewDashboard",
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "file": "tablet_manual_viewNewEvent.png",
+    "profile": "tablet_manual",
+    "view": "viewNewEvent",
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "file": "tablet_manual_viewPendingEvents.png",
+    "profile": "tablet_manual",
+    "view": "viewPendingEvents",
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "file": "tablet_manual_viewCompletedEvents.png",
+    "profile": "tablet_manual",
+    "view": "viewCompletedEvents",
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "file": "tablet_manual_viewCadastros.png",
+    "profile": "tablet_manual",
+    "view": "viewCadastros",
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "file": "tablet_manual_viewConfigAlerts.png",
+    "profile": "tablet_manual",
+    "view": "viewConfigAlerts",
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "file": "tablet_manual_viewConfigColors.png",
+    "profile": "tablet_manual",
+    "view": "viewConfigColors",
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "file": "tablet_manual_viewBackup.png",
+    "profile": "tablet_manual",
+    "view": "viewBackup",
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "file": "tablet_manual_viewDiagnostic.png",
+    "profile": "tablet_manual",
+    "view": "viewDiagnostic",
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "file": "desktop_auto_viewDashboard.png",
+    "profile": "desktop_auto",
+    "view": "viewDashboard",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "file": "desktop_auto_viewNewEvent.png",
+    "profile": "desktop_auto",
+    "view": "viewNewEvent",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "file": "desktop_auto_viewPendingEvents.png",
+    "profile": "desktop_auto",
+    "view": "viewPendingEvents",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "file": "desktop_auto_viewCompletedEvents.png",
+    "profile": "desktop_auto",
+    "view": "viewCompletedEvents",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "file": "desktop_auto_viewCadastros.png",
+    "profile": "desktop_auto",
+    "view": "viewCadastros",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "file": "desktop_auto_viewConfigAlerts.png",
+    "profile": "desktop_auto",
+    "view": "viewConfigAlerts",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "file": "desktop_auto_viewConfigColors.png",
+    "profile": "desktop_auto",
+    "view": "viewConfigColors",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "file": "desktop_auto_viewBackup.png",
+    "profile": "desktop_auto",
+    "view": "viewBackup",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "file": "desktop_auto_viewDiagnostic.png",
+    "profile": "desktop_auto",
+    "view": "viewDiagnostic",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "file": "tema_dark_viewDashboard.png",
+    "profile": "tema_dark",
+    "view": "viewDashboard",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "tema_dark_viewPendingEvents.png",
+    "profile": "tema_dark",
+    "view": "viewPendingEvents",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "tema_dark_viewNewEvent.png",
+    "profile": "tema_dark",
+    "view": "viewNewEvent",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "tema_light_viewDashboard.png",
+    "profile": "tema_light",
+    "view": "viewDashboard",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "tema_light_viewPendingEvents.png",
+    "profile": "tema_light",
+    "view": "viewPendingEvents",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "tema_light_viewNewEvent.png",
+    "profile": "tema_light",
+    "view": "viewNewEvent",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "tema_industrial_viewDashboard.png",
+    "profile": "tema_industrial",
+    "view": "viewDashboard",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "tema_industrial_viewPendingEvents.png",
+    "profile": "tema_industrial",
+    "view": "viewPendingEvents",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "tema_industrial_viewNewEvent.png",
+    "profile": "tema_industrial",
+    "view": "viewNewEvent",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "modo_conventional_viewDashboard.png",
+    "profile": "conventional",
+    "view": "viewDashboard",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "file": "modo_conventional_viewPendingEvents.png",
+    "profile": "conventional",
+    "view": "viewPendingEvents",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "file": "modo_widescreen_viewDashboard.png",
+    "profile": "widescreen",
+    "view": "viewDashboard",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "modo_widescreen_viewPendingEvents.png",
+    "profile": "widescreen",
+    "view": "viewPendingEvents",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "modo_ultrawide_viewDashboard.png",
+    "profile": "ultrawide",
+    "view": "viewDashboard",
+    "width": 3440,
+    "height": 1440
+  },
+  {
+    "file": "modo_ultrawide_viewPendingEvents.png",
+    "profile": "ultrawide",
+    "view": "viewPendingEvents",
+    "width": 3440,
+    "height": 1440
+  },
+  {
+    "file": "modo_compact_viewDashboard.png",
+    "profile": "compact",
+    "view": "viewDashboard",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "modo_compact_viewPendingEvents.png",
+    "profile": "compact",
+    "view": "viewPendingEvents",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_drawer.png",
+    "profile": "modal_mobile",
+    "view": "drawer",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_filtros.png",
+    "profile": "modal_mobile",
+    "view": "filtros",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_acoes.png",
+    "profile": "modal_mobile",
+    "view": "acoes",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_conclusao.png",
+    "profile": "modal_mobile",
+    "view": "conclusao",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_adiamento.png",
+    "profile": "modal_mobile",
+    "view": "adiamento",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_reabertura.png",
+    "profile": "modal_mobile",
+    "view": "reabertura",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_detalhes.png",
+    "profile": "modal_mobile",
+    "view": "detalhes",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_status.png",
+    "profile": "modal_mobile",
+    "view": "status",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_confirmacao.png",
+    "profile": "modal_mobile",
+    "view": "confirmacao",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_dependencias.png",
+    "profile": "modal_mobile",
+    "view": "dependencias",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_importacao.png",
+    "profile": "modal_mobile",
+    "view": "importacao",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "celular_manual_modal_alarme.png",
+    "profile": "modal_mobile",
+    "view": "alarme",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "lousa_tela_cheia_paisagem.png",
+    "profile": "lousa",
+    "view": "fullscreen",
+    "width": 844,
+    "height": 390
+  },
+  {
+    "file": "detalhes_com_desenho_oculto.png",
+    "profile": "modal_mobile",
+    "view": "drawing_hidden",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "dashboard_contador_evento_incorreto.png",
+    "profile": "mobile_filtered",
+    "view": "spotlight_mismatch",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "estado_alarme_contador_congelado.png",
+    "profile": "estado_complementar",
+    "view": "estado_alarme_contador_congelado",
+    "width": null,
+    "height": null,
+    "screenshot_width": 459,
+    "screenshot_height": 1685
+  },
+  {
+    "file": "estado_alarmes_ativos_celular.png",
+    "profile": "estado_complementar",
+    "view": "estado_alarmes_ativos_celular",
+    "width": null,
+    "height": null,
+    "screenshot_width": 459,
+    "screenshot_height": 2501
+  },
+  {
+    "file": "estado_alarmes_ativos_tablet.png",
+    "profile": "estado_complementar",
+    "view": "estado_alarmes_ativos_tablet",
+    "width": null,
+    "height": null,
+    "screenshot_width": 1130,
+    "screenshot_height": 1528
+  },
+  {
+    "file": "estado_banner_rolagem.png",
+    "profile": "estado_complementar",
+    "view": "estado_banner_rolagem",
+    "width": null,
+    "height": null,
+    "screenshot_width": 390,
+    "screenshot_height": 844
+  },
+  {
+    "file": "estado_botao_demo_base_esvaziada.png",
+    "profile": "estado_complementar",
+    "view": "estado_botao_demo_base_esvaziada",
+    "width": null,
+    "height": null,
+    "screenshot_width": 459,
+    "screenshot_height": 1467
+  },
+  {
+    "file": "estado_concluidos_expansao_ineficaz.png",
+    "profile": "estado_complementar",
+    "view": "estado_concluidos_expansao_ineficaz",
+    "width": null,
+    "height": null,
+    "screenshot_width": 459,
+    "screenshot_height": 1358
+  },
+  {
+    "file": "estado_detalhe_tablet_apos_clique.png",
+    "profile": "estado_complementar",
+    "view": "estado_detalhe_tablet_apos_clique",
+    "width": null,
+    "height": null,
+    "screenshot_width": 1130,
+    "screenshot_height": 1284
+  },
+  {
+    "file": "estado_detalhe_tablet_inicial.png",
+    "profile": "estado_complementar",
+    "view": "estado_detalhe_tablet_inicial",
+    "width": null,
+    "height": null,
+    "screenshot_width": 1130,
+    "screenshot_height": 1284
+  },
+  {
+    "file": "estado_painel_vazio.png",
+    "profile": "estado_complementar",
+    "view": "estado_painel_vazio",
+    "width": null,
+    "height": null,
+    "screenshot_width": 459,
+    "screenshot_height": 1268
+  },
+  {
+    "file": "estado_pendentes_vazio.png",
+    "profile": "estado_complementar",
+    "view": "estado_pendentes_vazio",
+    "width": null,
+    "height": null,
+    "screenshot_width": 459,
+    "screenshot_height": 844
+  },
+  {
+    "file": "estado_tema_claro_celular.png",
+    "profile": "estado_complementar",
+    "view": "estado_tema_claro_celular",
+    "width": null,
+    "height": null,
+    "screenshot_width": 459,
+    "screenshot_height": 1784
+  },
+  {
+    "file": "estado_tema_industrial_celular.png",
+    "profile": "estado_complementar",
+    "view": "estado_tema_industrial_celular",
+    "width": null,
+    "height": null,
+    "screenshot_width": 459,
+    "screenshot_height": 1784
+  },
+  {
+    "file": "estado_texto_longo_celular.png",
+    "profile": "estado_complementar",
+    "view": "estado_texto_longo_celular",
+    "width": null,
+    "height": null,
+    "screenshot_width": 459,
+    "screenshot_height": 2259
+  }
+]

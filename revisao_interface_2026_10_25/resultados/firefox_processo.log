@@ -1,0 +1,17 @@
+*** You are running in headless mode.
+[WARN  rkv::backend::impl_safe::environment] `load_ratio()` is irrelevant for this storage backend.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+[ERROR shell_windows::limited_access_features] Error generating feature token: NS_ERROR_FAILURE
+ÒXITO: o processo com PID 24752 (processo filho de PID 5404) foi finalizado.
+ÒXITO: o processo com PID 29948 (processo filho de PID 5404) foi finalizado.
+ÒXITO: o processo com PID 25284 (processo filho de PID 5404) foi finalizado.
+ÒXITO: o processo com PID 21188 (processo filho de PID 5404) foi finalizado.
+ÒXITO: o processo com PID 31652 (processo filho de PID 5404) foi finalizado.
+ÒXITO: o processo com PID 17800 (processo filho de PID 5404) foi finalizado.
+[GFX1-]: VideoBridgeParent receives IPC close with reason=AbnormalShutdown
+ÒXITO: o processo com PID 29516 (processo filho de PID 5404) foi finalizado.
+ÒXITO: o processo com PID 22124 (processo filho de PID 5404) foi finalizado.
+ÒXITO: o processo com PID 23128 (processo filho de PID 5404) foi finalizado.
+ÒXITO: o processo com PID 16940 (processo filho de PID 5404) foi finalizado.
+ÒXITO: o processo com PID 5404 (processo filho de PID 31668) foi finalizado.
+ÒXITO: o processo com PID 31668 (processo filho de PID 30232) foi finalizado.

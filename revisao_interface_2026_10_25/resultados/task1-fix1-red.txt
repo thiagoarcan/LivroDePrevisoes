@@ -1,0 +1,51 @@
+test_backup_requires_functional_fields_and_preserves_legacy_optional_metadata (test_core_browser.CoreBrowserTests.test_backup_requires_functional_fields_and_preserves_legacy_optional_metadata) ... FAIL
+test_idle_tick_and_unchanged_atomic_issue_zero_native_writes (test_core_browser.CoreBrowserTests.test_idle_tick_and_unchanged_atomic_issue_zero_native_writes) ... FAIL
+test_replace_requires_preventive_backup_without_metadata_side_effects (test_core_browser.CoreBrowserTests.test_replace_requires_preventive_backup_without_metadata_side_effects) ... FAIL
+
+======================================================================
+FAIL: test_backup_requires_functional_fields_and_preserves_legacy_optional_metadata (test_core_browser.CoreBrowserTests.test_backup_requires_functional_fields_and_preserves_legacy_optional_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 131, in test_backup_requires_functional_fields_and_preserves_legacy_optional_metadata
+    self.assertEqual(self.runjs("""
+AssertionError: Lists differ: [['consoles.active', 'consoles.createdAt', [1518 chars]True] != [[], True, True, True]
+
+First differing element 0:
+['consoles.active', 'consoles.createdAt', [1497 chars]ive']
+[]
+
+Diff is 1831 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_idle_tick_and_unchanged_atomic_issue_zero_native_writes (test_core_browser.CoreBrowserTests.test_idle_tick_and_unchanged_atomic_issue_zero_native_writes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 143, in test_idle_tick_and_unchanged_atomic_issue_zero_native_writes
+    self.assertEqual(self.runjs("""
+AssertionError: Lists differ: ['events.clear', 'events.add', 'events.add[2159 chars]add'] != []
+
+First list contains 128 additional elements.
+First extra element 0:
+'events.clear'
+
+Diff is 2595 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_replace_requires_preventive_backup_without_metadata_side_effects (test_core_browser.CoreBrowserTests.test_replace_requires_preventive_backup_without_metadata_side_effects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\tdyb\OneDrive - TRANSPETRO\Área de Trabalho\Livro de Previsões\tests\test_core_browser.py", line 112, in test_replace_requires_preventive_backup_without_metadata_side_effects
+    self.assertEqual(self.runjs("""
+AssertionError: Lists differ: [0, False, False, False, False, -1, False, True, None] != [1, True, True, True, True, 1, True, True, None]
+
+First differing element 0:
+0
+1
+
+- [0, False, False, False, False, -1, False, True, None]
++ [1, True, True, True, True, 1, True, True, None]
+
+----------------------------------------------------------------------
+Ran 3 tests in 22.101s
+
+FAILED (failures=3)
