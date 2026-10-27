@@ -1,5 +1,19 @@
 # Remodelação da interface — 26/10/2026
 
+## Atualização de validação — 27/10/2026
+
+O módulo Python Playwright foi instalado e a pendência da suíte original descrita abaixo foi resolvida. A primeira execução encontrou um recuo de 61 px no formulário de alertas em 3440 px (limite do teste: menos de 60 px). O padding horizontal do cartão de alertas foi ajustado para 1rem somente nos modos widescreen/ultrawide. O HTML foi regenerado; o recuo medido passou a 57 px, sem transbordamento ou erros de JavaScript. Nenhum teste foi relaxado.
+
+`python -m unittest discover -s tests -p 'test_*_browser.py' -q`: **131 testes aprovados em 125,055 s**.
+
+`python tests/verify_dynamic_resize.py`: **162 cenários aprovados**, nove telas em 18 transições entre 320 e 5120 px, incluindo limites dos breakpoints, retrato/paisagem e retorno ao celular. A janela foi redimensionada sem recarregar e sem chamar manualmente a aplicação do layout; o rascunho foi preservado. A adaptação automática já existente atende a esses cenários, sem necessidade de alterar o controlador responsivo.
+
+`python tests/test_layout_browser.py`: **1.651 verificações aprovadas**, abrangendo modos automático e manuais, três temas, diálogos, navegação, aviso de alarme, movimento reduzido e ausência de transbordamento nos cenários previstos pela matriz original.
+
+[Resultado do redimensionamento dinâmico](../output/playwright/remodel-20261026/dynamic-resize.json) · [Captura da correção](../output/playwright/remodel-20261026/fix-alert-settings-3440.png).
+
+As seções seguintes registram a entrega original de 26/10 e suas limitações naquela data; esta atualização substitui a pendência referente à suíte Python.
+
 ## Resultado
 
 Redesenho dos componentes compartilhados das nove áreas do Caderno de Previsões: painel, nova previsão, pendentes, concluídos, cadastros, alertas, cores, backup e diagnóstico. A identidade passou a usar grafite e verde mineral, superfícies distintas para navegação e contexto, títulos com hierarquia mais clara, tabelas com linhas alternadas, formulários e diálogos padronizados. Os temas claro e industrial continuam disponíveis.
