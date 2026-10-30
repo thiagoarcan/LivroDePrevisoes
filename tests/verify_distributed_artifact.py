@@ -1,6 +1,6 @@
 """Verify the single-file distribution contains the current exported blocks."""
 from pathlib import Path
-import hashlib,json,sys
+import hashlib,json,sys,os
 from bs4 import BeautifulSoup
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -24,7 +24,9 @@ def main():
             for node in soup.find_all(tag))
     report={'checks':checks,'passed':sum(checks.values()),'failed':sum(not x for x in checks.values()),
             'index_sha256':hashlib.sha256((ROOT/'index.html').read_bytes()).hexdigest()}
-    (ROOT/'revisao_interface_2026_10_25/resultados/artefato_distribuido.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+    out=Path(os.environ.get('PREVISOES_TEST_OUTPUT', str(ROOT/'revisao_interface_2026_10_25/resultados')))
+    out.mkdir(parents=True,exist_ok=True)
+    (out/'artefato_distribuido.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps(report,ensure_ascii=False,indent=2))
     return 0 if not report['failed'] else 1
 

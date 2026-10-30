@@ -2,13 +2,14 @@
 import argparse,csv,hashlib,json,os,sys,time,unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'revisao_interface_2026_10_25/resultados'
+OUT=Path(os.environ.get('PREVISOES_TEST_OUTPUT', str(ROOT/'revisao_interface_2026_10_25/resultados')))
+OUT.mkdir(parents=True,exist_ok=True)
 
 class RecordedResult(unittest.TextTestResult):
     def __init__(self,*args,**kwargs):super().__init__(*args,**kwargs);self.records=[];self.started={}
     def startTest(self,test):self.started[test.id()]=time.perf_counter();super().startTest(test)
     def record(self,test,status,trace=''):
-        self.records.append({'test':test.id(),'status':status,'seconds':round(time.perf_counter()-self.started[test.id()],3),'trace':trace})
+        self.records.append({'test':test.id(),'status':status,'seconds':round(time.perf_counter()-self.started.get(test.id(),time.perf_counter()),3),'trace':trace})
     def addSuccess(self,test):self.record(test,'passed');super().addSuccess(test)
     def addFailure(self,test,err):self.record(test,'failed',self._exc_info_to_string(err,test));super().addFailure(test,err)
     def addError(self,test,err):self.record(test,'error',self._exc_info_to_string(err,test));super().addError(test,err)
@@ -34,4 +35,4 @@ if __name__=='__main__':
     with (OUT/(args.name+'.csv')).open('w',encoding='utf-8-sig',newline='') as f:
         writer=csv.DictWriter(f,fieldnames=['test','status','seconds','trace'],delimiter=';');writer.writeheader();writer.writerows(result.records)
     print('SOURCES_STABLE',report['sources_stable'])
-    sys.exit(0 if result.wasSuccessful() and before==after and not result.skipped else 1)
+    sys.exit(0 if result.testsRun>0 and result.wasSuccessful() and before==after and not result.skipped else 1)

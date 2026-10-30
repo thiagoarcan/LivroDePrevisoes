@@ -1,0 +1,117 @@
+name: Quality
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONUTF8: '1'
+  PREVISOES_TEST_DISTRIBUTED: '1'
+  PREVISOES_TEST_OUTPUT: ci-results
+
+jobs:
+  build:
+    name: Build and distributed artifact
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-ci.txt
+      - run: python -m pip install -r requirements-ci.txt
+      - run: python -m unittest discover -s tests -p test_ci_support.py -v
+      - name: Verify committed artifact before rebuilding
+        run: python tests/verify_distributed_artifact.py
+      - run: python build_all.py
+      - name: Require committed HTML to match generator
+        run: git diff --exit-code -- index.html
+      - name: Verify generated artifact
+        run: python tests/verify_distributed_artifact.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-results/
+          if-no-files-found: error
+          retention-days: 14
+
+  behavior:
+    name: Edge behaviors and quick layout
+    needs: build
+    runs-on: windows-2022
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-ci.txt
+      - run: python -m pip install -r requirements-ci.txt
+      - run: python -m playwright install msedge
+      - run: python tests/run_suite.py --distributed --name behavior
+      - name: Quick responsive matrix
+        if: ${{ !cancelled() }}
+        run: python tests/test_layout_browser.py --quick
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: behavior-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-results/
+          if-no-files-found: error
+          retention-days: 14
+
+  extensive:
+    name: Full layout (${{ matrix.browser }})
+    needs: build
+    runs-on: windows-2022
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [msedge, firefox]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-ci.txt
+      - run: python -m pip install -r requirements-ci.txt
+      - run: python -m playwright install ${{ matrix.browser }}
+      - name: Full Edge geometry, themes and dialogs
+        if: matrix.browser == 'msedge'
+        run: python tests/test_layout_browser.py --screenshots
+      - name: Select installed Firefox binary
+        if: matrix.browser == 'firefox'
+        shell: python
+        run: |
+          import os
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+              with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as env:
+                  env.write('PREVISOES_FIREFOX_BINARY=' + p.firefox.executable_path + '\n')
+      - name: Set native Firefox timezone (same as browser contexts)
+        if: matrix.browser == 'firefox'
+        run: Set-TimeZone -Id "E. South America Standard Time"
+      - name: Full Firefox compatibility matrix
+        if: matrix.browser == 'firefox'
+        run: python tests/test_firefox_native.py --timeout 600
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: layout-${{ matrix.browser }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-results/
+          if-no-files-found: error
+          retention-days: 14

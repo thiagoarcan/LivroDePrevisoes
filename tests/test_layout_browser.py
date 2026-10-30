@@ -7,7 +7,8 @@ from browser_support import ROOT,build_temporary_html,open_app,source_fingerprin
 VIEWS=['viewDashboard','viewNewEvent','viewPendingEvents','viewCompletedEvents','viewCadastros','viewConfigAlerts','viewConfigColors','viewBackup','viewDiagnostic']
 WIDTHS=[320,360,390,480,600,767,768,820,1024,1199,1200,1440,1600,1919,1920,2200,2559,2560,3440]
 MODES=['auto','compact','mobile','tablet','conventional','widescreen','ultrawide']
-OUT=ROOT/'revisao_interface_2026_10_25/resultados'
+OUT=Path(os.environ.get('PREVISOES_TEST_OUTPUT', str(ROOT/'revisao_interface_2026_10_25/resultados')))
+OUT.mkdir(parents=True,exist_ok=True)
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--quick',action='store_true');parser.add_argument('--screenshots',action='store_true');args=parser.parse_args()
