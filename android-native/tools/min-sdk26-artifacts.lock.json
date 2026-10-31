@@ -1,0 +1,20 @@
+{
+  "format": 1,
+  "retrieved_utc": "2026-10-31",
+  "artifacts": [
+    {
+      "file": "android-all-8.0.0_r4-robolectric-r1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/android-all/8.0.0_r4-robolectric-r1/android-all-8.0.0_r4-robolectric-r1.jar",
+      "size": 100871989,
+      "sha256": "3707dc100381e3bbcc57b85255fd313ae20875fc65cf3130c47e86f044ad77f0",
+      "upstream_sha1": "30f97bebb50be3a1af9e12cb999360e1cdd2aaa5"
+    },
+    {
+      "file": "android-all-8.0.0_r4-robolectric-r1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/android-all/8.0.0_r4-robolectric-r1/android-all-8.0.0_r4-robolectric-r1.pom",
+      "size": 1635,
+      "sha256": "42faeb8963b21502b557583d8f83b069625d2710ca3115a2c4e62a9ae8da8e15",
+      "upstream_sha1": "b6f839c158ec9d0044c95f1db5a540a9f5f248e3"
+    }
+  ]
+}

@@ -1,0 +1,635 @@
+{
+  "schema": 1,
+  "description": "Robolectric 4.16.1 Maven runtime closure, Maven nearest-first dependency mediation; official Maven Central/Google Maven HTTPS artifacts. SHA-256 values recorded at lock creation.",
+  "artifacts": [
+    {
+      "coordinate": "org.robolectric:annotations:4.16.1",
+      "file": "annotations-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/annotations/4.16.1/annotations-4.16.1.jar",
+      "sha256": "65a55f0b3cbcfbfc675b0c9075a30edc3b95e6e772a911d874197cc528c9d7b1",
+      "size": 51315
+    },
+    {
+      "coordinate": "org.robolectric:annotations:4.16.1",
+      "file": "annotations-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/annotations/4.16.1/annotations-4.16.1.pom",
+      "sha256": "797e1de4ccbb496ebccb44c6b0ec3d8712994b475c71ba5034164df80d94851b",
+      "size": 2620
+    },
+    {
+      "coordinate": "org.ow2.asm:asm:9.8",
+      "file": "asm-9.8.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.8/asm-9.8.jar",
+      "sha256": "876eab6a83daecad5ca67eb9fcabb063c97b5aeb8cf1fca7a989ecde17522051",
+      "size": 126113
+    },
+    {
+      "coordinate": "org.ow2.asm:asm:9.8",
+      "file": "asm-9.8.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.8/asm-9.8.pom",
+      "sha256": "c1367c3bb383d7619e7f797e38df7513885f2eef04ae7b5908f68222657b5baa",
+      "size": 2370
+    },
+    {
+      "coordinate": "org.ow2.asm:asm-commons:9.8",
+      "file": "asm-commons-9.8.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/ow2/asm/asm-commons/9.8/asm-commons-9.8.jar",
+      "sha256": "3301a1c1cb4c59fcc5292648dac1d7c5aed4c0f067dfbe88873b8cdfe77404f4",
+      "size": 73498
+    },
+    {
+      "coordinate": "org.ow2.asm:asm-commons:9.8",
+      "file": "asm-commons-9.8.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/ow2/asm/asm-commons/9.8/asm-commons-9.8.pom",
+      "sha256": "f793e78f01f703717d09472e56cdf212fe298970c882e2116e8e549fb6d140c2",
+      "size": 2788
+    },
+    {
+      "coordinate": "org.ow2.asm:asm-tree:9.8",
+      "file": "asm-tree-9.8.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/9.8/asm-tree-9.8.jar",
+      "sha256": "14b7880cb7c85eed101e2710432fc3ffb83275532a6a894dc4c4095d49ad59f1",
+      "size": 51934
+    },
+    {
+      "coordinate": "org.ow2.asm:asm-tree:9.8",
+      "file": "asm-tree-9.8.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/9.8/asm-tree-9.8.pom",
+      "sha256": "7149e7faa0e191296f879aeed9209c8942d398f0698d2cca1a9c628f2e2a8f77",
+      "size": 2592
+    },
+    {
+      "coordinate": "com.google.auto.value:auto-value-annotations:1.11.0",
+      "file": "auto-value-annotations-1.11.0.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/google/auto/value/auto-value-annotations/1.11.0/auto-value-annotations-1.11.0.jar",
+      "sha256": "5a055ce4255333b3346e1a8703da5bf8ff049532286fdcd31712d624abe111dd",
+      "size": 7491
+    },
+    {
+      "coordinate": "com.google.auto.value:auto-value-annotations:1.11.0",
+      "file": "auto-value-annotations-1.11.0.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/auto/value/auto-value-annotations/1.11.0/auto-value-annotations-1.11.0.pom",
+      "sha256": "2aec16e34ea3e011621a0322f4f36f8f9bf988bb54462b5570976e89ea07b122",
+      "size": 2743
+    },
+    {
+      "coordinate": "com.google.auto.value:auto-value-parent:1.11.0",
+      "file": "auto-value-parent-1.11.0.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/auto/value/auto-value-parent/1.11.0/auto-value-parent-1.11.0.pom",
+      "sha256": "5a0d1d718552e8a45dcce0128d1b6b9623fa971a82cd245753233ba7208cb29d",
+      "size": 8327
+    },
+    {
+      "coordinate": "org.bouncycastle:bcprov-jdk18on:1.81",
+      "file": "bcprov-jdk18on-1.81.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/1.81/bcprov-jdk18on-1.81.jar",
+      "sha256": "249f396412b0c0ce67f25c8197da757b241b8be3ec4199386c00704a2457459b",
+      "size": 8948201
+    },
+    {
+      "coordinate": "org.bouncycastle:bcprov-jdk18on:1.81",
+      "file": "bcprov-jdk18on-1.81.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/1.81/bcprov-jdk18on-1.81.pom",
+      "sha256": "203990122be0fdd34bf12d0b788c0655161386a8e858ba43f06e3709c2cc74cc",
+      "size": 1157
+    },
+    {
+      "coordinate": "org.conscrypt:conscrypt-openjdk-uber:2.5.2",
+      "file": "conscrypt-openjdk-uber-2.5.2.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/conscrypt/conscrypt-openjdk-uber/2.5.2/conscrypt-openjdk-uber-2.5.2.jar",
+      "sha256": "eaf537d98e033d0f0451cd1b8cc74e02d7b55ec882da63c88060d806ba89c348",
+      "size": 4534256
+    },
+    {
+      "coordinate": "org.conscrypt:conscrypt-openjdk-uber:2.5.2",
+      "file": "conscrypt-openjdk-uber-2.5.2.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/conscrypt/conscrypt-openjdk-uber/2.5.2/conscrypt-openjdk-uber-2.5.2.pom",
+      "sha256": "b5fd548732f932545d777890eb995222bfe866232351be908137e39c3c672d8b",
+      "size": 1264
+    },
+    {
+      "coordinate": "com.google.errorprone:error_prone_annotation:2.41.0",
+      "file": "error_prone_annotation-2.41.0.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotation/2.41.0/error_prone_annotation-2.41.0.jar",
+      "sha256": "192e99ad3be8a0a44fe210cdc9b0265601dcb446e521ba922c793e50add413c3",
+      "size": 8274
+    },
+    {
+      "coordinate": "com.google.errorprone:error_prone_annotation:2.41.0",
+      "file": "error_prone_annotation-2.41.0.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotation/2.41.0/error_prone_annotation-2.41.0.pom",
+      "sha256": "d757c0e340628ccb20e6fa0eaae1356b9b0934c19bdcaf76ce1fe3ed75177e5a",
+      "size": 1847
+    },
+    {
+      "coordinate": "com.google.errorprone:error_prone_annotations:2.36.0",
+      "file": "error_prone_annotations-2.36.0.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.36.0/error_prone_annotations-2.36.0.jar",
+      "sha256": "77440e270b0bc9a249903c5a076c36a722c4886ca4f42675f2903a1c53ed61a5",
+      "size": 19401
+    },
+    {
+      "coordinate": "com.google.errorprone:error_prone_annotations:2.36.0",
+      "file": "error_prone_annotations-2.36.0.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.36.0/error_prone_annotations-2.36.0.pom",
+      "sha256": "d79cfd37c85f76d6b754c7501ee1dc8447b7b2642c2382d778252166bd331e9c",
+      "size": 4252
+    },
+    {
+      "coordinate": "com.google.errorprone:error_prone_parent:2.36.0",
+      "file": "error_prone_parent-2.36.0.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_parent/2.36.0/error_prone_parent-2.36.0.pom",
+      "sha256": "3a4cfc8a6bed61eb48e969796fc31ea0d270b63e670599946a61883adb7094dc",
+      "size": 15958
+    },
+    {
+      "coordinate": "com.google.errorprone:error_prone_parent:2.41.0",
+      "file": "error_prone_parent-2.41.0.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_parent/2.41.0/error_prone_parent-2.41.0.pom",
+      "sha256": "c538388d760a5c1c98dcf06f6ed3cfe5f11a651827db5cbd2ed8288c795cad42",
+      "size": 15920
+    },
+    {
+      "coordinate": "androidx.test.espresso:espresso-idling-resource:3.7.0",
+      "file": "espresso-idling-resource-3.7.0.aar",
+      "url": "https://dl.google.com/dl/android/maven2/androidx/test/espresso/espresso-idling-resource/3.7.0/espresso-idling-resource-3.7.0.aar",
+      "sha256": "5ff62326b49c308c1d060466ae3cf4aa0e3deaf9295f077a6886048dda3e9b14",
+      "size": 5441,
+      "classes_sha256": "93c407fc96a558103d8033c28cbfe8a5ee14439929318b4e9cc426a2b4ffac8c"
+    },
+    {
+      "coordinate": "androidx.test.espresso:espresso-idling-resource:3.7.0",
+      "file": "espresso-idling-resource-3.7.0.pom",
+      "url": "https://dl.google.com/dl/android/maven2/androidx/test/espresso/espresso-idling-resource/3.7.0/espresso-idling-resource-3.7.0.pom",
+      "sha256": "72c5f3dff213bd143cdfa2eb416d1bde1ced6656d9c54b69efca8f74a2cc831d",
+      "size": 1061
+    },
+    {
+      "coordinate": "com.google.guava:failureaccess:1.0.3",
+      "file": "failureaccess-1.0.3.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar",
+      "sha256": "cbfc3906b19b8f55dd7cfd6dfe0aa4532e834250d7f080bd8d211a3e246b59cb",
+      "size": 10763
+    },
+    {
+      "coordinate": "com.google.guava:failureaccess:1.0.3",
+      "file": "failureaccess-1.0.3.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.pom",
+      "sha256": "c54beff37f6d42d43e14722d54a522c9ad51ef97fc5b79277e62a3ebf882f3bb",
+      "size": 5560
+    },
+    {
+      "coordinate": "com.google.guava:guava:33.4.8-jre",
+      "file": "guava-33.4.8-jre.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/google/guava/guava/33.4.8-jre/guava-33.4.8-jre.jar",
+      "sha256": "f3d7f57f67fd622f4d468dfdd692b3a5e3909246c28017ac3263405f0fe617ed",
+      "size": 3023797
+    },
+    {
+      "coordinate": "com.google.guava:guava:33.4.8-jre",
+      "file": "guava-33.4.8-jre.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/guava/guava/33.4.8-jre/guava-33.4.8-jre.pom",
+      "sha256": "04365d4b6ef22c8cf9349fe628069fc3e81a2c838351402ef4e95f9e757beebc",
+      "size": 9610
+    },
+    {
+      "coordinate": "com.google.guava:guava-parent:26.0-android",
+      "file": "guava-parent-26.0-android.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/26.0-android/guava-parent-26.0-android.pom",
+      "sha256": "f8698ab46ca996ce889c1afc8ca4f25eb8ac6b034dc898d4583742360016cc04",
+      "size": 10180
+    },
+    {
+      "coordinate": "com.google.guava:guava-parent:33.4.0-android",
+      "file": "guava-parent-33.4.0-android.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/33.4.0-android/guava-parent-33.4.0-android.pom",
+      "sha256": "7220ede61026596fbc720ee4b93246fa2d14f328058532b59ef053de397c7d83",
+      "size": 21526
+    },
+    {
+      "coordinate": "com.google.guava:guava-parent:33.4.8-jre",
+      "file": "guava-parent-33.4.8-jre.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/33.4.8-jre/guava-parent-33.4.8-jre.pom",
+      "sha256": "a03c5199a1be14443df7fd40ba8673b1c6aae04deef6688ce7d573ea489e3a20",
+      "size": 24597
+    },
+    {
+      "coordinate": "org.hamcrest:hamcrest-core:1.3",
+      "file": "hamcrest-core-1.3.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar",
+      "sha256": "66fdef91e9739348df7a096aa384a5685f4e875584cce89386a7a47251c4d8e9",
+      "size": 45024
+    },
+    {
+      "coordinate": "org.hamcrest:hamcrest-core:1.3",
+      "file": "hamcrest-core-1.3.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.pom",
+      "sha256": "fde386a7905173a1b103de6ab820727584b50d0e32282e2797787c20a64ffa93",
+      "size": 766
+    },
+    {
+      "coordinate": "org.hamcrest:hamcrest-parent:1.3",
+      "file": "hamcrest-parent-1.3.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-parent/1.3/hamcrest-parent-1.3.pom",
+      "sha256": "6d535f94efb663bdb682c9f27a50335394688009642ba7a9677504bc1be4129b",
+      "size": 1972
+    },
+    {
+      "coordinate": "com.ibm.icu:icu4j:77.1",
+      "file": "icu4j-77.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/ibm/icu/icu4j/77.1/icu4j-77.1.jar",
+      "sha256": "b3640b9f416a4411fd33c59abbeea8fd57d024c23e1819bf9673220a97499fe3",
+      "size": 14663227
+    },
+    {
+      "coordinate": "com.ibm.icu:icu4j:77.1",
+      "file": "icu4j-77.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/ibm/icu/icu4j/77.1/icu4j-77.1.pom",
+      "sha256": "16e54bf6bfa9fb221bb57e133a8373f442110f3dae3710156e92615c82476e18",
+      "size": 1472
+    },
+    {
+      "coordinate": "com.google.j2objc:j2objc-annotations:3.0.0",
+      "file": "j2objc-annotations-3.0.0.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.jar",
+      "sha256": "88241573467ddca44ffd4d74aa04c2bbfd11bf7c17e0c342c94c9de7a70a7c64",
+      "size": 12467
+    },
+    {
+      "coordinate": "com.google.j2objc:j2objc-annotations:3.0.0",
+      "file": "j2objc-annotations-3.0.0.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.pom",
+      "sha256": "23b3d039e168ad89dd114698e6dd7be383f4a2c577b8877d82c73a6515e74a17",
+      "size": 5057
+    },
+    {
+      "coordinate": "javax.annotation:javax.annotation-api:1.3.2",
+      "file": "javax.annotation-api-1.3.2.jar",
+      "url": "https://repo.maven.apache.org/maven2/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar",
+      "sha256": "e04ba5195bcd555dc95650f7cc614d151e4bcd52d29a10b8aa2197f3ab89ab9b",
+      "size": 26586
+    },
+    {
+      "coordinate": "javax.annotation:javax.annotation-api:1.3.2",
+      "file": "javax.annotation-api-1.3.2.pom",
+      "url": "https://repo.maven.apache.org/maven2/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.pom",
+      "sha256": "46a4a251ca406e78e4853d7a2bae83282844a4992851439ee9a1f23716f06b97",
+      "size": 14478
+    },
+    {
+      "coordinate": "javax.inject:javax.inject:1",
+      "file": "javax.inject-1.jar",
+      "url": "https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar",
+      "sha256": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+      "size": 2497
+    },
+    {
+      "coordinate": "javax.inject:javax.inject:1",
+      "file": "javax.inject-1.pom",
+      "url": "https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.pom",
+      "sha256": "943e12b100627804638fa285805a0ab788a680266531e650921ebfe4621a8bfa",
+      "size": 612
+    },
+    {
+      "coordinate": "org.jspecify:jspecify:1.0.0",
+      "file": "jspecify-1.0.0.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar",
+      "sha256": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
+      "size": 3819
+    },
+    {
+      "coordinate": "org.jspecify:jspecify:1.0.0",
+      "file": "jspecify-1.0.0.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.pom",
+      "sha256": "cdab929a3b95211f43d2090c5e2d0dfe8465960e378bc32b35841dab324433a6",
+      "size": 1511
+    },
+    {
+      "coordinate": "junit:junit:4.13.2",
+      "file": "junit-4.13.2.jar",
+      "url": "https://repo.maven.apache.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar",
+      "sha256": "8e495b634469d64fb8acfa3495a065cbacc8a0fff55ce1e31007be4c16dc57d3",
+      "size": 384581
+    },
+    {
+      "coordinate": "junit:junit:4.13.2",
+      "file": "junit-4.13.2.pom",
+      "url": "https://repo.maven.apache.org/maven2/junit/junit/4.13.2/junit-4.13.2.pom",
+      "sha256": "569b6977ee4603c965c1c46c3058fa6e969291b0160eb6964dd092cd89eadd94",
+      "size": 27018
+    },
+    {
+      "coordinate": "org.robolectric:junit:4.16.1",
+      "file": "junit-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/junit/4.16.1/junit-4.16.1.jar",
+      "sha256": "c5b1a61599347ab9a5dc692104b457cd3c31375cd6eecf9b956749309091b5e8",
+      "size": 22751
+    },
+    {
+      "coordinate": "org.robolectric:junit:4.16.1",
+      "file": "junit-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/junit/4.16.1/junit-4.16.1.pom",
+      "sha256": "7a991a897324235e33cefa44fc27d442c47c763ac425df1dcbad4374b64e730c",
+      "size": 2997
+    },
+    {
+      "coordinate": "net.java:jvnet-parent:3",
+      "file": "jvnet-parent-3.pom",
+      "url": "https://repo.maven.apache.org/maven2/net/java/jvnet-parent/3/jvnet-parent-3.pom",
+      "sha256": "30f5789efa39ddbf96095aada3fc1260c4561faf2f714686717cb2dc5049475a",
+      "size": 4789
+    },
+    {
+      "coordinate": "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
+      "file": "listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+      "sha256": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+      "size": 2199
+    },
+    {
+      "coordinate": "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
+      "file": "listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.pom",
+      "sha256": "18d4b1db26153d4e55079ce1f76bb1fe05cdb862ef9954a88cbcc4ff38b8679b",
+      "size": 2278
+    },
+    {
+      "coordinate": "androidx.test:monitor:1.8.0",
+      "file": "monitor-1.8.0.aar",
+      "url": "https://dl.google.com/dl/android/maven2/androidx/test/monitor/1.8.0/monitor-1.8.0.aar",
+      "sha256": "56cb7496a06d9f2dca7d3ff76c50a8a30bd18e00a24a3b267d5a31437b278e67",
+      "size": 103877,
+      "classes_sha256": "343391452abb133d044d8e5665ef2e2e670412a5c8a0f0ee992db9ecea7c7896"
+    },
+    {
+      "coordinate": "androidx.test:monitor:1.8.0",
+      "file": "monitor-1.8.0.pom",
+      "url": "https://dl.google.com/dl/android/maven2/androidx/test/monitor/1.8.0/monitor-1.8.0.pom",
+      "sha256": "681cf08c41700c73b146953867c0ac826da9c2a810bd2a4a8f878ea11c64d40c",
+      "size": 1582
+    },
+    {
+      "coordinate": "org.robolectric:nativeruntime:4.16.1",
+      "file": "nativeruntime-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/nativeruntime/4.16.1/nativeruntime-4.16.1.jar",
+      "sha256": "55e339282dde0466dcfbce0fd861562bed59bc43f41012d21d750d07147c9e98",
+      "size": 56101
+    },
+    {
+      "coordinate": "org.robolectric:nativeruntime:4.16.1",
+      "file": "nativeruntime-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/nativeruntime/4.16.1/nativeruntime-4.16.1.pom",
+      "sha256": "ff733065cde9538266498e10132169988e9bc6dd15234ee1101f0921a0845e20",
+      "size": 3384
+    },
+    {
+      "coordinate": "org.robolectric:nativeruntime-dist-compat:1.0.18",
+      "file": "nativeruntime-dist-compat-1.0.18.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/nativeruntime-dist-compat/1.0.18/nativeruntime-dist-compat-1.0.18.jar",
+      "sha256": "a6c34d92c990754e5aee076032a36f8e38fcacb5eb878ebe0a324509f3864eef",
+      "size": 159128857
+    },
+    {
+      "coordinate": "org.robolectric:nativeruntime-dist-compat:1.0.18",
+      "file": "nativeruntime-dist-compat-1.0.18.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/nativeruntime-dist-compat/1.0.18/nativeruntime-dist-compat-1.0.18.pom",
+      "sha256": "fca7dfc0e6a41dde9a3e835218c98628c0a8d4909679eda790ac684354fdfd70",
+      "size": 1334
+    },
+    {
+      "coordinate": "org.sonatype.oss:oss-parent:9",
+      "file": "oss-parent-9.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom",
+      "sha256": "fb40265f982548212ff82e362e59732b2187ec6f0d80182885c14ef1f982827a",
+      "size": 6569
+    },
+    {
+      "coordinate": "org.ow2:ow2:1.5.1",
+      "file": "ow2-1.5.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/ow2/ow2/1.5.1/ow2-1.5.1.pom",
+      "sha256": "321ddbb7ee6fe4f53dea6b4cd6db74154d6bfa42391c1f763b361b9f485acf05",
+      "size": 11290
+    },
+    {
+      "coordinate": "org.robolectric:pluginapi:4.16.1",
+      "file": "pluginapi-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/pluginapi/4.16.1/pluginapi-4.16.1.jar",
+      "sha256": "ba72852745647202c40f1937ddca813bfa1be7707f84e3f65beae2c49d592174",
+      "size": 10167
+    },
+    {
+      "coordinate": "org.robolectric:pluginapi:4.16.1",
+      "file": "pluginapi-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/pluginapi/4.16.1/pluginapi-4.16.1.pom",
+      "sha256": "a3a41b079d3984157886c73b6ae16db61aa04dcb6450020fadaf87667f3898bd",
+      "size": 3010
+    },
+    {
+      "coordinate": "org.robolectric:plugins-maven-dependency-resolver:4.16.1",
+      "file": "plugins-maven-dependency-resolver-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/plugins-maven-dependency-resolver/4.16.1/plugins-maven-dependency-resolver-4.16.1.jar",
+      "sha256": "6643b0d9bfdf192a4b971f50e61aa93816b75b9a4334e693f0e2dcedc88b944a",
+      "size": 15196
+    },
+    {
+      "coordinate": "org.robolectric:plugins-maven-dependency-resolver:4.16.1",
+      "file": "plugins-maven-dependency-resolver-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/plugins-maven-dependency-resolver/4.16.1/plugins-maven-dependency-resolver-4.16.1.pom",
+      "sha256": "a02e010749127dd08d2f2104cefc9493dcbff12d3b35c48898c94bb401976edf",
+      "size": 3062
+    },
+    {
+      "coordinate": "org.robolectric:resources:4.16.1",
+      "file": "resources-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/resources/4.16.1/resources-4.16.1.jar",
+      "sha256": "fb16b2c000cc1b91c6f26b6f6c08459e5b1ee35d99cfb908f20a73a05f3f962c",
+      "size": 402623
+    },
+    {
+      "coordinate": "org.robolectric:resources:4.16.1",
+      "file": "resources-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/resources/4.16.1/resources-4.16.1.pom",
+      "sha256": "7204eb09e5e68c1ccf39dec9245e9e3407d08ab1125b410e43e863004786dfcc",
+      "size": 3379
+    },
+    {
+      "coordinate": "org.robolectric:robolectric:4.16.1",
+      "file": "robolectric-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/robolectric/4.16.1/robolectric-4.16.1.jar",
+      "sha256": "ebfd48a0255689b0e58a3bbc6c794dc0c0d7b48ce31006fe2613cf7548cba229",
+      "size": 166217
+    },
+    {
+      "coordinate": "org.robolectric:robolectric:4.16.1",
+      "file": "robolectric-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/robolectric/4.16.1/robolectric-4.16.1.pom",
+      "sha256": "7d6d67b6365c14c4a03be8c7b814921241acb179f8a5e9316a5f396d1ab2bf9a",
+      "size": 6256
+    },
+    {
+      "coordinate": "org.robolectric:sandbox:4.16.1",
+      "file": "sandbox-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/sandbox/4.16.1/sandbox-4.16.1.jar",
+      "sha256": "14a9bd67d4765c5d6c4ff57ddf339cb447e63df4a46bac650c093a15e2209bdf",
+      "size": 122120
+    },
+    {
+      "coordinate": "org.robolectric:sandbox:4.16.1",
+      "file": "sandbox-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/sandbox/4.16.1/sandbox-4.16.1.pom",
+      "sha256": "44329b5476fa1bf380b93fad39589e89b176b10f84b2e8e1a2e264ec6f773a24",
+      "size": 4242
+    },
+    {
+      "coordinate": "org.robolectric:shadowapi:4.16.1",
+      "file": "shadowapi-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/shadowapi/4.16.1/shadowapi-4.16.1.jar",
+      "sha256": "6f997b1c0d169a01a967dff2661a95f4c2c2b5b008e8b9e1fba0b2682d6f8c6d",
+      "size": 16473
+    },
+    {
+      "coordinate": "org.robolectric:shadowapi:4.16.1",
+      "file": "shadowapi-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/shadowapi/4.16.1/shadowapi-4.16.1.pom",
+      "sha256": "1075c994b75d4c3d911c0edee9c6bc13baac1fdb7d8831078403b2298676fd7e",
+      "size": 3005
+    },
+    {
+      "coordinate": "org.robolectric:shadows-framework:4.16.1",
+      "file": "shadows-framework-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/shadows-framework/4.16.1/shadows-framework-4.16.1.jar",
+      "sha256": "a59802cffec783aa0e7df1489b0c2ce1126ef7cdedb940ffc378eb61e86958c8",
+      "size": 4865818
+    },
+    {
+      "coordinate": "org.robolectric:shadows-framework:4.16.1",
+      "file": "shadows-framework-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/shadows-framework/4.16.1/shadows-framework-4.16.1.pom",
+      "sha256": "de1627e578d6bc2e8cc1b4728d0b8483894158e73cc9b438166de79bfe3fe2a8",
+      "size": 5185
+    },
+    {
+      "coordinate": "org.yaml:snakeyaml:2.4",
+      "file": "snakeyaml-2.4.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar",
+      "sha256": "ef779af5d29a9dde8cc70ce0341f5c6f7735e23edff9685ceaa9d35359b7bb7f",
+      "size": 339825
+    },
+    {
+      "coordinate": "org.yaml:snakeyaml:2.4",
+      "file": "snakeyaml-2.4.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/yaml/snakeyaml/2.4/snakeyaml-2.4.pom",
+      "sha256": "e154a3231cd6cde68aabf274fd18964d49a9c1a5f5e9ed3bf471e9ae7bdf08e6",
+      "size": 22161
+    },
+    {
+      "coordinate": "com.almworks.sqlite4java:sqlite4java:1.0.392",
+      "file": "sqlite4java-1.0.392.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/almworks/sqlite4java/sqlite4java/1.0.392/sqlite4java-1.0.392.jar",
+      "sha256": "243a64470fda0e86a6fddeb0af4c7aa9426ce84e68cbfe18d75ee5da4b7e0b92",
+      "size": 132506
+    },
+    {
+      "coordinate": "com.almworks.sqlite4java:sqlite4java:1.0.392",
+      "file": "sqlite4java-1.0.392.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/almworks/sqlite4java/sqlite4java/1.0.392/sqlite4java-1.0.392.pom",
+      "sha256": "139552c586a57bf6d98f87d6b7e23fef4db53cf74097be962f7868e3606c79d2",
+      "size": 2918
+    },
+    {
+      "coordinate": "com.google.testparameterinjector:test-parameter-injector:1.18",
+      "file": "test-parameter-injector-1.18.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/google/testparameterinjector/test-parameter-injector/1.18/test-parameter-injector-1.18.jar",
+      "sha256": "e5a7c649c54c412049908247ca5e25fe6921d746849c6017a84dc6044237a4b4",
+      "size": 123774
+    },
+    {
+      "coordinate": "com.google.testparameterinjector:test-parameter-injector:1.18",
+      "file": "test-parameter-injector-1.18.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/testparameterinjector/test-parameter-injector/1.18/test-parameter-injector-1.18.pom",
+      "sha256": "de05732fbdcb5b05e19985abc0a284e41be3ec685387d04f8488a5e6504ea08e",
+      "size": 1402
+    },
+    {
+      "coordinate": "com.google.testparameterinjector:test-parameter-injector-parent:1.18",
+      "file": "test-parameter-injector-parent-1.18.pom",
+      "url": "https://repo.maven.apache.org/maven2/com/google/testparameterinjector/test-parameter-injector-parent/1.18/test-parameter-injector-parent-1.18.pom",
+      "sha256": "b4aee6be3f6dfafa68309e9da4fb38af7fbc2f8c3e26197451f1db38dc4a85d0",
+      "size": 7232
+    },
+    {
+      "coordinate": "org.robolectric:utils:4.16.1",
+      "file": "utils-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/utils/4.16.1/utils-4.16.1.jar",
+      "sha256": "8088e94dcaa5cd36251492b1e1155ea2b636756b2271dbbb2d325a012c8a30e2",
+      "size": 51892
+    },
+    {
+      "coordinate": "org.robolectric:utils:4.16.1",
+      "file": "utils-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/utils/4.16.1/utils-4.16.1.pom",
+      "sha256": "36c92b1ec650ee2396c46ccf2e8990e3ed560d974871fa1a7d46aaefb356ce87",
+      "size": 2826
+    },
+    {
+      "coordinate": "org.robolectric:utils-reflector:4.16.1",
+      "file": "utils-reflector-4.16.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/utils-reflector/4.16.1/utils-reflector-4.16.1.jar",
+      "sha256": "f1c49f95cb3a94ec6fcebfdf1753dd12a879ce5703b3b851f63fb8b412210eb9",
+      "size": 25802
+    },
+    {
+      "coordinate": "org.robolectric:utils-reflector:4.16.1",
+      "file": "utils-reflector-4.16.1.pom",
+      "url": "https://repo.maven.apache.org/maven2/org/robolectric/utils-reflector/4.16.1/utils-reflector-4.16.1.pom",
+      "sha256": "094a711143d3b975f0b4f8accea76ac00a3d14ed720998d31f204a26a67b05a9",
+      "size": 3169
+    }
+  ],
+  "runtime": [
+    "robolectric-4.16.1.jar",
+    "junit-4.13.2.jar",
+    "annotations-4.16.1.jar",
+    "junit-4.16.1.jar",
+    "pluginapi-4.16.1.jar",
+    "resources-4.16.1.jar",
+    "sandbox-4.16.1.jar",
+    "utils-4.16.1.jar",
+    "utils-reflector-4.16.1.jar",
+    "plugins-maven-dependency-resolver-4.16.1.jar",
+    "javax.inject-1.jar",
+    "javax.annotation-api-1.3.2.jar",
+    "shadows-framework-4.16.1.jar",
+    "bcprov-jdk18on-1.81.jar",
+    "monitor-1.8.0.aar",
+    "conscrypt-openjdk-uber-2.5.2.jar",
+    "snakeyaml-2.4.jar",
+    "espresso-idling-resource-3.7.0.aar",
+    "test-parameter-injector-1.18.jar",
+    "hamcrest-core-1.3.jar",
+    "guava-33.4.8-jre.jar",
+    "auto-value-annotations-1.11.0.jar",
+    "shadowapi-4.16.1.jar",
+    "asm-9.8.jar",
+    "asm-commons-9.8.jar",
+    "nativeruntime-4.16.1.jar",
+    "sqlite4java-1.0.392.jar",
+    "icu4j-77.1.jar",
+    "error_prone_annotation-2.41.0.jar",
+    "failureaccess-1.0.3.jar",
+    "listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+    "jspecify-1.0.0.jar",
+    "error_prone_annotations-2.36.0.jar",
+    "j2objc-annotations-3.0.0.jar",
+    "asm-tree-9.8.jar",
+    "nativeruntime-dist-compat-1.0.18.jar"
+  ],
+  "framework": {
+    "file": "android-all-16-robolectric-13921718.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/robolectric/android-all/16-robolectric-13921718/android-all-16-robolectric-13921718.jar",
+    "size": 196985634,
+    "sha256": "8b74a0a137330658d2f33f0dc715d42734f74ba8b2d7014fc2e95aa40d3f682d",
+    "upstream_sha1": "6c7b88d363a52044649d7756a079e62b9ee82434"
+  },
+  "retrieved_utc": "2026-10-31T13:41:00Z"
+}

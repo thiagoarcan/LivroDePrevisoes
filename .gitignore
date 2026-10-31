@@ -3,3 +3,11 @@
 /.playwright-cli/
 /output/playwright/remodel-20261026/baseline.html
 /output/playwright/remodel-20261026/inline.js
+
+/.superpowers/
+/android-native/build/
+/android-native/**/build/
+/android-native/tools/cache/
+/android-native/.gradle/
+*.p12
+*.jks
