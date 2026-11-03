@@ -60,8 +60,8 @@ fun MainActivity.dashboard() {
         if (pending.size > 1) { label(page, "Na sequência", 18f, true); space(page, 10); pending.drop(1).take(4).forEach { eventCard(page, it) } }
         button(page, "Ver todas as ${pending.size} pendentes") { navigate("pending") }
     }
-    val note = card(page); label(note, "Monitoramento em primeiro plano", 14f, true)
-    label(note, "Alertas funcionam com este aplicativo aberto e ativo. Ao sair, o monitoramento é pausado. Faça backups em Backup.", 13f, muted = true)
+    val note = card(page); label(note, "Alarmes agendados no Android", 14f, true)
+    label(note, "Alarmes continuam ao sair ou bloquear a tela. Autorize alarmes exatos e notificações em Alertas. Faça backups em Backup.", 13f, muted = true)
     if (backupIsDue(service.settings())) {
         space(note); label(note, "Backup pendente de atualização", 14f, true)
         button(note, "Salvar uma cópia de segurança") { navigate("backup") }

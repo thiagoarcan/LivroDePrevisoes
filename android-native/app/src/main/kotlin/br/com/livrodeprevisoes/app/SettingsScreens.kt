@@ -11,10 +11,12 @@ import java.util.UUID
 fun MainActivity.alertSettings() {
     heading(page, "Alertas", "Preferências locais de som, aviso visual e notificação Android.")
     val scope = card(page)
-    label(scope, "Somente com o app aberto e ativo", 18f, true)
-    label(scope, "O monitoramento pausa ao sair ou bloquear a tela. Ao retornar, prazos vencidos são reavaliados. Não use este app como único mecanismo de segurança operacional.", muted = true)
+    label(scope, "Alarmes em segundo plano", 18f, true)
+    label(scope, "O Android agenda os alarmes mesmo com a tela bloqueada. Sem acesso a alarmes exatos, avisos podem atrasar. A economia de bateria do Android também pode espaçar repetições. Forçar parada impede avisos até reabrir. Diálogos aparecem ao retornar; habilite som e/ou notificação para receber avisos fora do app.", muted = true)
     label(scope, "Notificações: ${alerts?.permissionState() ?: "Indisponível"}", 14f, true)
     button(scope, "Permitir notificações Android") { alerts?.requestPermission() }
+    label(scope, alerts?.scheduleState() ?: "Agendamento indisponível", 14f, true)
+    button(scope, "Autorizar alarmes exatos") { alerts?.requestExactPermission() }
     val settings = service.settings()
     val identity = card(page); label(identity, "Identificação do operador", 18f, true)
     val actor = input(identity, "Nome no histórico", settings.optString("localUserName", "Usuário local"))
@@ -103,7 +105,7 @@ fun MainActivity.diagnostics() {
         append("Android: ${android.os.Build.VERSION.RELEASE} / API ${android.os.Build.VERSION.SDK_INT}\n")
         append("Fuso: ${ZoneId.systemDefault().id}\nGerado: ${Instant.now()}\n")
         append("Persistência: snapshot JSON privado, escrita atômica\nBackup: schemaVersion 1 / 10 coleções\n")
-        append("Alertas: somente em primeiro plano\nNotificações: ${alerts?.permissionState()}\n")
+        append("Alertas: AlarmManager em segundo plano\nNotificações: ${alerts?.permissionState()}\n")
         stores.forEach { append("$it: ${rows(it).size}\n") }
         append("Erros técnicos locais: ${errors.size}\n")
         errors.takeLast(20).forEach { append(it.toString()).append('\n') }

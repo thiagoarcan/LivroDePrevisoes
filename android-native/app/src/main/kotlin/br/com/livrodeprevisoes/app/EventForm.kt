@@ -59,7 +59,7 @@ fun MainActivity.eventForm(initial: JSONObject) {
     val notes = input(content, "Notas complementares", initial.optString("notes"), multiline = true)
     val alarmBox = card(page)
     label(alarmBox, "03  Alarme", 18f, true)
-    label(alarmBox, "Monitoramento apenas com o app aberto e ativo.", 13f, muted = true)
+    label(alarmBox, "Som e notificações funcionam em segundo plano. Diálogos aparecem com o app aberto.", 13f, muted = true)
     val enabled = toggle(alarmBox, "Habilitar alarme desta previsão", initial.optBoolean("hasAlarm", true))
     val default = toggle(alarmBox, "Usar configurações padrão", initial.optBoolean("useDefaultAlarmSettings", true))
     val custom = column(alarmBox)

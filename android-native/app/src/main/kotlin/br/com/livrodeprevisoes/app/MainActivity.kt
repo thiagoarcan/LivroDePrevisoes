@@ -77,7 +77,8 @@ class MainActivity : Activity() {
         }
         store = FileSnapshotStore(File(filesDir, "livro-data.json"))
         try {
-            service = LivroService(store)
+            store = br.com.livrodeprevisoes.alerts.AlarmRuntime.get(this).store
+            service = br.com.livrodeprevisoes.alerts.AlarmRuntime.get(this).service
             initialized = true
             activeConsole = savedInstanceState?.getString("console") ?: service.settings().optString("activeConsoleId").takeUnless { it == "null" }.orEmpty()
             screen = savedInstanceState?.getString("screen") ?: "dashboard"
@@ -98,10 +99,10 @@ class MainActivity : Activity() {
                 controller.onError = { context, error -> runCatching { store.logError(context, error.message ?: error.toString()) } }
             }
             render()
-            if (!getPreferences(MODE_PRIVATE).getBoolean("foregroundNotice", false)) {
+            if (!getPreferences(MODE_PRIVATE).getBoolean("backgroundNoticeV2", false)) {
                 AlertDialog.Builder(this).setTitle("Seu caderno, neste aparelho")
-                    .setMessage("Tudo funciona offline. Os alertas são monitorados somente enquanto o aplicativo está aberto e ativo; não há garantia com a tela bloqueada ou em segundo plano. Use os procedimentos operacionais da sua equipe. Exporte backups regularmente.")
-                    .setPositiveButton("Entendi") { _, _ -> getPreferences(MODE_PRIVATE).edit().putBoolean("foregroundNotice", true).apply() }.show()
+                    .setMessage("Tudo funciona offline. Os alarmes são agendados no Android, inclusive com a tela bloqueada. Autorize alarmes exatos e notificações em Alertas. Forçar parada impede avisos até reabrir o aplicativo. Use os procedimentos operacionais da sua equipe. Exporte backups regularmente.")
+                    .setPositiveButton("Entendi") { _, _ -> getPreferences(MODE_PRIVATE).edit().putBoolean("backgroundNoticeV2", true).apply() }.show()
             }
         } catch (e: Exception) {
             showLoadFailure(e)
@@ -123,7 +124,7 @@ class MainActivity : Activity() {
         setContentView(body)
     }
 
-    override fun onResume() { super.onResume(); if (initialized) { alerts?.start(); clockHandler.removeCallbacks(clockTick); clockHandler.post(clockTick) } }
+    override fun onResume() { super.onResume(); if (initialized) { alerts?.start(); if (screen == "alerts") render() else refreshAfterMutation(); clockHandler.removeCallbacks(clockTick); clockHandler.post(clockTick) } }
     override fun onPause() { clockHandler.removeCallbacks(clockTick); alerts?.stop(); super.onPause() }
     override fun onDestroy() {
         clockHandler.removeCallbacks(clockTick); clockViews.clear(); alerts?.destroy()

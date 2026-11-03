@@ -25,7 +25,7 @@ import android.widget.Toast
 import br.com.livrodeprevisoes.domain.LivroService
 import org.json.JSONObject
 
-/** Foreground monitoring only. No service, receiver, exact alarm, or hidden operational action. */
+/** Foreground dialogs and delivery; AlarmManager continues when this controller pauses. */
 class AndroidAlerts(private val activity:Activity,private val service:LivroService,private val onChanged:()->Unit) {
     private val handler=Handler(Looper.getMainLooper())
     private val gate=ForegroundGate()
@@ -54,15 +54,16 @@ class AndroidAlerts(private val activity:Activity,private val service:LivroServi
 
     init {
         val channel=NotificationChannel(CHANNEL,"Previsões operacionais",NotificationManager.IMPORTANCE_DEFAULT)
-        channel.description="Avisos gerados enquanto o aplicativo está aberto. O som é controlado separadamente no aplicativo."
+        channel.description="Avisos de previsões, inclusive em segundo plano. Som configurado no aplicativo."
         channel.setSound(null,null);channel.enableVibration(false)
         channel.lockscreenVisibility=Notification.VISIBILITY_PRIVATE
         manager.createNotificationChannel(channel)
     }
 
-    fun start(){if(destroyed||gate.isActive())return;gate.resume();restorePosted();handler.post(pulse)}
+    fun start(){if(destroyed||gate.isActive())return;gate.resume();AlarmRuntime.get(activity).enterForeground();AlarmRuntime.get(activity).requestSchedule();restorePosted();handler.post(pulse)}
     fun stop(){
-        gate.pause();handler.removeCallbacks(pulse);stopSound();dialog?.dismiss();dialog=null;visibleId=null
+        val wasActive=gate.isActive()
+        gate.pause();if(wasActive)AlarmRuntime.get(activity).leaveForeground();AlarmRuntime.get(activity).requestSchedule();activity.sendBroadcast(Intent(activity,BackgroundAlarmReceiver::class.java).setAction(AlarmRuntime.ACTION_FIRE));handler.removeCallbacks(pulse);stopSound();dialog?.dismiss();dialog=null;visibleId=null
         // Operator actions can be followed immediately by leaving the screen; clear stale notices now.
         if(posted.isNotEmpty())try{cancelStale(service.rows("events"))}catch(error:Exception){report("Atualização de notificações",error)}
     }
@@ -81,7 +82,15 @@ class AndroidAlerts(private val activity:Activity,private val service:LivroServi
             activity.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS),REQUEST_PERMISSION)
         }else if(permissionState()!="concedida"){
             activity.startActivity(Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(android.provider.Settings.EXTRA_APP_PACKAGE,activity.packageName))
-        }else toast("Notificações autorizadas. Alertas só são monitorados com o aplicativo aberto.")
+        }else toast("Notificações autorizadas. Alarmes agendados pelo Android.")
+    }
+
+    fun scheduleState():String = if(AlarmRuntime.get(activity).exactAllowed()) "Alarmes exatos autorizados" else "Sem acesso a alarmes exatos: o Android pode atrasar avisos"
+
+    fun requestExactPermission(){
+        if(Build.VERSION.SDK_INT>=31 && !AlarmRuntime.get(activity).exactAllowed())
+            activity.startActivity(Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM,android.net.Uri.parse("package:${activity.packageName}")))
+        else toast("Alarmes exatos autorizados.")
     }
 
     fun testSound(){
@@ -90,7 +99,7 @@ class AndroidAlerts(private val activity:Activity,private val service:LivroServi
     }
 
     fun testNotification(){
-        if(!sendNotification("native-test","Teste de alerta operacional","Teste manual. O monitoramento funciona com o aplicativo aberto."))toast("Notificações não autorizadas. Use Autorizar notificações.")
+        if(!sendNotification("native-test","Teste de alerta operacional","Teste manual. Entrega de notificações Android."))toast("Notificações não autorizadas. Use Autorizar notificações.")
         else toast("Notificação de teste enviada ao Android.")
     }
 
@@ -100,10 +109,10 @@ class AndroidAlerts(private val activity:Activity,private val service:LivroServi
             val attempted=mutableSetOf<String>()
             for(candidate in service.dueAlarms()){
                 if(!gate.isCurrent(token))break
+                AlarmRuntime.get(activity).armSafety()
                 val event=service.fireAlarm(candidate.getString("id"),emptyList())?:continue
                 attempted.add(event.getString("id"));changed=true
-                val actual=deliverOnMain(event,token)
-                if(actual.isNotEmpty())service.recordAlarmDelivery(event.getString("id"),event.getString("lastAlarmTriggeredAt"),actual)
+                deliverOnMain(event,token)
             }
             if(!gate.isCurrent(token))return
             val snapshot=service.snapshot().getJSONObject("data")
@@ -119,7 +128,7 @@ class AndroidAlerts(private val activity:Activity,private val service:LivroServi
                 if(!options.audio&&!options.notification&&(!options.visual||dialog!=null))continue
                 val actual=deliverOnMain(event,token)
                 if(actual.isNotEmpty()){
-                    service.recordAlarmDelivery(event.getString("id"),event.getString("lastAlarmTriggeredAt"),actual);changed=true
+                    changed=true
                 }
             }
             // A delivered sound/notification must not discard a visual queued behind another dialog.
@@ -162,6 +171,8 @@ class AndroidAlerts(private val activity:Activity,private val service:LivroServi
                         if(!visualOnly&&options.audio&&playSound(options.sound,options.volume))actual.add("audio")
                         if(options.visual&&showVisual(latest))actual.add("visual")
                         if(!visualOnly&&options.notification&&sendNotification(id,"Previsão operacional: ${latest.getString("description")}","${latest.getString("scheduledDate")} ${latest.getString("scheduledTime")}",stamp))actual.add("notification")
+                        // Commit delivery before the main thread can pause and hand off to the receiver.
+                        if(!visualOnly&&actual.isNotEmpty())service.recordAlarmDelivery(id,stamp,actual)
                     }
                 }
             }catch(error:Exception){report("Entrega do alarme",error)}

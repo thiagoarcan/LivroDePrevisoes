@@ -15,6 +15,8 @@ import java.util.UUID
 
 /** App-private persistence. A failed write never replaces the last committed snapshot. */
 class FileSnapshotStore(private val file: File) : SnapshotStore {
+    var onSaved: (() -> Unit)? = null
+
     @Synchronized override fun load(): JSONObject? {
         if (!file.exists()) return null
         require(file.isFile) { "O arquivo de dados não é um arquivo regular." }
@@ -25,6 +27,7 @@ class FileSnapshotStore(private val file: File) : SnapshotStore {
 
     @Synchronized override fun save(snapshot: JSONObject) {
         atomicWrite(file, snapshot.toString())
+        onSaved?.invoke()
     }
 
     /** Diagnostics are separate from the portable business-data backup. */

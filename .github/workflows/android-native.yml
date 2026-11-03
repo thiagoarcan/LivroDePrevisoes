@@ -18,11 +18,15 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '21'
       - name: Preparar ferramentas verificadas
         run: python3 tools/bootstrap-tools.py
-      - name: Executar testes
+      - name: Executar testes JVM
         run: bash tools/test.sh
+      - name: Preparar testes Android
+        run: python3 tools/robolectric-bootstrap.py
+      - name: Executar testes Android de interface e ciclo de vida
+        run: bash tools/robolectric-native-tests.sh
       - name: Compilar APK nativo
         run: bash tools/build-apk.sh
       - uses: actions/upload-artifact@v4

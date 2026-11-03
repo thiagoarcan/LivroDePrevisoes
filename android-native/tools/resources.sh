@@ -23,7 +23,7 @@ PY
   fi
   if [[ -d "$main/assets" ]]; then link_args+=(-A "$main/assets"); fi
   "$CACHE/aapt2" link -I "$ANDROID" --manifest "$work/AndroidManifest.xml" \
-    --min-sdk-version 26 --target-sdk-version 36 --version-code 1 --version-name 1.0.0 \
+    --min-sdk-version 26 --target-sdk-version 36 --version-code 2 --version-name 1.1.0 \
     --java "$work/gen" -o "$work/resources.apk" "${link_args[@]}"
   mapfile -d '' r_sources < <(find "$work/gen" -name '*.java' -print0 | sort -z)
   if (( ${#r_sources[@]} > 0 )); then

@@ -171,7 +171,7 @@ public class AndroidAlertsRaceTest {
     private static void startWorkerWithoutDeliveringMain(AndroidAlerts alerts) {
         alerts.start();
         // Run exactly the pulse, not a delivery callback the worker may enqueue concurrently.
-        Shadows.shadowOf(Looper.getMainLooper()).runOneTask();
+        ((Runnable) ReflectionHelpers.getField(alerts, "pulse")).run();
     }
     private static JSONObject event(MainActivity activity, String id) {
         for (JSONObject row : activity.getService().rows("events")) if (id.equals(row.optString("id"))) return row;

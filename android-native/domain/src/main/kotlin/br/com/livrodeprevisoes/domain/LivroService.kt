@@ -156,6 +156,31 @@ class LivroService(
         arrayRows(data, "events").filter { due(it, settings, instant) }.sortedBy { Instant.parse(it.getString("scheduledAt")) }.map(::copy)
     }
 
+    /** Earliest persisted deadline; no polling or Activity lifetime is involved. */
+    fun nextAlarmAt(): Instant? = synchronized(store) {
+        val data = read().getJSONObject("data")
+        val settings = settingsOf(data)
+        arrayRows(data, "events").mapNotNull { event ->
+            if (!event.getBoolean("active") || event.getString("status") != "pendente" || !event.getBoolean("hasAlarm") || event.getString("alarmState") == "acknowledged") null
+            else {
+                val defaults=event.getBoolean("useDefaultAlarmSettings")
+                val lead=if(defaults) settings.getLong("defaultLeadTimeMinutes") else event.getLong("alarmMinutesBefore")
+                var deadline=Instant.parse(event.getString("scheduledAt")).minusSeconds(lead*60)
+                val snooze=if(event.isNull("alarmSnoozedUntil")) null else Instant.ofEpochMilli(event.getLong("alarmSnoozedUntil"))
+                if(snooze!=null && snooze.isAfter(deadline)) deadline=snooze
+                if(event.getString("alarmState")=="snoozed" && snooze!=null) deadline
+                else if(event.isNull("lastAlarmTriggeredAt")) deadline
+                else {
+                    val repeat=if(defaults) settings.getBoolean("repeatAlarm") else event.getBoolean("alarmRepeat")
+                    val limit=if(defaults) settings.getLong("maxRepeats") else event.getLong("alarmMaxRepeats")
+                    val interval=if(defaults) settings.getLong("repeatIntervalMinutes") else event.getLong("alarmRepeatInterval")
+                    if(!repeat || event.getLong("alarmTriggerCount")>=1+limit) null
+                    else maxOf(deadline,Instant.parse(event.getString("lastAlarmTriggeredAt")).plusSeconds(interval*60))
+                }
+            }
+        }.minOrNull()
+    }
+
     /** Claims an alarm exactly once. Pass no channels until the controller confirms delivery. */
     fun fireAlarm(id: String, channels: List<String>): JSONObject? = synchronized(store) {
         validateChannels(channels)
