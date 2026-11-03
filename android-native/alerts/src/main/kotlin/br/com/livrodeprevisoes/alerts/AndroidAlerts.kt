@@ -65,7 +65,7 @@ class AndroidAlerts(private val activity:Activity,private val service:LivroServi
         val wasActive=gate.isActive()
         gate.pause();if(wasActive)AlarmRuntime.get(activity).leaveForeground();AlarmRuntime.get(activity).requestSchedule();activity.sendBroadcast(Intent(activity,BackgroundAlarmReceiver::class.java).setAction(AlarmRuntime.ACTION_FIRE));handler.removeCallbacks(pulse);stopSound();dialog?.dismiss();dialog=null;visibleId=null
         // Operator actions can be followed immediately by leaving the screen; clear stale notices now.
-        if(posted.isNotEmpty())try{cancelStale(service.rows("events"))}catch(error:Exception){report("Atualização de notificações",error)}
+        if(posted.isNotEmpty())try{cancelStale()}catch(error:Exception){report("Atualização de notificações",error)}
     }
     fun destroy(){if(destroyed)return;stop();destroyed=true;worker.shutdownNow()}
 
@@ -147,7 +147,7 @@ class AndroidAlerts(private val activity:Activity,private val service:LivroServi
                 }
             }
             handler.post{if(gate.isCurrent(token)){
-                cancelStale(events)
+                cancelStale()
                 if(visibleId!=null&&events.none{it.optString("id")==visibleId&&it.optString("status")=="pendente"&&it.optBoolean("active",true)&&it.optString("alarmState")=="triggered"}){dialog?.dismiss();dialog=null;visibleId=null}
             }}
             if(changed)requestRefresh(token)
@@ -161,6 +161,7 @@ class AndroidAlerts(private val activity:Activity,private val service:LivroServi
         handler.post{
             val actual=mutableListOf<String>()
             try{
+                synchronized(AlarmRuntime.get(activity).store){
                 if(gate.isCurrent(token)&&!activity.isFinishing&&!activity.isDestroyed){
                     val id=claim.getString("id");val stamp=claim.getString("lastAlarmTriggeredAt")
                     val latest=service.rows("events").firstOrNull{it.optString("id")==id}
@@ -174,6 +175,7 @@ class AndroidAlerts(private val activity:Activity,private val service:LivroServi
                         // Commit delivery before the main thread can pause and hand off to the receiver.
                         if(!visualOnly&&actual.isNotEmpty())service.recordAlarmDelivery(id,stamp,actual)
                     }
+                }
                 }
             }catch(error:Exception){report("Entrega do alarme",error)}
             finally{outcome.complete(actual)}
@@ -195,8 +197,12 @@ class AndroidAlerts(private val activity:Activity,private val service:LivroServi
         }
     }
 
-    private fun cancelStale(events:List<JSONObject>){
-        for(id in AlarmDeliveryPolicy.staleNotifications(posted,events)){manager.cancel(id,0);posted.remove(id)}
+    private fun cancelStale(){
+        synchronized(AlarmRuntime.get(activity).store){
+            restorePosted()
+            val events=service.rows("events")
+            for(id in AlarmDeliveryPolicy.staleNotifications(posted,events)){manager.cancel(id,0);posted.remove(id)}
+        }
     }
 
     private fun showVisual(event:JSONObject):Boolean {

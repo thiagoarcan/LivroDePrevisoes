@@ -85,6 +85,32 @@ public class AndroidAlertsRaceTest {
         }
     }
 
+    @Test public void staleForegroundPostedMapRetainsNewerCurrentBackgroundClaim() throws Exception {
+        try (ActivityController<MainActivity> controller = launch()) {
+            MainActivity activity=controller.get();
+            String id=configureOneDueNotificationOnlyEvent(activity);
+            AndroidAlerts alerts=activity.getAlerts();alerts.start();
+            await("initial notification",()->manager(activity).getActiveNotifications().length==1,true);
+            awaitWorkerIdle(alerts);alerts.stop();
+            Notification old=manager(activity).getActiveNotifications()[0].getNotification();
+            String oldStamp=old.extras.getString("livro.claim");
+            activity.getService().snoozeAlarm(id,10);
+            JSONObject snapshot=activity.getService().snapshot();
+            JSONArray events=snapshot.getJSONObject("data").getJSONArray("events");
+            for(int i=0;i<events.length();i++)if(id.equals(events.getJSONObject(i).getString("id")))events.getJSONObject(i).put("alarmSnoozedUntil",System.currentTimeMillis()-1);
+            activity.getStore().save(snapshot);
+            JSONObject newer=activity.getService().fireAlarm(id,java.util.Collections.emptyList());
+            assertNotNull(newer);
+            String newStamp=newer.getString("lastAlarmTriggeredAt");assertNotEquals(oldStamp,newStamp);
+            android.os.Bundle extras=new android.os.Bundle();extras.putString("livro.claim",newStamp);
+            manager(activity).notify(id,0,Notification.Builder.recoverBuilder(activity,old).addExtras(extras).build());
+            // alerts.posted still contains the old stamp; current OS notification uses the new claim.
+            ReflectionHelpers.callInstanceMethod(alerts,"cancelStale");
+            assertEquals(1,manager(activity).getActiveNotifications().length);
+            assertEquals(newStamp,manager(activity).getActiveNotifications()[0].getNotification().extras.getString("livro.claim"));
+        }
+    }
+
     @Test public void secondVisualAlertQueuesWithoutRepeatingItsDeliveredNotification() throws Exception {
         try (ActivityController<MainActivity> controller = launch()) {
             MainActivity activity = controller.get();

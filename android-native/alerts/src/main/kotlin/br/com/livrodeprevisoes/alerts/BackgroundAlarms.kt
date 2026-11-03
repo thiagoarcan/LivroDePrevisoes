@@ -61,7 +61,7 @@ object AlarmRuntime {
         fun recoverable(event:org.json.JSONObject):Boolean = mayAttempt(event) && emptyClaims().any{it.getString("id")==event.getString("id") && it.getString("lastAlarmTriggeredAt")==event.getString("lastAlarmTriggeredAt")}
         fun mayAttempt(event:org.json.JSONObject):Boolean {
             val record=org.json.JSONObject(recovery.getString(key(event),"{}") ?: "{}")
-            return record.optInt("attempts")<3
+            return record.optInt("attempts")<3 && (record.optInt("attempts")==0 || System.currentTimeMillis()>=record.optLong("at")+30000)
         }
         fun noteAttempt(event:org.json.JSONObject){
             if(!eligible(event))return
@@ -92,9 +92,11 @@ object AlarmRuntime {
             }
         }
         fun cancelStale(){
-            val manager=context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            val posted=manager.activeNotifications.mapNotNull{n->n.notification.extras?.getString("livro.claim")?.let{stamp->n.tag?.let{it to stamp}}}.toMap()
-            AlarmDeliveryPolicy.staleNotifications(posted,service.rows("events")).forEach{manager.cancel(it,0)}
+            synchronized(store){
+                val manager=context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                val posted=manager.activeNotifications.mapNotNull{n->n.notification.extras?.getString("livro.claim")?.let{stamp->n.tag?.let{it to stamp}}}.toMap()
+                AlarmDeliveryPolicy.staleNotifications(posted,service.rows("events")).forEach{manager.cancel(it,0)}
+            }
         }
     }
     const val ACTION_FIRE="br.com.livrodeprevisoes.FIRE_ALARM"

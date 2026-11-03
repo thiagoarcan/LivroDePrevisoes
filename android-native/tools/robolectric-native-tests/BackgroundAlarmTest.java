@@ -80,6 +80,19 @@ public class BackgroundAlarmTest {
         assertNull(state.getService().nextAlarmAt());
         assertEquals(0,manager().getActiveNotifications().length);
     }
+    @Test public void unrelatedEarlyBroadcastDoesNotConsumeRetryBudget() throws Exception {
+        String id=due();
+        JSONObject claim=state.getService().fireAlarm(id,java.util.Collections.emptyList());
+        String key=id+"|"+claim.getString("lastAlarmTriggeredAt");
+        android.content.SharedPreferences ledger=context.getSharedPreferences("alarm-recovery",Context.MODE_PRIVATE);
+        ledger.edit().putString(key,new JSONObject().put("attempts",1).put("at",System.currentTimeMillis()).toString()).commit();
+        wake();Thread.sleep(80);Shadows.shadowOf(Looper.getMainLooper()).idle();
+        assertEquals(1,new JSONObject(ledger.getString(key,"{}")).getInt("attempts"));
+        assertEquals(0,manager().getActiveNotifications().length);
+        assertEquals(1,event(id).getInt("alarmTriggerCount"));
+        state.schedule();
+        assertTrue(Shadows.shadowOf((AlarmManager)context.getSystemService(Context.ALARM_SERVICE)).getNextScheduledAlarm().triggerAtTime>=System.currentTimeMillis()+20000);
+    }
     @Test public void exhaustedRecoveryBudgetStopsAutomaticWakesForAnEmptyClaim() throws Exception {
         String id=due();
         JSONObject claim=state.getService().fireAlarm(id,java.util.Collections.emptyList());
