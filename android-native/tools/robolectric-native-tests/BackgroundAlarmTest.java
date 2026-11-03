@@ -44,6 +44,7 @@ public class BackgroundAlarmTest {
     @Test public void persistedEmptyClaimRecoversAfterRuntimeRecreationWithoutIncrementingCount() throws Exception {
         String id=due();
         state.getService().fireAlarm(id,java.util.Collections.emptyList());
+        state.retire(); // Process death removes the old process callbacks, but preserves files and system alarm.
         ReflectionHelpers.setStaticField(AlarmRuntime.class,"instance",null);
         state=AlarmRuntime.INSTANCE.get(context);
         state.schedule();
@@ -79,6 +80,22 @@ public class BackgroundAlarmTest {
         state.schedule();
         assertNull(state.getService().nextAlarmAt());
         assertEquals(0,manager().getActiveNotifications().length);
+    }
+    @Test public void runtimeDoesNotReuseStoreAcrossApplicationStorageContexts() throws Exception {
+        state.getService().loadDemoData(true);
+        assertEquals(6,state.getService().rows("events").size());
+        final java.io.File alternate=new java.io.File(context.getCacheDir(),"isolated-application-files");
+        assertTrue(alternate.mkdirs() || alternate.isDirectory());
+        Context isolated=new android.content.ContextWrapper(context){
+            @Override public Context getApplicationContext(){return this;}
+            @Override public java.io.File getFilesDir(){return alternate;}
+        };
+        AlarmRuntime.State replacement=AlarmRuntime.INSTANCE.get(isolated);
+        assertNotSame(state,replacement);
+        assertTrue(state.getRetired());
+        assertEquals(0,replacement.getService().rows("events").size());
+        assertTrue(new java.io.File(alternate,"livro-data.json").isFile());
+        assertSame(replacement,AlarmRuntime.INSTANCE.get(isolated));
     }
     @Test public void unrelatedEarlyBroadcastDoesNotConsumeRetryBudget() throws Exception {
         String id=due();

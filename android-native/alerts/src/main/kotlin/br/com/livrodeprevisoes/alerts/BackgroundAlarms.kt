@@ -15,8 +15,12 @@ import java.util.concurrent.Executors
 object AlarmRuntime {
     private var instance: State?=null
     @Synchronized fun get(context:Context):State {
-        instance?.let{return it}
         val app=context.applicationContext
+        val directory=app.filesDir.canonicalPath
+        instance?.let{current->
+            if(current.context===app && current.storageDirectory==directory)return current
+            current.retire()
+        }
         val store=FileSnapshotStore(File(app.filesDir,"livro-data.json"))
         val service=LivroService(store)
         return State(app,store,service).also { state ->
@@ -26,6 +30,10 @@ object AlarmRuntime {
         }
     }
     class State(val context:Context,val store:FileSnapshotStore,val service:LivroService) {
+        val storageDirectory=context.filesDir.canonicalPath
+        @Volatile var retired=false
+            private set
+        fun retire(){synchronized(store){retired=true;store.onSaved=null;handler.removeCallbacks(reconcile)}}
         private val handler=Handler(Looper.getMainLooper())
         @Volatile var foreground=false
             private set
@@ -33,7 +41,7 @@ object AlarmRuntime {
         fun enterForeground(){synchronized(store){visibleControllers++;foreground=true}}
         fun leaveForeground(){synchronized(store){visibleControllers=(visibleControllers-1).coerceAtLeast(0);foreground=visibleControllers>0}}
         private val reconcile=Runnable{runCatching{schedule()}.onFailure{android.util.Log.e("LivroAlarms","Agendamento",it)}}
-        fun requestSchedule(){handler.removeCallbacks(reconcile);handler.post(reconcile)}
+        fun requestSchedule(){if(retired)return;handler.removeCallbacks(reconcile);handler.post(reconcile)}
         private val recovery=context.getSharedPreferences("alarm-recovery",Context.MODE_PRIVATE)
         private fun key(event:org.json.JSONObject)=event.getString("id")+"|"+event.getString("lastAlarmTriggeredAt")
         fun eligible(event:org.json.JSONObject):Boolean {
@@ -79,10 +87,11 @@ object AlarmRuntime {
                 else manager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,whenMillis,pending)}
             catch(_:SecurityException){manager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,whenMillis,pending)}
         }
-        fun armSafety(){arm(System.currentTimeMillis()+30000)}
+        fun armSafety(){synchronized(store){if(!retired)arm(System.currentTimeMillis()+30000)}}
         fun exactAllowed():Boolean=Build.VERSION.SDK_INT<31 || (context.getSystemService(Context.ALARM_SERVICE) as AlarmManager).canScheduleExactAlarms()
         fun schedule(){
             synchronized(store){
+                if(retired)return
                 val manager=context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                 val pending=PendingIntent.getBroadcast(context,7300,Intent(context,BackgroundAlarmReceiver::class.java).setAction(ACTION_FIRE),PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
                 manager.cancel(pending)
@@ -93,6 +102,7 @@ object AlarmRuntime {
         }
         fun cancelStale(){
             synchronized(store){
+                if(retired)return
                 val manager=context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 val posted=manager.activeNotifications.mapNotNull{n->n.notification.extras?.getString("livro.claim")?.let{stamp->n.tag?.let{it to stamp}}}.toMap()
                 AlarmDeliveryPolicy.staleNotifications(posted,service.rows("events")).forEach{manager.cancel(it,0)}
@@ -116,7 +126,7 @@ class BackgroundAlarmReceiver:BroadcastReceiver() {
                 val service=state.service
                 val manager=context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 createChannel(manager)
-                if(!state.foreground){
+                if(!state.retired && !state.foreground){
                     val snapshot=service.snapshot().getJSONObject("data")
                     fun rows(name:String)=snapshot.getJSONArray(name).let{array->(0 until array.length()).map{array.getJSONObject(it)}}
                     val candidates=linkedMapOf<String,org.json.JSONObject>()
@@ -128,7 +138,7 @@ class BackgroundAlarmReceiver:BroadcastReceiver() {
                         if(SystemClock.elapsedRealtime()-started>2500)break
                         // Release the transaction lock between events so an Activity can resume.
                         synchronized(state.store){
-                            if(!state.foreground){
+                            if(!state.retired && !state.foreground){
                                 val id=candidate.getString("id")
                                 val latest=service.rows("events").firstOrNull{it.getString("id")==id}
                                 val event=service.fireAlarm(id,emptyList()) ?: latest?.takeIf{AlarmDeliveryPolicy.current(it,id,candidate.optString("lastAlarmTriggeredAt")) && state.recoverable(it)}
